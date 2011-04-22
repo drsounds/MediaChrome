@@ -1,0 +1,4 @@
+E:\Spotify Ultra 0.2.4.1 (3)\libspotify-sharp\bin\Release\libspotify-sharp.dll
+E:\Spotify Ultra 0.2.4.1 (3)\libspotify-sharp\obj\Release\ResolveAssemblyReference.cache
+E:\Spotify Ultra 0.2.4.1 (3)\libspotify-sharp\obj\Release\libspotify-sharp.dll
+E:\Spotify Ultra 0.2.4.1 (3)\libspotify-sharp\bin\Release\Glass.dll

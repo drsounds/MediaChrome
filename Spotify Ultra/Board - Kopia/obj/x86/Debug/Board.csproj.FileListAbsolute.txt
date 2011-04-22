@@ -1,0 +1,21 @@
+L:\Spotify Ultra\Board\bin\Debug\Board.dll
+L:\Spotify Ultra\Board\bin\Debug\Board.pdb
+L:\Spotify Ultra\Board\obj\x86\Debug\ResolveAssemblyReference.cache
+L:\Spotify Ultra\Board\obj\x86\Debug\Board.CListView.resources
+L:\Spotify Ultra\Board\obj\x86\Debug\Board.dll
+L:\Spotify Ultra\Board\obj\x86\Debug\Board.pdb
+L:\Spotify Ultra\Board\obj\x86\Debug\Board.MakoEngine.resources
+L:\Spotify Ultra\Board\obj\x86\Debug\GenerateResource-ResGen.read.1.tlog
+L:\Spotify Ultra\Board\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\ResolveAssemblyReference.cache
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.DrawBoard.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.CListView.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource-ResGen.read.1.tlog
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.MakoParser.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\bin\Debug\Board.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\bin\Debug\Jint.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\bin\Debug\Board.exe
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.exe
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.frmBoard.resources

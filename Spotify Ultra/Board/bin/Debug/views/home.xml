@@ -1,0 +1,20 @@
+<?
+/*****
+ * Home view for Segurify
+ */
+ 
+?>
+<view>
+	<section name="Overview">
+		<label height="20" size="14" left="10" top="@TOP" width="500">Home</label>
+		<label height="50" color="#aaeeaa" left="10" top="@TOP" width="500">What's new</label>
+% for(var i=0; i < 15; i++){
+		<label href="segurify:home:t@{i}" size="15" left="10" top="@top" width="500">News item @{i}</label>
+		
+		<label size="8" left="25" top="@top" width="500">Lorem Ipsum Nipsum. Vipsui Dalbi Vi Salmi Ba. Lorem Ipsum Nipsum.
+		Vipsui Dalbi Vi Salmi Ba. Lorem Ipsum Nipsum. Vipsui Dalbi Vi Salmi Ba.</label>
+		<img src="http://www.dn.se/images/2011/04/19/Annika-Linde-130.jpg" width="100" height="100" top="@top" persistant="true"/>
+% } 
+	</section>
+</view>
+		

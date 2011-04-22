@@ -1,0 +1,59 @@
+<?
+/***
+Artist view for SpotifyUltra
+
+
+
+http://www.spotifyultra.com
+
+*/
+
+// Lookup artist on Spotify's server
+
+var artistdata = synchronize_data("http://ws.spotify.com/lookup/1/?uri=spotify:artist:"+parameter.replace("spotify:artist:",""));
+var title = "";
+var releases = "";
+if(!(!artistdata)){
+
+
+/** Get basic values */
+var title = artistdata.GetElementsByTagName("name").Item(0).InnerText;
+
+/** Lookup releases by the artist  */
+var _releases = synchronize_data("http://ws.spotify.com/search/1/album?q=artist:\""+title.Replace(" ","%23")+"\"");
+releases = _releases.GetElementsByTagName("album");
+
+}
+
+
+
+
+
+?>
+<view>
+	<section name="Overview">
+		<label size="20" left="310" top="@TOP" width="500" height="10"></label> 
+		<img src="http://krakelin.com/artist.png" top="@TOP" left="10" width="120" height="120" persistent="true" />
+<label size="20" left="310" top="@TOP" width="500" height="10" href="@{parameter}">@{title}</label> 	
+		
+		<label size="20" color="#aaaaaa" left="310" top="@TOP" width="500" height="20">testw</label> 
+		<space height="130"/>
+		<section text="Albums" width="-1" left="0" height="24"/>
+		<space height="50"/>
+
+<?
+for(var i=0; i < releases.Count ; i++){ 	
+	var release = releases.Item(i);		
+	var href = release.GetAttribute("href");		
+	var name = release.GetElementsByTagName("name").Item(0).InnerText.replace("&","and").replace("'","");
+	var artist = release.GetElementsByTagName("artist").Item(0).GetElementsByTagName("name").Item(0).InnerText.replace("&","and").replace("'","");;
+?>
+		<inflate src="components/album.xml" name="@{name}" artist="@{artist}" uri="@{href}"/>
+
+		<space height="50"/>
+% }
+	
+	</section>
+	
+</view>
+		

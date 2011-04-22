@@ -1,0 +1,83 @@
+C:\Users\Alex\Documents\Spotify Ultra Web\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Alex\Documents\Spotify Ultra Web\obj\Debug\SpofityRuntime.Appify.resources
+C:\Users\Alex\Documents\Spotify Ultra Web\obj\Debug\SpofityRuntime.cBtn.resources
+C:\Users\Alex\Documents\Spotify Ultra Web\obj\Debug\SpofityRuntime.Form1.resources
+C:\Users\Alex\Documents\Spotify Ultra Web\obj\Debug\SpofityRuntime.frmLogin.resources
+C:\Users\Alex\Documents\Spotify Ultra Web\obj\Debug\SpofityRuntime.frmVoid.resources
+C:\Users\Alex\Documents\Spotify Ultra Web\obj\Debug\SpofityRuntime.Login.resources
+C:\Users\Alex\Documents\Spotify Ultra Web\obj\Debug\webclassprototype.ucBar.resources
+C:\Users\Alex\Documents\Spotify Ultra Web\obj\Debug\webclassprototype.ucPosBar.resources
+C:\Users\Alex\Documents\Spotify Ultra Web\obj\Debug\SpofityRuntime.ucSearch.resources
+C:\Users\Alex\Documents\Spotify Ultra Web\obj\Debug\SpofityRuntime.UpdatePlaylist.resources
+C:\Users\Alex\Documents\Spotify Ultra Web\obj\Debug\SpofityRuntime.csproj.GenerateResource.Cache
+C:\Users\Alex\Documents\Spotify Ultra Web\bin\debug\Resources\kan1.png
+C:\Users\Alex\Documents\Spotify Ultra Web\bin\debug\Resources\kan2.png
+C:\Users\Alex\Documents\Spotify Ultra Web\bin\debug\SpofityRuntime.exe
+C:\Users\Alex\Documents\Spotify Ultra Web\bin\debug\GlassForms.dll
+C:\Users\Alex\Documents\Spotify Ultra Web\bin\debug\LibspotifySharp.dll
+C:\Users\Alex\Documents\Spotify Ultra Web\bin\debug\NAudio.dll
+C:\Users\Alex\Documents\Spotify Ultra Web\bin\debug\Skybound.Gecko.dll
+C:\Users\Alex\Documents\Spotify Ultra Web\bin\debug\LibspotifySharp.pdb
+C:\Users\Alex\Documents\Spotify Ultra Web\bin\debug\InputSimulator.pdb
+C:\Users\Alex\Documents\Spotify Ultra Web\bin\debug\InputSimulator.xml
+C:\Users\Alex\Documents\Spotify Ultra Web\bin\debug\Spocky.pdb
+C:\Users\Alex\Documents\Spotify Ultra Web\bin\debug\Skybound.Gecko.xml
+C:\Users\Alex\Documents\Spotify Ultra Web\obj\Debug\SpofityRuntime.exe
+C:\Users\Alex\Documents\Spotify Ultra Web\obj\Debug\SpofityRuntime.View.resources
+C:\Users\Alex\Documents\Spotify Ultra Web\bin\debug\SpofityRuntime.pdb
+C:\Users\Alex\Documents\Spotify Ultra Web\obj\Debug\SpofityRuntime.pdb
+C:\Users\Alex\Documents\Spotify Ultra Web\bin\debug\InputSimulator.dll
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.Appify.resources
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.cBtn.resources
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.Form1.resources
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.frmLogin.resources
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.frmVoid.resources
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.Login.resources
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.Properties.Resources.resources
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\obj\Debug\webclassprototype.ucBar.resources
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\obj\Debug\webclassprototype.ucPosBar.resources
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.ucSearch.resources
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.UpdatePlaylist.resources
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.csproj.GenerateResource.Cache
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.exe
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\bin\debug\Resources\kan1.png
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\bin\debug\Resources\kan2.png
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\bin\debug\SpofityRuntime.exe
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\bin\debug\GlassForms.dll
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\bin\debug\libspotify-sharp.dll
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\bin\debug\NAudio.dll
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\bin\debug\Skybound.Gecko.dll
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\bin\debug\Spocky.pdb
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\bin\debug\libspotify-sharp.pdb
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\bin\debug\Skybound.Gecko.xml
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\bin\debug\InputSimulator.pdb
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\bin\debug\InputSimulator.xml
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\bin\debug\SpofityRuntime.pdb
+C:\Users\Alex\Documents\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.exe
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\Resources\kan1.png
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\Resources\kan2.png
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\SpofityRuntime.exe
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\SpofityRuntime.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\libspotify-sharp.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\NAudio.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\Jint.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\Board.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\CListView.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\libspotify-sharp.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\ResolveAssemblyReference.cache
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.cBtn.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.Form1.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.frmLogin.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.frmVoid.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.Login.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.Properties.Resources.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\webclassprototype.ucBar.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\webclassprototype.ucPosBar.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.ucSearch.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.UpdatePlaylist.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\GenerateResource.read.1.tlog
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\GenerateResource.write.1.tlog
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\Board.dll

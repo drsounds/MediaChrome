@@ -1,0 +1,9 @@
+<?xml-stylesheet href="../appstyle.css" type="text/css"?>
+<window
+    id="findfile-window" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" onload="init()">
+    <script src="../globalscript.js" type="text/javascript" language="javascript"></script>
+	 <script src="localscript.js" type="text/javascript" language="javascript"></script>
+	<vbox flex="1" id="MainView">
+		<text>Opening page</text>
+	</vbox>
+</window>

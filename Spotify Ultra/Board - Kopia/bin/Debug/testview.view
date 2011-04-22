@@ -1,0 +1,23 @@
+<?
+/**
+	This is the view for the main view of Spotify Ultra
+*/
+var current_user = "drsounds";
+?> 
+<view>
+	<section title="Overview">
+		<H1>Welcome </H1>
+		<p>Welcome to Spotify Ultra. <br/>
+		User is @{drsounds}
+		</p>
+		<!-- Image of Dr. Sounds -->
+
+		<img src="http://www.dr-sounds.com/">
+		<button onclick="a()" name="test"/> 
+% for(var i=0; i < 3; i++){
+		<b>test</b>
+% }
+		
+		
+	</section>
+</view>

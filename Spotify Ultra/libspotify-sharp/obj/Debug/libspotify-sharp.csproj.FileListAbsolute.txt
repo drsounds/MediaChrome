@@ -1,0 +1,23 @@
+E:\Spotify Ultra 0.2.4.1 (3)\libspotify-sharp\bin\Debug\libspotify-sharp.dll
+E:\Spotify Ultra 0.2.4.1 (3)\libspotify-sharp\bin\Debug\libspotify-sharp.pdb
+E:\Spotify Ultra 0.2.4.1 (3)\libspotify-sharp\obj\Debug\ResolveAssemblyReference.cache
+E:\Spotify Ultra 0.2.4.1 (3)\libspotify-sharp\obj\Debug\libspotify-sharp.dll
+E:\Spotify Ultra 0.2.4.1 (3)\libspotify-sharp\obj\Debug\libspotify-sharp.pdb
+E:\Spotify Ultra 0.2.4.1 (3)\libspotify-sharp\bin\Debug\Glass.dll
+F:\libspotify-sharp\bin\Debug\libspotify-sharp.dll
+F:\libspotify-sharp\bin\Debug\libspotify-sharp.pdb
+F:\libspotify-sharp\obj\Debug\ResolveAssemblyReference.cache
+F:\libspotify-sharp\obj\Debug\libspotify-sharp.dll
+F:\libspotify-sharp\obj\Debug\libspotify-sharp.pdb
+C:\Users\Alex\Documents\Spotify Ultra\libspotify-sharp\bin\Debug\libspotify-sharp.dll
+C:\Users\Alex\Documents\Spotify Ultra\libspotify-sharp\bin\Debug\libspotify-sharp.pdb
+C:\Users\Alex\Documents\Spotify Ultra\libspotify-sharp\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Alex\Documents\Spotify Ultra\libspotify-sharp\obj\Debug\libspotify-sharp.dll
+C:\Users\Alex\Documents\Spotify Ultra\libspotify-sharp\obj\Debug\libspotify-sharp.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\libspotify-sharp\bin\Debug\libspotify-sharp.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\libspotify-sharp\bin\Debug\libspotify-sharp.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\libspotify-sharp\obj\Debug\ResolveAssemblyReference.cache
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\libspotify-sharp\obj\Debug\libspotify-sharp.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\libspotify-sharp\obj\Debug\libspotify-sharp.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\libspotify-sharp\bin\Debug\CListView.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\libspotify-sharp\bin\Debug\CListView.pdb

@@ -1,0 +1,24 @@
+<?
+/**
+	This is the view for the main view of Spotify Ultra
+*/
+var current_user = "drsounds";
+
+var testdata = synchronize_data("http://krakelin.com/sync.json");
+
+
+?> 
+<view>
+	<section title="Overview">
+		<label left="20" height="10" top="@TOP" width="100">Welcome to SpotifyUltra </label>
+
+		<label left="20" top="@TOP" width="100" color="#aaaaaa"  height="10">Welcome to Spotify Ultra. User is @{current_user} </label>
+		
+		
+% for(var i=0; i < 10; i++){
+		
+		<inflate src="components/album.xml" track_count="5" name="Album @{i} t"/>
+% }		
+		
+	</section>
+</view>

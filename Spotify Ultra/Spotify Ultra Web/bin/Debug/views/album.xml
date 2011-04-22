@@ -1,0 +1,25 @@
+<?
+/***
+ * 
+ **/
+
+	/** Sync album info from Spotify's Server */
+ var adata = synchronize_data("http://ws.spotify.com/lookup/1/?uri=spotify:album:"+parameter.replace("spotify:album:","")+"");
+
+ var artist = adata.GetElementsByTagName("artist").Item(0).GetElementsByTagName("name").Item(0).InnerText;
+ var name = adata.GetElementsByTagName("name").Item(0).InnerText;
+ var data = synchronize_data("http://ws.spotify.com/search/1/track?q=album:\""+name+"\" artist:\""+artist+"\"");
+ 
+ /** Get Songs **/
+ var songs = data.GetElementsByTagName("track");
+ 
+ 
+ 
+?>
+<view>
+	<section name="Overview">
+		<!-- An example tracklist -->
+		<inflate src="components/album.xml" artist="@{artist}" name="@{name}" uri="spotify:album:@{parameter}"/>
+		<label left="150" height="10" size="8" color="#888888" top="@TOP">(C) 2011 Amalia Productions. All rights reserved</label>
+	</section>
+</view>

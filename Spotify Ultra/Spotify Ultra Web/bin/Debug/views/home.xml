@@ -1,0 +1,23 @@
+<?
+/*****
+ * Home view for Segurify
+ */
+ 
+?>
+<view>
+	
+	<section name="Overview">
+		<label height="20" size="14" left="10" top="@TOP" width="500">Home</label>
+		<label height="50" color="#aaeeaa" left="10" top="@TOP" width="500">What's new</label>
+		<label height="50" color="#eeeeee" left="10" top="@TOP" width="500">Welcome to Spotify Ultra, the open source Spotify client</label>
+		<label height="50" color="#aaaaaa" left="150" top="@TOP" width="500">Latest played songs</label>
+		
+
+		<entry top="@TOP" width="-1" left="150" height="20" title="Feel the Beat" uri="spotify:track:6Sy9BUbgFse0n0LPA5lwy5" artist="Darude" href_artist="spotify:artist:0LhHRmSd1EYM5QdNeNnCoQ" href_album="spotify:album:0Xks5v0dve8Gh2tRHIekjo"  album="Before the Storm"/>
+		<entry top="@TOP" width="-1" left="150" height="20" title="Touch Me Feel Me" uri="spotify:track:3FVr40YVX1xwJgi4o2FfJ3" artist="Darude" href_artist="spotify:artist:0LhHRmSd1EYM5QdNeNnCoQ" href_album="spotify:album:0Xks5v0dve8Gh2tRHIekjo"  album="Before the Storm"/>
+		<entry top="@TOP" width="-1" left="150" height="20" title="Precious" uri="spotify:track:1nipUSojbh9r8NxscRd1Ui" artist="Deepest Mode" href_artist="spotify:artist:762310PdDnwsDxAQxzQkfX" href_album="spotify:album:5YGnygLN1mVSJQkvP04OJi"  album="Before the Storm"/>
+		
+	</section>
+
+</view>
+		

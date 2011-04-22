@@ -1,0 +1,10 @@
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Release\ResolveAssemblyReference.cache
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Release\Board.DrawBoard.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Release\Board.CListView.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Release\Board.frmBoard.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Release\Board.MakoParser.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Release\GenerateResource-ResGen.read.1.tlog
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Release\GenerateResource-ResGen.write.1.tlog
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\bin\Release\Board.exe
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\bin\Release\Jint.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Release\Board.exe

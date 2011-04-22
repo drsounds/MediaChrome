@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="SpofityRuntime">
+</Property><Property Name="Solution File" Value="E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\SpofityRuntime.sln">
+</Property><Property Name="Date" Value="den 25 september 2010">
+</Property><Property Name="Time" Value="12:25:37">
+</Property><Property Name="Log Number" Value="2">
+</Property></Properties><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\libspotify-sharp.csproj" Description="Project file successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\libspotify-sharp.csproj">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\Properties\AssemblyInfo.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\Events\AlbumBrowseEventArgs.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\Events\AlbumBrowseEventArgs.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\Events\ArtistBrowseEventArgs.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\Events\ArtistBrowseEventArgs.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\Events\EventWorkItem.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\Events\EventWorkItem.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\Events\MusicDeliveryEventArgs.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\Events\MusicDeliveryEventArgs.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\Events\PlaylistContainerEventArgs.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\Events\PlaylistContainerEventArgs.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\Events\PlaylistEventArgs.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\Events\PlaylistEventArgs.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\Events\SearchEventArgs.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\Events\SearchEventArgs.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\Events\SessionEventArgs.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\Events\SessionEventArgs.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\Events\TracksEventArgs.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\Events\TracksEventArgs.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\Album.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\Album.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\AlbumBrowse.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\AlbumBrowse.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\Artist.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\Artist.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\ArtistBrowse.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\ArtistBrowse.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\libspotify.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\libspotify.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\Link.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\Link.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\PlayList.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\PlayList.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\PlaylistContainer.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\PlaylistContainer.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\Search.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\Search.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\Session.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\Session.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\SpotifyException.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\SpotifyException.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\Track.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\Track.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\User.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\User.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\src\Events\ImageEventArgs.cs" Description="File successfully backed up as E:\Spotify Ultra 0.2.4.1 (3)\Spotify Ultra\Backup1\src\Events\ImageEventArgs.cs">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\libspotify-sharp.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="libspotify-sharp" Source="..\libspotify-sharp\libspotify-sharp.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="libspotify-sharp" Source="..\libspotify-sharp\libspotify-sharp.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

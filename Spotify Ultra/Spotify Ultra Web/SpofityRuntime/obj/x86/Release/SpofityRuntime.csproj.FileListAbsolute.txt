@@ -1,0 +1,16 @@
+M:\SpofityX\SpofityRuntime\obj\x86\Release\ResolveAssemblyReference.cache
+M:\SpofityX\SpofityRuntime\obj\x86\Release\SpofityRuntime.Appify.resources
+M:\SpofityX\SpofityRuntime\obj\x86\Release\SpofityRuntime.frmVoid.resources
+M:\SpofityX\SpofityRuntime\obj\x86\Release\SpofityRuntime.Properties.Resources.resources
+M:\SpofityX\SpofityRuntime\obj\x86\Release\GenerateResource-ResGen.read.1.tlog
+M:\SpofityX\SpofityRuntime\obj\x86\Release\GenerateResource-ResGen.write.1.tlog
+M:\SpofityX\SpofityRuntime\obj\x86\Release\SpofityRuntime.Form1.resources
+M:\SpofityX\SpofityRuntime\obj\x86\Release\SpofityRuntime.ucSearch.resources
+M:\SpofityX\SpofityRuntime\bin\Release\SpofityRuntime.exe.config
+M:\SpofityX\SpofityRuntime\bin\Release\SpofityRuntime.exe
+M:\SpofityX\SpofityRuntime\bin\Release\SpofityRuntime.pdb
+M:\SpofityX\SpofityRuntime\bin\Release\Skybound.Gecko.dll
+M:\SpofityX\SpofityRuntime\bin\Release\tessnet2_32.dll
+M:\SpofityX\SpofityRuntime\bin\Release\Skybound.Gecko.xml
+M:\SpofityX\SpofityRuntime\obj\x86\Release\SpofityRuntime.exe
+M:\SpofityX\SpofityRuntime\obj\x86\Release\SpofityRuntime.pdb

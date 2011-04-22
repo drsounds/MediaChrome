@@ -1,0 +1,81 @@
+
+<?php echo "<?xml version=\"1.0\"?>\n"?>
+<?php  function createPlaylist($name,$description,$user,$img,$url){ ?>
+	<hbox visible="false">
+		<img class="image" src="<?php echo $img?>"/>
+		<vbox>
+			<text class="header" value="<?php echo $name?>"/>
+			<text class="desc" value="<?php echo $description?>"/>
+		</vbox>
+	</hbox>
+<?php } ?>
+
+<?xml-stylesheet href="../appstyle.css" type="text/css"?>
+<window
+    id="findfile-window" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" onload="init()">
+    <script src="../globalscript.js" type="text/javascript" language="javascript"></script>
+	 <script src="localscript.js" type="text/javascript" language="javascript"></script>
+	<vbox flex="1" id="MainView">
+		<hbox class="sections">
+			<hbox class="secActive" rel="home" onmousedown="SetView('home')">
+				<text value="Overview" />
+			</hbox>
+			
+		
+		</hbox>
+		
+		<deck selectedIndex="0" scrollbars="yes">
+			<vbox id="home" class="Section">
+				<vbox class="content" height="130">
+					
+					<hbox>
+						<text class="header" value="Emotionalizer" style="color:#FFFFFF" flex="1"/>
+						
+					</hbox>
+					<hbox >
+						<menulist  flex="1" id="emotionList" >
+							<menupopup>
+								<menuitem label="Love" value="love"/>
+								<menuitem label="Glad" value="glad"/>
+								<menuitem label="Angry" value="angry"/>
+								<menuitem label="Happy" value="happy"/>
+								<menuitem label="Sad" value="sad"/>
+							</menupopup>
+						</menulist><button label="Go" oncommand="send()"/>
+					</hbox>
+				</vbox>
+				<hbox class="section">
+					<text class="sectionText" value="Playlists"></text>
+				</hbox>
+				<hbox class="content" id="contentBox">
+					<template visible="false">
+						<![CDATA[
+						]]>
+					</template>
+					<vbox id="content">
+					<?php 
+					if(length($args)>0){
+						$tag = $args[0];
+						$f = file_get_contents("http://www.totalspotify.com/rsssearch.php?search=$tag");
+						$c = new DOMDocument();
+						$c->loadXML($f);
+						$items = $c->getElementsByTagName("item");
+						foreach($items as $item){
+							$name = $item->getElementsByTagName("name")->items(0)->nodeValue;
+							$description = $item->getElementsByTagName("name")->items(0)->nodeValue;
+							$uri = $item->getElementsByTagName("link")->items(0)->nodeValue;
+							createPlaylist($name,$description,"totalSpotify","playlist.png",$uri);
+						}
+					}
+					?>
+						
+						<vbox>
+						
+						</vbox>
+					</vbox>	
+				</hbox>
+			</vbox>
+		
+		</deck>
+	</vbox>
+</window>

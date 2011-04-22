@@ -1,0 +1,795 @@
+.home
+{
+background: url("bg.png");
+}
+
+treecol
+{
+	background-image: url("treeview_column2.png");
+	-moz-appearance:none;
+	border:none;
+	color:#000000 !important ;
+	font-weight:bold;
+	
+	text-shadow:1px 2px 1px #aaaaaa;
+	height:21px;
+}
+treecol:active
+{
+	background-image: url("treeview_column3.png");
+}
+treecol[sortDirection!="natural"]{
+		background-image: url("treeview_column4.png");
+}
+.npop
+{
+	background-image:url("npop.png");
+	background-repeat: none;
+	margin-left:5px;
+}
+.upop
+{
+	background-image: url("upop.png");
+	background-repeat:none;
+}
+*
+{
+font-family:"Tahoma";
+font-size:6px !important;
+font-weight:thin !important;
+
+
+}
+treechildren::-moz-tree-cell-text(track){
+	color:#00FF00 !important;
+}
+.playing description
+{
+color:#AAEEFF;
+}
+.field
+{
+}
+.header1
+{
+font-size:12px !important;
+font-weight:bold;
+text-shadow: 1px 1px 1px #222222;
+color:#aaffaa;
+}
+.playing
+{
+background-color:#333333;
+color:#AAEEFF;
+}
+description.head
+{
+color:#666666;
+font-size:10px !important;
+// // font-family:"MS Sans Serif" !important;
+text-shadow: 1px 0px 1px #333333;
+}
+description
+{
+color:#AAAAAA;
+}
+.button
+{
+	background-repeat:no-repeat;
+	background-image: url("button.png");
+	padding:5px;
+text-align:center;
+	font-weight:bold;
+	// // font-family:"Arial Black";
+	cursor:default;
+	text-shadow:1px 1px 2px #FFFFFF;
+	font-size:55px;
+	width:121px;
+	height:32px;
+	color:#111111;
+}
+.button:active
+{
+	background-image: url("button_down.png");
+}
+.selected,.selected text,.selected description
+{
+background-color:#aaFFFF;
+color:#000000 !important;
+}
+treechildren::moz-tree-column
+{
+	color:#000000 ;
+	text-shadow:1px 1px 1px #ccccc;
+}
+window
+ {
+ 	 background-color:rgb(51,51,51);
+	 // // font-family: "Segoe UI","Arial";
+ }
+ *{
+ font-size:11px !important;
+ // // font-family:"Arial" !important;
+ }
+ a
+ {
+ text-decoration:none;
+ cursor:pointer !important;
+ }
+ a:hover,.url:hover
+ {
+ text-decoration: underline;
+ }
+ scroll
+ button,menupopup,edit,textbox,menulist
+ {
+ -moz-appearance:none;
+
+ -moz-border-radius:14px;
+ background: -moz-linear-gradient(-90deg,#bbbbbb 50%,#444444 100%);
+ 
+ border-left:1px solid #eeeeee;
+ border-top:1px solid #eeeeee;
+ border-right:1px solid #333333;
+ border-bottom:1px solid #333333;
+ 
+ -moz-box-shadow: 1px 1px 3px #000000;
+ }
+ .divider
+ {
+ height:10px;
+width:100%;
+border-bottom:1px solid #222222;
+}
+ .image
+ {
+ 
+ 	 border:1px solid #333333;
+ 	 -moz-box-shadow: 1px 1px 2px #222222;
+	 
+ 	 background:#ffffff;
+	margin:5px;
+
+ }
+
+ tree
+ {
+ 	 background-color:rgb(55,55,55);
+ 	 -moz-appearance:none;
+ 	 border:0px;
+ }
+ text,description,label
+ {
+ font-size:13px;
+ /*color:#AAAAAA;*/
+ cursor:default;
+ }
+ treechildren::-moz-tree-cell-text()
+ {
+
+ 	 color:#cccccc;
+ 	 
+ }
+ .odd
+ {
+ background-color:#2c2c2c;
+ }
+  treechildren::-moz-tree-cell-text(duration)
+ {
+
+ 	 color:#555555 !important;
+ 	 
+ }
+ .trackNumber
+ {
+ color:#444444;
+ text-align:right;
+ padding-right:5px;
+ }
+ treechildren::-moz-tree-progressmeter(progressNormal){
+ -moz-appearance:none;
+ background: none;
+ border:none;
+ color:#AAFFFF;
+ color: url("progressmeter.png");
+ background: url("progressmeter.png");
+
+ }
+  treechildren::-moz-tree-progressmeter(progressNormal,selected){
+ -moz-appearance:none;
+ background: url("progressmeter.png");
+ border:none;
+
+ color: url("progressmeter.png");
+
+
+ }	
+  treechildren::-moz-tree-cell-text(selected),treechildren::-moz-tree-cell-text(selected,currentTrack)
+ {
+
+ 	 color:#000000;
+ 	 
+ }
+  treechildren::-moz-tree-cell-text(node)
+ {
+
+ 	 color:#AAEEFF;
+ 	 
+ }
+  treechildren::-moz-tree-cell-text(node)
+ { 
+
+ 	 color:#AAEEFF;
+ 	 
+ }
+   treechildren::-moz-tree-cell-text(link):hover
+ {
+
+ 	 color:#AAEEFF;
+ 	 
+ }
+ treechildren::-moz-tree-row(currentTrack){
+ background-color:#000000 !important;
+ 	color:#00FF00 !important;
+ }
+ 
+ treechildren::-moz-tree-cell-text(currentTrack){
+	color:#00FF00 !important;
+}
+ treechildren::-moz-tree-row(node){
+	background: -moz-linear-gradient(0,0% #111111,10% #555555);
+}
+ .infobox p
+ {
+ width:100%;
+  -moz-column-count:2;
+  -moz-column-gap: 1em;
+  font-size:15px;
+  text-align: justify;
+
+  }
+ .infobox
+ {
+ -moz-border-radius:10px;
+ background-color:#ffffAA;
+ height:auto;
+width:1240px;
+ font-size:18px;
+ margin:120px;
+ border-right:1px solid #888855;
+ border-bottom:1px solid #888855;
+ -moz-box-shadow:1px 1px 4px  #000000;
+padding:60px;
+ }
+ .infobox description
+ {
+  color:#555555;
+  // // font-family:"Times New Roman";
+  font-size:18px;
+  }
+ treechildren::-moz-tree-row(even)
+ {
+	background-color:rgb(47,47,47);
+ }
+ treechildren::-moz-tree-row(selected), treechildren::-moz-tree-row(selected,currentTrack)
+ {
+ 	 background-color:rgb(185,255,255) !important;
+ color:#000000 !important;
+ 	 border:none;
+ }
+
+
+
+ 
+ .Section
+ {
+
+ }
+ a,.url{
+	color:#AAAAAA;
+ }
+ .box
+ {
+ -moz-border-radius: 3px;
+
+ background-color:#AAAAAA;
+ padding:30px;
+ }
+ .header,.header2,.header3,.header4{
+	font-size:14px;
+	color:#ff88ff;
+	font-weight:bold;
+	text-shadow:1px solid #000000;
+ }
+ .code
+ {
+ border:1px solid #555555;
+ background-color:#222222;
+ color:#BBBBBB;
+ -moz-border-radius: 4px;
+ // // font-family:"Courier New";
+ }
+ .header2
+ {
+
+	color:#88ff88;
+	font-weight:bold;
+	font-size:15px !important;
+}
+.header3{
+	color:#FFFFFF;
+}
+.header4{
+	color:#AAAAAA;
+	font-weight:normal;
+}
+ .secButton
+ {
+  padding-left:20px;
+ 	  padding-right:20px;
+ 	/*	-moz-border-radius:4px 4px 0px 0px;*/
+	
+ 	 text-shadow:0px 2px 1px #cccccc;
+ 	 font-size:12px;/*
+		color:#000000;
+ 	 padding-top:2px;
+ 	
+ 	 font-weight: thin;
+	 -moz-box-shadow: inset 0px 2px 1px #bbbbbb,1px 0px 2px #777777 ;
+	/* background: url("../imgs/top_toolbar_section.png");*/
+	border-left:1px solid #cccccc;
+	//border-right:1px solid #444444;
+	 width:91px !important;
+ }
+ .secButton text
+ {
+ color:#000000 !important;
+ }
+ .secActive text
+ {
+ color:#FFFFFF;
+ 	 // // font-family:"Segoe UI";
+ text-shadow:1px 1px 2px #000000;
+ }
+ .content
+ {
+ 	/* margin:30px; */
+	 width:100% !important;
+ }
+ .nisc
+ {
+	-moz-border-radius:4px;
+	background-color:#3F3F3F;
+	-moz-box-shadow:1px 1px 4px #4A4A4A;
+	margin:4px;
+	padding:4px;
+	border:1px solid #555555;
+}
+ .secActive
+ {
+ 	background-color: rgb(50,50,50);
+ /*	-moz-box-shadow:inset 1px 1px 5px #111111;
+	-moz-border-radius:4px 4px 0px 0px;*/
+	border-top: 1px solid #333333;
+	width:91px !important;
+/*	background: url("../imgs/activeView.png");*/
+ 	text-shadow:0px 1px 1px #333333;
+ 	color:#FFFFFF;
+	border-left:1px solid #333333;
+	border-right:1px solid #333333;
+ 	font-size:15px;
+ 	// // font-family:"MS Sans Serif";
+ 	padding-left:20px;
+ 	padding-right:20px;
+ 	padding-top:2px;
+ 	font-weight: thin;
+ }
+ .section
+ {
+ 	 background-color:#555555;
+	 padding-left:13px;
+ }
+ .right
+ {
+ border-left:1px solid #333333;
+ }
+ .bar
+ {
+ 	 width:100%;
+ 	 background-color:#181818;
+	  border-bottom:1px solid #444444;
+ border-right: 1px solid #444444;
+ border-left:1px solid #000000;
+ border-top: 1px solid #000000;
+	-moz-box-shadow:inset 1px 1px 3px #000000;
+ 	 -moz-border-radius: 8px;
+
+ 	 height:24px;
+
+ 	 padding:7px;
+ }
+ text.sectionText
+ {
+ 	 font-size:18px !important;
+ 	 font-weight:bold;
+ 		 // // font-family: "Segoe UI","Arial";
+ 	 color:#222222;
+ 	 height:24px;
+ 	 vertical-align:middle;
+ 	 text-shadow:0px 1px 1px #888888;
+ }
+ .secButton:after,.secActive:after
+ {
+
+ }
+ .ec
+ {
+ width:1px;
+ border-left:1px solid #444444;
+ }
+ .sections
+ {
+ background: -moz-linear-gradient(-90deg,#AAAAAA, #888888);
+ border-top:1px solid #cccccc;
+ /*background: url("../imgs/top_toolbar.png");*/
+ 	 height:23px;
+	 font-weight:thin;
+	 border-bottom:1px solid #333333;
+ 
+ 
+ }
+
+ /* Scrollbars */
+ 
+ /* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1/GPL 2.0/LGPL 2.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is Mozilla Communicator client code, released
+ * March 31, 1998.
+ *
+ * The Initial Developer of the Original Code is
+ * Netscape Communications Corporation.
+ * Portions created by the Initial Developer are Copyright (C) 1998-2001
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   Joe Hewitt (hewitt@netscape.com)
+ *
+ * Alternatively, the contents of this file may be used under the terms of
+ * either the GNU General Public License Version 2 or later (the "GPL"), or
+ * the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+ * in which case the provisions of the GPL or the LGPL are applicable instead
+ * of those above. If you wish to allow use of your version of this file only
+ * under the terms of either the GPL or the LGPL, and not to allow others to
+ * use your version of this file under the terms of the MPL, indicate your
+ * decision by deleting the provisions above and replace them with the notice
+ * and other provisions required by the GPL or the LGPL. If you do not delete
+ * the provisions above, a recipient may use your version of this file under
+ * the terms of any one of the MPL, the GPL or the LGPL.
+ *
+ * ***** END LICENSE BLOCK ***** */
+
+/* ===== xulscrollbars.css ==============================================
+  == Styles used by XUL scrollbar-related elements.
+  ======================================================================= */
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+@namespace html url("http://www.w3.org/1999/xhtml"); /* namespace for HTML elements */
+
+/* ::::: scrollbar ::::: */
+
+scrollbar {
+  -moz-appearance: scrollbartrack-horizontal;
+  -moz-binding: url("chrome://global/content/bindings/scrollbar.xml#scrollbar");
+  cursor: default;
+  background: url("chrome://global/skin/scrollbar/slider.gif") scrollbar;
+}
+
+scrollbar[orient="vertical"] 
+{
+   -moz-appearance: scrollbartrack-vertical;
+}
+
+/* ::::: borders for thumb and buttons ::::: */
+
+thumb,
+scrollbarbutton {
+  border: 2px solid;
+  -moz-border-top-colors: ThreeDLightShadow ThreeDHighlight;
+  -moz-border-right-colors: ThreeDDarkShadow ThreeDShadow;
+  -moz-border-bottom-colors: ThreeDDarkShadow ThreeDShadow;
+  -moz-border-left-colors: ThreeDLightShadow ThreeDHighlight;
+  background-color: -moz-Dialog;
+}
+
+/* ::::: thumb (horizontal) ::::: */
+
+thumb {
+  -moz-appearance: scrollbarthumb-vertical;
+  min-height: 8px;
+}
+
+thumb[orient="horizontal"] {
+  -moz-appearance: scrollbarthumb-horizontal;
+  min-width: 8px;
+}
+
+/* ::::: scrollbar button ::::: */
+
+scrollbarbutton {
+  background: -moz-Dialog no-repeat 50% 50%;
+  min-width: 16px;
+  min-height: 16px;
+}
+
+scrollbarbutton:hover:active, scrollbarbutton[active="true"] {
+  -moz-border-top-colors: ThreeDShadow -moz-Dialog;
+  -moz-border-right-colors: ThreeDShadow -moz-Dialog;
+  -moz-border-bottom-colors: ThreeDShadow -moz-Dialog;
+  -moz-border-left-colors: ThreeDShadow -moz-Dialog;
+  background-position: 60% 60%;
+}
+
+/* ::::: square at the corner of two scrollbars ::::: */
+
+scrollcorner { 
+  /* XXX -moz-appearance: scrollcorner; */
+  -moz-binding: url(chrome://global/content/bindings/scrollbar.xml#scrollbar-base);
+  width: 16px;
+  cursor: default;
+  background-color: -moz-Dialog;
+}
+
+/* ..... increment .... */
+
+scrollbarbutton[type="increment"] {
+  -moz-appearance: scrollbarbutton-right;
+  background-image: url("chrome://global/skin/arrow/arrow-rit.gif")
+}
+
+scrollbarbutton[type="increment"][disabled="true"] {
+  background-image: url("chrome://global/skin/arrow/arrow-rit-dis.gif")
+}
+
+scrollbar[orient="vertical"] > scrollbarbutton[type="increment"] {
+  -moz-appearance: scrollbarbutton-down;
+  background-image: url("chrome://global/skin/arrow/arrow-dn.gif")
+}
+
+scrollbar[orient="vertical"] > scrollbarbutton[type="increment"][disabled="true"] {
+  background-image: url("chrome://global/skin/arrow/arrow-dn-dis.gif")
+}
+
+/* ..... decrement .... */
+
+scrollbarbutton[type="decrement"] {
+  -moz-appearance: scrollbarbutton-left;
+   background-image: url("chrome://global/skin/arrow/arrow-lft.gif")
+}
+
+scrollbarbutton[type="decrement"][disabled="true"] {
+   background-image: url("chrome://global/skin/arrow/arrow-lft-dis.gif")
+}
+
+scrollbar[orient="vertical"] > scrollbarbutton[type="decrement"] {
+  -moz-appearance: scrollbarbutton-up;
+   background-image: url("chrome://global/skin/arrow/arrow-up.gif")
+}
+
+scrollbar[orient="vertical"] > scrollbarbutton[type="decrement"][disabled="true"] {
+   background-image: url("chrome://global/skin/arrow/arrow-up-dis.gif")
+}
+
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+/* ::::::::::::::::::::: MEDIA PRINT :::::::::::::::::::::: */
+/* :::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+  /* ::::: scrollbar ::::: */
+
+  div scrollbar {
+    -moz-appearance: scrollbartrack-horizontal;
+    -moz-binding: url("chrome://global/content/bindings/scrollbar.xml#scrollbar");
+    cursor: default;
+    background: url("chrome://global/skin/scrollbar/slider.gif") scrollbar;
+  }
+
+  div scrollbar[orient="vertical"] 
+  {
+     -moz-appearance: scrollbartrack-vertical;
+  }
+
+  /* ::::: borders for thumb and buttons ::::: */
+
+  div thumb,
+  div scrollbarbutton {
+    border: 2px solid;
+    -moz-border-top-colors: ThreeDLightShadow ThreeDHighlight;
+    -moz-border-right-colors: ThreeDDarkShadow ThreeDShadow;
+    -moz-border-bottom-colors: ThreeDDarkShadow ThreeDShadow;
+    -moz-border-left-colors: ThreeDLightShadow ThreeDHighlight;
+    background-color: -moz-Dialog;
+  }
+
+  /* ::::: thumb (horizontal) ::::: */
+
+  div thumb {
+		moz-border-radius: 5px;
+		border:1px solid #000000;
+		background-color:#EEEEEE;
+    min-height: 8px;
+  }
+
+  div thumb[orient="horizontal"] {
+   moz-border-radius: 5px;
+	border:1px solid #000000;
+	background-color:#EEEEEE;
+    min-width: 8px;
+  }
+
+  /* ::::: scrollbar button ::::: */
+
+  div scrollbarbutton {
+  ¨
+  -moz-appearance:none;
+    min-width: 16px;
+    min-height: 16px;
+  }
+
+  div scrollbarbutton:hover:active, div scrollbarbutton[active="true"] {
+    moz-border-radius: 5px;
+	border:1px solid #000000;
+	background-color:#EEEEEE;
+    background-position: 60% 60%;
+  }
+
+  /* ..... increment .... */
+
+  div scrollbarbutton[type="increment"] {
+	background-color:#333333;
+    background-image: url("chrome://global/skin/arrow/arrow-rit.gif")
+  }
+
+  div scrollbarbutton[type="increment"][disabled="true"] {
+	background-color:#333333;
+    background-image: url("chrome://global/skin/arrow/arrow-rit-dis.gif")
+  }
+
+  div scrollbar[orient="vertical"] > scrollbarbutton[type="increment"] {
+    moz-border-radius: 5px;
+	border:1px solid #000000;
+	background-color:#EEEEEE;
+    
+  }
+
+  div scrollbar[orient="vertical"] > scrollbarbutton[type="increment"][disabled="true"] {
+    moz-border-radius: 5px;
+	border:1px solid #000000;
+	background-color:#EEEEEE;
+  }
+
+  /* ..... decrement .... */
+
+  div scrollbarbutton[type="decrement"] {
+    -moz-appearance: scrollbarbutton-left;
+moz-border-radius: 5px;
+	border:1px solid #000000;
+	background-color:#333333;
+  }
+
+  div scrollbarbutton[type="decrement"][disabled="true"] {
+     moz-border-radius: 5px;
+	border:1px solid #000000;
+	background-color:#EEEEEE;
+  }
+
+  div scrollbar[orient="vertical"] > scrollbarbutton[type="decrement"] {
+   moz-border-radius: 5px;
+	border:1px solid #000000;
+	background-color:#EEEEEE;
+     background-image: url("chrome://global/skin/arrow/arrow-up.gif")
+  }
+
+  div scrollbar[orient="vertical"] > scrollbarbutton[type="decrement"][disabled="true"] {
+moz-border-radius: 5px;
+	border:1px solid #000000;
+	background-color:#EEEEEE;    
+	background-image: url("chrome://global/skin/arrow/arrow-up-dis.gif")
+  }
+
+
+#menubar
+{
+	background:#474747;
+}
+treechildren::-moz-tree-row(playing)
+{
+ 	background-color:#000000 !important;
+	color: #00FF00 !important;
+}
+treechildren::-moz-tree-cell-text(playing)
+{
+ 
+	color: #00FF00 !important;
+}
+:focus {
+  -moz-outline-style: none;
+}
+a {
+  outline: none;
+}
+a:hover
+{
+color:#EEEEEE;
+}
+richlistbox
+{
+	border:none;
+	background:#474747;
+	-moz-appearance:none;
+	color:#ffffff;
+
+	text-shadow:2px 0px 0px #000000;
+	
+}
+listitem:FOCUS
+{
+	border:none;
+}
+listitem[selected=true]
+{
+	  -moz-outline-style: none;
+	background:#A9D9FE;
+	border:none;
+	text-shadow:none;
+}
+richlistbox:focus
+{
+	border:none;
+}
+
+._item2[selected=true],._item2[selected=true] description
+{
+	background-color:#A9D9FE !important;
+	color:#333333 !important;
+
+	
+}
+	
+._item2
+{
+	padding-top:16px;
+	padding-bottom:16px;
+}
+.menubutton:hover
+{
+	background-color:#222222;
+	color:#FFFFFF;
+	-moz-border-radius: 13px 13px 13px 13px;
+}
+.menubutton:active{
+background-color:#111111;
+}
+*
+{
+-moz-user-select:none;
+
+}
+.menubutton{
+	color:#FFFFFF;
+	padding-left:10px;
+	padding-right:10px;
+	font-size:22px !important;
+	font-weight:thin !important;
+	height:32px;
+	font-family:"G" !important;
+}

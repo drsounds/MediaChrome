@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="SpofityRuntime">
+</Property><Property Name="Solution File" Value="C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\SpofityRuntime.sln">
+</Property><Property Name="Date" Value="den 14 september 2010">
+</Property><Property Name="Time" Value="19:02">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="SpofityRuntime.sln" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\SpofityRuntime.sln">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="SpofityRuntime.csproj" Description="Project file successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\SpofityRuntime.csproj">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="SpofityRuntime.csproj.user" Description="Project user file successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\SpofityRuntime.csproj.user">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Appify.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Appify.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Appify.Designer.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Appify.Designer.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="AssemblyInfo.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="AudioData.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\AudioData.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="BassPlayer.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\BassPlayer.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="cBtn.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\cBtn.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="cBtn.Designer.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\cBtn.Designer.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Form1.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Form1.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Form1.Designer.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Form1.Designer.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="frmLogin.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\frmLogin.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="frmLogin.Designer.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\frmLogin.Designer.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="frmVoid.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\frmVoid.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="frmVoid.Designer.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\frmVoid.Designer.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="ListP.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\ListP.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Login.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Login.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Login.Designer.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Login.Designer.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Pane.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Pane.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Program.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Program.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Properties\Resources.Designer.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Settings.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Settings.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Settings.Designer.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Settings1.Designer.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Settings1.Designer.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="ucSearch.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\ucSearch.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="ucSearch.Designer.cs" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\ucSearch.Designer.cs">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="app.config" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\app.config">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Properties\app.config" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Properties\app.config">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Program.cs.backup" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Program.cs.backup">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Settings.settings" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Settings.settings">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Resources\StyleSheet.txt" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Resources\StyleSheet.txt">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="bin\Debug\searchfield.png" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\bin\Debug\searchfield.png">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="bin\Debug\searchfield2.png" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\bin\Debug\searchfield2.png">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="bin\Debug\searchbtn.png" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\bin\Debug\searchbtn.png">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="bin\Debug\searchfield3.png" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\bin\Debug\searchfield3.png">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Resources\kan1.png" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Resources\kan1.png">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Resources\kan2.png" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Resources\kan2.png">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Appify.resx" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Appify.resx">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="cBtn.resx" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\cBtn.resx">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Form1.resx" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Form1.resx">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="frmLogin.resx" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\frmLogin.resx">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="frmVoid.resx" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\frmVoid.resx">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Login.resx" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Login.resx">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="Properties\Resources.resx" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\Properties\Resources.resx">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="ucSearch.resx" Description="File successfully backed up as C:\Users\Alecca\Downloads\Spotify Ultra 0.2.4.1 (2)\Spotify Ultra\Backup\ucSearch.resx">
+</Event><Event ErrorLevel="0" Project="SpofityRuntime" Source="SpofityRuntime.csproj" Description="The project file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="SpofityRuntime" Source="SpofityRuntime.csproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="0" Project="" Source="SpofityRuntime.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="SpofityRuntime.sln" Description="Converted">
+</Event></UpgradeLog>

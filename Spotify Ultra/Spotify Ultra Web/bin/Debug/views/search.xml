@@ -1,0 +1,74 @@
+<?
+/*****
+ * Home view for Segurify
+ */
+ var search = (synchronize_data("http://ws.spotify.com/search/1/track?q="+parameter));
+ 
+ /**
+ JSON didn't work properly so we use traditional XML 
+ ***/
+ 
+ var count_tracks = search.GetElementsByTagName("track").Count;
+ var tracks = search.GetElementsByTagName("track");
+ 
+ function GetValue(elm,name,defValue){
+	var contents = elm.GetElementsByTagName(name).Item(0).InnerText.replace("\"","'").replace("'","");
+	return contents; 
+}
+ 
+ /*  */
+?>
+<view>
+	<section name="Overview" list="true">
+		
+		<label height="50" size="14" left="10" top="@TOP" width="500">You searched for @{parameter} which gave an  @{count_tracks} results </label>
+		
+		<label height="50" color="#aaeeaa" left="10" top="@TOP" width="500">Did you mean</label>
+<space height="80"/>
+	<section width="50" color="#aaeeaa" >Tracks</section>
+<space height="20"/>
+<? for(var i=0; i < count_tracks; i++){
+	/** Get artist names */
+	var title = GetValue(tracks.Item(i),"name","").replace("\"","'").replace("'","");
+/*	var artist = GetValue(tracks.Item(i).GetElementsByTagName("artist").Item(0),"name","Unknown");
+	var album = GetValue(tracks.Item(i).GetElementsByTagName("album").Item(0),"name","Unknown");*/
+	var uri = tracks.Item(i).GetAttribute("href");
+	var artist = tracks.Item(i).GetElementsByTagName("artist").Item(0).GetElementsByTagName("name").Item(0).InnerText;
+	var artist_uri = tracks.Item(i).GetElementsByTagName("artist").Item(0).GetAttribute("href");
+	
+	var album = tracks.Item(i).GetElementsByTagName("album").Item(0).GetElementsByTagName("name").Item(0).InnerText;
+	var album_uri = tracks.Item(i).GetElementsByTagName("album").Item(0).GetAttribute("href");
+	artist = artist.replace("&","nd").replace("\"","'").replace("'","");
+	title = title.replace("&","and").replace("\"","'").replace("'","");
+	album = album.replace("&","and").replace("\"","'").replace("'","");
+?>
+
+		<entry left="0" width="-1" top="@TOP" height="20" title="@{title}" href_artist="@{artist_uri}" href_album="@{album_uri}" artist="@{artist}" album="@{album}" uri="@{uri}"/>
+<? } ?>
+	</section>
+	<section name="Playlists">
+		<label size="20" left="310" top="@TOP" width="500" height="100">Playlists</label>
+		<label size="20" color="#888888" left="310" top="@TOP" width="500" height="100">List is coming from totalspotify.com</label>
+			<?
+			/**
+			Get data from totalspotify
+			*/
+			var feed = synchronize_data("http://www.totalspotify.com/rsssearch.php?search="+parameter);
+			var elements = feed.GetElementsByTagName("item");
+			for(var i=0; i < elements.Length ; i++){
+			
+			var name = GetValue(elements.Item(i),"title");
+			var author = GetValue(elements.Item(i),"author");
+			var link = eGetValue(elements.Item(i),"link");
+			var description = eGetValue(elements.Item(i),"description");
+			
+			
+			?>
+			<label size="10" height="30" width="500" top="@TOP">@{name}</label>
+			<label size="10" height="50" width="300" top="@TOP" color="#AAAAAA">@{description}</label>
+			<space height="50"/>
+			<?
+			}
+			?>
+	</section>
+</view>

@@ -1,0 +1,20 @@
+<?
+/***
+ * Album view component. Not to use separetely
+ **/
+ 
+ var album_name = arg_name;
+ var track_count = arg_track_count;
+ 
+?>
+<view>
+	<section name="component">
+		<label left="150"  height="23" top="@top" width="320">@{album_name}</label>
+		
+		<img src="http://www.dn.se/images/2011/04/20/elisabeth_130.jpg" width="128" height="128" top="@TOP" persistent="true"/>
+		<!-- An example tracklist -->
+% for(var i=0; i < 10; i++){
+		<entry left="150" top="@TOP" height="18" author="Test" title="Item @{i}" collection="Test" album="test"/>
+% }
+	</section>
+</view>
