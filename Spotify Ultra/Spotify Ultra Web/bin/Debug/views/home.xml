@@ -2,11 +2,19 @@
 /*****
  * Home view for Segurify
  */
- 
+	var banner = synchronize_data("http://spotiapps.krakelin.com/ad.txt");
+	var ads =  banner.split("\n");
+	var count =ads.Length;
+						
+	var advertisement = ads[0];
+						
+	var ad = advertisement.split(";");
+	
 ?>
 <view>
 	
 	<section name="Overview">
+		<img width="340" height="120" left="540" top="10" href="@{ad[1]}" src="@{ad[0]}"/>
 		<label height="20" size="14" left="10" top="@TOP" width="500">Home</label>
 		<label height="50" color="#aaeeaa" left="10" top="@TOP" width="500">What's new</label>
 		<label height="50" color="#eeeeee" left="10" top="@TOP" width="500">Welcome to Spotify Ultra, the open source Spotify client</label>

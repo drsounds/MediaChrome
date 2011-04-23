@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Board</RootNamespace>
     <AssemblyName>Board</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -179,6 +179,7 @@
     <None Include="scrollbar_space.png" />
     <None Include="scrollbar_thumb.png" />
     <None Include="Resources\ajax-loader.gif" />
+    <None Include="Resources\release.png" />
     <Content Include="TextFile1.txt" />
   </ItemGroup>
 </Project>

@@ -17,7 +17,7 @@ if(!(!artistdata)){
 
 
 /** Get basic values */
-var title = artistdata.GetElementsByTagName("name").Item(0).InnerText;
+title = artistdata.GetElementsByTagName("name").Item(0).InnerText;
 
 /** Lookup releases by the artist  */
 var _releases = synchronize_data("http://ws.spotify.com/search/1/album?q=artist:\""+title.Replace(" ","%23")+"\"");
@@ -25,6 +25,8 @@ releases = _releases.GetElementsByTagName("album");
 
 }
 
+/** Get Local Content */
+var localAlbums = queryLocalFiles("SELECT DISTINCT album FROM song WHERE artist='"+title+"'");
 
 
 
@@ -38,8 +40,19 @@ releases = _releases.GetElementsByTagName("album");
 		
 		<label size="20" color="#aaaaaa" left="310" top="@TOP" width="500" height="20">testw</label> 
 		<space height="130"/>
-		<section text="Albums" width="-1" left="0" height="24"/>
-		<space height="50"/>
+		<?
+	if(localAlbums.Count > 0){
+	?>
+	
+	<section  width="-1" height="24" left="0" top="@TOP">Local Files</section>
+	<space height="60"/>
+% for(var i=0; i < localAlbums.Count; i++){ var localAlbum = localAlbums[i];
+	<inflate src="components/local_album.xml" name="@{localAlbum.Album}" artist="@{title}"/>
+% }
+
+		<? } ?> 
+		<section text="Albums" width="-1" left="0" height="24">Albums</section>
+		<space height="70"/>
 
 <?
 for(var i=0; i < releases.Count ; i++){ 	
@@ -53,7 +66,7 @@ for(var i=0; i < releases.Count ; i++){
 		<space height="50"/>
 % }
 	
-	</section>
 	
+	</section>
 </view>
 		

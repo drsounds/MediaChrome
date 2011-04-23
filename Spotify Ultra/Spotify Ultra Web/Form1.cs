@@ -163,6 +163,9 @@ namespace SpofityRuntime
             base.OnLoad(e);
             
         }
+
+       
+
         public void NextSong()
         {
             nowPlayingView.NextSong();
@@ -198,7 +201,7 @@ namespace SpofityRuntime
             board = new Board.DrawBoard();
             board.Click += new EventHandler(board_Click);
             board.LinkClick += new Board.DrawBoard.LinkClicked(board_LinkClick);
-
+            board.BeginNavigating += new Board.DrawBoard.NavigateEventHandler(board_BeforeNavigating);
             treeview.Dock = DockStyle.Left;
             splitter1.Dock = DockStyle.Left;
             splitter1.Cursor = Cursors.VSplit;
@@ -241,12 +244,40 @@ namespace SpofityRuntime
             // assign link click for menu
             treeview.LinkClick += new Board.DrawBoard.LinkClicked(treeview_LinkClick);
 
+            // assign makogeneration initialization code
+            this.board.MakoGeneration += new Board.DrawBoard.MakoCreateEventHandler(board_MakoGeneration);
            
-            
+
             // Navigate to start page
             board.Navigate("spotify:home:1", "spotify", "views");
             board.PlaybackRequested += new Board.DrawBoard.PlaybackStartEvent(board_PlaybackRequested);
             treeview.Navigate("spotify:menu:1", "spotify", "views");
+           
+        }
+        /// <summary>
+        /// Method to initialize all features available for subscripts
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void board_MakoGeneration(object sender, EventArgs e)
+        {
+              Board.MakoEngine d = (Board.MakoEngine)sender;
+              d.RuntimeMachine.SetFunction("queryLocalFiles",new Func<string, object>(__GetLocalFiles));
+        }
+
+        /// <summary>
+        ///  Used by the script to get local files
+        /// </summary>
+        /// <param name="query">the query for get local files</param>
+        /// <returns></returns>
+
+        public object __GetLocalFiles(string query)
+        {
+            LocalLibrary A = new LocalLibrary();
+            return A.GetFilesFromQuery(query);
+        }
+        void board_BeforeNavigating(object sender, string uri)
+        {
            
         }
 
@@ -314,7 +345,31 @@ namespace SpofityRuntime
 
         bool board_PlaybackRequested(object sender, string Url)
         {
+            // If url starts with Spotify:local: (eg. local file) load it another way. More handlers will be implemented soon as this
+            // will be an mediachrome instance
+            if(Url.StartsWith("spotify:local:"))
+            {
+                // convert uri string to parseable array [artist,title,album]
+                string[] data = Url.Replace("spotify:local:","").Split(':');
+
+                // Make query
+                string query = String.Format("SELECT name,artist,album,path FROM song WHERE artist='{0}' AND album='{1}' AND name='{2}'",data[0].Replace("+"," "),data[1].Replace("+"," "),data[2].Replace("+"," "));
+
+                // Retrieve result (the function result an boxed instance as it are called from scripts too)
+                List<MediaChrome.Song> files = (List<MediaChrome.Song>)__GetLocalFiles(query);
+
+                // if no song was found return FALSE
+                if (files.Count == 0)
+                    return false;
+
+                // play the first result
+                axWindowsMediaPlayer1.URL = files[0].Path.Replace("mp3:","");
+                axWindowsMediaPlayer1.Ctlcontrols.play();
+                return true;
+            }
            
+            // TODO: Add more media handlers
+
             Spotify.Track track = Track.CreateFromLink(Link.Create(Url.Replace("spotify:","spotify:")));
             
             // if track was correctly received, start playback
@@ -1307,7 +1362,7 @@ namespace SpofityRuntime
         {
 
         }
-
+       
         private void ucPosBar1_MouseUp(object sender, MouseEventArgs e)
         {
             Program.SpotifySession.PlayerSeek((int)(ucPosBar1.Value*1000));
@@ -1461,6 +1516,18 @@ namespace SpofityRuntime
         private void cBtn3_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+          
+        }
+
+        private void cBtn8_Click(object sender, EventArgs e)
+        {
+            // Create import library form
+            MediaChrome.ImportLibrary frmImport = new MediaChrome.ImportLibrary();
+            frmImport.ShowDialog();
         }
     }
      public class Pane : System.Windows.Forms.Panel

@@ -12,7 +12,7 @@
  var tracks = search.GetElementsByTagName("track");
  
  function GetValue(elm,name,defValue){
-	var contents = elm.GetElementsByTagName(name).Item(0).InnerText.replace("\"","'").replace("'","");
+	var contents = elm.GetElementsByTagName(name).Item(0).InnerText.replace("\"","'").replace("'","").replace(";","");
 	return contents; 
 }
  
@@ -27,9 +27,19 @@
 <space height="80"/>
 	<section width="50" color="#aaeeaa" >Tracks</section>
 <space height="20"/>
-<? for(var i=0; i < count_tracks; i++){
+<? 
+/** Get local songs */
+var local_content = queryLocalFiles("SELECT * FROM song WHERE artist LIKE '%"+parameter+"%' OR album LIKE '%"+parameter+"%' OR name LIKE '%"+parameter+"%'");
+
+for(var i=0; i < local_content.Count; i++){ var local_song=local_content[i];
+?> 
+	<entry left="0" width="-1" top="@TOP" height="18" title="@{local_song.Title}"   artist="@{local_song.Artist}" album="@{local_song.Album}" uri="@{local_song.Path}"/>
+<?
+}
+
+for(var i=0; i < count_tracks; i++){
 	/** Get artist names */
-	var title = GetValue(tracks.Item(i),"name","").replace("\"","'").replace("'","");
+	var title = GetValue(tracks.Item(i),"name","").replace("\"","'").replace("'","").replace(";","");
 /*	var artist = GetValue(tracks.Item(i).GetElementsByTagName("artist").Item(0),"name","Unknown");
 	var album = GetValue(tracks.Item(i).GetElementsByTagName("album").Item(0),"name","Unknown");*/
 	var uri = tracks.Item(i).GetAttribute("href");
@@ -38,12 +48,16 @@
 	
 	var album = tracks.Item(i).GetElementsByTagName("album").Item(0).GetElementsByTagName("name").Item(0).InnerText;
 	var album_uri = tracks.Item(i).GetElementsByTagName("album").Item(0).GetAttribute("href");
-	artist = artist.replace("&","nd").replace("\"","'").replace("'","");
-	title = title.replace("&","and").replace("\"","'").replace("'","");
-	album = album.replace("&","and").replace("\"","'").replace("'","");
+	artist = artist.replace("&","nd").replace("\"","'").replace("'","").replace(";","");
+	title = title.replace("&","and").replace("\"","'").replace("'","").replace(";","");
+	album = album.replace("&","and").replace("\"","'").replace("'","").replace(";","");
 ?>
 
-		<entry left="0" width="-1" top="@TOP" height="20" title="@{title}" href_artist="@{artist_uri}" href_album="@{album_uri}" artist="@{artist}" album="@{album}" uri="@{uri}"/>
+		<entry left="0" width="-1" top="@TOP" height="18" href_artist="@{artist_uri}" href_album="@{album_uri}" uri="@{uri}">
+			<title><![CDATA[@{title}]]></title>
+			<artist><![CDATA[@{artist}]]></artist>
+			<album><![CDATA[@{album}]]></album>
+		</entry>
 <? } ?>
 	</section>
 	<section name="Playlists">
@@ -57,10 +71,10 @@
 			var elements = feed.GetElementsByTagName("item");
 			for(var i=0; i < elements.Length ; i++){
 			
-			var name = GetValue(elements.Item(i),"title");
-			var author = GetValue(elements.Item(i),"author");
-			var link = eGetValue(elements.Item(i),"link");
-			var description = eGetValue(elements.Item(i),"description");
+			var name = GetValue(elements.Item(i),"title").replace("\"","'").replace("'","").replace(";","");;
+			var author = GetValue(elements.Item(i),"author").replace("\"","'").replace("'","").replace(";","");;
+			var link = eGetValue(elements.Item(i),"link").replace("\"","'").replace("'","").replace(";","");;
+			var description = eGetValue(elements.Item(i),"description").replace("\"","'").replace("'","").replace(";","");;
 			
 			
 			?>

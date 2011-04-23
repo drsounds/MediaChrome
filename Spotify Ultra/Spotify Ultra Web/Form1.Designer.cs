@@ -52,6 +52,7 @@
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
             this.pane5 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -68,11 +69,13 @@
             this.cBtn6 = new SpofityRuntime.cBtn();
             this.cBtn2 = new SpofityRuntime.cBtn();
             this.ucPosBar1 = new webclassprototype.ucPosBar();
+            this.cBtn8 = new SpofityRuntime.cBtn();
             this.cBtn1 = new SpofityRuntime.cBtn();
             this.cBtn3 = new SpofityRuntime.cBtn();
             this.textBox1 = new SpofityRuntime.ucSearch();
             this.contextMenuStrip1.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             this.pane5.SuspendLayout();
             this.panel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -191,6 +194,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.axWindowsMediaPlayer1);
             this.panel3.Controls.Add(this.listViewX1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(2, 86);
@@ -198,6 +202,16 @@
             this.panel3.Size = new System.Drawing.Size(911, 314);
             this.panel3.TabIndex = 22;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
+            // 
+            // axWindowsMediaPlayer1
+            // 
+            this.axWindowsMediaPlayer1.Enabled = true;
+            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(413, 143);
+            this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
+            this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
+            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(380, 111);
+            this.axWindowsMediaPlayer1.TabIndex = 23;
+            this.axWindowsMediaPlayer1.Visible = false;
             // 
             // pane5
             // 
@@ -233,6 +247,7 @@
             this.panel2.Controls.Add(this.cBtn6);
             this.panel2.Controls.Add(this.cBtn2);
             this.panel2.Controls.Add(this.ucPosBar1);
+            this.panel2.Controls.Add(this.cBtn8);
             this.panel2.Controls.Add(this.cBtn1);
             this.panel2.Controls.Add(this.cBtn3);
             this.panel2.Controls.Add(this.textBox1);
@@ -322,7 +337,7 @@
             this.cBtn5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn5.BackgroundImage")));
             this.cBtn5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.cBtn5.Img = global::SpofityRuntime.Properties.Resources.update;
-            this.cBtn5.Location = new System.Drawing.Point(70, 8);
+            this.cBtn5.Location = new System.Drawing.Point(68, 8);
             this.cBtn5.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cBtn5.Name = "cBtn5";
             this.cBtn5.Size = new System.Drawing.Size(23, 22);
@@ -348,10 +363,10 @@
             this.cBtn4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn4.BackgroundImage")));
             this.cBtn4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.cBtn4.Img = global::SpofityRuntime.Properties.Resources.forward;
-            this.cBtn4.Location = new System.Drawing.Point(39, 8);
+            this.cBtn4.Location = new System.Drawing.Point(41, 9);
             this.cBtn4.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cBtn4.Name = "cBtn4";
-            this.cBtn4.Size = new System.Drawing.Size(25, 22);
+            this.cBtn4.Size = new System.Drawing.Size(23, 22);
             this.cBtn4.TabIndex = 11;
             this.cBtn4.Click += new System.EventHandler(this.CBtn4Click);
             // 
@@ -394,12 +409,27 @@
             this.ucPosBar1.Location = new System.Drawing.Point(532, 25);
             this.ucPosBar1.Maximum = 100F;
             this.ucPosBar1.Name = "ucPosBar1";
-            this.ucPosBar1.Size = new System.Drawing.Size(356, 10);
+            this.ucPosBar1.Size = new System.Drawing.Size(334, 11);
             this.ucPosBar1.TabIndex = 3;
             this.ucPosBar1.Value = 25F;
             this.ucPosBar1.Visible = false;
             this.ucPosBar1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ucPosBar1_MouseUp);
             this.ucPosBar1.Move += new System.EventHandler(this.ucPosBar1_Move);
+            // 
+            // cBtn8
+            // 
+            this.cBtn8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cBtn8.BackColor = System.Drawing.Color.Transparent;
+            this.cBtn8.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn8.BackgroundImage")));
+            this.cBtn8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cBtn8.Img = global::SpofityRuntime.Properties.Resources.play;
+            this.cBtn8.Location = new System.Drawing.Point(871, 13);
+            this.cBtn8.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cBtn8.Name = "cBtn8";
+            this.cBtn8.Size = new System.Drawing.Size(31, 28);
+            this.cBtn8.TabIndex = 1;
+            this.cBtn8.Load += new System.EventHandler(this.CBtn1Load);
+            this.cBtn8.Click += new System.EventHandler(this.cBtn8_Click);
             // 
             // cBtn1
             // 
@@ -421,10 +451,10 @@
             this.cBtn3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn3.BackgroundImage")));
             this.cBtn3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.cBtn3.Img = global::SpofityRuntime.Properties.Resources.back;
-            this.cBtn3.Location = new System.Drawing.Point(14, 8);
+            this.cBtn3.Location = new System.Drawing.Point(2, 8);
             this.cBtn3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cBtn3.Name = "cBtn3";
-            this.cBtn3.Size = new System.Drawing.Size(23, 22);
+            this.cBtn3.Size = new System.Drawing.Size(38, 39);
             this.cBtn3.TabIndex = 10;
             this.cBtn3.Load += new System.EventHandler(this.cBtn3_Load);
             this.cBtn3.Click += new System.EventHandler(this.CBtn3Click);
@@ -456,15 +486,17 @@
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Spotify Ultra";
+            this.Text = "MediaChrome (Spotify Ultra)";
             this.TransparencyKey = System.Drawing.Color.Red;
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.ResizeBegin += new System.EventHandler(this.Form1_ResizeBegin);
             this.ResizeEnd += new System.EventHandler(this.Form1_ResizeEnd);
             this.Enter += new System.EventHandler(this.Form1Enter);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.contextMenuStrip1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             this.pane5.ResumeLayout(false);
             this.pane5.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -523,6 +555,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel3;
         private XListView listViewX1;
+        private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
+        private cBtn cBtn8;
 
     }
 }

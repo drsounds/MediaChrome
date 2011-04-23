@@ -20,3 +20,7 @@ L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.Res
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\bin\Debug\Board.dll
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.dll
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.ViewError.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource.read.1.tlog
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource.write.1.tlog
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource.read.369.tlog
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource.write.369.tlog

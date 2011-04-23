@@ -83,12 +83,15 @@
     <Reference Include="GlassForms">
       <HintPath>C:\Users\Alex\Downloads\vistacontrols\VistaControls\GlassForms.dll</HintPath>
     </Reference>
+    <Reference Include="Id3Tag.Net">
+      <HintPath>..\..\..\..\..\Mediachrome 201012191250\MultiMedia\MultiMedia\bin\Debug\Id3Tag.Net.dll</HintPath>
+    </Reference>
     <Reference Include="InputSimulator">
       <HintPath>F:\Mist\InputSimulator.dll</HintPath>
     </Reference>
-    <Reference Include="libspotify-sharp, Version=1.0.4126.22823, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="LibspotifySharp, Version=1.0.3962.17126, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libspotify-sharp\bin\Debug\libspotify-sharp.dll</HintPath>
+      <HintPath>bin\Debug\LibspotifySharp.dll</HintPath>
     </Reference>
     <Reference Include="NAudio, Version=1.3.8.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -100,6 +103,12 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>C:\Users\Alexander\Downloads\SQLite-1.0.66.0-binaries\bin\System.Data.SQLite.DLL</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq">
+      <HintPath>C:\Users\Alexander\Downloads\SQLite-1.0.66.0-binaries\bin\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -154,17 +163,30 @@
     <Compile Include="frmVoid.Designer.cs">
       <DependentUpon>frmVoid.cs</DependentUpon>
     </Compile>
+    <Compile Include="id3lib.cs" />
+    <Compile Include="ImportLibrary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportLibrary.designer.cs">
+      <DependentUpon>ImportLibrary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IPlayEngine.cs" />
     <Compile Include="ListP.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="LocalFile.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.Spofity.cs" />
+    <Compile Include="Mp3.cs">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Music.cs" />
     <Compile Include="NewPlaylist.cs">
@@ -173,6 +195,7 @@
     <Compile Include="NewPlaylist.Designer.cs">
       <DependentUpon>NewPlaylist.cs</DependentUpon>
     </Compile>
+    <Compile Include="Playlist.cs" />
     <Compile Include="Program.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -227,6 +250,9 @@
     <EmbeddedResource Include="frmVoid.resx">
       <DependentUpon>frmVoid.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ImportLibrary.resx">
+      <DependentUpon>ImportLibrary.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -247,6 +273,7 @@
     <EmbeddedResource Include="UpdatePlaylist.resx">
       <DependentUpon>UpdatePlaylist.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Program.cs.backup" />
     <None Include="Resources\rbottom.png" />
     <None Include="Settings.settings">
@@ -319,14 +346,66 @@
     <None Include="Resources\top_toolbar.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\top_wall1.png" />
+    <None Include="Resources\section.png" />
+    <None Include="Resources\page.png" />
+    <None Include="Resources\line.png" />
+    <None Include="Resources\buttonx.png" />
+    <None Include="Resources\buttondownx.png" />
+    <None Include="Resources\buttondown.png" />
+    <None Include="Resources\button.png" />
+    <None Include="Resources\ascendia.png" />
+    <None Include="Resources\separator.png" />
+    <None Include="Resources\searchfield3.png" />
+    <None Include="Resources\searchfield2.png" />
+    <None Include="Resources\searchfield.png" />
+    <None Include="Resources\searchbtn.png" />
+    <None Include="Resources\progresmeter.png" />
+    <None Include="Resources\divider.png" />
+    <None Include="Resources\barx.png" />
+    <None Include="Resources\bar.png" />
+    <None Include="Resources\ajax-loader.gif" />
     <None Include="Resources\star_on.png" />
     <None Include="Resources\star_off.png" />
     <None Include="Resources\columnx.png" />
     <None Include="Resources\columnlimiter.png" />
     <None Include="Resources\column.png" />
     <None Include="bin\Debug\imgs\findbar.png" />
+    <None Include="bin\Debug\imgs\back.png" />
+    <None Include="bin\Debug\imgs\bar.png" />
+    <None Include="bin\Debug\imgs\button1.png" />
+    <None Include="bin\Debug\imgs\button2.png" />
+    <None Include="bin\Debug\imgs\forward.png" />
+    <None Include="bin\Debug\imgs\pause.png" />
+    <None Include="bin\Debug\imgs\play.png" />
+    <None Include="bin\Debug\imgs\play2.png" />
+    <None Include="bin\Debug\imgs\separator.png" />
+    <None Include="bin\Debug\imgs\stop.png" />
+    <None Include="bin\Debug\imgs\update.png" />
     <Content Include="NAudio.dll" />
     <Content Include="Properties\NAudio.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxWMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="WMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Engines\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -15,7 +15,17 @@ namespace Board
 [Serializable]
   	public class Spofity
 	{
+        /// <summary>
+        /// Delegate which manage events for mako creation
+        /// </summary>
+        /// <param name="sender">the current instance to mako</param>
+        /// <param name="e">eventargs</param>
+        public delegate void MakoCreateEventHandler(object sender, EventArgs e);
 
+        /// <summary>
+        /// Occurs when the mako template engine has been init
+        /// </summary>
+        public event MakoCreateEventHandler MakoGeneration;
     /// <summary>
     /// Gets or sets the parent view for this Spofity instance
     /// </summary>
@@ -27,6 +37,7 @@ namespace Board
         /// <param name="uri">The uri to the current playing</param>
         /// <returns>A boolean whether the playing could be started or not</returns>
         public delegate bool ElementPlaybackStarted(Spofity sender,Element element, String uri);
+
 
         /// <summary>
         /// occurs when an track has been choosed for playback
@@ -394,6 +405,18 @@ namespace Board
                 // Lower attribute names so we don't get any trouble
                 elm.SetAttribute(_attribute.Name.ToLower(), _attribute.Value);
             }
+            /**
+             * 2011-04-25 17:12 
+             * The song name screwed up so much so we decided to change many things in the application!
+             * Now attributes to the element can be done through sub elements!
+             * */
+            foreach (XmlNode CT in node.ChildNodes)
+            {
+                if (CT.GetType() == typeof(XmlElement))
+                {
+                    elm.SetAttribute( CT.Name.ToLower(), CT.InnerText);
+                }
+            }
         }
         /// <summary>
         /// Function to parse an css clausul.
@@ -592,6 +615,8 @@ namespace Board
                 
                 // Create additional makoengine
                 MakoEngine ME = new MakoEngine();
+                if (this.MakoGeneration != null)
+                    this.MakoGeneration(ME, new EventArgs());
                 XmlElement _Element = (XmlElement)CT;
                     String ViewMako = "";
                 // Load the view by the attribute src but if the name starts with component_ inflate instead it from the tag name in the folder components
@@ -616,7 +641,7 @@ namespace Board
 
                    
                 // Otherwise preprocess the layer.
-                    String Result = ME.Preprocess(ViewMako,"");
+                    String Result = ME.Preprocess(ViewMako,"",true);
 
                 // then inflate the data
                 // Create xml document
@@ -884,6 +909,59 @@ namespace Board
             }
         }
         /// <summary>
+        /// Hashcode of the LayoutElements XMLDocument
+        /// </summary>
+        private int xmlHashCode = 0;
+
+    /// <summary>
+    /// Returns whether the LayoutElements has been changed since last occuration
+    /// </summary>
+        public void CheckPendingChanges()
+        {
+            
+                /** If the hashcode of the LayoutElements is different from the one stored
+                 * there is an update ongoing
+                 * */
+                if (xmlHashCode != LayoutElements.GetHashCode())
+                {
+                    xmlHashCode = LayoutElements.GetHashCode();
+
+                    // Update the views
+                 
+                }
+                
+            
+        }
+        /// <summary>
+        /// Should be called from an background thread to update the layout elements to new ones. 
+        /// </summary>
+        public void UpdateAsync()
+        {
+           
+             
+
+            /**
+             * Preprocess the page again
+             * */
+            String r = this.Engine.Preprocess(this.TemplateCode,this.Parameter,false);
+
+            /**
+             * Only refresh the layout elements and thus the render elements
+             * if the new rendering results in changes and not an error token
+             * */
+            if(r != "NONCHANGE" && !r.StartsWith("ERROR:"))
+            {
+           
+                XmlDocument XD = new XmlDocument();
+                XD.LoadXml(r);
+
+                // Render new time
+                this.LayoutElements = XD;
+                this.Render();
+            }
+
+        }
+        /// <summary>
         /// Method to configure scripts dom manipulation functions on layout element
         /// </summary>
         public void SetScriptFunctionality()
@@ -907,76 +985,90 @@ namespace Board
 	    /// <summary>
 	    /// Load an custom HTML page into the special section.
         /// 
-        /// It have to be preparsed by the MakoEngine
+        /// It have to be preparsed by the MakoEngine.
 	    /// </summary>
+        /// <remarks>Objects must now call Initialize to make it work perform. The reason for change is to make it able to set event handlers for MakoCreation</remarks>
 	    /// <param name="data">The ready preprocessed data from Mako alt. common html data</param>
-	    public Spofity(string data,MakoEngine engine)
+	    public Spofity()
 	    {
-            this.Receivers = new List<ContentReceiver>();
-            try
-            {
-
-                this.Engine = engine;
-                SetScriptFunctionality();
-               
-                // Create xml document
-                XmlDocument d = new XmlDocument();
-                
-               
-                d.LoadXml(data);
-
-                // Set this layoutelements to the xmldocument loaded
-                this.LayoutElements = d;
-
-                this.View = new View();
-                // iterate through all sections of the page
-                XmlNodeList Sections = d.GetElementsByTagName("section");
-                foreach (XmlElement iSection in Sections)
-                {
-
-                    // If the section element not has the root element as parent skip it
-                    if (iSection.ParentNode.Name != "view")
-                        continue;
-                    // Create new section
-                    Section _Section = new Section();
-
-                    // set section name
-                    _Section.Name = iSection.GetAttribute("name");
-
-                    // set section as an list (show listheaders) if list attribute exists
-                    _Section.List = iSection.HasAttribute("list");
-
-                    // Render element sections
-                    _Section = RenderSection(_Section, iSection);
-
-                    this.view.Sections.Add(_Section);
-
-
-                }
-
-                LoadData();
-            }
-            catch
-            {
-
-            }
+           
+        
 	        
-	   
 	
 	
 	
 	    }
-	 	public Spofity()
-	    {
-	           
-	
-	        /*   XmlDocument SR = new XmlDocument();
-	            SR.Load(uri);   */
-	
-	        this.View = new View();
-	        this.view.Sections.Add(new Section());
-	
-	    }
+        /// <summary>
+        /// Holds the preprocessed template
+        /// </summary>
+        public String TemplateCode { get; set; }
+        /// <summary>
+        /// The view instances parameter
+        /// </summary>
+        public String Parameter { get; set; }
+
+    /// <summary>
+    /// Initializes the view
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="engine"></param>
+    /// <param name="pretemplate">The mako syntaxed template. Used for recurring updates</param>
+        public void Initialize(string parameter,string pretemplate, string data, MakoEngine engine)
+        {
+            this.Receivers = new List<ContentReceiver>();
+
+            /**
+             * 
+             * Associate instance data
+             * */
+
+            this.Parameter = parameter;
+
+            this.Engine = engine;
+            this.TemplateCode = pretemplate;
+            SetScriptFunctionality();
+
+            // Create xml document
+            XmlDocument d = new XmlDocument();
+
+
+            d.LoadXml(data.Replace(";",""));
+
+            // Set the xmlHashCode to the xmldocument's instance so it won't be any collision
+            this.xmlHashCode = d.GetHashCode();
+            // Set this layoutelements to the xmldocument loaded
+            this.LayoutElements = d;
+
+
+            this.View = new View();
+            // iterate through all sections of the page
+            XmlNodeList Sections = d.GetElementsByTagName("section");
+            foreach (XmlElement iSection in Sections)
+            {
+
+                // If the section element not has the root element as parent skip it
+                if (iSection.ParentNode.Name != "view")
+                    continue;
+                // Create new section
+                Section _Section = new Section();
+
+                // set section name
+                _Section.Name = iSection.GetAttribute("name");
+
+                // set section as an list (show listheaders) if list attribute exists
+                _Section.List = iSection.HasAttribute("list");
+
+                // Render element sections
+                _Section = RenderSection(_Section, iSection);
+
+                this.view.Sections.Add(_Section);
+
+
+            }
+
+            LoadData();
+        }
+	 
 	    void Spofity_FinishedLoading()
 	    {	
 	

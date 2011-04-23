@@ -19,9 +19,34 @@ namespace Board
     public partial class DrawBoard : UserControl
     {
 
+
+        /// <summary>
+        /// Delegate for playback start event handlers
+        /// </summary>
+        /// <param name="sender">the board where the event is happening on</param>
+        /// <param name="Url">An url to the object which request playback</param>
+        /// <returns>should return true if the playback can be started, if not return FALSE</returns>
         public delegate bool PlaybackStartEvent(object sender, String Url);
         public event PlaybackStartEvent PlaybackRequested;
+
+        /// <summary>
+        /// Delegate for events relating to navigation
+        /// </summary>
+        /// <param name="sender">the Spofity instance resposible for the new view</param>
+        /// <param name="uri">the uri for navigation</param>
+        public delegate void NavigateEventHandler(object sender, string uri);
+
       
+
+        /// <summary>
+        /// Occurs when the board is navigating to an new uri. 
+        /// </summary>
+        public event NavigateEventHandler AfterNavigating;
+
+        /// <summary>
+        /// Occurs when the navigation has been finished. The first parameteer sender wwill provide an instance of MakoEngine
+        /// </summary>
+        public event NavigateEventHandler BeginNavigating;
         public bool Snart =true;
         public Color Section
         {
@@ -358,6 +383,17 @@ namespace Board
             public Spofity Content;
         }
         /// <summary>
+        /// Delegate which manage events for mako creation
+        /// </summary>
+        /// <param name="sender">the current instance to mako</param>
+        /// <param name="e">eventargs</param>
+        public delegate void MakoCreateEventHandler(object sender, EventArgs e);
+
+        /// <summary>
+        /// Occurs when the mako template engine has been init
+        /// </summary>
+        public event MakoCreateEventHandler MakoGeneration;
+        /// <summary>
         /// Method to load an view asynchronisly
         /// </summary>
         /// <param name="address"></param>
@@ -395,10 +431,17 @@ namespace Board
                 {
                     MessageBox.Show("Invalid view");
                 }
-
-                // Format the string
+              
+                // Create mako and ask for initialization code
                 ME = new MakoEngine();
-                output = ME.Preprocess(rawSource,view.Argument);
+                if (MakoGeneration != null)
+                    MakoGeneration(ME, new EventArgs());
+
+                // If there is an prenavigated event handler defined, raise it
+                if (BeginNavigating != null)
+                    BeginNavigating(ME, ((View)address).Address);
+
+                output = ME.Preprocess(rawSource,view.Argument,false);
 
                 /**
                  * If something did go wrong during the load, eg returns an string starting with the
@@ -418,8 +461,10 @@ namespace Board
                 }
 
                 // Finaly start the view
-                Spofity R = new Spofity(output,ME);
-    
+                Spofity R = new Spofity();
+
+                R.MakoGeneration += new Spofity.MakoCreateEventHandler(R_MakoGeneration);
+                R.Initialize(((View)address).Argument,rawSource,output, ME);
 
                 // Create an proxy handler so people can interact with each spofity
                 R.PlaybackStarted += new Spofity.ElementPlaybackStarted(R_PlaybackStarted);
@@ -429,8 +474,19 @@ namespace Board
                 // set the  spofity's parent view to CurrentView
                 R.ParentView = view;
                 CurrentView = view;
+
+                // If there is an afternavigated event handler defined, raise it
+                if (AfterNavigating != null)
+                    AfterNavigating(R, ((View)address).Address);
+
+
             }
            
+        }
+
+        void R_MakoGeneration(object sender, EventArgs e)
+        {
+            this.MakoGeneration(sender, e);
         }
 
         /// <summary>
@@ -568,17 +624,46 @@ namespace Board
         /// <param name="token"></param>
         public void DownloadImage(object token)
         {
-            try
-            {
-                WebClient X = new WebClient();
+            // Get image string
+            string address = (string)token;
 
-                Image R = Bitmap.FromStream(X.OpenRead((string)token));
-                Images.Add((string)token, R);
-            }
-            catch (Exception e)
+            // if the address points to an local file (not starting with http:) start an local file process instead
+            if (address.StartsWith("http:"))
             {
-            }
+                try
+                {
+                    // Create an webclient and download the image from the internet and read it into an bitmap stream
+                    WebClient X = new WebClient();
 
+                    Image R = Bitmap.FromStream(X.OpenRead((string)token));
+
+                    // Add the bitmap to the list
+                    Images.Add((string)token, R);
+                }
+                catch (Exception e)
+                {
+                }
+            }
+            else
+                
+            {
+                try
+                {
+                    // Load the local image into an bitmap stream
+                    Image img = Bitmap.FromFile(address);
+
+                    // add it to the images list
+                    Images.Add(address, img);
+                }
+                catch
+                {
+                    try
+                    {
+                        Images.Add(address, Resource1.release);
+                    }
+                    catch { }
+                }
+            }
         }
         Dictionary<String,Image> Images;
         /// <summary>
@@ -863,7 +948,8 @@ namespace Board
             /**
              * Get screen coordinates of the element
              * */
-          
+            if (_Element.Top + _Element.Height < scrollY)
+                return;
 
             int height = Bounds.Height;
             int left = Bounds.Left;
@@ -971,14 +1057,19 @@ namespace Board
                             // FOnt for use to the column
                             Font setFont = labelFont;
                             int column = Column.Value;
-                            String title = Column.Key;
-
+                            String title = Column.Key.ToLower();
+                            // Set special color if provided
+                            Color fg = ForeGround;
+                            if (_Element.GetAttribute("color_" + title) != "" && !_Element.Selected)
+                            {
+                                fg = ColorTranslator.FromHtml(_Element.GetAttribute("color_" + title));
+                            }
                             // If cursor is inside the boundaries, the column has an link then underline the font
                             if (mouseX >= column_position && mouseX <= column_position + column && mouseY >= top && mouseY <= top + height &&_Element.GetAttribute("href_"+title.ToLower())!="")  
                             {
                                 setFont = new Font(setFont, FontStyle.Underline);
                             }
-                           d.DrawString(_Element.GetAttribute(Column.Key.ToLower()), setFont, new SolidBrush(ForeGround), new Point( column_position, top + 2));
+                           d.DrawString(_Element.GetAttribute(Column.Key.ToLower()), setFont, new SolidBrush(fg), new Point( column_position, top + 2));
                            column_position += column;
                         }
 
@@ -1061,7 +1152,7 @@ namespace Board
                     break;
                 case "section":
                     d.FillRectangle(new SolidBrush(Section), new Rectangle(0, top, width, height));
-                    d.DrawString(_Element.GetAttribute("text"), new Font("Arial Black", 10), new SolidBrush(Fg), new Point(left, top));
+                    d.DrawString(_Element.Data, new Font("Arial Black", 10), new SolidBrush(Fg), new Point(left, top));
                    
                     break;
                 case "divider":
@@ -1198,16 +1289,16 @@ namespace Board
         /// <param name="CurrentView"> The view to base from</param>
 
         
-
+     
         
         public void Draw(Graphics p)
         {
             try
             {
-                this.pictureBox1.Left = this.Width / 2 - this.pictureBox1.Width / 2;
+          /*      this.pictureBox1.Left = this.Width / 2 - this.pictureBox1.Width / 2;
                 this.pictureBox1.Top = this.Height / 2 - this.pictureBox1.Height / 2;
                 // Show progress icon if current view is loading...
-                this.pictureBox1.Visible = this.CurrentView.Content == null;
+                this.pictureBox1.Visible = this.CurrentView.Content == null;*/
                 this.BackColor = Color.FromArgb(50, 50, 50);
                 if (CurrentView != null)
                 {
@@ -1267,41 +1358,42 @@ namespace Board
                 d.DrawLine(new Pen(Color.FromArgb(128, 128, 128)), new Point(0, tabbar_height), new Point(this.Bounds.Width, tabbar_height));
                 if (CurrentView != null)
                     if (CurrentView.Content != null)
-                        // Draw all section bar
-                        for (int i = 0; i < CurrentView.Content.View.Sections.Count; i++)
-                        {
-                            Section section = CurrentView.Content.View.Sections[i];
-                            // if you are at the current section draw the panes
-
-
-                            if (currentSection == i)
+                        if (CurrentView.Content.View != null)
+                            // Draw all section bar
+                            for (int i = 0; i < CurrentView.Content.View.Sections.Count; i++)
                             {
+                                Section section = CurrentView.Content.View.Sections[i];
+                                // if you are at the current section draw the panes
 
-                                // Draw section tab, load if nulll
-                                if (sectionTab == null)
+
+                                if (currentSection == i)
                                 {
-                                    sectionTab = Resource1.tab;
-                                }
-                                // draw the tab bar
-                                d.DrawImage(sectionTab, new Rectangle(tabbar_start + i * (tab_width + tab_distance), 1, tab_width, tabbar_height));
 
-                                // draw the tab background
-                                d.DrawString(section.Name, new Font("MS Sans Serif", 8), new SolidBrush(Color.FromArgb(255, 255, 211)), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, tab_text_margin / 5));
-                            }
-                            else
-                            {
-                                // Draw section tab, load if nulll
-                                if (inactive_section_tab == null)
+                                    // Draw section tab, load if nulll
+                                    if (sectionTab == null)
+                                    {
+                                        sectionTab = Resource1.tab;
+                                    }
+                                    // draw the tab bar
+                                    d.DrawImage(sectionTab, new Rectangle(tabbar_start + i * (tab_width + tab_distance), 1, tab_width, tabbar_height));
+
+                                    // draw the tab background
+                                    d.DrawString(section.Name, new Font("MS Sans Serif", 8), new SolidBrush(Color.FromArgb(255, 255, 211)), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, tab_text_margin / 5));
+                                }
+                                else
                                 {
-                                    inactive_section_tab = Resource1.inactive;
-                                }
-                                // draw the tab bar
-                                d.DrawImage(inactive_section_tab, new Rectangle(tabbar_start + ((tab_distance + tab_width) * i), 1, tab_width, tabbar_height - 1));
+                                    // Draw section tab, load if nulll
+                                    if (inactive_section_tab == null)
+                                    {
+                                        inactive_section_tab = Resource1.inactive;
+                                    }
+                                    // draw the tab bar
+                                    d.DrawImage(inactive_section_tab, new Rectangle(tabbar_start + ((tab_distance + tab_width) * i), 1, tab_width, tabbar_height - 1));
 
-                                d.DrawString(section.Name, new Font("MS Sans Seif", 8), new SolidBrush(Color.Black), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, tab_text_margin / 5));
-                                d.DrawString(section.Name, new Font("MS Sans Seif", 8), new SolidBrush(Color.White), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, +tab_text_margin / 5 - 1));
+                                    d.DrawString(section.Name, new Font("MS Sans Seif", 8), new SolidBrush(Color.Black), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, tab_text_margin / 5));
+                                    d.DrawString(section.Name, new Font("MS Sans Seif", 8), new SolidBrush(Color.White), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, +tab_text_margin / 5 - 1));
+                                }
                             }
-                        }
                 /**
                  * Draw the scrollbar
                  * */
@@ -1335,42 +1427,38 @@ namespace Board
                 /***
                 * If the Section is an list, draw listheaders
                 * */
-                try
-                {
-                    if(CurrentView.Content!=null)
-                    if (CurrentView.Content.View.Sections[currentSection].List)
-                    {
-                        // Get the first entry element
-                        Element firstEntry = null;
-                        foreach (Element elm in CurrentView.Content.View.Sections[currentSection].Elements)
+
+                if (CurrentView.Content != null)
+                    if (CurrentView.Content.View != null)
+                        if (CurrentView.Content.View.Sections[currentSection].List)
                         {
-                            if (elm.Type == "entry")
+                            // Get the first entry element
+                            Element firstEntry = null;
+                            foreach (Element elm in CurrentView.Content.View.Sections[currentSection].Elements)
                             {
-                                firstEntry = elm;
-                                break;
+                                if (elm.Type == "entry")
+                                {
+                                    firstEntry = elm;
+                                    break;
+                                }
+                            }
+                            // If an first entry was found draw the headers straight above it or on the top of the view
+                            if (firstEntry != null)
+                            {
+                                Rectangle bounds = firstEntry.GetCoordinates(scrollX, scrollY, new Rectangle(0, 0, this.Bounds.Width, this.Bounds.Height), 0);
+
+                                // if the first entry top were above the visible coordinates draw it on the top
+                                if (bounds.Top < tabbar_height + bounds.Height)
+                                {
+                                    DrawHeaders(d, new Point(0, +tabbar_height));
+                                }
+                                else
+                                {
+                                    DrawHeaders(d, new Point(0, bounds.Top - bounds.Height));
+                                }
                             }
                         }
-                        // If an first entry was found draw the headers straight above it or on the top of the view
-                        if (firstEntry != null)
-                        {
-                            Rectangle bounds = firstEntry.GetCoordinates(scrollX, scrollY, new Rectangle(0, 0, this.Bounds.Width, this.Bounds.Height), 0);
 
-                            // if the first entry top were above the visible coordinates draw it on the top
-                            if (bounds.Top < tabbar_height + bounds.Height)
-                            {
-                                DrawHeaders(d, new Point(0, +tabbar_height));
-                            }
-                            else
-                            {
-                                DrawHeaders(d, new Point(0, bounds.Top - bounds.Height));
-                            }
-                        }
-                    }
-                }
-
-                catch
-                {
-                }
                 /***
                  * Render the image
                  * */
@@ -1766,11 +1854,12 @@ namespace Board
                     if (mouseX >= Bounds.Left && mouseX <= Bounds.Width + Bounds.Left && mouseY >= Bounds.Top && mouseY <= Bounds.Top + Bounds.Height)
                     {
                         // If the element has an onclick handler, execute the script
-                        if (_Element.GetAttribute("ondblclick") != null)
+                        if (_Element.GetAttribute("ondblclick") !="")
                         {
                             CurrentView.Content.ScriptEngine.Run(_Element.GetAttribute("ondblclick"));
+                            return;
                         }
-                        return;
+                       
                     }
                     switch (_Element.Type)
                     {
@@ -1890,6 +1979,34 @@ namespace Board
                     t.Receivers.Remove(receiver);
                 }
             }
+        }
+        /// <summary>
+        /// Update the view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tmrViewUpdate_Tick(object sender, EventArgs e)
+        {
+            /***
+             * Re-render the layout elements
+             * */
+            if(this.currentView!=null)
+                if (this.CurrentView.Content != null)
+                {
+                    Thread c = new Thread(currentView.Content.UpdateAsync);
+                    c.Start();
+                    
+                }
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            if (CurrentView != null)
+                if (CurrentView.Content != null)
+                {
+                    Thread r = new Thread(CurrentView.Content.CheckPendingChanges);
+                    r.Start();
+                }
         }
     }
    

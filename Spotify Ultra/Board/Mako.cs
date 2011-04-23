@@ -14,10 +14,27 @@ namespace Board
     /// </summary>
     public class MakoEngine
     {
+        /// <summary>
+        /// Returns the old output
+        /// </summary>
+        public String OldOutput { get; set; }
+        /// <summary>
+        /// Raises the create event handler. Useful to add features to the engine before running
+        /// </summary>
+        /// <param name="sender">The current instance of MakoEngine</param>
+        /// <param name="e">EventArg</param>
+        public delegate void CreateEventHandler(object sender, EventArgs e);
+        public event CreateEventHandler Create;
         public MakoEngine()
         {
             // Initialize runtime engine. For now we use JavaScriptEngine
             RuntimeMachine = new JavaScriptEngine();
+            
+            // Raise create event handler
+            if (this.Create!=null)
+            {
+                this.Create(this, new EventArgs());
+            }
         }
         String Output = "";
         /// <summary>
@@ -229,9 +246,11 @@ namespace Board
         /// </summary>
         /// <param name="input">The input string to parse</param>
         /// <param name="argument">The argument sent to the parser</param>
-        public String Preprocess(string input,string argument)
+        public String Preprocess(string input,string argument,bool inflate)
         {
-            /***
+            // Clear the output buffer
+            Output = "";
+            /**
              * Tell the runtime machine about the argument
              * */
             RuntimeMachine.SetVariable("parameter", argument);
@@ -353,13 +372,25 @@ namespace Board
              * Try run the page. If there was error return ERROR: <error> message so the
              * handler can choose to present it to the user
              * */
-             try
-             {
-                 RuntimeMachine.Run(CallStack);
-             }
-            catch(Exception e)
-             {
-                return "ERROR: "+e.Message;
+            try
+            {
+                RuntimeMachine.Run(CallStack);
+
+                /**
+                 * Check if the result of the preprocessing is the same as before. If nothing
+                 * has changed return NONCHANGE. This is only for rendering whole pages, not inflate.
+                 * */
+                if (!inflate)
+                {
+                    if (Output == OldOutput)
+                        return "NONCHANGE";
+
+                    OldOutput = Output;
+                }
+            }
+            catch (Exception e)
+            {
+                return "ERROR: " + e.Message;
             }
             return this.Output;
 

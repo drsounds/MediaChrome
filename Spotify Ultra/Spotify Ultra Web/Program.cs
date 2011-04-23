@@ -24,10 +24,14 @@ namespace SpofityRuntime
 		private static AutoResetEvent loggedOut = new AutoResetEvent(false);
 		public static Track currentTrack = null;
 		public static bool Sucess=false;
+
+        public static Dictionary<String, MediaChrome.IPlayEngine> MediaEngines = new Dictionary<string, MediaChrome.IPlayEngine>();
+
 		public static Login DK;
         [STAThread]
         static void Main(string[] arguments)
         {
+            MediaEngines.Add("mp3",new MediaChrome.MP3Player());
             if (Process.GetProcessesByName("SpofityRuntime").Length > 0)
             {
                 IntPtr Already = FindWindowEx((IntPtr)null, (IntPtr)null, "", "ERS");

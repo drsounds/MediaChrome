@@ -17,7 +17,7 @@
 	<section name="component">
 		<label left="150"  height="23" top="@top" width="320"  href="@{uri}">@{album_name}</label>
 		
-		<img src="http://www.dn.se/images/2011/04/20/elisabeth_130.jpg" width="128" height="128" top="@TOP" href="@{uri}" persistent="true"/>
+		<img  left="10" src="" width="128" height="128" top="@TOP" href="@{uri}" persistent="true"/>
 		<!-- An example tracklist -->
 <?
 function zeroNumber(no){	
@@ -38,11 +38,14 @@ for(var i=0; i < songs.Count; i++){
 	var album_href = song.GetElementsByTagName("album").Item(0).GetAttribute("href");
 
 	var primary = song.GetElementsByTagName("artist").Item(0);
-	var artist = primary.GetElementsByTagName("name").Item(0).InnerText.replace("&","and").replace("\"","").replace("'","");;
+	
+	
+	
+	var coartist = primary.GetElementsByTagName("name").Item(0).InnerText.replace("&","and").replace("\"","").replace("'","");;
 	var artist_uri = primary.GetAttribute("href");
 	
 	/* Only show artist if not equal to the album's artist */
-	var displayArtist = artist != artist_name ? artist : "";
+	var displayArtist = coartist != artist ? artist : " ";
 		/* If href matches the input assert the song */ 
 		
 	/* If the albums uri is equal to the one provided show songs */
@@ -51,7 +54,7 @@ for(var i=0; i < songs.Count; i++){
 		trackNo++;
 ?>
 
-		<entry left="150" top="@TOP" height="18" uri="@{href}" no="@{zeroNumber(trackNo)}" artist="@{displayArtist}" title="@{title}" href_artist="@{artist_uri}" collection="" album=""/>
+		<entry left="150" top="@TOP" height="18" uri="@{href}" no="@{zeroNumber(trackNo)}" artist="" title="@{title}" href_artist="" collection="" album=""/>
 % }  if(trackNo < 10){
 	<space height="100"/>
 % }

@@ -62,7 +62,21 @@ namespace SpofityRuntime.Properties {
         
         internal static System.Drawing.Bitmap ajax_loader {
             get {
-                object obj = ResourceManager.GetObject("ajax-loader", resourceCulture);
+                object obj = ResourceManager.GetObject("ajax_loader", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ajax_loader1 {
+            get {
+                object obj = ResourceManager.GetObject("ajax_loader1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ascendia {
+            get {
+                object obj = ResourceManager.GetObject("ascendia", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -70,6 +84,48 @@ namespace SpofityRuntime.Properties {
         internal static System.Drawing.Bitmap back {
             get {
                 object obj = ResourceManager.GetObject("back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap bar {
+            get {
+                object obj = ResourceManager.GetObject("bar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap bar1 {
+            get {
+                object obj = ResourceManager.GetObject("bar1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap bar2 {
+            get {
+                object obj = ResourceManager.GetObject("bar2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap barx {
+            get {
+                object obj = ResourceManager.GetObject("barx", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap barx1 {
+            get {
+                object obj = ResourceManager.GetObject("barx1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button {
+            get {
+                object obj = ResourceManager.GetObject("button", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -88,6 +144,27 @@ namespace SpofityRuntime.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap buttondown {
+            get {
+                object obj = ResourceManager.GetObject("buttondown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap buttondownx {
+            get {
+                object obj = ResourceManager.GetObject("buttondownx", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap buttonx {
+            get {
+                object obj = ResourceManager.GetObject("buttonx", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap column {
             get {
                 object obj = ResourceManager.GetObject("column", resourceCulture);
@@ -102,13 +179,6 @@ namespace SpofityRuntime.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap column_header1 {
-            get {
-                object obj = ResourceManager.GetObject("column_header1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap columnlimiter {
             get {
                 object obj = ResourceManager.GetObject("columnlimiter", resourceCulture);
@@ -119,6 +189,20 @@ namespace SpofityRuntime.Properties {
         internal static System.Drawing.Bitmap columnx {
             get {
                 object obj = ResourceManager.GetObject("columnx", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap divider {
+            get {
+                object obj = ResourceManager.GetObject("divider", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap divider1 {
+            get {
+                object obj = ResourceManager.GetObject("divider1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -144,20 +228,6 @@ namespace SpofityRuntime.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap kan11 {
-            get {
-                object obj = ResourceManager.GetObject("kan11", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap kan12 {
-            get {
-                object obj = ResourceManager.GetObject("kan12", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap kan2 {
             get {
                 object obj = ResourceManager.GetObject("kan2", resourceCulture);
@@ -165,9 +235,16 @@ namespace SpofityRuntime.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap kan21 {
+        internal static System.Drawing.Bitmap line {
             get {
-                object obj = ResourceManager.GetObject("kan21", resourceCulture);
+                object obj = ResourceManager.GetObject("line", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap page {
+            get {
+                object obj = ResourceManager.GetObject("page", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -186,9 +263,44 @@ namespace SpofityRuntime.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap play2 {
+            get {
+                object obj = ResourceManager.GetObject("play2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap progresmeter {
+            get {
+                object obj = ResourceManager.GetObject("progresmeter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap progresmeter1 {
+            get {
+                object obj = ResourceManager.GetObject("progresmeter1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap rbottom {
+            get {
+                object obj = ResourceManager.GetObject("rbottom", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap searchbtn {
             get {
                 object obj = ResourceManager.GetObject("searchbtn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap searchbtn1 {
+            get {
+                object obj = ResourceManager.GetObject("searchbtn1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -200,9 +312,23 @@ namespace SpofityRuntime.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap searchfield1 {
+            get {
+                object obj = ResourceManager.GetObject("searchfield1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap searchfield2 {
             get {
                 object obj = ResourceManager.GetObject("searchfield2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap searchfield21 {
+            get {
+                object obj = ResourceManager.GetObject("searchfield21", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -214,23 +340,37 @@ namespace SpofityRuntime.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap spotify_core_logo_128x128 {
+        internal static System.Drawing.Bitmap searchfield31 {
             get {
-                object obj = ResourceManager.GetObject("spotify-core-logo-128x128", resourceCulture);
+                object obj = ResourceManager.GetObject("searchfield31", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap star_off {
+        internal static System.Drawing.Bitmap section {
             get {
-                object obj = ResourceManager.GetObject("star_off", resourceCulture);
+                object obj = ResourceManager.GetObject("section", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap star_on {
+        internal static System.Drawing.Bitmap separator {
             get {
-                object obj = ResourceManager.GetObject("star_on", resourceCulture);
+                object obj = ResourceManager.GetObject("separator", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap separator1 {
+            get {
+                object obj = ResourceManager.GetObject("separator1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap separator2 {
+            get {
+                object obj = ResourceManager.GetObject("separator2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -266,6 +406,13 @@ namespace SpofityRuntime.Properties {
         internal static System.Drawing.Bitmap top_wall1 {
             get {
                 object obj = ResourceManager.GetObject("top_wall1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap top_wall2 {
+            get {
+                object obj = ResourceManager.GetObject("top_wall2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -74,6 +74,13 @@ namespace Board {
             }
         }
         
+        internal static System.Drawing.Bitmap release {
+            get {
+                object obj = ResourceManager.GetObject("release", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap scrollbar {
             get {
                 object obj = ResourceManager.GetObject("scrollbar", resourceCulture);
