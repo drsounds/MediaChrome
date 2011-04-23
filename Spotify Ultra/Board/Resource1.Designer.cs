@@ -60,6 +60,13 @@ namespace Board {
             }
         }
         
+        internal static System.Drawing.Bitmap ajax_loader {
+            get {
+                object obj = ResourceManager.GetObject("ajax-loader", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap inactive {
             get {
                 object obj = ResourceManager.GetObject("inactive", resourceCulture);

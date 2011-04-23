@@ -101,6 +101,7 @@
     <Compile Include="frmBoard.Designer.cs">
       <DependentUpon>frmBoard.cs</DependentUpon>
     </Compile>
+    <Compile Include="IScriptEngine.cs" />
     <Compile Include="MainForm.cs" />
     <Compile Include="Mako.cs" />
     <Compile Include="MakoParser.cs">
@@ -177,6 +178,7 @@
     <None Include="scrollbar_down.png" />
     <None Include="scrollbar_space.png" />
     <None Include="scrollbar_thumb.png" />
+    <None Include="Resources\ajax-loader.gif" />
     <Content Include="TextFile1.txt" />
   </ItemGroup>
 </Project>

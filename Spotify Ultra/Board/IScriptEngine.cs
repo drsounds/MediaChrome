@@ -9,7 +9,7 @@ namespace Board
     /// Interface for dealing with various script engines to connect. All engines must be wrapped by this interface.
     /// </summary>
 
-    interface IScriptEngine
+    public interface IScriptEngine
     {
         
         /// <summary>
@@ -53,7 +53,7 @@ namespace Board
         /// </summary>
         /// <param name="scriptCode">The string with the javascript code</param>
         /// <returns>True if sucess, false if failed </returns>
-        bool Execute(string scriptCode)
+        public bool  Run(string scriptCode)
         {
             try
             {
@@ -73,7 +73,7 @@ namespace Board
         /// </summary>
         /// <param name="variableName">The name of the instance at the script level</param>
         /// <param name="varInstance">The object to send</param>
-        void SetVariable(string variableName, object varInstance)
+        public void SetVariable(string variableName, object varInstance)
         {
             scriptEngine.SetParameter(variableName, varInstance);
         }
@@ -83,7 +83,7 @@ namespace Board
         /// </summary>
         /// <param name="functionName">The desired alias for the function at script level</param>
         /// <param name="functionPointer">The delegate for the function to use at script</param>
-        void SetFunction(string functionName, Delegate functionPointer)
+        public void SetFunction(string functionName, Delegate functionPointer)
         {
             scriptEngine.SetFunction(functionName, functionPointer);
         }

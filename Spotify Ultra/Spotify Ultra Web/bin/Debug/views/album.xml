@@ -20,6 +20,6 @@
 	<section name="Overview">
 		<!-- An example tracklist -->
 		<inflate src="components/album.xml" artist="@{artist}" name="@{name}" uri="spotify:album:@{parameter}"/>
-		<label left="150" height="10" size="8" color="#888888" top="@TOP">(C) 2011 Amalia Productions. All rights reserved</label>
+		
 	</section>
 </view>

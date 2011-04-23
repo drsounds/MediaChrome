@@ -1,0 +1,15 @@
+<?
+
+function event_handler(){
+var elm = $("label_me");
+	setContent(elm,"Hayla!");
+	commit();
+	
+}
+?>
+
+<view>
+	<section name="Debug view">
+		<label width="500" top="@TOP" height="10" id="label_me" ondblclick="event_handler()">Click me</label>
+	</section>
+</view>

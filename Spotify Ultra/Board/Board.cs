@@ -169,11 +169,12 @@ namespace Board
                                 if (mouseX >= Bounds.Left && mouseX <= Bounds.Width + Bounds.Left && mouseY >= Bounds.Top && mouseY <= Bounds.Top + Bounds.Height)
                                 {
                                     // If the element has an onclick handler, execute the script
-                                    if (_Element.GetAttribute("onclick") != null)
+                                    if (_Element.GetAttribute("onclick") != "")
                                     {
                                         CurrentView.Content.ScriptEngine.Run(_Element.GetAttribute("onclick"));
+                                        return;
                                     }
-                                    return;
+                                   
                                 }
                                 if (_Element.Type == "entry")
                                 {
@@ -417,7 +418,8 @@ namespace Board
                 }
 
                 // Finaly start the view
-                Spofity R = new Spofity(output);
+                Spofity R = new Spofity(output,ME);
+    
 
                 // Create an proxy handler so people can interact with each spofity
                 R.PlaybackStarted += new Spofity.ElementPlaybackStarted(R_PlaybackStarted);
@@ -912,8 +914,8 @@ namespace Board
             bool hovered = (_Element.GetAttribute("hover") == "true");
             Font labelFont = new Font(fontName, textSize, hovered ? FontStyle.Underline : FontStyle.Regular);
 
-           
-           
+
+
             
 
             // 
@@ -1188,6 +1190,7 @@ namespace Board
             }
 
         }
+
         /// <summary>
         /// Draw inside an certain view
         /// </summary>
@@ -1199,173 +1202,183 @@ namespace Board
         
         public void Draw(Graphics p)
         {
-
-            this.BackColor = Color.FromArgb(50, 50, 50);
-            if (CurrentView != null)
-            {  
-                if(CurrentView.Content!=null)
-                    if (CurrentView.Content.View == null)
-                       CurrentView.Content.Serialize();
-            }
-
-            int entryship = 0;
-            
-            // Top increases after all elements to get a page feeling 
-            // (next element below the previous, when elements has an @TOP value as top paramater (-1))
-            int ptop=20 ;
-            
-            if (D == null)
-                D = new BufferedGraphicsContext();
-            BufferedGraphics R = D.Allocate(p, new Rectangle(0,0,this.Bounds.Width,this.Bounds.Height));
-            Graphics d = R.Graphics;
-            d.FillRectangle(new SolidBrush(Bg), new Rectangle(0, 0, this.Bounds.Width, this.Bounds.Height));
-
-            /**
-             * If the currentView isn't null begin draw all elements on the board
-             * */
-            if(CurrentView!=null)
-                if(CurrentView.Content != null)
-                    if (CurrentView.Content.View != null)
-                        for (int i = 0; i < CurrentView.Content.View.Sections[currentSection].Elements.Count; i++)
-                        {
-                            // Calculate the view coordinates of the element
-
-                            Element _Element = CurrentView.Content.View.Sections[currentSection].Elements[i];
-                            Rectangle ScreenCoordinates = _Element.GetCoordinates(scrollX, scrollY , this.Bounds, 0);
-                            // Draw the element and it's children
-                             DrawElement(_Element, d, ref entryship, ScreenCoordinates,3);
-                   
-
-                  
-                   
-
-
-
-                        }
-            
-           
-        
-
-
-           
-
-            /***
-             * Draw the tab header on top
-             * */
-
-           
-            // draw an bounding rectangle
-            d.FillRectangle(new SolidBrush(Color.Black), new Rectangle(0, 0, this.Bounds.Width, tabbar_height));
-            d.DrawLine(new Pen(Color.FromArgb(128, 128, 128)), new Point(0, tabbar_height), new Point(this.Bounds.Width, tabbar_height));
-           if(CurrentView!=null)
-               if(CurrentView.Content!=null)
-                // Draw all section bar
-                for (int i = 0; i < CurrentView.Content.View.Sections.Count; i++)
-                {
-                    Section section = CurrentView.Content.View.Sections[i];
-                    // if you are at the current section draw the panes
-
-                   
-                    if (currentSection == i)
-                    {
-
-                        // Draw section tab, load if nulll
-                        if (sectionTab == null)
-                        {
-                            sectionTab = Resource1.tab;
-                        }
-                        // draw the tab bar
-                        d.DrawImage(sectionTab, new Rectangle(tabbar_start + i*(tab_width+tab_distance), 1,tab_width,tabbar_height));
-
-                        // draw the tab background
-                        d.DrawString(section.Name, new Font("MS Sans Serif", 8), new SolidBrush(Color.FromArgb(255,255,211)), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, tab_text_margin/5));
-                    }
-                    else
-                    {
-                        // Draw section tab, load if nulll
-                        if (inactive_section_tab == null)
-                        {
-                            inactive_section_tab = Resource1.inactive;
-                        }
-                        // draw the tab bar
-                        d.DrawImage(inactive_section_tab, new Rectangle(tabbar_start + ((tab_distance + tab_width) * i), 1, tab_width, tabbar_height-1));
-
-                        d.DrawString(section.Name, new Font("MS Sans Seif", 8), new SolidBrush(Color.Black), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, tab_text_margin/5));
-                        d.DrawString(section.Name, new Font("MS Sans Seif", 8), new SolidBrush(Color.White), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, +tab_text_margin/5 - 1));
-                    }
-                }
-            /**
-             * Draw the scrollbar
-             * */
-            /**
-             * If the height of the total items is more than the visible space draw the scrollbar
-             * */
-    
-            if (this.ItemOffset > 0)
-           {
-               d.DrawImage(Resource1.scrollbar_up, new Rectangle(this.Width - scrollbar_size, 1,scrollbar_size,scrollbar_size));
-               
-                  // The space of the scrollbar
-               d.DrawImage(Resource1.scrollbar_space, new Rectangle(this.Width - scrollbar_size, Resource1.scrollbar_up.Height, scrollbar_size, this.Height));
-               d.DrawImage(Resource1.scrollbar_down, new Rectangle(this.Width - scrollbar_size, this.Height - scrollbar_size, scrollbar_size, scrollbar_size));
-
-               
-               // Draw the upper part of the thumb
-               
-               /**
-                * Get the height of the scrollbar
-                * */
-
-                // The position of the scrollbar graphically
-
-               
-                d.DrawImage(Resource1.scrollbar_thumb, new Rectangle(this.Width - scrollbar_size, scrollbar_size + scrollTop, scrollbar_size, bar_offset), new Rectangle(0, 0, scrollbar_size, bar_offset), GraphicsUnit.Pixel);
-               
-               d.DrawImage(Resource1.scrollbar_thumb, new Rectangle(this.Width - scrollbar_size, scrollbar_size + scrollTop + bar_offset, scrollbar_size, +thumbHeight), new Rectangle(0, bar_offset, scrollbar_size, 3), GraphicsUnit.Pixel);
-               d.DrawImage(Resource1.scrollbar_thumb, new Rectangle(this.Width - scrollbar_size, scrollbar_size + scrollTop + bar_offset +thumbHeight, scrollbar_size, bar_offset), new Rectangle(0,  Resource1.scrollbar_thumb.Height-bar_offset, scrollbar_size, bar_offset), GraphicsUnit.Pixel);
-           }
-            /***
-            * If the Section is an list, draw listheaders
-            * */
             try
             {
-                if (CurrentView.Content.View.Sections[currentSection].List)
+                this.pictureBox1.Left = this.Width / 2 - this.pictureBox1.Width / 2;
+                this.pictureBox1.Top = this.Height / 2 - this.pictureBox1.Height / 2;
+                // Show progress icon if current view is loading...
+                this.pictureBox1.Visible = this.CurrentView.Content == null;
+                this.BackColor = Color.FromArgb(50, 50, 50);
+                if (CurrentView != null)
                 {
-                    // Get the first entry element
-                    Element firstEntry = null;
-                    foreach (Element elm in CurrentView.Content.View.Sections[currentSection].Elements)
-                    {
-                        if (elm.Type == "entry")
-                        {
-                            firstEntry = elm;
-                            break;
-                        }
-                    }
-                    // If an first entry was found draw the headers straight above it or on the top of the view
-                    if (firstEntry != null)
-                    {
-                        Rectangle bounds = firstEntry.GetCoordinates(scrollX, scrollY, new Rectangle(0, 0, this.Bounds.Width, this.Bounds.Height), 0);
+                    if (CurrentView.Content != null)
+                        if (CurrentView.Content.View == null)
+                            CurrentView.Content.Serialize();
+                }
 
-                        // if the first entry top were above the visible coordinates draw it on the top
-                        if (bounds.Top < tabbar_height + bounds.Height)
+                int entryship = 0;
+
+                // Top increases after all elements to get a page feeling 
+                // (next element below the previous, when elements has an @TOP value as top paramater (-1))
+                int ptop = 20;
+
+                if (D == null)
+                    D = new BufferedGraphicsContext();
+                BufferedGraphics R = D.Allocate(p, new Rectangle(0, 0, this.Bounds.Width, this.Bounds.Height));
+                Graphics d = R.Graphics;
+                d.FillRectangle(new SolidBrush(Bg), new Rectangle(0, 0, this.Bounds.Width, this.Bounds.Height));
+
+                /**
+                 * If the currentView isn't null begin draw all elements on the board
+                 * */
+                if (CurrentView != null)
+                    if (CurrentView.Content != null)
+                        if (CurrentView.Content.View != null)
+                            for (int i = 0; i < CurrentView.Content.View.Sections[currentSection].Elements.Count; i++)
+                            {
+                                // Calculate the view coordinates of the element
+
+                                Element _Element = CurrentView.Content.View.Sections[currentSection].Elements[i];
+                                Rectangle ScreenCoordinates = _Element.GetCoordinates(scrollX, scrollY, this.Bounds, 0);
+                                // Draw the element and it's children
+                                DrawElement(_Element, d, ref entryship, ScreenCoordinates, 3);
+
+
+
+
+
+
+
+                            }
+
+
+
+
+
+
+
+                /***
+                 * Draw the tab header on top
+                 * */
+
+
+                // draw an bounding rectangle
+                d.FillRectangle(new SolidBrush(Color.Black), new Rectangle(0, 0, this.Bounds.Width, tabbar_height));
+                d.DrawLine(new Pen(Color.FromArgb(128, 128, 128)), new Point(0, tabbar_height), new Point(this.Bounds.Width, tabbar_height));
+                if (CurrentView != null)
+                    if (CurrentView.Content != null)
+                        // Draw all section bar
+                        for (int i = 0; i < CurrentView.Content.View.Sections.Count; i++)
                         {
-                            DrawHeaders(d, new Point(0, +tabbar_height));
+                            Section section = CurrentView.Content.View.Sections[i];
+                            // if you are at the current section draw the panes
+
+
+                            if (currentSection == i)
+                            {
+
+                                // Draw section tab, load if nulll
+                                if (sectionTab == null)
+                                {
+                                    sectionTab = Resource1.tab;
+                                }
+                                // draw the tab bar
+                                d.DrawImage(sectionTab, new Rectangle(tabbar_start + i * (tab_width + tab_distance), 1, tab_width, tabbar_height));
+
+                                // draw the tab background
+                                d.DrawString(section.Name, new Font("MS Sans Serif", 8), new SolidBrush(Color.FromArgb(255, 255, 211)), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, tab_text_margin / 5));
+                            }
+                            else
+                            {
+                                // Draw section tab, load if nulll
+                                if (inactive_section_tab == null)
+                                {
+                                    inactive_section_tab = Resource1.inactive;
+                                }
+                                // draw the tab bar
+                                d.DrawImage(inactive_section_tab, new Rectangle(tabbar_start + ((tab_distance + tab_width) * i), 1, tab_width, tabbar_height - 1));
+
+                                d.DrawString(section.Name, new Font("MS Sans Seif", 8), new SolidBrush(Color.Black), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, tab_text_margin / 5));
+                                d.DrawString(section.Name, new Font("MS Sans Seif", 8), new SolidBrush(Color.White), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, +tab_text_margin / 5 - 1));
+                            }
                         }
-                        else
+                /**
+                 * Draw the scrollbar
+                 * */
+                /**
+                 * If the height of the total items is more than the visible space draw the scrollbar
+                 * */
+
+                if (this.ItemOffset > 0)
+                {
+                    d.DrawImage(Resource1.scrollbar_up, new Rectangle(this.Width - scrollbar_size, 1, scrollbar_size, scrollbar_size));
+
+                    // The space of the scrollbar
+                    d.DrawImage(Resource1.scrollbar_space, new Rectangle(this.Width - scrollbar_size, Resource1.scrollbar_up.Height, scrollbar_size, this.Height));
+                    d.DrawImage(Resource1.scrollbar_down, new Rectangle(this.Width - scrollbar_size, this.Height - scrollbar_size, scrollbar_size, scrollbar_size));
+
+
+                    // Draw the upper part of the thumb
+
+                    /**
+                     * Get the height of the scrollbar
+                     * */
+
+                    // The position of the scrollbar graphically
+
+
+                    d.DrawImage(Resource1.scrollbar_thumb, new Rectangle(this.Width - scrollbar_size, scrollbar_size + scrollTop, scrollbar_size, bar_offset), new Rectangle(0, 0, scrollbar_size, bar_offset), GraphicsUnit.Pixel);
+
+                    d.DrawImage(Resource1.scrollbar_thumb, new Rectangle(this.Width - scrollbar_size, scrollbar_size + scrollTop + bar_offset, scrollbar_size, +thumbHeight), new Rectangle(0, bar_offset, scrollbar_size, 3), GraphicsUnit.Pixel);
+                    d.DrawImage(Resource1.scrollbar_thumb, new Rectangle(this.Width - scrollbar_size, scrollbar_size + scrollTop + bar_offset + thumbHeight, scrollbar_size, bar_offset), new Rectangle(0, Resource1.scrollbar_thumb.Height - bar_offset, scrollbar_size, bar_offset), GraphicsUnit.Pixel);
+                }
+                /***
+                * If the Section is an list, draw listheaders
+                * */
+                try
+                {
+                    if(CurrentView.Content!=null)
+                    if (CurrentView.Content.View.Sections[currentSection].List)
+                    {
+                        // Get the first entry element
+                        Element firstEntry = null;
+                        foreach (Element elm in CurrentView.Content.View.Sections[currentSection].Elements)
                         {
-                            DrawHeaders(d, new Point(0, bounds.Top-bounds.Height));
+                            if (elm.Type == "entry")
+                            {
+                                firstEntry = elm;
+                                break;
+                            }
+                        }
+                        // If an first entry was found draw the headers straight above it or on the top of the view
+                        if (firstEntry != null)
+                        {
+                            Rectangle bounds = firstEntry.GetCoordinates(scrollX, scrollY, new Rectangle(0, 0, this.Bounds.Width, this.Bounds.Height), 0);
+
+                            // if the first entry top were above the visible coordinates draw it on the top
+                            if (bounds.Top < tabbar_height + bounds.Height)
+                            {
+                                DrawHeaders(d, new Point(0, +tabbar_height));
+                            }
+                            else
+                            {
+                                DrawHeaders(d, new Point(0, bounds.Top - bounds.Height));
+                            }
                         }
                     }
                 }
-            }
 
+                catch
+                {
+                }
+                /***
+                 * Render the image
+                 * */
+                R.Render();
+            }
             catch
             {
             }
-            /***
-             * Render the image
-             * */
-            R.Render();
         }
                
         protected override void OnMouseWheel(MouseEventArgs e)
@@ -1837,6 +1850,46 @@ namespace Board
         private void DrawBoard_KeyDown(object sender, KeyEventArgs e)
         {
            
+        }
+        /// <summary>
+        /// Check all ready receivers, run and delete them those are completed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void timrDownloadCheck_Tick(object sender, EventArgs e)
+        {
+            // Check all downloads for content
+            foreach (View d in this.Views.Values)
+            {
+                // Get the spofity instance
+                Spofity t = d.Content;
+                
+                // List of contentReceivers to delete after they're ready
+                List<Spofity.ContentReceiver> delete = new List<Spofity.ContentReceiver>();
+                foreach (Spofity.ContentReceiver receiver in t.Receivers)
+                {
+                    // check if receiver has an object
+                    if (receiver.Package != null)
+                    {
+                        // Set an pointer to the package for the script instance
+                        t.ScriptEngine.SetVariable("__package", receiver.Package);
+
+                        // Run the callback
+                        t.ScriptEngine.Run(receiver.Callback + "(__package);");
+                        // Schedule the receiver for deletetion
+                        delete.Add(receiver);
+                    }
+
+                   
+                    
+                }
+
+                // Delete all receivers
+                foreach (Spofity.ContentReceiver receiver in delete)
+                {
+                    t.Receivers.Remove(receiver);
+                }
+            }
         }
     }
    

@@ -95,9 +95,126 @@ namespace Board
             if (PlaybackStarted != null)
                 PlaybackStarted(this,item, item.GetAttribute("uri"));
         }
+        /// <summary>
+        /// Called by the script to initiate an ajax-like process of new elements
+        /// </summary>
+        /// <param name="adress"></param>
+        /// <param name="callback"></param>
+        /// <returns>true if sucess, false if not</returns>
+        public object __downloadContentAsync(string adress, string callback)
+        {
+            try
+            {
+                // Create new content receiver
+                ContentReceiver D = new ContentReceiver();
+
+                // define parameters
+                D.Adress = adress;
+                D.Callback = callback;
+
+                // Start an individual transmittion inside each content receiver
+                Thread CN = new Thread(D.DownloadData);
+                CN.Start(D.Adress);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        
+
+        /// <summary>
+        /// List with all content receivers. It are checked regulary for finished downloads.
+        /// </summary>
+        public List<ContentReceiver> Receivers { get; set; }
+
+        /// <summary>
+        /// Content receiver is an class which performs as an storage of downloaded content, which will be handled
+        /// separetely
+        /// </summary>
+        public class ContentReceiver
+        {
+            /// <summary>
+            ///  The adress to the remote or local resource
+            /// </summary>
+            public string Adress { get; set; }
+
+            /// <summary>
+            /// The object received. Package is an boxed false if the download were incomplete.
+            /// </summary>
+            public object Package { get; set; }
+
+            /// <summary>
+            /// Returns if the ContentReceiver has finished transmittion of content
+            /// </summary>
+            public bool Ready
+            {
+                get
+                {
+                    return Package != null;
+                }
+            }
+            /// <summary>
+            /// The callback of the event to raise together with the package once deliverd
+            /// </summary>
+            public string Callback { get; set; }
+
+            /// <summary>
+            /// Synchronize data is called by the javascript preparser to get an ready to use JSON parsed data. If the dat can't be parsed as JSON
+            /// it will be returned as an common string
+            /// </summary>
+            /// <param name="receiver">An boxed instance of an ContentReceiver class</param>
+            /// <returns></returns>
+            public void DownloadData()
+            {
+                ContentReceiver Receiver = this;
+                string uri = Receiver.Adress;
+                // Create web request
+                WebClient WC = new WebClient();
+                /**
+                 * Try getting data. If no data was got an all, return FALSE
+                 * */
+                try
+                {
+                    String jsonRaw = WC.DownloadString(new Uri((string)uri));
+
+                    // Convert it to JSON
+                    try
+                    {
+                        Jint.JintEngine Engine = new Jint.JintEngine();
+                        Jint.Native.JsObject D = new Jint.Native.JsObject((object)jsonRaw);
+
+                        // Try parse it as json, otherwise try as xml and if not retuurn it as an string
+                        try
+                        {
+                            // Do not allow CLR when reading external scripts for security measurements
+                            System.Web.Script.Serialization.JavaScriptSerializer d = new System.Web.Script.Serialization.JavaScriptSerializer();
+                            object json = d.DeserializeObject(jsonRaw);
+                            Receiver.Package = json;
+                        }
+                        catch
+                        {
+                            XmlDocument xmlDoc = new XmlDocument();
+                            xmlDoc.LoadXml(jsonRaw);
+                            Receiver.Package = jsonRaw;
+                        }
 
 
+                    }
+                    catch
+                    {
+                        Receiver.Package = jsonRaw;
+                    }
+                }
+                catch
+                {
 
+                    Receiver.Package = false;
+                }
+            }
+        }
         public void NextSong()
         {
             // If the playlist has no entry left, return
@@ -375,7 +492,88 @@ namespace Board
                 }
             }
         }
-            
+        #region ScriptFunctions
+
+        /// <summary>
+        /// callback for manipulation of layout elements during runtime
+        /// </summary>
+        /// <param name="name">the name of the tag</param>
+        public XmlNodeList __getElementsByTagName(string name)
+        {
+            return LayoutElements.GetElementsByTagName(name);
+        }
+        /// <summary>
+        /// callback for manipulation of layout elements during runtime
+        /// </summary>
+        /// <param name="name">the name of the tag</param>
+        public object __getElementId(string name)
+        {
+            object cf =  GetElementById(LayoutElements.DocumentElement,name);
+            return cf;
+        }
+        /// <summary>
+        /// Method to set inner content of an element from scripside
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public object __setContent(object element, string content)
+        {
+            XmlElement elm = (XmlElement)element;
+            elm.InnerText = content;
+            return null;
+        }
+        /// <summary>
+        /// Method to set an attribute to an certin value on an layout element
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public object __setAttribute(object element, string attribute,string value)
+        {
+            XmlElement elm = (XmlElement)element;
+            elm.SetAttribute(attribute, value);
+            return null;
+        }
+    /// <summary>
+    /// Own implementation of getElementById as XmlDocument's getelementsbyId could not be
+    /// used without DTD
+    /// </summary>
+    /// <param name="src">the xml document to work on</param>
+    /// <param name="ID">the id of the element to find</param>
+    /// <remarks>This function is recursive</remarks>
+    /// <returns></returns>
+        public XmlElement GetElementById(XmlElement src, string val)
+        {
+
+            XmlElement getElement = null;
+            if (src.HasAttribute("id"))
+                if (src.GetAttribute("id") == val)
+                    return src;
+            foreach (XmlElement Node in src.ChildNodes)
+            {
+                if (Node.NodeType == XmlNodeType.Element)
+                {
+                    XmlElement elm = (XmlElement)Node;
+                     getElement = GetElementById(elm, val);
+                     if (getElement != null)
+                         return getElement;
+                         
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// This method should be called by the scripting engine after an modification so the element
+        /// buffer will be rebuilt with the changes in the layout engine.
+        /// </summary>
+        public object __commit_changes()
+        {
+            Render();
+            return null;
+        }
+        #endregion
         /// <summary>
         /// DATE: 2011-04-20
         /// If the tag name is %Inflater the element can inflate another view,
@@ -640,6 +838,13 @@ namespace Board
         {
             try
             {
+
+                // Reset the ptop
+                Element.ptop = 20;
+                // Clear current buffer 
+                this.view.Sections.Clear();
+
+
                 // Create xml document
                 XmlDocument d = this.LayoutElements;
                 if (d == null)
@@ -669,6 +874,8 @@ namespace Board
 
 
                 }
+
+                SetScriptFunctionality();
                 LoadData();
             }
             catch
@@ -676,19 +883,51 @@ namespace Board
 
             }
         }
+        /// <summary>
+        /// Method to configure scripts dom manipulation functions on layout element
+        /// </summary>
+        public void SetScriptFunctionality()
+        {
+            // Set the wrapper function so people can manipulate the layout element level
+            this.ScriptEngine.SetFunction("$", new Func<string, object>(__getElementId));
+            // Set the commit function so people can turn the modified layout element stadge into an object element stadge
+            this.ScriptEngine.SetFunction("commit", new Func<object>(__commit_changes));
+            // Set an function so script can change attribute of an element
+            this.ScriptEngine.SetFunction("setAttribute", new Func<object, string, string, object>(__setAttribute));
+
+            // Set an function so script can change inner content of an element
+            this.ScriptEngine.SetFunction("setContent", new Func<object, string, object>(__setContent));
+
+            // Set an ajax like function
+            this.ScriptEngine.SetFunction("downloadContent", new Func<string, string, object>(__downloadContentAsync));
+        }
+        
+
+        
 	    /// <summary>
 	    /// Load an custom HTML page into the special section.
         /// 
         /// It have to be preparsed by the MakoEngine
 	    /// </summary>
 	    /// <param name="data">The ready preprocessed data from Mako alt. common html data</param>
-	    public Spofity(string data)
+	    public Spofity(string data,MakoEngine engine)
 	    {
+            this.Receivers = new List<ContentReceiver>();
             try
             {
+
+                this.Engine = engine;
+                SetScriptFunctionality();
+               
                 // Create xml document
                 XmlDocument d = new XmlDocument();
+                
+               
                 d.LoadXml(data);
+
+                // Set this layoutelements to the xmldocument loaded
+                this.LayoutElements = d;
+
                 this.View = new View();
                 // iterate through all sections of the page
                 XmlNodeList Sections = d.GetElementsByTagName("section");
@@ -714,6 +953,7 @@ namespace Board
 
 
                 }
+
                 LoadData();
             }
             catch
