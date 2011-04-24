@@ -76,6 +76,9 @@ namespace Board
             Playlist = new Queue<Element>();
             // Get the list of elements
             List<Element> elements = this.View.Sections[section].Elements;
+
+            // Remove all play item
+            this.ParentBoard.RemoveAllPlaying();
             /**
                 * Iterate through the elements, once it has reached the one equal to the input item,
                 * begin collecting all items which are classified with the type 'Entry'
@@ -243,7 +246,30 @@ namespace Board
                 this.ScrollX = 0;
             }
         }
-
+        /// <summary>
+        /// Get the section which has the current playing item
+        /// </summary>
+        /// <returns></returns>
+        public Section GetPlayingSection()
+        {
+           
+                foreach (Section t in this.View.Sections)
+                {
+                    foreach (Element _elm in t.Elements)
+                    {
+                        if (_elm.Type == "section")
+                        {
+                            if (_elm.GetAttribute("__playing") == "true")
+                            {
+                                return t;
+                            }
+                        }
+                    }
+                }
+                
+            
+            return null;
+        }
         /// <summary>
         /// Set item after current playing as next song.
         /// </summary>
@@ -251,7 +277,7 @@ namespace Board
         {
             
             // Raise the playback event again
-            this.view.Sections[CurrentSection].PlayIndex++;
+            GetPlayingSection().PlayIndex++;
         }
         /// <summary>
         /// The drawboard has an playlist stack which is used for listing of media items.

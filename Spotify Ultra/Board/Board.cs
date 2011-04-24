@@ -34,9 +34,9 @@ namespace Board
         /// </summary>
         /// <param name="sender">the Spofity instance resposible for the new view</param>
         /// <param name="uri">the uri for navigation</param>
-        public delegate void NavigateEventHandler(object sender, string uri);
+        public delegate bool NavigateEventHandler(object sender, string uri);
 
-      
+        public event NavigateEventHandler Navigating;
 
         /// <summary>
         /// Occurs when the board is navigating to an new uri. 
@@ -744,6 +744,12 @@ namespace Board
         /// <param nme="BaseFolder">The base folder where the .xml view files reside</param>
         public void Navigate(String Uri,String nspace,String BaseFolder)
         {
+            if (Navigating != null)
+            {
+                // If the navigating event returns false dismiss
+                if (!Navigating(this, Uri))
+                    return;
+            }
             // Push current view and clear future
             History.Push(currentView);
             Post.Clear();
@@ -1009,6 +1015,7 @@ namespace Board
         /// <returns>The element on the spot or NULL if not</returns>
         public Element GetItemAtPos(System.Drawing.Point point)
         {
+            if(ViewBuffer!=null)
             foreach (Element d in ViewBuffer)
             {
                 Rectangle Bounds = d.GetCoordinates(scrollX, scrollY, new Rectangle(0, 0, this.Width, this.Height),0);
@@ -1062,7 +1069,7 @@ namespace Board
         /// </summary>
         public void NextSong()
         {
-            this.CurrentView.Content.NextSong();
+            GetPlayingSection().Parent.NextSong();
         }
         int diffX = 0;
         int diffY = 0;
@@ -1089,6 +1096,8 @@ namespace Board
                 // index counter
                 int i=0;
                 bool foundSelected = false;
+
+                
                 foreach (Element d in this.ViewBuffer)
                 {
                     if (d.Type != "entry")
@@ -1135,6 +1144,57 @@ namespace Board
             }
 
         }
+        public void RemoveAllPlaying()
+        {
+            foreach (View d in this.Views.Values)
+            {
+                if (d.Content != null)
+                {
+                    foreach (Section t in d.Content.View.Sections)
+                    {
+                        for (int i=0; i <t.Elements.Count;i++)
+                           
+                        {
+                            if (t.Elements[i].Type == "section")
+                            {
+                                if (t.Elements[i].GetAttribute("__playing") == "true")
+                                {
+                                    t.Elements.Remove(t.Elements[i]);
+                            
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// Get the section which has the current playing item
+        /// </summary>
+        /// <returns></returns>
+        public Section GetPlayingSection()
+        {
+            foreach (View d in this.Views.Values)
+            {
+                if (d.Content != null)
+                {
+                    foreach (Section t in d.Content.View.Sections)
+                    {
+                        foreach (Element _elm in t.Elements)
+                        {
+                            if (_elm.Type == "section")
+                            {
+                                if (_elm.GetAttribute("__playing") == "true")
+                                {
+                                    return t;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
         public List<Element> SelectedItems
         {
             get
@@ -1168,10 +1228,7 @@ namespace Board
                         if (PlaybackRequested != null)
                         {
                             // Set no any items as playing
-                            foreach (Element d in this.ViewBuffer)
-                            {
-                                d.SetAttribute("__playing", "false");
-                            }
+                            RemoveAllPlaying();
                             // Set the current item as playing
                             this.SelectedItems[0].SetAttribute("__playing", "true");
                             PlaybackRequested(this.SelectedItems[0], this.SelectedItems[0].GetAttribute("uri"));
@@ -1271,7 +1328,7 @@ namespace Board
 
             if (_Element.Selected == true)
             {
-                EnTry = Color.FromArgb(211, 255, 255);
+                EnTry = Color.FromArgb(169, 217, 254);
                 // If the control is inactive draw it gray
                 if (!this.Focused)
                 {

@@ -89,6 +89,9 @@
     <Reference Include="InputSimulator">
       <HintPath>F:\Mist\InputSimulator.dll</HintPath>
     </Reference>
+    <Reference Include="JsonFx">
+      <HintPath>C:\Users\Alexander\Downloads\Signed_v4.0\Signed_v4.0\JsonFx.dll</HintPath>
+    </Reference>
     <Reference Include="LibspotifySharp, Version=1.0.3962.17126, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\LibspotifySharp.dll</HintPath>

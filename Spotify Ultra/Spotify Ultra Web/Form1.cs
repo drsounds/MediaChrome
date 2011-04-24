@@ -277,7 +277,7 @@ namespace SpofityRuntime
 
             // assign link click for menu
             treeview.LinkClick += new Board.DrawBoard.LinkClicked(treeview_LinkClick);
-
+            this.board.Navigating += new Board.DrawBoard.NavigateEventHandler(board_Navigating);
             // assign makogeneration initialization code
             this.board.MakoGeneration += new Board.DrawBoard.MakoCreateEventHandler(board_MakoGeneration);
            
@@ -287,6 +287,32 @@ namespace SpofityRuntime
             board.PlaybackRequested += new Board.DrawBoard.PlaybackStartEvent(board_PlaybackRequested);
             treeview.Navigate("spotify:menu:1", "spotify", "views");
            
+        }
+
+        bool board_Navigating(object sender, string uri)
+        {
+            
+            // If the uri starts with spotify:user:xx:playlist: load the playlist
+            if (uri.StartsWith("spotify:user:") && uri.Contains("playlist:"))
+            {
+                MediaChrome.Views.Playlist plst = Program.MediaEngines["sp"].ViewPlaylist("Name", uri);
+                CurrentPlaylist = plst;
+
+
+
+            }
+            // If the string starts with "spotify:" go to an specified adress, otherwise recall seearch intent
+            if (!uri.StartsWith("spotify:"))
+            {
+
+                board.Navigate("spotify:search:" + uri, "spotify", "views");
+                return false;
+            }
+            else
+            {
+
+                return true;
+            }
         }
 
         /// <summary>
@@ -344,7 +370,8 @@ namespace SpofityRuntime
               d.RuntimeMachine.SetFunction("getPlaylist", new Func<string, object>(__getPlaylist));
               d.RuntimeMachine.SetFunction("importMusic", new Func<object>(__import_music));
               d.RuntimeMachine.SetFunction("navigate", new Func<string,object>(__navigate));
-
+              d.RuntimeMachine.SetFunction("getCurrentPlaylist", new Func< object>(__getCurrentPlaylist));
+              d.RuntimeMachine.SetFunction("ownPlaylist", new Func<object>(__ownPlaylist));
         }
 
         /// <summary>
@@ -358,9 +385,46 @@ namespace SpofityRuntime
             LocalLibrary A = new LocalLibrary();
             return A.GetFilesFromQuery(query);
         }
-        void board_BeforeNavigating(object sender, string uri)
+
+        public object __ownPlaylist()
         {
-           
+            if (CurrentPlaylist != null)
+                return true;
+            return false; 
+        }
+        /// <summary>
+        /// Used by scripts to get current playlist
+        /// </summary>
+        /// <returns></returns>
+        public object __getCurrentPlaylist()
+        {
+            return CurrentPlaylist;
+        }
+        /// <summary>
+        /// Current spotify playlist
+        /// </summary>
+        private MediaChrome.Views.Playlist CurrentPlaylist { get; set; }
+        /// <summary>
+        /// Returns the current Spotify Session
+        /// </summary>
+        private Spotify.Session Session
+        {
+            get{
+                return ((SpofityRuntime.SpotifyPlayer)Program.MediaEngines["sp"]).SpotifySession;
+            }
+        }
+        bool board_BeforeNavigating(object sender, string uri)
+        {
+           // If the uri starts with spotify:user:xx:playlist: load the playlist
+            if (uri.StartsWith("spotify:user:") && uri.Contains("playlist:"))
+            {
+                MediaChrome.Views.Playlist plst = Program.MediaEngines["sp"].ViewPlaylist("Name", uri);
+                CurrentPlaylist = plst;
+
+                
+
+            }
+            return true;
         }
 
         void treeview_MouseUp(object sender, MouseEventArgs e)
@@ -852,18 +916,10 @@ namespace SpofityRuntime
         {
 
         }
-
+         
         private void textBox1_SearchClicked(object sender, EventArgs e)
         {
-            // If the string starts with "spotify:" go to an specified adress, otherwise recall seearch intent
-            if (!textBox1.Text.StartsWith("spotify:"))
-            {
-                board.Navigate("spotify:search:" + textBox1.Text, "spotify", "views");
-            }
-            else
-            {
-                board.Navigate(textBox1.Text, "spotify", "views");
-            }
+            board.Navigate(textBox1.Text, "spotify", "views"); 
 
         }
         private ListViewItem AddListEntry(string ListData)

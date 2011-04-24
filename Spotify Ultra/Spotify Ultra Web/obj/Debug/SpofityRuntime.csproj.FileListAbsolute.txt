@@ -93,3 +93,5 @@ L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\M
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\Id3Tag.Net.dll
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\Id3Tag.Net.xml
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\MediaChrome.Spotify.SpotifyView.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\JsonFx.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\JsonFx.xml
