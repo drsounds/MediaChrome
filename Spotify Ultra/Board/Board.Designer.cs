@@ -60,6 +60,7 @@
             // 
             // DrawBoard
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -67,6 +68,8 @@
             this.Size = new System.Drawing.Size(736, 539);
             this.Load += new System.EventHandler(this.Artist_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.DrawBoardDragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.DrawBoard_DragEnter);
+            this.DragOver += new System.Windows.Forms.DragEventHandler(this.DrawBoard_DragOver);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Artist_Paint);
             this.DoubleClick += new System.EventHandler(this.Artist_DoubleClick);
             this.Enter += new System.EventHandler(this.Artist_Enter);

@@ -19,7 +19,7 @@
  /*  */
 ?>
 <view>
-	<section name="Overview" list="true">
+	<section name="Overview" list="true" reorder="true">
 		
 		<label height="50" size="14" left="10" top="@TOP" width="500">You searched for @{parameter} which gave an  @{count_tracks} results </label>
 		

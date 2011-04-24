@@ -186,6 +186,9 @@ namespace Board
                 return null;
             }
         }
+
+        
+
         /// <summary>
         /// Get the list of elements for the current view
         /// </summary>
@@ -853,7 +856,7 @@ namespace Board
         
         private void Artist_Load(object sender, EventArgs e)
         {
-
+            
         }
         int LEFT = 140;
         int ARTISTLEFT=550;
@@ -932,6 +935,10 @@ namespace Board
         /// </summary>
         public class ItemReorderEventArgs
         {
+            /// <summary>
+            /// If in begin mode, Gets and sets whether the operation should be cancelled or not
+            /// </summary>
+            public bool Cancel { get; set; }
             public ItemReorderEventArgs()
             {
                 Collection = new List<Element>();
@@ -966,7 +973,7 @@ namespace Board
         /// </summary>
         public event ItemReorderEvenHandler FinishedReorder;
 
-
+        
         /// <summary>
         /// Function to get an specific element by ID.
         /// </summary>
@@ -1661,10 +1668,10 @@ namespace Board
                     Element df = GetItemAtPos(new Point(mouseX, mouseY));
 
                     // get the element's bounds
-                    Rectangle o_bounds = df.GetCoordinates(scrollX, scrollX, new Rectangle(0, 0, this.Width, this.Height), 0);
+                    Rectangle o_bounds = df.GetCoordinates(scrollX, scrollY, new Rectangle(0, 0, this.Width, this.Height), 0);
 
                     // Draw the line
-                    d.DrawLine(new Pen(Color.LightBlue), new Point(0, o_bounds.Top + o_bounds.Height), new Point(this.Width - scrollbar_size, o_bounds.Top + o_bounds.Height));
+                    d.DrawLine(new Pen(Color.White), new Point(0, o_bounds.Top + o_bounds.Height), new Point(this.Width - scrollbar_size, o_bounds.Top + o_bounds.Height));
 
                 }
                 /***
@@ -1941,6 +1948,12 @@ namespace Board
         /// </summary>
         int scrolling = -1;
 
+
+        /// <summary>
+        /// Element grabbed for drag'n drop
+        /// </summary>
+        List<Element> GrabbedElements { get; set; }
+
         // Mouse coordinates
         int masX, masY;
         public string dragURI = "";
@@ -1963,6 +1976,10 @@ namespace Board
 
             masX = e.X;
             masY = e.Y;
+
+          
+
+
             int entryship = 0;
             int top = 20;
             try
@@ -2020,6 +2037,54 @@ namespace Board
             catch
             {
             }
+            /**
+           * Get element for dragging (only those with attribute 'draggable')
+           * */
+            Element ct = GetItemAtPos(new Point(e.X, e.Y));
+            if (ct != null)
+            {
+                if (ct.GetAttribute("draggable") == "true")
+                {
+
+                    DataObject D = new DataObject(DataFormats.CommaSeparatedValue, UriToStrings(GrabbedElements));
+                    DoDragDrop(D, DragDropEffects.Copy);
+                    return;
+                }
+                   
+
+                /**
+                    * DRAGGING RULES:
+                    * Inside the control the GrabbedEleemnts will be handled.
+                    * Outside the control a list of the uris to the elements will be passed
+                    * */
+
+                   // If the item is an entry and the list is marked as reordable, begin the process
+                if (this.CurSection.Reorder && ct.Type == "entry")
+                {
+                    
+                    
+                    // Raise the begin drag handle
+                    if (this.BeginReorder != null)
+                    {
+                        ItemReorderEventArgs args = new ItemReorderEventArgs();
+                        args.Collection = GrabbedElements;
+
+                        this.BeginReorder(this, args);
+
+                        // Cancel reording if the event wants it
+
+                        if (args.Cancel)
+                            return;
+
+                       
+
+
+                    }
+                    GrabbedElements = new List<Element>();
+                    GrabbedElements.AddRange(this.SelectedItems);
+                    reoredering = true;
+                }
+            }
         }
         /// <summary>
         /// The raw data before mako preprocess
@@ -2050,6 +2115,22 @@ namespace Board
         {
         	
         }
+//         DoDragDrop(GrabbedElements,DragDropEffects.Copy);
+
+        /// <summary>
+        /// Convert the list of elements to an csv list of uris
+        /// </summary>
+        /// <param name="elements"></param>
+        /// <returns></returns>
+        public string UriToStrings(List<Element> elements)
+        {
+            StringBuilder buffer = new StringBuilder();
+            foreach(Element d in elements)
+            {
+                buffer.Append(d.GetAttribute("uri"));
+            }
+            return buffer.ToString();
+        }
         private void Artist_MouseMove(object sender, MouseEventArgs e)
         {
             // If in scrolling mode, eg the scroll offset is more than -1
@@ -2076,7 +2157,12 @@ namespace Board
             mouseX = e.X;
             mouseY = e.Y;
           
-            if (dragURI != "" && dragURI != null)
+                /**
+                 * Drag and drop handling
+                 * */
+
+            // If grabbed element is not null begin prepare a drag'n drop operation
+            if (GrabbedElements != null)
             {
                 diffX = Diff(e.X,masX);
                 diffY = Diff(e.Y, masY);
@@ -2085,9 +2171,7 @@ namespace Board
             {
             	if(!dragging)
             	{
-            		
-	         //  	  	DataObject D = new DataObject(DataFormats.StringFormat,"s");
-        	//		DoDragDrop(D, DragDropEffects.Copy);;
+                    
             		
             	}
             	diffX = 0;
@@ -2362,13 +2446,202 @@ namespace Board
         
         void DrawBoardMouseUp(object sender, MouseEventArgs e)
         {
+            if (reoredering)
+            {
+                // If the dragged element is an grabbed element and moved inside
+                if (GrabbedElements != null)
+                {
+
+                    // Get destination element
+                    Element targetPos = GetItemAtPos(new Point(mouseX, mouseY));
+
+                    // if no target element was found cancel
+                    if (targetPos == null)
+                        return;
+                    // Only if the targetPos represents an element of type entry it should procced
+                    if (targetPos.Type != "entry")
+                        return;
+                    // Get the index of the element (but we use the index for all types of items, not only entries)
+                    int index = this.ViewBuffer.IndexOf(targetPos);
+
+                    // Old index is the position of the first element in the collection
+                    int oldIndex = this.ViewBuffer.IndexOf(GrabbedElements[0]);
+
+                    // Remove the elements from it's old location if it doesn't exists
+                    foreach (Element cf in GrabbedElements)
+                        ViewBuffer.Remove(cf);
+                    // Insert the new elements
+                    ViewBuffer.InsertRange(index, GrabbedElements);
+
+                    // Rebuild the list
+                    this.CurSection.RebuildList();
+
+
+
+                    // Raise the itemdrag event
+                    if (FinishedReorder != null)
+                    {
+
+                        // Create event args and pass the indexes, but only representing them as entries list
+                        ItemReorderEventArgs reorderArgs = new ItemReorderEventArgs();
+                        reorderArgs.Collection.AddRange(GrabbedElements);
+                        reorderArgs.OldPos = RealIndexToEntryIndex(oldIndex);
+                        reorderArgs.NewPosition = RealIndexToEntryIndex(index);
+
+                        // Pass the event
+                        FinishedReorder(this, reorderArgs);
+                    }
+                   
+
+                }
+            }
        		dragging=false;
+            reoredering = false;
             scrolling = -1;
+
+            /**
+             * Drop item dynamically if supported
+             * */
+           
+        }
+        /// <date>2011-04-24 16:18</date>
+        /// <summary>
+        /// Remove an entry at specified point. (index only applies to entries)
+        /// </summary>
+        /// <param name="pos">The index of the entry</param>
+        public void RemoveEntryAt(int pos)
+        {
+            // define starting index
+            int index = 0;
+            foreach (Element ct in ViewBuffer)
+            {
+                // only enumerate if the element is an type of entry
+                if (ct.Type == "entry")
+                {
+                    // if index is as the index, remove the item
+                    if (index == pos)
+                    {
+                        ViewBuffer.Remove(ct);
+
+                        // break and return
+                        return;
+
+                    }
+                    pos++;
+                }
+            }
+        }
+
+        /// <date>2011-04-24 16:24</date>
+        /// summary>
+        /// An virtual list of the items in the view, but only those entries are included
+        /// </summary>
+        public List<Element> Entries
+        {
+            get
+            {
+                // Allocate list for only entries
+                List<Element> entries = new List<Element>();
+                foreach (Element cf in this.ViewBuffer)
+                {
+                    if (cf.Type == "entry")
+                        entries.Add(cf);
+                }
+                return entries;
+            }
         }
         
+        /// <summary>
+        /// Converts the real index into an index for the entry
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns> the real index of the entry, -1 if failed</returns>
+        public int EntryIndexToRealIndex(int index)
+        {
+            try
+            {
+                // Get the element from the specified index
+                Element cf = Entries[index];
+                int realIndex = ViewBuffer.IndexOf(cf);
+                return realIndex;
+            }
+            catch
+            {
+                return -1;
+            }
+            
+        }
+        /// <summary>
+        /// Convert the physical index to real index
+        /// </summary>
+        /// <param name="index">the real index</param>
+        /// <returns>The virtual entry index, -1 if failed or the index points to an item of not an entry</returns>
+        public int RealIndexToEntryIndex(int index)
+        {
+            try
+            {
+                // Get the element from the entries
+                Element entry = ViewBuffer[index];
+                if (entry.Type != "entry")
+                    return -1;
+                int virtualIndex = Entries.IndexOf(entry);
+                return virtualIndex;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+
+        /// <date>2011-04-24 16:18</date>
+        /// <summary>
+        /// Insert item at position which is synchronised with the range of items only by entries
+        /// </summary>
+        /// <param name="elements"></param>
+        public void InsertEntryAt(List<Element> elements, int pos)
+        {
+            // define starting index
+            int index = 0;
+            foreach (Element ct in ViewBuffer)
+            {
+                // only enumerate if the element is an type of entry
+                if (ct.Type == "entry")
+                {
+                    // if index is as the index, insert the item
+                    if (index == pos)
+                    {
+                        // Get physical index of the item
+                        int realIndex = ViewBuffer.IndexOf(ct);
+                        // insert the collection here
+                        ViewBuffer.InsertRange(realIndex,elements);
+                        // break and return
+                        return;
+                    }
+                    index++;
+                }
+            }
+        }
+        /// <date>2011-04-24 16:18</date>
+        /// <summary>
+        /// Insert item at position which is synchronised with the range of items only by entries
+        /// </summary>
+        /// <param name="elements"></param>
+        public void InsertEntryAt(Element elm, int pos)
+        {
+            List<Element> elements = new List<Element>() { elm };
+            InsertEntryAt(elements, pos);
+        }
         void DrawBoardDragDrop(object sender, DragEventArgs e)
         {
         	 dragging=false;
+
+            
+             
+             {
+
+                 // TODO: Handle external items
+             }
+
         }
 
         private void DrawBoard_KeyDown(object sender, KeyEventArgs e)
@@ -2442,6 +2715,31 @@ namespace Board
                     Thread r = new Thread(CurrentView.Content.CheckPendingChanges);
                     r.Start();
                 }
+        }
+
+        private void DrawBoard_DragEnter(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void DrawBoard_DragOver(object sender, DragEventArgs e)
+        {
+            // If grabbed elements is not null and beginreorder event handler is set, do the tasks
+            if (GrabbedElements != null)
+            {
+                if (this.BeginReorder != null)
+                {   // Create reorder args
+                    ItemReorderEventArgs args = new ItemReorderEventArgs();
+                    args.Collection = GrabbedElements;
+
+                    this.BeginReorder(this, args);
+                    if (!args.Cancel)
+                        e.Effect = DragDropEffects.Copy;
+                    return;
+                }
+               
+                e.Effect = DragDropEffects.Copy;
+            }
         }
     }
    

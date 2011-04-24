@@ -894,12 +894,18 @@ namespace Board
                 XmlNodeList Sections = d.GetElementsByTagName("section");
                 foreach (XmlElement iSection in Sections)
                 {
+                   
 
                     // If the section element not has the root element as parent skip it
                     if (iSection.ParentNode.Name != "view")
                         continue;
                     // Create new section
                     Section _Section = new Section(this);
+
+                    // Set the section's reorder mode
+                    if (iSection.HasAttribute("reorder"))
+                        if (iSection.GetAttribute("reorder") == "true")
+                            _Section.Reorder = true;
 
                     // set section name
                     _Section.Name = iSection.GetAttribute("name");
@@ -1070,6 +1076,11 @@ namespace Board
                     continue;
                 // Create new section
                 Section _Section = new Section(this);
+
+                // Set the section's reorder mode
+                if (iSection.HasAttribute("reorder"))
+                    if (iSection.GetAttribute("reorder") == "true")
+                        _Section.Reorder = true;
 
                 // Append nowplaying handler
                 _Section.PlaybackItemChanged += new ElementPlaybackStarted(_Section_PlaybackItemChanged);
@@ -1274,6 +1285,20 @@ namespace Board
     /// </summary>
 	public class Section
 	{
+        /// <summary>
+        /// Rebuilds the collection
+        /// </summary>
+        public void RebuildList()
+        {
+            // reset ptop
+            Element.ptop = 20;
+            foreach (Element ct in this.elements)
+            {
+                ct.SetAttribute("left", ct.OldLeft.ToString());
+                ct.SetAttribute("top", ct.OldTop.ToString());
+                ct.AssertBounds(true);
+            }
+        }
         /// <summary>
         /// Gets or sets whether the entries in the view can be reordered.
         /// </summary>
