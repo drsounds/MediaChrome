@@ -620,7 +620,7 @@ namespace Board
                 }
 
                 // Finaly start the view
-                Spofity R = new Spofity();
+                Spofity R = new Spofity(this);
 
                 R.MakoGeneration += new Spofity.MakoCreateEventHandler(R_MakoGeneration);
                 R.Initialize(((View)address).Argument,rawSource,output, ME);
@@ -858,7 +858,7 @@ namespace Board
         int LEFT = 140;
         int ARTISTLEFT=550;
         int ROWHEIGHT = 20;
-        int scrollX
+        public int scrollX
         {
         	get
         	{
@@ -874,7 +874,7 @@ namespace Board
         	} 
         	
         }
-        int scrollY
+        public int scrollY
         {
         	get
         	{
@@ -926,6 +926,47 @@ namespace Board
         /// <param name="e"></param>
         public delegate void ElementMoveEventHandler(object sender, ElementMoveEventArgs e);
 
+        /// <date>2011-04-24 15:21</date>
+        /// <summary>
+        /// Event args for item reordering
+        /// </summary>
+        public class ItemReorderEventArgs
+        {
+            public ItemReorderEventArgs()
+            {
+                Collection = new List<Element>();
+            }
+            /// <summary>
+            /// Old position
+            /// </summary>
+            public int OldPos {get;set;}
+            
+            /// <summary>
+            /// New Position
+            /// </summary>
+            public int NewPosition {get;set;}
+
+            /// <summary>
+            /// The collection of elements to reorder
+            /// </summary>
+            public List<Element> Collection {get;set;}
+        }
+        /// <date>2011-04-24 15:21</date>
+        /// <summary>
+        /// Delegate for item reordering
+        /// </summary>
+        public delegate void ItemReorderEvenHandler(object sender, ItemReorderEventArgs e);
+        /// <summary>
+        /// Occurs when items are begin to be reordered.
+        /// </summary>
+        public event ItemReorderEvenHandler BeginReorder;
+
+        /// <summary>
+        /// Occura when items has finished reordering
+        /// </summary>
+        public event ItemReorderEvenHandler FinishedReorder;
+
+
         /// <summary>
         /// Function to get an specific element by ID.
         /// </summary>
@@ -942,6 +983,7 @@ namespace Board
         }
 
        
+
         /// <summary>
         /// An shortcut to the current collection of elements
         /// </summary>
@@ -951,6 +993,25 @@ namespace Board
             {
                 return this.ViewBuffer;
             }
+        }
+        /// <date>2011-04-24 15:17 </date>
+        /// <summary>
+        /// Function to get an element underlying the position. Relative to scrollX/scrollY
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns>The element on the spot or NULL if not</returns>
+        public Element GetItemAtPos(System.Drawing.Point point)
+        {
+            foreach (Element d in ViewBuffer)
+            {
+                Rectangle Bounds = d.GetCoordinates(scrollX, scrollY, new Rectangle(0, 0, this.Width, this.Height),0);
+                if (mouseX >= Bounds.Left && mouseX <= Bounds.Width + Bounds.Left && mouseY >= Bounds.Top && mouseY <= Bounds.Top + Bounds.Height)
+                {
+                    // Return the element
+                    return d;
+                }
+            }
+            return null;
         }
         /// <summary>
         /// Method to get an particular item of type entry at an certain index (only items of type entry included)
@@ -1009,7 +1070,7 @@ namespace Board
         /// <param name="uris">String array of uris (hrefs) of attributes</param>
         public void AddItem(String Uri, String Title, String[] Attributs, String[] uris)
         {
-            Element newItem = new Element();
+            Element newItem = new Element(CurSection,this);
         }
         /// <summary>
         /// Gets and sets the selected index . Returns -1 if no entries was found. Applies only with elements of type "entry".
@@ -1067,6 +1128,23 @@ namespace Board
             }
 
         }
+        public List<Element> SelectedItems
+        {
+            get
+            {
+                List<Element> selectedItems = new List<Element>();
+                foreach (Element elm in this.ViewBuffer)
+                {
+                    if (elm.Selected)
+                        selectedItems.Add(elm);
+                }
+                return selectedItems;
+            }
+        }
+        /// <summary>
+        /// Decides if control has focus
+        /// </summary>
+        public new bool Focus { get; set; }
         /// <summary>
         /// Method to handle keys in list
         /// </summary>
@@ -1074,18 +1152,38 @@ namespace Board
         /// <returns></returns>
         protected override bool IsInputKey(Keys keyData)
         {
-            if (!this.Focused)
+            if (!this.Focus)
                 return base.IsInputKey(keyData); ;
             switch(keyData)
             {
+                case Keys.Enter:
+                    if (this.SelectedItems.Count > 0)
+                        if (PlaybackRequested != null)
+                        {
+                            // Set no any items as playing
+                            foreach (Element d in this.ViewBuffer)
+                            {
+                                d.SetAttribute("__playing", "false");
+                            }
+                            // Set the current item as playing
+                            this.SelectedItems[0].SetAttribute("__playing", "true");
+                            PlaybackRequested(this.SelectedItems[0], this.SelectedItems[0].GetAttribute("uri"));
+                        }
+                    return true;
                 case Keys.Up:
                     // Move the selected element to the previous one
                     SelectedIndex--;
+                    if(this.SelectedItems.Count > 0)
+                      this.SelectedItems[0].AssertSelection();
+                    return true;
                     break;
                 case Keys.Down:
                     // Move the selected element to the next
                     SelectedIndex++;
-                    break;
+                    if (this.SelectedItems.Count > 0)
+                        this.SelectedItems[this.SelectedItems.Count-1].AssertSelection();
+                    return true;
+                
                 default:
                     return base.IsInputKey(keyData);
             }
@@ -1099,7 +1197,39 @@ namespace Board
            
 
         }
+        /// <summary>
+        /// Scroll X (Not in use yeat)
+        /// </summary>
+        public int ScrollX
+        {
+            get
+            {
+                return scrollX;
+            }
+            set
+            {
+                scrollX = value;
+            }
+        }
 
+        /// <summary>
+        /// The vertical scroll range
+        /// </summary>
+        public int ScrollY
+        {
+            get
+            {
+                return scrollY;
+            }
+            set
+            {
+                scrollY = value;
+            }
+        }
+
+        /// <summary>
+        /// The default typeface to use for the view
+        /// </summary>
         public string FontFace = "MS Sans Serif";
 
         /// <summary>
@@ -1451,6 +1581,13 @@ namespace Board
 
         }
 
+
+
+        /// <summary>
+        /// Determines if an reordering progress is ongoing.
+        /// </summary>
+        private bool reoredering = false;
+
         /// <summary>
         /// Draw inside an certain view
         /// </summary>
@@ -1514,9 +1651,22 @@ namespace Board
 
 
 
+                /**
+                 * If reordering draw lines
+                 * */
+                if (reoredering)
+                {
 
+                    // Get the element for the position
+                    Element df = GetItemAtPos(new Point(mouseX, mouseY));
 
+                    // get the element's bounds
+                    Rectangle o_bounds = df.GetCoordinates(scrollX, scrollX, new Rectangle(0, 0, this.Width, this.Height), 0);
 
+                    // Draw the line
+                    d.DrawLine(new Pen(Color.LightBlue), new Point(0, o_bounds.Top + o_bounds.Height), new Point(this.Width - scrollbar_size, o_bounds.Top + o_bounds.Height));
+
+                }
                 /***
                  * Draw the tab header on top
                  * */
@@ -1796,6 +1946,7 @@ namespace Board
         public string dragURI = "";
         private void Artist_MouseDown(object sender, MouseEventArgs e)
         {
+            Focus = true;
             // If mouse pointer is inside the scrollbar begin handle it
             if (e.X >= Width - this.scrollbar_size)
             {
@@ -2101,6 +2252,7 @@ namespace Board
         int mouseY = 0;
         private void Artist_Leave(object sender, EventArgs e)
         {
+            this.Focus = false;
          //   timer1.Stop();
         }
 

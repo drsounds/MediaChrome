@@ -40,7 +40,7 @@ namespace SpofityRuntime
             foreach(MediaChrome.IPlayEngine Engine in MediaEngines.Values)
             {
                 Engine.PlaybackFinished+=new EventHandler(Engine_PlaybackFinished);
-              Application.Run(mainForm);
+                Application.Run(mainForm);
             }
             
         } 

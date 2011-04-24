@@ -15,6 +15,8 @@ namespace Board
 [Serializable]
   	public class Spofity
 	{
+
+       
         /// <summary>
         /// Delegate which manage events for mako creation
         /// </summary>
@@ -697,7 +699,7 @@ namespace Board
                     continue;
                 XmlElement item = (XmlElement)node;
                 // Create various kind of controls depending of node type
-                Element CT = new Element();
+                Element CT = new Element(srcSection,this.ParentBoard);
 
                 // If nothing else specified, the element top should be managed by the drawing cache
                 CT.SetAttribute("top", "@TOP");
@@ -789,7 +791,7 @@ namespace Board
                     continue;
                 XmlElement item = (XmlElement)node;
                 // Create various kind of controls depending of node type
-                Element CT = new Element();
+                Element CT = new Element(C,this.ParentBoard);
 
                 // If nothing else specified, the element top should be managed by the drawing cache
                 CT.SetAttribute("top", "@TOP");
@@ -994,7 +996,10 @@ namespace Board
             this.ScriptEngine.SetFunction("downloadContent", new Func<string, string, object>(__downloadContentAsync));
         }
         
-
+        /// <summary>
+        /// The drawboard this view is attached to
+        /// </summary>
+        public DrawBoard ParentBoard { get; set; }
         
 	    /// <summary>
 	    /// Load an custom HTML page into the special section.
@@ -1003,10 +1008,10 @@ namespace Board
 	    /// </summary>
         /// <remarks>Objects must now call Initialize to make it work perform. The reason for change is to make it able to set event handlers for MakoCreation</remarks>
 	    /// <param name="data">The ready preprocessed data from Mako alt. common html data</param>
-	    public Spofity()
+	    public Spofity(DrawBoard parentBoard)
 	    {
-           
-        
+
+            ParentBoard = parentBoard;
 	        
 	
 	
@@ -1101,7 +1106,10 @@ namespace Board
                     if (item.GetType() == typeof(XmlElement))
                     {
                         XmlElement Item = (XmlElement)item;
-                        Element _Item = new Element();
+
+                        // dummy toolsection
+                        Section toolSection = new Section(this);
+                        Element _Item = new Element(toolSection,this.ParentBoard);
 
                         // set item type according to tag name
                         _Item.Type = Item.Name;
@@ -1115,7 +1123,7 @@ namespace Board
                             XmlNodeList MenuItems = item.GetElementsByTagName("menuitem");
                             foreach (XmlElement menuItem in MenuItems)
                             {
-                                Element _menuItem = new Element();
+                                Element _menuItem = new Element(toolSection,this.ParentBoard);
                                 _menuItem.Type = "menuitem";
                                 // Append xml attributes
                                 AppendElementAttributes(ref _menuItem, menuItem);
@@ -1264,8 +1272,12 @@ namespace Board
     /// <summary>
     /// Element class.
     /// </summary>
-	public class Section : Element
+	public class Section
 	{
+        /// <summary>
+        /// Gets or sets whether the entries in the view can be reordered.
+        /// </summary>
+        public bool Reorder { get; set; }
         /// <summary>
         /// In order to be able to use filter, an instance of an inherited class will assert the filtered query
         /// </summary>
@@ -1297,6 +1309,7 @@ namespace Board
         /// <param name="query"></param>
         public void GenerateFilterView(string query)
         {
+            
             if (query == ""||query == null)
             {
                 FilterView = null;
@@ -1326,6 +1339,9 @@ namespace Board
         }
         private string filterQuery;
         
+        /// <summary>
+        /// Gets and sets the filtering query. 
+        /// </summary>
         public String FilterQuery {
             get
             {
@@ -1339,6 +1355,10 @@ namespace Board
             }
         
         }
+
+        /// <summary>
+        /// Occurs when playback has been interrupted.
+        /// </summary>
         public event Spofity.ElementPlaybackStarted PlaybackItemChanged;
         /// <summary>
         /// The parent Spofity hosting the view
@@ -1360,6 +1380,9 @@ namespace Board
             }
         }
 
+        /// <summary>
+        /// The index of the current item
+        /// </summary>
         public int PlayIndex
         {
             get
@@ -1542,7 +1565,7 @@ namespace Board
 	    		
 	    }
 	    public Section(Spofity parent)
-	    {
+	    { 
             Parent = parent;
 	        elements = new List<Element>();
 	        Sets = new List<Set>();
@@ -1614,15 +1637,32 @@ namespace Board
 	public class Element 
 	{
         /// <summary>
+        /// Gets the instance of the elements which it wa copied from or Null if it wasn't an copy. Used in the filter system
+        /// </summary>
+        public Element Original { get; set; }
+
+
+        /// <summary>
+        /// Gets whether this elements is an copy of another element or an original. Used in the filter system
+        /// </summary>
+        public bool IsCopy
+        {
+            get
+            {
+                return Original != null;
+            }
+        }
+
+        /// <summary>
         /// Copies the instance to a new element
         /// </summary>
         /// <returns>An instance of an copy of this instance</returns>
         public Element Copy()
         {
-            Element dc = new Element();
+            Element dc = new Element(this.ParentSection,this.ParentSection.Parent.ParentBoard);
             dc.type = this.type;
             dc.Parent = this.Parent;
-
+            dc.Original = this;
             // Copy the attributes to the new instance
             foreach (Attribute at in this.attributes)
                 dc.SetAttribute(at.name, at.value);
@@ -1792,6 +1832,11 @@ namespace Board
             get;
             set;
         }
+        
+        /// <summary>
+        /// The drawboard the element is drawn on
+        /// </summary>
+        public DrawBoard ParentHost { get; set; }
 
         /// <summary>
         /// Function to set an attribute of the node.
@@ -1800,6 +1845,7 @@ namespace Board
         /// <param name="value">the value of the attribute</param>
         public void SetAttribute(String name, string value)
         {
+            
             /** boolean indicating wheather an matching attribute was found, 
                 * if not add an to the collection
                 * */
@@ -1812,10 +1858,14 @@ namespace Board
                     found = true;
                 }
             }
+            
+            // If the attribute is an type set the type property to the value
             if (name == type)
             {
                 this.type = value;
             }
+
+            // If the attribute was not found create an new attribute
             if (!found)
             {
                 Attribute _attr = new Attribute();
@@ -1823,19 +1873,65 @@ namespace Board
                 _attr.value = value;
                 this.attributes.Add(_attr);
             }
+
+            // If the element is an copy, give it's original the value
+            if (this.IsCopy)
+                this.Original.SetAttribute(name, value);
+
+          
                
         }
-	    public Element()
+        public Section ParentSection { get; set; }
+	    public Element(Section parentSection,DrawBoard parentBoard)
 	    {
+            this.ParentSection = parentSection;
+            this.ParentHost = parentBoard;
 	        attributes = new List<Attribute>();
             Elements = new ElementCollection();
 	    }
 
+        private bool selected;
         /// <summary>
         /// Gets and sets whether the object is selected on the graphical board
         /// </summary>
-	    public bool Selected { get; set; }
-	
+        public bool Selected
+        {
+            get
+            {
+                return selected;
+            }
+            set
+            {
+                selected = value;
+                // If this is an copy set the parent to selected to
+                if (IsCopy)
+                    this.Original.selected = true;
+
+               
+
+
+            }
+        }
+        /// <summary>
+        /// Scroll so the selected will be visible
+        /// </summary>
+        public void AssertSelection()
+        {
+            // Get the coordinates for the item
+            Rectangle objCoordinates = this.GetCoordinates(this.ParentSection.Parent.ParentBoard.scrollX, this.ParentSection.Parent.ParentBoard.scrollY, new Rectangle(0, 0, this.ParentSection.Parent.ParentBoard.Width, this.ParentSection.Parent.ParentBoard.Height), 0);
+
+            // if the item reach the end 
+            if (objCoordinates.Top + objCoordinates.Height >= this.ParentSection.Parent.ParentBoard.Bounds.Height)
+            {
+
+                this.ParentHost.scrollY += this.Height;
+            }
+
+            // if the object is bellow the beginning
+            if (objCoordinates.Top < objCoordinates.Height)
+                this.ParentHost.scrollY -= this.Height;
+
+        }
 	    private string type;
 
         /// <summary>
