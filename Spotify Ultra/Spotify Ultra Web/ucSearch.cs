@@ -20,12 +20,13 @@ namespace SpofityRuntime
 
         void textBox1_KeyUp(object sender, KeyEventArgs e)
         {
-            if(this.OnKeyUp!=null)
-            this.OnKeyUp(sender, e);
+            if(this.KeyUp!=null)
+            this.KeyUp(sender, e);
         }
         public  event KeyEventHandler OnKeyUp;
     
         public event EventHandler SearchClicked;
+        public event KeyEventHandler KeyUp;
         private void label1_Click(object sender, EventArgs e)
         {
             SearchClicked(this, new EventArgs());

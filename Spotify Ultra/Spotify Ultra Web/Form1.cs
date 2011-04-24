@@ -417,9 +417,38 @@ namespace SpofityRuntime
         {
             
         }
-       
 
+        /// <summary>
+        /// View filter 
+        /// </summary>
+        public class ContentFilter : Board.Section.IViewFilter
+        {
+            public bool FilterElement(Board.Element elm,string query)
+            {
+                if (elm.Type != "entry")
+                    return true;
+                // The attributes to filter
+                String[] attributes = { "artist", "album", "title" };
+                foreach (String attribute in attributes)
+                {
+                    // if query contains space separate all words
+                    if (query.Contains(" "))
+                    {
+                        String[] qs = query.Split(' ');
+                        foreach (string q in qs)
+                            if (elm.GetAttribute(attribute).ToLower().Contains(q))
+                                return true;
+                        return false;
+                    }
+                    if (elm.GetAttribute(attribute).ToLower().Contains(query))
+                    {
+                        return true;
+                    }
+                }
+                return false;
 
+            }
+        }
         void treeview_LinkClick(object sender, string hRef)
         {
             board.Navigate(hRef, "spotify", "views");
@@ -1623,6 +1652,11 @@ namespace SpofityRuntime
         private void eToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void ucSearch2_KeyUp(object sender, KeyEventArgs e)
+        {
+            board.Filter(ucSearch2.Text, new ContentFilter());
         }
     }
      public class Pane : System.Windows.Forms.Panel

@@ -291,6 +291,13 @@ namespace SpofityRuntime.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap rbottom1 {
+            get {
+                object obj = ResourceManager.GetObject("rbottom1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap searchbtn {
             get {
                 object obj = ResourceManager.GetObject("searchbtn", resourceCulture);

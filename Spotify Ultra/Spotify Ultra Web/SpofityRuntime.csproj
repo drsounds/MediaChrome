@@ -348,6 +348,7 @@
     <None Include="Resources\top_toolbar.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\rbottom.png" />
     <None Include="Resources\top_wall1.png" />
     <None Include="Resources\section.png" />
     <None Include="Resources\page.png" />

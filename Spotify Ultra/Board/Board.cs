@@ -149,6 +149,7 @@ namespace Board
                 }
             }
         }
+
         public View CurrentView { get { return currentView; } set { currentView = value; } }
         public DrawBoard()
         {
@@ -172,20 +173,71 @@ namespace Board
 
         }
         /// <summary>
+        /// Returns the instance to the current active section
+        /// </summary>
+        public Section CurSection
+        {
+            get
+            {
+                if (CurrentView != null)
+                    if (CurrentView.Content != null)
+                        if (CurrentView.Content.View != null)
+                            return CurrentView.Content.View.Sections[currentSection];
+                return null;
+            }
+        }
+        /// <summary>
+        /// Get the list of elements for the current view
+        /// </summary>
+        public List<Element> ViewBuffer
+        {
+            get
+            {
+                if (CurrentView != null)
+                    if (CurrentView.Content != null)
+                        if (CurrentView.Content.View != null)
+                        {
+                            List<Element> viewBuffer = CurrentView.Content.View.Sections[currentSection].Elements;
+                            // if filter view is defined show it
+                            if (this.CurrentView.Content.View.Sections[currentSection].FilterView != null)
+                                viewBuffer = this.CurrentView.Content.View.Sections[currentSection].FilterView;
+                            return viewBuffer;
+                        }
+                        return null;
+            }
+            
+        }
+        /// <summary>
+        /// Filter the view according to the query
+        /// </summary>
+        /// <param name="query">The query to filter</param>
+        /// <param name="filter">An instance to an implemented IViewFilter class for filter rules</param>
+        public void Filter(string query, Section.IViewFilter filter)
+        {
+            if (CurSection != null)
+            {
+                CurSection.Filter = filter;
+                CurSection.FilterQuery = query;
+            }
+        }
+        /// <summary>
         /// Column widths. They are used for the entries. -1 means until end of size
         /// </summary>
         public Dictionary<String, int> Columns;
         void DrawBoard_Click(object sender, EventArgs e)
         {
+           
             if (CurrentView != null)
                 if (CurrentView.Content != null)
                     if (CurrentView.Content.View != null)
                         try
                         {
-                            for (int i = 0; i < CurrentView.Content.View.Sections[currentSection].Elements.Count; i++)
+                            
+
+                            for (int i = 0; i < ViewBuffer.Count; i++)
                             {
                                 
-                                Element _Element = (Element)CurrentView.Content.View.Sections[currentSection].Elements[i];
+                                Element _Element = (Element)ViewBuffer[i];
                                 Rectangle Boundaries = _Element.Bounds;
                                 int _left = _Element.Bounds.Left;
                                 int _top = _Element.Bounds.Top;
@@ -897,7 +949,7 @@ namespace Board
         {
             get
             {
-                return this.currentView.Content.View.Sections[currentSection].Elements;
+                return this.ViewBuffer;
             }
         }
         /// <summary>
@@ -917,7 +969,7 @@ namespace Board
                  * */
 
 
-                foreach (Element _element in this.currentView.Content.View.Sections[currentSection].Elements)
+                foreach (Element _element in this.ViewBuffer)
                 {
                     // If the element is not an entry, skip it
                     if (_element.Type != "entry")
@@ -969,7 +1021,7 @@ namespace Board
                 // index counter
                 int i=0;
                 bool foundSelected = false;
-                foreach (Element d in this.currentView.Content.View.Sections[currentSection].Elements)
+                foreach (Element d in this.ViewBuffer)
                 {
                     if (d.Type != "entry")
                         continue;
@@ -988,7 +1040,7 @@ namespace Board
                 if (!this.Focused)
                     return  ;
                 // Deactivate the selected items
-                foreach (Element d in this.currentView.Content.View.Sections[currentSection].Elements)
+                foreach (Element d in this.ViewBuffer)
                 {
 
                     if (d.Type != "entry")
@@ -999,7 +1051,7 @@ namespace Board
                 }
                 // Set the item at the index as selected
                 int index = 0;
-                foreach (Element d in this.currentView.Content.View.Sections[currentSection].Elements)
+                foreach (Element d in this.ViewBuffer)
                 {
                     if (d.Type != "entry")
                         continue;
@@ -1442,11 +1494,11 @@ namespace Board
                 if (CurrentView != null)
                     if (CurrentView.Content != null)
                         if (CurrentView.Content.View != null)
-                            for (int i = 0; i < CurrentView.Content.View.Sections[currentSection].Elements.Count; i++)
+                            for (int i = 0; i < ViewBuffer.Count; i++)
                             {
                                 // Calculate the view coordinates of the element
 
-                                Element _Element = CurrentView.Content.View.Sections[currentSection].Elements[i];
+                                Element _Element = ViewBuffer[i];
                                 Rectangle ScreenCoordinates = _Element.GetCoordinates(scrollX, scrollY, this.Bounds, 0);
                                 // Draw the element and it's children
                                 DrawElement(_Element, d, ref entryship, ScreenCoordinates, 3);
@@ -1555,7 +1607,7 @@ namespace Board
                         {
                             // Get the first entry element
                             Element firstEntry = null;
-                            foreach (Element elm in CurrentView.Content.View.Sections[currentSection].Elements)
+                            foreach (Element elm in ViewBuffer)
                             {
                                 if (elm.Type == "entry")
                                 {
@@ -1764,11 +1816,11 @@ namespace Board
             int top = 20;
             try
             {
-                foreach (Element _Elm in CurrentView.Content.View.Sections[currentSection].Elements)
+                foreach (Element _Elm in ViewBuffer)
                 {
                     _Elm.Selected = false;
                 }
-                foreach (Element _Element in CurrentView.Content.View.Sections[currentSection].Elements)
+                foreach (Element _Element in ViewBuffer)
                 {
                     /**
                      * Element ptop are set on the draw so we can get an hint of where it's bounds are
@@ -1896,7 +1948,7 @@ namespace Board
             this.Cursor = Cursors.Default;
             try
             {
-                foreach (Element _Element in CurrentView.Content.View.Sections[currentSection].Elements)
+                foreach (Element _Element in ViewBuffer)
                 {
                    /**
                     * Get element bounds
@@ -2000,7 +2052,7 @@ namespace Board
                      * */
                     int lastPosition = 0;
                     // calculate the total height of all items
-                    foreach (Element c in this.CurrentView.Content.View.Sections[currentSection].Elements)
+                    foreach (Element c in this.ViewBuffer)
                     {
                         // Check if this position is higher than any previous one and add it if so
 
@@ -2078,7 +2130,7 @@ namespace Board
             int i=0;
             try
             {
-                foreach (Element _Element in CurrentView.Content.View.Sections[currentSection].Elements)
+                foreach (Element _Element in ViewBuffer)
                 {
                     // Get object bounds
                     Rectangle Bounds = _Element.GetCoordinates(scrollX, scrollY, this.Bounds, 0);

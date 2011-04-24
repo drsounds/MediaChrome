@@ -226,7 +226,21 @@ namespace Board
                 }
             }
         }
-        public int CurrentSection { get; set; }
+        private int currentSection = 0;
+        public int CurrentSection
+        {
+            get
+            {
+                return currentSection;
+
+            }
+            set
+            {
+                currentSection = value;
+                this.ScrollY = 0;
+                this.ScrollX = 0;
+            }
+        }
 
         /// <summary>
         /// Set item after current playing as next song.
@@ -716,7 +730,7 @@ namespace Board
                 CT.SetAttribute("top", "@TOP");
 
                 // Convert attribute bounds to native ones
-                CT.AssertBounds();
+                CT.AssertBounds(false);
 
                 // The integer specifies the top position. @TOP token means this variable should set the height
                    
@@ -749,7 +763,7 @@ namespace Board
                            
                         break;
                 }
-                CT.AssertBounds();
+                CT.AssertBounds(false);
                 C.Elements.Add(CT);
 
                 // Do this for children
@@ -795,7 +809,7 @@ namespace Board
 
                 // Append all custom attributes first
                 AppendElementAttributes(ref CT, item);
-                CT.AssertBounds();
+                CT.AssertBounds(false);
                 // Set the type of the element to the item's tag definition
                 CT.SetAttribute("type", item.Name);
                 CT.Type = item.Name;
@@ -837,7 +851,7 @@ namespace Board
                         break;
                 }
                 C.Elements.Add(CT);
-                CT.AssertBounds();
+                CT.AssertBounds(false);
 
                 // Do this for children
                 RenderElements(C,CT, item);
@@ -1065,6 +1079,7 @@ namespace Board
                 _Section = RenderSection(_Section, iSection);
 
                 this.view.Sections.Add(_Section);
+                Element.ptop = 20;
 
 
             }
@@ -1246,8 +1261,84 @@ namespace Board
             Items = new List<Element>();
         }
     }
+    /// <summary>
+    /// Element class.
+    /// </summary>
 	public class Section : Element
 	{
+        /// <summary>
+        /// In order to be able to use filter, an instance of an inherited class will assert the filtered query
+        /// </summary>
+        public interface  IViewFilter
+        {
+            /// <summary>
+            /// Must be implemented to filter
+            /// </summary>
+            /// <param name="src"></param>
+            /// <returns>Wheather the element is visible or not</returns>
+             bool FilterElement(Element src,string query);
+        }
+
+        /// <summary>
+        /// An temporary view if filtered.
+        /// </summary>
+        public List<Element> FilterView 
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// An instance of the abstract class ViewFilter
+        /// </summary>
+        public IViewFilter Filter { get; set; } 
+        /// <summary>
+        /// Generates an filter view according to the query
+        /// </summary>
+        /// <param name="query"></param>
+        public void GenerateFilterView(string query)
+        {
+            if (query == ""||query == null)
+            {
+                FilterView = null;
+                return;
+            }
+            FilterView = new List<Element>();
+
+            /**
+             * If no instance of the filter class is set, return
+             * */
+            if (Filter == null)
+                return;
+
+            // Reset ptop
+            Element.ptop = 20;
+
+            // build view according to filter
+            foreach (Element ct in this.elements)
+            {
+                if (Filter.FilterElement(ct,query))
+                {
+                    Element copy = ct.Copy();
+                    FilterView.Add(copy);
+                }
+            }
+           
+        }
+        private string filterQuery;
+        
+        public String FilterQuery {
+            get
+            {
+                return filterQuery;
+                
+            }
+            set
+            {
+                filterQuery = value;
+                GenerateFilterView(value);
+            }
+        
+        }
         public event Spofity.ElementPlaybackStarted PlaybackItemChanged;
         /// <summary>
         /// The parent Spofity hosting the view
@@ -1523,6 +1614,31 @@ namespace Board
 	public class Element 
 	{
         /// <summary>
+        /// Copies the instance to a new element
+        /// </summary>
+        /// <returns>An instance of an copy of this instance</returns>
+        public Element Copy()
+        {
+            Element dc = new Element();
+            dc.type = this.type;
+            dc.Parent = this.Parent;
+
+            // Copy the attributes to the new instance
+            foreach (Attribute at in this.attributes)
+                dc.SetAttribute(at.name, at.value);
+            // Copy the bounds
+            dc.SetAttribute("left",this.OldLeft.ToString());
+            dc.SetAttribute("top", this.OldTop.ToString());
+            dc.SetAttribute("width",this.Width.ToString());
+            dc.SetAttribute("height", this.Height.ToString());
+            dc.AssertBounds(true);
+            return dc;
+        }
+
+        public int OldLeft { get; set; }
+        public int OldTop { get; set; }
+       
+        /// <summary>
         /// Gets and sets whether the object has been called. Currently this property is used to call image download
         /// handler when it tries to draw at the first time but prevent it are done always.
         /// </summary>
@@ -1589,7 +1705,7 @@ namespace Board
         /// <summary>
         /// Assign bounds of the object according to the parameters that is set in the textual parameter list (attributes)
         /// </summary>
-        public void AssertBounds()
+        public void AssertBounds(bool copy)
         {
                 
             int top = 0;
@@ -1600,7 +1716,11 @@ namespace Board
             int.TryParse(GetAttribute("left"), out left);
             int.TryParse(GetAttribute("width"), out width);
             int.TryParse(GetAttribute("height"),out height);
-                
+            if (!copy)
+            {
+                OldLeft = left;
+                OldTop = top;
+            }
             // Get if the element is persisten
             bool persistent = false;
             bool.TryParse(GetAttribute("persistent"),out persistent);
@@ -1614,6 +1734,8 @@ namespace Board
                     {
                        
                         Element.ptop += height /2 ;
+                        if (copy)
+                            Element.ptop += height / 2;
                     }
                     else
                     {
