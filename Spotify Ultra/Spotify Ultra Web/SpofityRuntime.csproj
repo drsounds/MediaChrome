@@ -137,7 +137,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="AudioData.cs" />
     <Compile Include="BassPlayer.cs" />
     <Compile Include="cBtn.cs">
       <SubType>UserControl</SubType>
@@ -145,17 +144,26 @@
     <Compile Include="cBtn.Designer.cs">
       <DependentUpon>cBtn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Engines\Spotify\AudioData.cs" />
+    <Compile Include="Engines\Spotify\BassPlayer.cs" />
+    <Compile Include="Engines\Spotify\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Engines\Spotify\Login.designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Engines\Spotify\SpotifyView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Engines\Spotify\SpotifyView.designer.cs">
+      <DependentUpon>SpotifyView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Engines\Youtube.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmLogin.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmLogin.Designer.cs">
-      <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="frmVoid.cs">
       <SubType>Form</SubType>
@@ -178,14 +186,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="LocalFile.cs" />
-    <Compile Include="Login.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Login.Designer.cs">
-      <DependentUpon>Login.cs</DependentUpon>
-    </Compile>
     <Compile Include="MainForm.Spofity.cs" />
-    <Compile Include="Mp3.cs">
+    <Compile Include="Engines\Mp3.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Music.cs" />
@@ -241,20 +243,20 @@
     <EmbeddedResource Include="cBtn.resx">
       <DependentUpon>cBtn.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Engines\Spotify\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Engines\Spotify\SpotifyView.resx">
+      <DependentUpon>SpotifyView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmLogin.resx">
-      <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmVoid.resx">
       <DependentUpon>frmVoid.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImportLibrary.resx">
       <DependentUpon>ImportLibrary.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Login.resx">
-      <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -404,9 +406,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Engines\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

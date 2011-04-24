@@ -226,17 +226,16 @@ namespace Board
                 }
             }
         }
+        public int CurrentSection { get; set; }
+
+        /// <summary>
+        /// Set item after current playing as next song.
+        /// </summary>
         public void NextSong()
         {
-            // If the playlist has no entry left, return
-            if (Playlist.Count < 1)
-                return;
-            // Get the next song
-            Element item = Playlist.Dequeue();
-
+            
             // Raise the playback event again
-            if (PlaybackStarted != null)
-                PlaybackStarted(this,item, item.GetAttribute("uri"));
+            this.view.Sections[CurrentSection].PlayIndex++;
         }
         /// <summary>
         /// The drawboard has an playlist stack which is used for listing of media items.
@@ -653,7 +652,7 @@ namespace Board
                 XmlElement iSection = (XmlElement)Sections[0];
                 {
                     // Create new section
-                    Section _Section = new Section();
+                    Section _Section = new Section(this);
 
                     
                        
@@ -884,7 +883,7 @@ namespace Board
                     if (iSection.ParentNode.Name != "view")
                         continue;
                     // Create new section
-                    Section _Section = new Section();
+                    Section _Section = new Section(this);
 
                     // set section name
                     _Section.Name = iSection.GetAttribute("name");
@@ -938,8 +937,8 @@ namespace Board
         public void UpdateAsync()
         {
            
-             
-
+#if (EXPERIMENTAL)
+           
             /**
              * Preprocess the page again
              * */
@@ -960,6 +959,7 @@ namespace Board
                 this.Render();
             }
 
+#endif
         }
         /// <summary>
         /// Method to configure scripts dom manipulation functions on layout element
@@ -1032,7 +1032,7 @@ namespace Board
             XmlDocument d = new XmlDocument();
 
 
-            d.LoadXml(data.Replace(";",""));
+                d.LoadXml(data.Replace(";",""));
 
             // Set the xmlHashCode to the xmldocument's instance so it won't be any collision
             this.xmlHashCode = d.GetHashCode();
@@ -1050,7 +1050,10 @@ namespace Board
                 if (iSection.ParentNode.Name != "view")
                     continue;
                 // Create new section
-                Section _Section = new Section();
+                Section _Section = new Section(this);
+
+                // Append nowplaying handler
+                _Section.PlaybackItemChanged += new ElementPlaybackStarted(_Section_PlaybackItemChanged);
 
                 // set section name
                 _Section.Name = iSection.GetAttribute("name");
@@ -1066,7 +1069,62 @@ namespace Board
 
             }
 
+            /***
+             * 2011-04-23 23:03
+             * Load toolbar
+             * */
+            XmlNodeList toolItems = d.GetElementsByTagName("toolbar");
+
+            // If the toolbar has elements inflate them
+            if (toolItems.Count > 0)
+            {
+                XmlNodeList ToolItems = ((XmlElement)toolItems[0]).GetElementsByTagName("item");
+                
+                // Extract all items
+                foreach (XmlElement item in ToolItems)
+                {
+                    if (item.GetType() == typeof(XmlElement))
+                    {
+                        XmlElement Item = (XmlElement)item;
+                        Element _Item = new Element();
+
+                        // set item type according to tag name
+                        _Item.Type = Item.Name;
+
+                        // Attach the element's attributes
+                        AppendElementAttributes(ref _Item, item);
+
+                        // if the item has the type menu inflate it's menuitems
+                        if (_Item.GetAttribute("type") == "menu")
+                        {
+                            XmlNodeList MenuItems = item.GetElementsByTagName("menuitem");
+                            foreach (XmlElement menuItem in MenuItems)
+                            {
+                                Element _menuItem = new Element();
+                                _menuItem.Type = "menuitem";
+                                // Append xml attributes
+                                AppendElementAttributes(ref _menuItem, menuItem);
+                                _Item.Elements.Add(_menuItem);
+                            }
+                           
+                        }
+
+                        // add the item to the menubar
+                        this.view.Toolbar.Items.Add(_Item);
+
+
+                    }
+                }
+            }
+
             LoadData();
+        }
+
+        bool _Section_PlaybackItemChanged(Spofity sender, Element element, string uri)
+        {
+            if(this.PlaybackStarted!=null)
+                return this.PlaybackStarted(sender, element, uri);
+            return false;
         }
 	 
 	    void Spofity_FinishedLoading()
@@ -1144,8 +1202,9 @@ namespace Board
 	    {
 	        sections = new List<Section>();
 	        Sets = new List<Set>();
+            Toolbar = new Toolbar();
 	    }
-	
+        public Toolbar Toolbar { get; set; }
 	    private List<Section> sections;
 	    [XmlElement("section")]
 	    public List<Section> Sections
@@ -1179,8 +1238,169 @@ namespace Board
 	    public string Url;*/
 	
 	}
+    public class Toolbar
+    {
+        public List<Element> Items { get; set; }
+        public Toolbar()
+        {
+            Items = new List<Element>();
+        }
+    }
 	public class Section : Element
 	{
+        public event Spofity.ElementPlaybackStarted PlaybackItemChanged;
+        /// <summary>
+        /// The parent Spofity hosting the view
+        /// </summary>
+        public Spofity Parent { get; set; }
+        /// <summary>
+        /// Gets the current playing entry
+        /// </summary>
+        public Element NowPlaying
+        {
+            get
+            {
+                foreach (Element d in this.Elements)
+                {
+                    if (d.Type == "entry" && d.GetAttribute("__playing")!="")
+                        return d;
+                }
+                return null;
+            }
+        }
+
+        public int PlayIndex
+        {
+            get
+            {
+                // counter
+                int i=0;
+
+                // only increase counter if element is an entry
+                foreach (Element d in this.Elements)
+                {
+                    if (d.Type == "entry")
+                    {
+                        if(d.GetAttribute("__playing")!="")
+                            return i;
+                        i++;
+                    }
+                        
+                }
+                return i;
+            }
+            set
+            {
+                
+                foreach (Element d in this.Elements)
+                {
+                    if (d.Type == "entry")
+                    {
+                        if (d.GetAttribute("__playing") != "")
+                        {
+                            d.SetAttribute("__playing","");
+                        }
+                        
+                    }
+
+                }
+                int counter =0;
+                foreach (Element elm in this.elements)
+                {
+                    if (elm.Type == "entry")
+                    {
+                        if (counter == value)
+                        {
+                            elm.SetAttribute("__playing", "true");
+                            if (this.PlaybackItemChanged != null)
+                                this.PlaybackItemChanged(this.Parent, elm, elm.GetAttribute("uri"));
+                        }
+                        counter++;
+                    }
+                    
+                }
+            }
+        }
+        /// <summary>
+        /// Gets and sets the selected index . Returns -1 if no entries was found. Applies only with elements of type "entry".
+        /// </summary>
+        public int SelectedIndex
+        {
+            get
+            {
+                // index counter
+                int i = 0;
+                bool foundSelected = false;
+                foreach (Element d in this.Elements)
+                {
+                    if (d.Type != "entry")
+                        continue;
+                    // if the previous gave foundSelected set this to selected
+
+
+                    if (d.Selected == true)
+                        return i;
+
+                    i++;
+                }
+                return -1;
+            }
+            set
+            {
+           
+                // Deactivate the selected items
+                foreach (Element d in this.Elements)
+                {
+
+                    if (d.Type != "entry")
+                        continue;
+                    d.Selected = false;
+
+
+                }
+                // Set the item at the index as selected
+                int index = 0;
+                foreach (Element d in this.Elements)
+                {
+                    if (d.Type != "entry")
+                        continue;
+                    // if index meets the setter, mark it as selected
+                    if (index == value)
+                        d.Selected = true;
+
+                    index++;
+
+
+
+                }
+            }
+
+        }
+        /// <summary>
+        /// Returns an entry at the specified index.
+        /// </summary>
+        /// <remarks>Only elements of type "entry" is indexed</remarks>
+        /// <param name="index">The position of the element to find</param>
+        /// <returns>An element if found at the location, NULL otherwise</returns>
+        public Element EntryAt(int index)
+        {
+            int i=0;
+            foreach (Element d in this.elements)
+            {
+                
+                    
+
+                if (d.Type == "entry")
+                {
+                    if (index == i)
+                        return d;
+                    i++;
+                }
+
+            }
+            return null;
+        }
+
         /// <summary>
         /// Gets and sets if the Element is in an list mode. A list mode will draw column headers straight before the
         /// first entry element and associate it with screen top if the element are outside the screen boundary.
@@ -1230,8 +1450,9 @@ namespace Board
 	    	}*/
 	    		
 	    }
-	    public Section()
+	    public Section(Spofity parent)
 	    {
+            Parent = parent;
 	        elements = new List<Element>();
 	        Sets = new List<Set>();
 	    }
@@ -1388,18 +1609,18 @@ namespace Board
             // If the top variable is still below one, assign the top to the ptop variable and increase ptop iself   
             if (top < 1)
             {
-                  
+                top = Element.ptop;
                     if (!Persistent)
                     {
                        
-                        Element.ptop += height /2;
+                        Element.ptop += height /2 ;
                     }
                     else
                     {
                        
 
                     }
-                    top = Element.ptop;
+                   
             }
             // Apply the values to the native width/height markup
             this.Width = width;

@@ -10,9 +10,14 @@
 						
 	var ad = advertisement.split(";");
 	
-?>
+?>	
 <view>
-	
+	<toolbar>
+		<item title="share" onclick="command()"/>
+		<item type="menu"	 title="example">
+			<menuitem onclick="test1()" title="A"/>
+		</item>
+	</toolbar>
 	<section name="Overview">
 		<img width="340" height="120" left="540" top="10" href="@{ad[1]}" src="@{ad[0]}"/>
 		<label height="20" size="14" left="10" top="@TOP" width="500">Home</label>

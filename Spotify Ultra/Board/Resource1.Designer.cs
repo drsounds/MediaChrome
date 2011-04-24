@@ -67,6 +67,13 @@ namespace Board {
             }
         }
         
+        internal static System.Drawing.Bitmap dropdown {
+            get {
+                object obj = ResourceManager.GetObject("dropdown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap inactive {
             get {
                 object obj = ResourceManager.GetObject("inactive", resourceCulture);

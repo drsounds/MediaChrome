@@ -231,11 +231,94 @@ namespace Board
 
                                 }
                             }
+
+                            /**
+                             * Capture toolbaritemss
+                             * */
+                            int menupadding = 20;
+                            int size = 0;
+                            Graphics d = this.CreateGraphics();
+                            foreach (Element _elm in this.currentView.Content.View.Toolbar.Items)
+                            {
+                                size += menupadding + (int)d.MeasureString(_elm.GetAttribute("title"), new Font(FontFace, 9)).Width + menupadding;
+                            }
+                            int toolBarindent = scrollbar_size;
+                           // Get start position of toolbar 
+                           int position = this.Width - toolBarindent - size;
+                           foreach (Element _elm in this.currentView.Content.View.Toolbar.Items)
+                           {
+                               int prePosition=position;
+                        
+                              position += menupadding+ (int)d.MeasureString(_elm.GetAttribute("title"), new Font(FontFace, 9)).Width+menupadding;
+
+                               // If mouseover mark the item
+                               if (mouseX >= prePosition && mouseX <= position && mouseY < tabbar_height)
+                               {
+                                   // if item is an menu create an context menu
+                                   if (_elm.GetAttribute("type") == "menu")
+                                   {
+                                       // Create contextmenu
+                                       ContextMenu _cm = new ContextMenu();
+                                       
+                                       // Create Child items
+                                       foreach (Element menuItem in _elm.Elements)
+                                       {
+                                           ToolMenuItem MenuItem = new ToolMenuItem(this);
+
+
+                                           // Associate the event with the menu item    
+                                           MenuItem.Tag = menuItem.GetAttribute("onclick");
+
+                                           // set the menuitem's text to the elements text
+                                           MenuItem.Text = menuItem.GetAttribute("title");
+                                           _cm.MenuItems.Add(MenuItem);
+                                       }
+
+                                       // Show the menu
+                                       _cm.Show(this, new Point(prePosition-menupadding, tabbar_height));
+
+                                       // stop here
+                                       return;
+                                   }
+                                   CurrentView.Content.ScriptEngine.Run(_elm.GetAttribute("onclick"));
+                               }
+                           }
+
+                
                         }
                         catch (Exception ex)
                         {
                         }
-        }
+
+            }
+
+            /// <summary>
+            /// Shortcut menuitem class, for instansiating shortcut menus from scripts
+            /// </summary>
+            public class ToolMenuItem : MenuItem
+            {
+                public Board.DrawBoard Host;
+                public ToolMenuItem(Board.DrawBoard host)
+                {
+                    Host = host;
+                    this.Click += new EventHandler(ToolMenuItem_Click);
+                }
+                void ToolMenuItem_Click(object sender, EventArgs e)
+                {
+                    String tag = (string)((ToolMenuItem)sender).Tag;
+
+                    // Execute function associated with the menu
+                    Host.CurrentView.Content.Engine.RuntimeMachine.Run(tag);
+                }
+            }
+
+            /// <summary>
+            /// Should do an action on the javascript handler
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
+       
+
         public event EventHandler Loaded;
         public void LoadPage(string URI)
         {
@@ -351,7 +434,31 @@ namespace Board
             /// <summary>
             /// The section of the view
             /// </summary>
-            public int Section { get; set; }
+            public int Section 
+            {
+                get
+                {
+                    try
+                    {
+                        return this.Content.CurrentSection;
+                    }
+                    catch
+                    {
+                        return 0;
+                    }
+                }
+                set
+                {
+                    try
+                    {
+                        this.Content.CurrentSection = value;
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+               
 
             /// <summary>
             /// The name of the view, for measure
@@ -829,6 +936,14 @@ namespace Board
             }
 
         }
+
+        /// <summary>
+        /// Play next song
+        /// </summary>
+        public void NextSong()
+        {
+            this.CurrentView.Content.NextSong();
+        }
         int diffX = 0;
         int diffY = 0;
         int top = 0;
@@ -932,7 +1047,9 @@ namespace Board
            
 
         }
-        
+
+        public string FontFace = "MS Sans Serif";
+
         /// <summary>
         /// Function to draw an element on an view view
         /// </summary>
@@ -991,7 +1108,7 @@ namespace Board
             if (textSize == 0)
                 textSize = 8;
 
-            String fontName = "MS Sans Serif";
+            String fontName = FontFace;
             if (_Element.GetAttribute("font") != "")
             {
                 fontName = _Element.GetAttribute("font");
@@ -1027,11 +1144,11 @@ namespace Board
                               int _height = int.Parse(_Element.GetAttribute("height"));
 
                               d.FillRectangle(new SolidBrush(EnTry), new Rectangle(_left - scrollX, _top - scrollY, _width, _height));
-                              d.DrawString(_Element.GetAttribute("no"), new Font("MS Sans Serif", 8), new SolidBrush(Spirit.MainForm.FadeColor(-0.4f, ForeGround)), new Point(_left + 1 - scrollX, _top + 2 - scrollY));
+                              d.DrawString(_Element.GetAttribute("no"), new Font(FontFace, 8), new SolidBrush(Spirit.MainForm.FadeColor(-0.4f, ForeGround)), new Point(_left + 1 - scrollX, _top + 2 - scrollY));
 
-                              d.DrawString(_Element.GetAttribute("title"), new Font("MS Sans Serif", 8), new SolidBrush(ForeGround), new Point(_left + 20 - scrollX, _top + 2 - scrollY));
-                              d.DrawString(_Element.GetAttribute("author"), new Font("MS Sans Serif", 8), new SolidBrush(ForeGround), new Point(_left + 320 - scrollX, _top + 2 - scrollY));
-                              d.DrawString(_Element.GetAttribute("collection"), new Font("MS Sans Serif", 8 ), new SolidBrush(ForeGround), new Point(_left + 435 - scrollX, _top + 2 - scrollY));
+                              d.DrawString(_Element.GetAttribute("title"), new Font(FontFace, 8), new SolidBrush(ForeGround), new Point(_left + 20 - scrollX, _top + 2 - scrollY));
+                              d.DrawString(_Element.GetAttribute("author"), new Font(FontFace, 8), new SolidBrush(ForeGround), new Point(_left + 320 - scrollX, _top + 2 - scrollY));
+                              d.DrawString(_Element.GetAttribute("collection"), new Font(FontFace, 8 ), new SolidBrush(ForeGround), new Point(_left + 435 - scrollX, _top + 2 - scrollY));
                               top += ROWHEIGHT;
                               entryship++;
                               break;
@@ -1275,8 +1392,8 @@ namespace Board
             foreach (KeyValuePair<String, int> column in Columns)
             {
                 
-                p.DrawString(column.Key, new Font("MS Sans Serif", 8, FontStyle.Bold), new SolidBrush(Color.White), new Point(current_position, text_top+point.Y+1));
-                p.DrawString(column.Key, new Font("MS Sans Serif", 8, FontStyle.Bold), new SolidBrush(Color.Black), new Point(current_position, text_top+point.Y));
+                p.DrawString(column.Key, new Font(FontFace, 8, FontStyle.Bold), new SolidBrush(Color.White), new Point(current_position, text_top+point.Y+1));
+                p.DrawString(column.Key, new Font(FontFace, 8, FontStyle.Bold), new SolidBrush(Color.Black), new Point(current_position, text_top+point.Y));
                 current_position += column.Value;
             }
 
@@ -1356,12 +1473,16 @@ namespace Board
                 // draw an bounding rectangle
                 d.FillRectangle(new SolidBrush(Color.Black), new Rectangle(0, 0, this.Bounds.Width, tabbar_height));
                 d.DrawLine(new Pen(Color.FromArgb(128, 128, 128)), new Point(0, tabbar_height), new Point(this.Bounds.Width, tabbar_height));
+
+                // Position counter for tabbar. Useful for meausing toolitems
+                int position_counter = tabbar_start;
                 if (CurrentView != null)
                     if (CurrentView.Content != null)
                         if (CurrentView.Content.View != null)
                             // Draw all section bar
                             for (int i = 0; i < CurrentView.Content.View.Sections.Count; i++)
                             {
+                                position_counter += i * (tab_width + tab_distance)+tab_width; 
                                 Section section = CurrentView.Content.View.Sections[i];
                                 // if you are at the current section draw the panes
 
@@ -1378,7 +1499,7 @@ namespace Board
                                     d.DrawImage(sectionTab, new Rectangle(tabbar_start + i * (tab_width + tab_distance), 1, tab_width, tabbar_height));
 
                                     // draw the tab background
-                                    d.DrawString(section.Name, new Font("MS Sans Serif", 8), new SolidBrush(Color.FromArgb(255, 255, 211)), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, tab_text_margin / 5));
+                                    d.DrawString(section.Name, new Font(FontFace, 8), new SolidBrush(Color.FromArgb(255, 255, 211)), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, tab_text_margin / 5));
                                 }
                                 else
                                 {
@@ -1390,8 +1511,8 @@ namespace Board
                                     // draw the tab bar
                                     d.DrawImage(inactive_section_tab, new Rectangle(tabbar_start + ((tab_distance + tab_width) * i), 1, tab_width, tabbar_height - 1));
 
-                                    d.DrawString(section.Name, new Font("MS Sans Seif", 8), new SolidBrush(Color.Black), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, tab_text_margin / 5));
-                                    d.DrawString(section.Name, new Font("MS Sans Seif", 8), new SolidBrush(Color.White), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, +tab_text_margin / 5 - 1));
+                                    d.DrawString(section.Name, new Font(FontFace, 8), new SolidBrush(Color.Black), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, tab_text_margin / 5));
+                                    d.DrawString(section.Name, new Font(FontFace, 8), new SolidBrush(Color.White), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, +tab_text_margin / 5 - 1));
                                 }
                             }
                 /**
@@ -1458,7 +1579,106 @@ namespace Board
                                 }
                             }
                         }
+                /***
+                 * Draw toolbar and menubar
+                 * */
+                if (ViewExist())
+                {
+                    // Calculate the width of the menubar
+                    int size = 0;
+                    int menupadding = 30;
+                    // current position of item
+                    
+                   /* int position=position_counter;
+                    foreach (Element _elm in this.currentView.Content.View.Toolbar.Items)
+                    {
+                        
+                        // preposition
+                        int preposition = position;
 
+                        
+                        // Width of the string
+                        int string_width = (int)d.MeasureString(_elm.GetAttribute("title"), new Font(FontFace, 9)).Width ;
+
+                        int width = string_width + menupadding * 2;
+                        d.FillRectangle(new SolidBrush(Color.FromArgb(43, 43, 43)), new Rectangle(preposition, 0, width, tabbar_height-2));
+
+                        // If mouse is over, draw bounding box
+
+                        if (mouseX >= preposition && mouseX <= preposition + width && mouseY <= tabbar_height)
+                        {
+                            d.FillRectangle(new SolidBrush(Color.FromArgb(87,87,87)), new Rectangle(preposition, 3, (preposition+width) - preposition, tabbar_height -2));
+                        }
+
+                        // If the element is an menu draw menu
+                        if (_elm.GetAttribute("type") == "menu")
+                        {
+                            d.DrawImage(Resource1.dropdown, new Point(position + 3, 2));
+                        }
+                        d.DrawString(_elm.GetAttribute("title"), new Font(FontFace, 9), new SolidBrush(Color.White), new Point(position + menupadding, 2));
+                        position += menupadding +string_width+ menupadding;
+                       
+                        
+                    }
+                    
+                   foreach (Element _elm in this.currentView.Content.View.Toolbar.Items)
+                   {
+                       int prePosition = position;
+
+                       // Draw text and measure the position for the next entry
+
+
+                       // The item is an menu, draw the menu image
+
+                       d.DrawString(_elm.GetAttribute("text"), new Font(FontFace, 9), new SolidBrush(Color.White), new Point(position, 2));
+                       position += menupadding + (int)d.MeasureString(_elm.GetAttribute("text"), new Font(FontFace, 9)).Width + menupadding;
+                       if (_elm.Type == "menu")
+                       {
+                           d.DrawImage(Resource1.dropdown, new Point(2, position - menupadding));
+                       }
+                       // If mouseover mark the item
+                       if (mouseX >= prePosition && mouseX <= position && mouseY < tabbar_height)
+                       {
+                           d.DrawRectangle(new Pen(Color.FromArgb(255, 255, 211)), new Rectangle(prePosition, -1, position - prePosition, tabbar_height + 3));
+                       }
+                   }
+                    */
+                   
+                   
+                   foreach (Element _elm in this.currentView.Content.View.Toolbar.Items)
+                   {
+                       size += menupadding+ (int)d.MeasureString(_elm.GetAttribute("title"), new Font(FontFace, 9)).Width + menupadding;
+                   }
+
+                   int toolBarindent = scrollbar_size;
+                   // Get start position of toolbar 
+                   int position = this.Width - toolBarindent - size;
+                   foreach (Element _elm in this.currentView.Content.View.Toolbar.Items)
+                   {
+                       int prePosition=position;
+                        
+                        // Draw text and measure the position for the next entry
+                         
+
+                       // The item is an menu, draw the menu image
+                        
+                       d.DrawString(_elm.GetAttribute("title"), new Font(FontFace, 9), new SolidBrush(Color.White), new Point(position+menupadding, 2));
+                       position += menupadding+ (int)d.MeasureString(_elm.GetAttribute("title"), new Font(FontFace, 9)).Width+menupadding;
+                       if (_elm.Type == "menu")
+                       {
+                           d.DrawImage(Resource1.dropdown, new Point( position-menupadding,2));
+                       }
+                       // If mouseover mark the item
+                       if (mouseX >= prePosition && mouseX <= position && mouseY < tabbar_height)
+                       {
+                           Rectangle bounds = new Rectangle(prePosition, 2, position - prePosition, tabbar_height-4);
+                           d.FillRectangle(new SolidBrush(Color.FromArgb(50, 50, 50)), bounds);
+                           d.DrawRectangle(new Pen(Color.FromArgb(155,155,155)),bounds);
+                           d.DrawString(_elm.GetAttribute("title"), new Font(FontFace, 9),new SolidBrush(Color.White), new Point(menupadding + prePosition, 2));
+                       }
+                   }
+
+                }
                 /***
                  * Render the image
                  * */
@@ -1468,7 +1688,18 @@ namespace Board
             {
             }
         }
-               
+        /// <summary>
+        /// Returns if an active view exists
+        /// </summary>
+        /// <returns></returns>
+        public bool ViewExist()
+        {
+            if (CurrentView != null)
+                if (CurrentView.Content != null)
+                    if (CurrentView.Content.View != null)
+                        return true;
+            return false;
+        }
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             base.OnMouseWheel(e);
@@ -1710,7 +1941,7 @@ namespace Board
                     }
                 	/* if(_Element.Type == "entry")
                     {
-                	 	if((e.X >= ARTISTLEFT+_left) && e.X <= ARTISTLEFT+_left+this.CreateGraphics().MeasureString(_Element.GetAttribute("author"),new Font("MS Sans Serif",8)).Width && _Element.GetAttribute("uri@author")!="")
+                	 	if((e.X >= ARTISTLEFT+_left) && e.X <= ARTISTLEFT+_left+this.CreateGraphics().MeasureString(_Element.GetAttribute("author"),new Font(FontFace,8)).Width && _Element.GetAttribute("uri@author")!="")
                     	{
                     		this.Cursor = Cursors.Hand;	
                     	}
@@ -1884,13 +2115,13 @@ namespace Board
                         case "img":
                             break;
                         case "label":
-                            //    d.DrawString(_Element.GetAttribute("text"), new Font("MS Sans Serif", 8), new SolidBrush(Fg), new Point(int.Parse(_Element.GetAttribute("x")) - scrollX, int.Parse(_Element.GetAttribute("y")) - scrollY));
+                            //    d.DrawString(_Element.GetAttribute("text"), new Font(FontFace, 8), new SolidBrush(Fg), new Point(int.Parse(_Element.GetAttribute("x")) - scrollX, int.Parse(_Element.GetAttribute("y")) - scrollY));
                             break;
                         case "button":
                             break;
                         case "section":
                             // d.FillRectangle(new SolidBrush(Section), new Rectangle(0, top - scrollY, this.Width, ROWHEIGHT));
-                            // d.DrawString(_Element.GetAttribute("text"), new Font("MS Sans Serif", 8), new SolidBrush(Fg), new Point(LEFT - scrollX, top + 4 - scrollY));
+                            // d.DrawString(_Element.GetAttribute("text"), new Font(FontFace, 8), new SolidBrush(Fg), new Point(LEFT - scrollX, top + 4 - scrollY));
                             top += 40;
                             break;
                         case "divider":

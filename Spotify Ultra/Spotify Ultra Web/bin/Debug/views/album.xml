@@ -7,6 +7,7 @@
  var adata = synchronize_data("http://ws.spotify.com/lookup/1/?uri=spotify:album:"+parameter.replace("spotify:album:","")+"");
 
  var artist = adata.GetElementsByTagName("artist").Item(0).GetElementsByTagName("name").Item(0).InnerText;
+ var artist_uri = adata.GetElementsByTagName("artist").Item(0).GetAttribute("href");
  var name = adata.GetElementsByTagName("name").Item(0).InnerText;
  var data = synchronize_data("http://ws.spotify.com/search/1/track?q=album:\""+name+"\" artist:\""+artist+"\"");
  
@@ -17,6 +18,11 @@
  
 ?>
 <view>
+	<toolbar>
+		<item type="menu" title="Actions">
+			<menuitem name="More from the artist" onclick="navigate('@{artist_uri}')"/>
+		</item>
+	</toolbar>
 	<section name="Overview">
 		<!-- An example tracklist -->
 		<inflate src="components/album.xml" artist="@{artist}" name="@{name}" uri="spotify:album:@{parameter}"/>

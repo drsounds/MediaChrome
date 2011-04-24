@@ -23,6 +23,11 @@ namespace SpofityRuntime
      
     public partial class Form1 : GlassForms.GlassForm
     {
+
+        /// <summary>
+        /// The current engine which plays an song.
+        /// </summary>
+        public MediaChrome.IPlayEngine CurrentPlayer { get; set; }
         public class View
         {
             public View(String uri, string adress)
@@ -165,10 +170,12 @@ namespace SpofityRuntime
         }
 
        
-
+        /// <summary>
+        /// Play next song
+        /// </summary>
         public void NextSong()
         {
-            nowPlayingView.NextSong();
+            board.NextSong();
         }
         
         /// <summary>
@@ -186,6 +193,33 @@ namespace SpofityRuntime
         /// </summary>
         Panel splitter1;
 
+        /// <summary>
+        /// Used by scripts to get an playlist
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns>an playlist object, FALSE if failed</returns>
+        public object __getPlaylist(string source)
+        {
+            try
+            {
+                // Get engine for playlist
+                String ns = source.Split(':')[0];
+                MediaChrome.IPlayEngine engine = Program.MediaEngines[ns];
+
+                return engine.ViewPlaylist("", source.Replace(ns + ":", ""));
+                
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public object __import_music()
+        {
+            MediaChrome.ImportLibrary frmImport = new MediaChrome.ImportLibrary();
+            frmImport.ShowDialog();
+            return null;
+        }
         /// <summary>
         /// Will split the window when mouse move if true
         /// </summary>
@@ -254,6 +288,48 @@ namespace SpofityRuntime
             treeview.Navigate("spotify:menu:1", "spotify", "views");
            
         }
+
+        /// <summary>
+        /// This function checks all media engines for music
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public List<MediaChrome.Song> FindMusic(string query)
+        {
+            // Create new list for all songs
+            List<MediaChrome.Song> searchResult = new List<MediaChrome.Song>();
+            // iterate through all sources
+            foreach (MediaChrome.IPlayEngine Engine in Program.MediaEngines.Values)
+            {
+                List<MediaChrome.Song> songs = Engine.Find(query);
+                searchResult.AddRange(songs);
+
+            }
+            return searchResult;
+        }
+
+        /// <summary>
+        /// Script wrapper for the function
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public object __findMusic(string query)
+        {
+            return FindMusic(query);
+        }
+
+        /// <summary>
+        /// Used by javascript to navigate through views
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public object __navigate(string url)
+        {
+            if(uri.StartsWith("spotify:"))
+                board.Navigate(url, "spotify", "views");
+            // TODO: Add more handlers
+            return null;
+        }
         /// <summary>
         /// Method to initialize all features available for subscripts
         /// </summary>
@@ -263,6 +339,12 @@ namespace SpofityRuntime
         {
               Board.MakoEngine d = (Board.MakoEngine)sender;
               d.RuntimeMachine.SetFunction("queryLocalFiles",new Func<string, object>(__GetLocalFiles));
+
+              d.RuntimeMachine.SetFunction("findMusic", new Func<string, object>(__findMusic));
+              d.RuntimeMachine.SetFunction("getPlaylist", new Func<string, object>(__getPlaylist));
+              d.RuntimeMachine.SetFunction("importMusic", new Func<object>(__import_music));
+              d.RuntimeMachine.SetFunction("navigate", new Func<string,object>(__navigate));
+
         }
 
         /// <summary>
@@ -345,6 +427,13 @@ namespace SpofityRuntime
 
         bool board_PlaybackRequested(object sender, string Url)
         {
+            /**
+             * Stop the current playing song
+             * */
+            if (CurrentPlayer != null)
+                CurrentPlayer.Stop();
+
+
             // If url starts with Spotify:local: (eg. local file) load it another way. More handlers will be implemented soon as this
             // will be an mediachrome instance
             if(Url.StartsWith("spotify:local:"))
@@ -367,7 +456,48 @@ namespace SpofityRuntime
                 axWindowsMediaPlayer1.Ctlcontrols.play();
                 return true;
             }
-           
+
+            /**
+             * If Url starts with Spotify: call the spotify handler
+             * */
+            try
+            {
+                if (Url.StartsWith("spotify:"))
+                {
+                    var mediaEngine = Program.MediaEngines["sp"];
+                    this.CurrentPlayer = mediaEngine;
+                    mediaEngine.Load(Url);
+                    mediaEngine.Play();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            /**
+             * Get the identifier for which kind of media engine the song belongs to
+             * */
+            String startHandler = Url.Split(':')[0];
+
+            /** 
+             * Decide which media engine which should held responsible for the playback 
+             * of the media entry
+             * */
+            try
+            {
+                this.CurrentPlayer = Program.MediaEngines[startHandler];
+                this.CurrentPlayer.Load(Url.Replace(startHandler+":",""));
+                this.CurrentPlayer.Play();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+           /*
             // TODO: Add more media handlers
 
             Spotify.Track track = Track.CreateFromLink(Link.Create(Url.Replace("spotify:","spotify:")));
@@ -384,7 +514,7 @@ namespace SpofityRuntime
             // Set the nowplaying view to the view provided
                 Board.Spofity Sender = (Board.Spofity)sender;
                 nowPlayingView = Sender;
-            return true;
+            return true;*/
             
         }
         /// <summary>
@@ -523,44 +653,6 @@ namespace SpofityRuntime
         public void PlayMedia(string[] TrackList,int PlayIndex)
         {
         	
-                    Program.playQueue.Clear();
-                    
-                    foreach (string _track in TrackList)
-                    {
-                        try
-                        {
-                            Track Dd = Track.CreateFromLink(Link.Create(_track));
-
-                            Program.playQueue.Enqueue(Dd);
-                        }
-                        catch { }
-                    }
-                    if (currentTrack != null)
-                    {
-                        Program.playHistory.Push(currentTrack);
-                    }
-                    currentTrack = Program.playQueue.Dequeue();
-                    try
-                    {
-
-                        string Cover = currentTrack.Album.LinkString;
-                        if (File.Exists(Program.GetAppString() + "\\covers\\" + Cover.Replace(":", "_") + ".jpg"))
-                        {
-                            try
-                            {
-                             }
-                            catch
-                            {
-                            }
-                        }
-                    }
-                    catch
-                    {
-                    }
-                  
-                      Program.SpotifySession.PlayerLoad(currentTrack);
-                    Program.SpotifySession.PlayerPlay(true);
-                    Program.currentView = currentUrl;
                   
         }
         
@@ -1365,7 +1457,8 @@ namespace SpofityRuntime
        
         private void ucPosBar1_MouseUp(object sender, MouseEventArgs e)
         {
-            Program.SpotifySession.PlayerSeek((int)(ucPosBar1.Value*1000));
+            if(CurrentPlayer!=null)
+            CurrentPlayer.Seek((int)(ucPosBar1.Value*1000));
         }
 
         private void cBtn2_Load(object sender, EventArgs e)
@@ -1380,12 +1473,13 @@ namespace SpofityRuntime
 
         private void cBtn2_Click(object sender, EventArgs e)
         {
-            Program.NextTrack();
+            if (CurrentPlayer != null)
+                CurrentPlayer.Stop();
         }
 
         private void cBtn6_Click(object sender, EventArgs e)
         {
-            Program.PreviousTrack();
+
         }
 
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
@@ -1399,7 +1493,7 @@ namespace SpofityRuntime
 
         private void pictureBox2_Click_1(object sender, EventArgs e)
         {
-            ParseURI(Program.currentView, false);
+         
         }
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
@@ -1409,23 +1503,19 @@ namespace SpofityRuntime
 
         private void playToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ParseURI((string)contextMenuStrip1.Tag, false);
+        
         }
 
         private void cBtn1_Click(object sender, EventArgs e)
         {
-            if (Program.Paused)
-            {
-
-                Program.Paused = false;
-            }
-            else { Program.Paused = true; }
-
+           
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-           }
+            if (CurrentPlayer != null)
+                CurrentPlayer.Play();
+        }
 
        
 
@@ -1528,6 +1618,11 @@ namespace SpofityRuntime
             // Create import library form
             MediaChrome.ImportLibrary frmImport = new MediaChrome.ImportLibrary();
             frmImport.ShowDialog();
+        }
+
+        private void eToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
      public class Pane : System.Windows.Forms.Panel

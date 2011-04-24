@@ -68,7 +68,6 @@ L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\C
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\ResolveAssemblyReference.cache
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.cBtn.resources
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.Form1.resources
-L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.frmLogin.resources
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.frmVoid.resources
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.Login.resources
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.Properties.Resources.resources
@@ -93,3 +92,4 @@ L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\S
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\MediaChrome.ImportLibrary.resources
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\Id3Tag.Net.dll
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\Id3Tag.Net.xml
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\MediaChrome.Spotify.SpotifyView.resources

@@ -33,7 +33,14 @@ var localAlbums = queryLocalFiles("SELECT DISTINCT album FROM song WHERE artist=
 
 ?>
 <view>
+	<toolbar>
+		<item title="share" onclick="command()"/>
+		<menu title="example">
+			<menuitem onclick="test1()" title="A"/>
+		</menu>
+	</toolbar>
 	<section name="Overview">
+		
 		<label size="20" left="310" top="@TOP" width="500" height="10"></label> 
 		<img src="http://krakelin.com/artist.png" top="@TOP" left="10" width="120" height="120" persistent="true" />
 <label size="20" left="310" top="@TOP" width="500" height="10" href="@{parameter}">@{title}</label> 	

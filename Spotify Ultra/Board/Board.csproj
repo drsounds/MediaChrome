@@ -180,6 +180,7 @@
     <None Include="scrollbar_thumb.png" />
     <None Include="Resources\ajax-loader.gif" />
     <None Include="Resources\release.png" />
+    <None Include="Resources\dropdown.png" />
     <Content Include="TextFile1.txt" />
   </ItemGroup>
 </Project>
