@@ -306,7 +306,7 @@ namespace SpofityRuntime
                 {
                     Link d = Link.Create(e.Adress);
                     Album ct = Album.CreateFromLink(d);
-                    Thread.Sleep(100);
+                    Thread.Sleep(3000);
                     while (!ct.IsLoaded) { }
                     /**
                      * Store the covers in an temporary folder. Create temporary directy if not exist

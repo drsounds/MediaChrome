@@ -19,6 +19,24 @@
 		<space height="30"/>
 		<section  width="-1" color="#aaeeaa" left="10" top="@TOP" >Featured</section>
 		
+		<?
+		var data = synchronize_data("http://ws.spotify.com/search/1/album?q=tag:new");
+		
+		var albums = data.GetElementsByTagName("album");
+		var row = 0;
+		for(var i=0; i < albums.Count; i++){
+			var cover = albums.Item(i).GetAttribute("href");
+			var left = (120 + 10)*i + 30;
+			var top = row*(120+10);
+			
+		?>
+		<img src="@{cover}" href="@{cover}" width="120" height="120" left="@{left}" top="@{top}"/>
+		<?
+			if(i%3 == 0)
+				row++;
+		}
+		?>
+		
 		<space height="30"/>
 		<?
 		for(var i=0; i < ads.Length; i++){
