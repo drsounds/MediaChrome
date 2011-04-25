@@ -232,6 +232,60 @@ namespace Board
             }
         }
         /// <summary>
+        /// Raises a click to the specified elemetn if the mouseX/Y is in bounds
+        /// </summary>
+        /// <param name="_Element"></param>
+        /// <param name="mouseX"></param>
+        /// <param name="mouseY"></param>
+        public void ElementClick(Element _Element,int mouseX,int mouseY)
+        {
+            Rectangle Boundaries = _Element.Bounds;
+            int _left = _Element.Bounds.Left;
+            int _top = _Element.Bounds.Top;
+            int _width = _Element.Bounds.Width;
+            int _height = _Element.Bounds.Height;
+            if (mouseX >= Bounds.Left && mouseX <= Bounds.Width + Bounds.Left && mouseY >= Bounds.Top && mouseY <= Bounds.Top + Bounds.Height)
+            {
+                // If the element has an onclick handler, execute the script
+                if (_Element.GetAttribute("onclick") != "")
+                {
+                    CurrentView.Content.ScriptEngine.Run(_Element.GetAttribute("onclick"));
+                    return;
+                }
+
+            }
+
+            if (_Element.Type == "entry")
+            {
+                /**
+                 * Enumerte all columns and check for possible links
+                 * */
+                int column_position = _left;
+                foreach (KeyValuePair<String, int> _column in Columns)
+                {
+
+                    int column = _column.Value;
+                    string title = _column.Key;
+                    if (mouseX >= column_position && mouseX <= column_position + column && mouseY >= _top && mouseY <= _top + _height)
+                    {
+                        // If the element has an href matching the column, go to it
+                        if (LinkClick != null)
+                            if (_Element.GetAttribute("href_" + title.ToLower()) != "")
+                                LinkClick(_Element, _Element.GetAttribute("href_" + title.ToLower()));
+                    }
+                    column_position += _column.Value;
+
+                }
+            }
+            if (_Element.GetAttribute("href") != "" && mouseX >= _left && mouseX <= _left + _width && mouseY >= _top && mouseY <= _top + _height)
+            {
+                // If the itemclicked event are not null, raise it
+                if (LinkClick != null)
+                    LinkClick(_Element, _Element.GetAttribute("href"));
+
+            }
+        }
+        /// <summary>
         /// Column widths. They are used for the entries. -1 means until end of size
         /// </summary>
         public Dictionary<String, int> Columns;
@@ -249,51 +303,8 @@ namespace Board
                             {
                                 
                                 Element _Element = (Element)ViewBuffer[i];
-                                Rectangle Boundaries = _Element.Bounds;
-                                int _left = _Element.Bounds.Left;
-                                int _top = _Element.Bounds.Top;
-                                int _width = _Element.Bounds.Width;
-                                int _height = _Element.Bounds.Height;
-                                if (mouseX >= Bounds.Left && mouseX <= Bounds.Width + Bounds.Left && mouseY >= Bounds.Top && mouseY <= Bounds.Top + Bounds.Height)
-                                {
-                                    // If the element has an onclick handler, execute the script
-                                    if (_Element.GetAttribute("onclick") != "")
-                                    {
-                                        CurrentView.Content.ScriptEngine.Run(_Element.GetAttribute("onclick"));
-                                        return;
-                                    }
-                                   
-                                }
+                                ElementClick(_Element, mouseX, mouseY);
                                 
-                                if (_Element.Type == "entry")
-                                {
-                                    /**
-                                     * Enumerte all columns and check for possible links
-                                     * */
-                                    int column_position = _left;
-                                    foreach (KeyValuePair<String, int> _column in Columns)
-                                    {
-
-                                        int column = _column.Value;
-                                        string title = _column.Key;
-                                        if (mouseX >= column_position && mouseX <= column_position + column && mouseY >= _top && mouseY <= _top +_height)
-                                        {
-                                            // If the element has an href matching the column, go to it
-                                            if (LinkClick != null)
-                                                if (_Element.GetAttribute("href_" + title.ToLower()) != "")
-                                                    LinkClick(_Element, _Element.GetAttribute("href_" + title.ToLower()));
-                                        }
-                                        column_position += _column.Value;
-
-                                    }
-                                }
-                                if (_Element.GetAttribute("href") != "" && mouseX >= _left && mouseX <= _left + _width && mouseY >= _top && mouseY <= _top + _height)
-                                {
-                                    // If the itemclicked event are not null, raise it
-                                    if (LinkClick != null)
-                                        LinkClick(_Element, _Element.GetAttribute("href"));
-
-                                }
                             }
 
                             /**
@@ -801,8 +812,24 @@ namespace Board
         /// <param name="token"></param>
         public void DownloadImage(object token)
         {
+            
             // Get image string
             string address = (string)token;
+
+            /**
+             * We can set an imagedownload event to handle and redirect image requests.
+             * */
+            if (BeginDownloadImage != null)
+            {
+                // Create event args
+                ImageDownloadEventArgs args = new ImageDownloadEventArgs();
+                args.Adress = address;
+                BeginDownloadImage(this, args);
+                if (args.Cancel)
+                    return;
+                // Check for changed address
+                address = args.Adress;
+            }
 
             // if the address points to an local file (not starting with http:) start an local file process instead
             if (address.StartsWith("http:"))
@@ -830,13 +857,13 @@ namespace Board
                     Image img = Bitmap.FromFile(address);
 
                     // add it to the images list
-                    Images.Add(address, img);
+                    Images.Add((string)token, img);
                 }
                 catch
                 {
                     try
                     {
-                        Images.Add(address, Resource1.release);
+                        Images.Add((string)token, Resource1.release);
                     }
                     catch { }
                 }
@@ -998,7 +1025,23 @@ namespace Board
        
 
 
-        
+        public class ImageDownloadEventArgs
+        {
+            public String Adress {get;set;}
+            public bool Cancel { get; set; }
+        }
+
+        /// <summary>
+        /// Delegate for event relating to image downlods
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public delegate void ImageDownloadEventHandler(object sender, ImageDownloadEventArgs e);
+
+        /// <summary>
+        /// Occurs when an image is begin to be downloaded. Runs on another thread
+        /// </summary>
+        public event ImageDownloadEventHandler BeginDownloadImage;
 
         /// <summary>
         /// Event args for element move event handler
@@ -1833,6 +1876,8 @@ namespace Board
                                 Element _Element = ViewBuffer[i];
                                 Rectangle ScreenCoordinates = _Element.GetCoordinates(scrollX, scrollY, this.Bounds, 0);
                                 // Draw the element and it's children
+                                if (ScreenCoordinates.Bottom < 0 || ScreenCoordinates.Top > this.Height)
+                                    continue;
                                 DrawElement(_Element, d, ref entryship, ScreenCoordinates, 3);
 
 

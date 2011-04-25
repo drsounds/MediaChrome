@@ -17,7 +17,7 @@
 	<section name="component">
 		<label left="150"  height="23" top="@top" width="320" size="10"  href="@{uri}">@{album_name}</label>
 		
-		<img  left="10" src="" width="128" height="128" top="@TOP" href="@{uri}" persistent="true"/>
+		<img  left="10" width="128" height="128" top="@TOP" href="@{uri}" src="@{uri}" persistent="true"/>
 		<!-- An example tracklist -->
 <?
 function zeroNumber(no){	

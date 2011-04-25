@@ -965,7 +965,9 @@ namespace Board
     /// </summary>
         public void CheckPendingChanges()
         {
-            
+            try
+            {
+
                 /** If the hashcode of the LayoutElements is different from the one stored
                  * there is an update ongoing
                  * */
@@ -974,10 +976,11 @@ namespace Board
                     xmlHashCode = LayoutElements.GetHashCode();
 
                     // Update the views
-                 
+
                 }
-                
-            
+
+            }
+            catch { }
         }
         /// <summary>
         /// Should be called from an background thread to update the layout elements to new ones. 
@@ -1066,118 +1069,124 @@ namespace Board
     /// <param name="pretemplate">The mako syntaxed template. Used for recurring updates</param>
         public void Initialize(string parameter,string pretemplate, string data, MakoEngine engine)
         {
-            this.Receivers = new List<ContentReceiver>();
-
-            /**
-             * 
-             * Associate instance data
-             * */
-
-            this.Parameter = parameter;
-
-            this.Engine = engine;
-            this.TemplateCode = pretemplate;
-            SetScriptFunctionality();
-
-            // Create xml document
-            XmlDocument d = new XmlDocument();
-
-
-                d.LoadXml(data.Replace(";",""));
-
-            // Set the xmlHashCode to the xmldocument's instance so it won't be any collision
-            this.xmlHashCode = d.GetHashCode();
-            // Set this layoutelements to the xmldocument loaded
-            this.LayoutElements = d;
-
-
-            this.View = new View();
-            // iterate through all sections of the page
-            XmlNodeList Sections = d.GetElementsByTagName("section");
-            foreach (XmlElement iSection in Sections)
+            try
             {
+                this.Receivers = new List<ContentReceiver>();
 
-                // If the section element not has the root element as parent skip it
-                if (iSection.ParentNode.Name != "view")
-                    continue;
-                // Create new section
-                Section _Section = new Section(this);
+                /**
+                 * 
+                 * Associate instance data
+                 * */
 
-                // Set the section's reorder mode
-                if (iSection.HasAttribute("reorder"))
-                    if (iSection.GetAttribute("reorder") == "true")
-                        _Section.Reorder = true;
+                this.Parameter = parameter;
 
-                // Append nowplaying handler
-                _Section.PlaybackItemChanged += new ElementPlaybackStarted(_Section_PlaybackItemChanged);
+                this.Engine = engine;
+                this.TemplateCode = pretemplate;
+                SetScriptFunctionality();
 
-                // set section name
-                _Section.Name = iSection.GetAttribute("name");
-
-                // set section as an list (show listheaders) if list attribute exists
-                _Section.List = iSection.HasAttribute("list");
-
-                // Render element sections
-                _Section = RenderSection(_Section, iSection);
-
-                this.view.Sections.Add(_Section);
-                Element.ptop = 20;
+                // Create xml document
+                XmlDocument d = new XmlDocument();
 
 
-            }
+                d.LoadXml(data.Replace(";", ""));
 
-            /***
-             * 2011-04-23 23:03
-             * Load toolbar
-             * */
-            XmlNodeList toolItems = d.GetElementsByTagName("toolbar");
+                // Set the xmlHashCode to the xmldocument's instance so it won't be any collision
+                this.xmlHashCode = d.GetHashCode();
+                // Set this layoutelements to the xmldocument loaded
+                this.LayoutElements = d;
 
-            // If the toolbar has elements inflate them
-            if (toolItems.Count > 0)
-            {
-                XmlNodeList ToolItems = ((XmlElement)toolItems[0]).GetElementsByTagName("item");
-                
-                // Extract all items
-                foreach (XmlElement item in ToolItems)
+
+                this.View = new View();
+                // iterate through all sections of the page
+                XmlNodeList Sections = d.GetElementsByTagName("section");
+                foreach (XmlElement iSection in Sections)
                 {
-                    if (item.GetType() == typeof(XmlElement))
+
+                    // If the section element not has the root element as parent skip it
+                    if (iSection.ParentNode.Name != "view")
+                        continue;
+                    // Create new section
+                    Section _Section = new Section(this);
+
+                    // Set the section's reorder mode
+                    if (iSection.HasAttribute("reorder"))
+                        if (iSection.GetAttribute("reorder") == "true")
+                            _Section.Reorder = true;
+
+                    // Append nowplaying handler
+                    _Section.PlaybackItemChanged += new ElementPlaybackStarted(_Section_PlaybackItemChanged);
+
+                    // set section name
+                    _Section.Name = iSection.GetAttribute("name");
+
+                    // set section as an list (show listheaders) if list attribute exists
+                    _Section.List = iSection.HasAttribute("list");
+
+                    // Render element sections
+                    _Section = RenderSection(_Section, iSection);
+
+                    this.view.Sections.Add(_Section);
+                    Element.ptop = 20;
+
+
+                }
+
+                /***
+                 * 2011-04-23 23:03
+                 * Load toolbar
+                 * */
+                XmlNodeList toolItems = d.GetElementsByTagName("toolbar");
+
+                // If the toolbar has elements inflate them
+                if (toolItems.Count > 0)
+                {
+                    XmlNodeList ToolItems = ((XmlElement)toolItems[0]).GetElementsByTagName("item");
+
+                    // Extract all items
+                    foreach (XmlElement item in ToolItems)
                     {
-                        XmlElement Item = (XmlElement)item;
-
-                        // dummy toolsection
-                        Section toolSection = new Section(this);
-                        Element _Item = new Element(toolSection,this.ParentBoard);
-
-                        // set item type according to tag name
-                        _Item.Type = Item.Name;
-
-                        // Attach the element's attributes
-                        AppendElementAttributes(ref _Item, item);
-
-                        // if the item has the type menu inflate it's menuitems
-                        if (_Item.GetAttribute("type") == "menu")
+                        if (item.GetType() == typeof(XmlElement))
                         {
-                            XmlNodeList MenuItems = item.GetElementsByTagName("menuitem");
-                            foreach (XmlElement menuItem in MenuItems)
+                            XmlElement Item = (XmlElement)item;
+
+                            // dummy toolsection
+                            Section toolSection = new Section(this);
+                            Element _Item = new Element(toolSection, this.ParentBoard);
+
+                            // set item type according to tag name
+                            _Item.Type = Item.Name;
+
+                            // Attach the element's attributes
+                            AppendElementAttributes(ref _Item, item);
+
+                            // if the item has the type menu inflate it's menuitems
+                            if (_Item.GetAttribute("type") == "menu")
                             {
-                                Element _menuItem = new Element(toolSection,this.ParentBoard);
-                                _menuItem.Type = "menuitem";
-                                // Append xml attributes
-                                AppendElementAttributes(ref _menuItem, menuItem);
-                                _Item.Elements.Add(_menuItem);
+                                XmlNodeList MenuItems = item.GetElementsByTagName("menuitem");
+                                foreach (XmlElement menuItem in MenuItems)
+                                {
+                                    Element _menuItem = new Element(toolSection, this.ParentBoard);
+                                    _menuItem.Type = "menuitem";
+                                    // Append xml attributes
+                                    AppendElementAttributes(ref _menuItem, menuItem);
+                                    _Item.Elements.Add(_menuItem);
+                                }
+
                             }
-                           
+
+                            // add the item to the menubar
+                            this.view.Toolbar.Items.Add(_Item);
+
+
                         }
-
-                        // add the item to the menubar
-                        this.view.Toolbar.Items.Add(_Item);
-
-
                     }
                 }
-            }
 
-            LoadData();
+                LoadData();
+            }
+            catch (Exception e)
+            {
+            }
         }
 
         bool _Section_PlaybackItemChanged(Spofity sender, Element element, string uri)

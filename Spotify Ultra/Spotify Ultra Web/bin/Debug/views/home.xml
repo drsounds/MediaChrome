@@ -6,22 +6,41 @@
 	var ads =  banner.split("\n");
 	var count =ads.Length;
 						
-	var advertisement = ads[0];
-						
-	var ad = advertisement.split(";");
+	
 	
 ?>	
 <view>
 	<toolbar>
-		<item title="share" onclick="command()"/>
-		<item type="menu"	 title="example">
-			<menuitem onclick="test1()" title="A"/>
-		</item>
+		
 	</toolbar>
 	<section name="Overview">
-		<img width="340" height="120" left="540" top="10" href="@{ad[1]}" src="@{ad[0]}"/>
-		<label height="20" size="14" left="10" top="@TOP" width="500">Home</label>
+		<space height="30"/>
 		<label height="50" color="#aaeeaa" left="10" top="@TOP" width="500">What's new</label>
+		<space height="30"/>
+		<section  width="-1" color="#aaeeaa" left="10" top="@TOP" >Featured</section>
+		
+		<space height="30"/>
+		<?
+		for(var i=0; i < ads.Length; i++){
+			var advertisement = ads[i];
+			
+			var ad = advertisement.split(";");
+		var left = i*(340+10) + 30;
+		?>
+		
+		<img width="340" height="120" left="@{left}" top="@TOP" persistent="true" href="@{ad[1]}" src="@{ad[0]}"/>
+		<?
+		}
+		?>
+		<space height="30"/>
+	
+			
+		
+		<space height="30"/>
+		
+		
+		<space height="30"/>
+		<!--
 		<label height="50" color="#eeeeee" left="10" top="@TOP" width="500">Welcome to Spotify Ultra, the open source Spotify client</label>
 		<label height="50" color="#aaaaaa" left="150" top="@TOP" width="500">Latest played songs</label>
 		
@@ -29,7 +48,7 @@
 		<entry top="@TOP" width="-1" left="150" height="20" title="Feel the Beat" uri="spotify:track:6Sy9BUbgFse0n0LPA5lwy5" artist="Darude" href_artist="spotify:artist:0LhHRmSd1EYM5QdNeNnCoQ" href_album="spotify:album:0Xks5v0dve8Gh2tRHIekjo"  album="Before the Storm"/>
 		<entry top="@TOP" width="-1" left="150" height="20" title="Touch Me Feel Me" uri="spotify:track:3FVr40YVX1xwJgi4o2FfJ3" artist="Darude" href_artist="spotify:artist:0LhHRmSd1EYM5QdNeNnCoQ" href_album="spotify:album:0Xks5v0dve8Gh2tRHIekjo"  album="Before the Storm"/>
 		<entry top="@TOP" width="-1" left="150" height="20" title="Precious" uri="spotify:track:1nipUSojbh9r8NxscRd1Ui" artist="Deepest Mode" href_artist="spotify:artist:762310PdDnwsDxAQxzQkfX" href_album="spotify:album:5YGnygLN1mVSJQkvP04OJi"  album="Before the Storm"/>
-		
+		-->
 	</section>
 
 </view>

@@ -37,5 +37,15 @@ Fixed vertical scrollbars
 * Fixed links in rows and possible to seek rows by up/down buttons.
 
 16:14 2011-04-22
-Added simple header selection, encapsulate the scripting language into an interface to make it able to extend in 
+* Added simple header selection, encapsulate the scripting language into an interface to make it able to extend in 
 future!
+* 
+2011-04-21
+ 
+ * Added local file feature
+ * Use MediaChrome as plugin base to be able to extend the app in the future
+ * Added local album view in artist view.
+14:59 2011-04-25
+ * Fixed issues with artist view.
+ * Increased performance by smart drawing
+ * Fixing coverart for Spotify albums
