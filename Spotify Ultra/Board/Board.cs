@@ -1155,11 +1155,11 @@ namespace Board
                         for (int i=0; i <t.Elements.Count;i++)
                            
                         {
-                            if (t.Elements[i].Type == "section")
+                            if (t.Elements[i].Type == "entry")
                             {
                                 if (t.Elements[i].GetAttribute("__playing") == "true")
                                 {
-                                    t.Elements.Remove(t.Elements[i]);
+                                    t.Elements[i].SetAttribute("__playing", "");
                             
                                 }
                             }
@@ -1182,7 +1182,7 @@ namespace Board
                     {
                         foreach (Element _elm in t.Elements)
                         {
-                            if (_elm.Type == "section")
+                            if (_elm.Type == "entry")
                             {
                                 if (_elm.GetAttribute("__playing") == "true")
                                 {

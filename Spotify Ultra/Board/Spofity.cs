@@ -257,7 +257,7 @@ namespace Board
                 {
                     foreach (Element _elm in t.Elements)
                     {
-                        if (_elm.Type == "section")
+                        if (_elm.Type == "entry")
                         {
                             if (_elm.GetAttribute("__playing") == "true")
                             {

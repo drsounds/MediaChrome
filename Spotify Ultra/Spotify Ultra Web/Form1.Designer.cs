@@ -53,21 +53,21 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
+            this.listViewX1 = new SpofityRuntime.XListView();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.eToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pane5 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
+            this.ucSearch1 = new SpofityRuntime.ucSearch();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.ucSearch2 = new SpofityRuntime.ucSearch();
             this.lAlbum = new System.Windows.Forms.Label();
             this.lArtist = new System.Windows.Forms.Label();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listViewX1 = new SpofityRuntime.XListView();
-            this.ucSearch1 = new SpofityRuntime.ucSearch();
             this.cBtn7 = new SpofityRuntime.cBtn();
             this.cBtn5 = new SpofityRuntime.cBtn();
             this.ucPosBar2 = new webclassprototype.ucPosBar();
+            this.cBtn8 = new SpofityRuntime.cBtn();
             this.cBtn4 = new SpofityRuntime.cBtn();
             this.cBtn6 = new SpofityRuntime.cBtn();
             this.cBtn2 = new SpofityRuntime.cBtn();
@@ -75,8 +75,9 @@
             this.cBtn1 = new SpofityRuntime.cBtn();
             this.cBtn3 = new SpofityRuntime.cBtn();
             this.textBox1 = new SpofityRuntime.ucSearch();
-            this.label1 = new System.Windows.Forms.Label();
-            this.ucSearch2 = new SpofityRuntime.ucSearch();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
@@ -218,6 +219,20 @@
             this.axWindowsMediaPlayer1.TabIndex = 23;
             this.axWindowsMediaPlayer1.Visible = false;
             // 
+            // listViewX1
+            // 
+            this.listViewX1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.listViewX1.CanDrag = false;
+            this.listViewX1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.listViewX1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
+            this.listViewX1.Location = new System.Drawing.Point(0, 0);
+            this.listViewX1.Name = "listViewX1";
+            this.listViewX1.Size = new System.Drawing.Size(211, 314);
+            this.listViewX1.TabIndex = 22;
+            this.listViewX1.UseCompatibleStateImageBehavior = false;
+            this.listViewX1.View = System.Windows.Forms.View.Details;
+            this.listViewX1.Visible = false;
+            // 
             // contextMenuStrip2
             // 
             this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -254,6 +269,18 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Error";
             // 
+            // ucSearch1
+            // 
+            this.ucSearch1.BackColor = System.Drawing.Color.Transparent;
+            this.ucSearch1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ucSearch1.BackgroundImage")));
+            this.ucSearch1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ucSearch1.Location = new System.Drawing.Point(722, 0);
+            this.ucSearch1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.ucSearch1.Name = "ucSearch1";
+            this.ucSearch1.Size = new System.Drawing.Size(180, 33);
+            this.ucSearch1.TabIndex = 9;
+            this.ucSearch1.SearchClicked += new System.EventHandler(this.textBox1_SearchClicked);
+            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -265,6 +292,7 @@
             this.panel2.Controls.Add(this.cBtn7);
             this.panel2.Controls.Add(this.cBtn5);
             this.panel2.Controls.Add(this.ucPosBar2);
+            this.panel2.Controls.Add(this.cBtn8);
             this.panel2.Controls.Add(this.cBtn4);
             this.panel2.Controls.Add(this.cBtn6);
             this.panel2.Controls.Add(this.cBtn2);
@@ -278,6 +306,29 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1064, 53);
             this.panel2.TabIndex = 12;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.ForeColor = System.Drawing.Color.Yellow;
+            this.label1.Location = new System.Drawing.Point(846, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(31, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Filter";
+            // 
+            // ucSearch2
+            // 
+            this.ucSearch2.BackColor = System.Drawing.Color.Transparent;
+            this.ucSearch2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ucSearch2.BackgroundImage")));
+            this.ucSearch2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ucSearch2.Location = new System.Drawing.Point(882, 0);
+            this.ucSearch2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.ucSearch2.Name = "ucSearch2";
+            this.ucSearch2.Size = new System.Drawing.Size(180, 33);
+            this.ucSearch2.TabIndex = 16;
+            this.ucSearch2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ucSearch2_KeyUp);
             // 
             // lAlbum
             // 
@@ -296,60 +347,6 @@
             this.lArtist.Size = new System.Drawing.Size(35, 13);
             this.lArtist.TabIndex = 14;
             this.lArtist.Text = "label1";
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.testToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(898, 24);
-            this.menuStrip1.TabIndex = 13;
-            this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.Visible = false;
-            // 
-            // testToolStripMenuItem
-            // 
-            this.testToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.filterToolStripMenuItem});
-            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
-            this.testToolStripMenuItem.Text = "test";
-            this.testToolStripMenuItem.Visible = false;
-            // 
-            // filterToolStripMenuItem
-            // 
-            this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
-            this.filterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.filterToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
-            this.filterToolStripMenuItem.Text = "Filter";
-            this.filterToolStripMenuItem.Click += new System.EventHandler(this.filterToolStripMenuItem_Click);
-            // 
-            // listViewX1
-            // 
-            this.listViewX1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.listViewX1.CanDrag = false;
-            this.listViewX1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.listViewX1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-            this.listViewX1.Location = new System.Drawing.Point(0, 0);
-            this.listViewX1.Name = "listViewX1";
-            this.listViewX1.Size = new System.Drawing.Size(211, 314);
-            this.listViewX1.TabIndex = 22;
-            this.listViewX1.UseCompatibleStateImageBehavior = false;
-            this.listViewX1.View = System.Windows.Forms.View.Details;
-            this.listViewX1.Visible = false;
-            // 
-            // ucSearch1
-            // 
-            this.ucSearch1.BackColor = System.Drawing.Color.Transparent;
-            this.ucSearch1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ucSearch1.BackgroundImage")));
-            this.ucSearch1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ucSearch1.Location = new System.Drawing.Point(722, 0);
-            this.ucSearch1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.ucSearch1.Name = "ucSearch1";
-            this.ucSearch1.Size = new System.Drawing.Size(180, 33);
-            this.ucSearch1.TabIndex = 9;
-            this.ucSearch1.SearchClicked += new System.EventHandler(this.textBox1_SearchClicked);
             // 
             // cBtn7
             // 
@@ -389,6 +386,20 @@
             this.ucPosBar2.Size = new System.Drawing.Size(60, 10);
             this.ucPosBar2.TabIndex = 3;
             this.ucPosBar2.Value = 80F;
+            // 
+            // cBtn8
+            // 
+            this.cBtn8.BackColor = System.Drawing.Color.Transparent;
+            this.cBtn8.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn8.BackgroundImage")));
+            this.cBtn8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cBtn8.Img = global::SpofityRuntime.Properties.Resources.forward;
+            this.cBtn8.Location = new System.Drawing.Point(283, 36);
+            this.cBtn8.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cBtn8.Name = "cBtn8";
+            this.cBtn8.Size = new System.Drawing.Size(23, 22);
+            this.cBtn8.TabIndex = 11;
+            this.cBtn8.Load += new System.EventHandler(this.cBtn8_Load);
+            this.cBtn8.Click += new System.EventHandler(this.cBtn8_Click_1);
             // 
             // cBtn4
             // 
@@ -489,28 +500,33 @@
             this.textBox1.TabIndex = 9;
             this.textBox1.SearchClicked += new System.EventHandler(this.textBox1_SearchClicked);
             // 
-            // label1
+            // menuStrip1
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.ForeColor = System.Drawing.Color.Yellow;
-            this.label1.Location = new System.Drawing.Point(846, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(31, 13);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Filter";
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.testToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(898, 24);
+            this.menuStrip1.TabIndex = 13;
+            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.Visible = false;
             // 
-            // ucSearch2
+            // testToolStripMenuItem
             // 
-            this.ucSearch2.BackColor = System.Drawing.Color.Transparent;
-            this.ucSearch2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ucSearch2.BackgroundImage")));
-            this.ucSearch2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ucSearch2.Location = new System.Drawing.Point(882, 0);
-            this.ucSearch2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.ucSearch2.Name = "ucSearch2";
-            this.ucSearch2.Size = new System.Drawing.Size(180, 33);
-            this.ucSearch2.TabIndex = 16;
-            this.ucSearch2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ucSearch2_KeyUp);
+            this.testToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.filterToolStripMenuItem});
+            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
+            this.testToolStripMenuItem.Text = "test";
+            this.testToolStripMenuItem.Visible = false;
+            // 
+            // filterToolStripMenuItem
+            // 
+            this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
+            this.filterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.filterToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.filterToolStripMenuItem.Text = "Filter";
+            this.filterToolStripMenuItem.Click += new System.EventHandler(this.filterToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -603,6 +619,7 @@
         private ucSearch ucSearch1;
         private System.Windows.Forms.Label label1;
         private ucSearch ucSearch2;
+        private cBtn cBtn8;
 
     }
 }

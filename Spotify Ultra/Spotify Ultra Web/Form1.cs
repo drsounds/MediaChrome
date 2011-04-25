@@ -1714,6 +1714,16 @@ namespace SpofityRuntime
         {
             board.Filter(ucSearch2.Text, new ContentFilter());
         }
+
+        private void cBtn8_Load(object sender, EventArgs e)
+        {
+        
+        }
+
+        private void cBtn8_Click_1(object sender, EventArgs e)
+        {
+            this.NextSong();
+        }
     }
      public class Pane : System.Windows.Forms.Panel
     {
