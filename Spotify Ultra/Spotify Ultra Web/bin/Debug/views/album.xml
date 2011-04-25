@@ -24,6 +24,7 @@
 		</item>
 	</toolbar>
 	<section name="Overview">
+		<space height="30"/>
 		<!-- An example tracklist -->
 		<inflate src="components/album.xml" artist="@{artist}" name="@{name}" uri="spotify:album:@{parameter}"/>
 		

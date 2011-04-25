@@ -791,7 +791,7 @@ namespace Board
                            
                         break;
                 }
-                CT.AssertBounds(false);
+                
                 C.Elements.Add(CT);
 
                 // Do this for children
@@ -879,7 +879,7 @@ namespace Board
                         break;
                 }
                 C.Elements.Add(CT);
-                CT.AssertBounds(false);
+               
 
                 // Do this for children
                 RenderElements(C,CT, item);
@@ -1798,6 +1798,8 @@ namespace Board
         /// </summary>
         public void AssertBounds(bool copy)
         {
+            if (this.GetAttribute("noelm") != "")
+                return;
                 
             int top = 0;
             int left, width, height;
@@ -1807,6 +1809,13 @@ namespace Board
             int.TryParse(GetAttribute("left"), out left);
             int.TryParse(GetAttribute("width"), out width);
             int.TryParse(GetAttribute("height"),out height);
+
+            // If height is smaller than one measure the height by the text content
+            if (height < 1)
+            {
+                height = 30;
+                
+            }
             if (!copy)
             {
                 OldLeft = left;
@@ -1816,17 +1825,19 @@ namespace Board
             bool persistent = false;
             bool.TryParse(GetAttribute("persistent"),out persistent);
             Persistent = persistent;
+
+          
                 
             // If the top variable is still below one, assign the top to the ptop variable and increase ptop iself   
             if (top < 1)
             {
+
                 top = Element.ptop;
                     if (!Persistent)
                     {
+
+                        Element.ptop += height;
                        
-                        Element.ptop += height /2 ;
-                        if (copy)
-                            Element.ptop += height / 2;
                     }
                     else
                     {

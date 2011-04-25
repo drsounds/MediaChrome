@@ -9,13 +9,13 @@
  var uri = arg_uri;
 	/** Sync album info from Spotify's Server */
  var data = synchronize_data("http://ws.spotify.com/search/1/track?q=album:\""+album_name+"\"");
- 
+ var trackNo=0;
  /** Get Songs **/
  var songs = data.GetElementsByTagName("track");
 ?>
 <view>
 	<section name="component">
-		<label left="150"  height="23" top="@top" width="320"  href="@{uri}">@{album_name}</label>
+		<label left="150"  height="23" top="@top" width="320" size="10"  href="@{uri}">@{album_name}</label>
 		
 		<img  left="10" src="" width="128" height="128" top="@TOP" href="@{uri}" persistent="true"/>
 		<!-- An example tracklist -->
@@ -55,10 +55,16 @@ for(var i=0; i < songs.Count; i++){
 ?>
 
 		<entry left="150" top="@TOP" height="18" uri="@{href}" no="@{zeroNumber(trackNo)}">
-			<title><![CDATA[@{title}]]></title>
+			<title noelm="true"><![CDATA[@{title}]]></title>
 		</entry>
-% }  if(trackNo < 10){
-	<space height="100"/>
+<? }  if(trackNo < 8){
+ for(var x =0; x < (8-trackNo); x++){ ?> 
+ 
+ <space height="20" top="@TOP"/> 
+ <? } ?>
+	
 % }
+ <space height="20" top="@TOP"/> 
+<divider height="10" top="@TOP"/>
 	</section>
 </view>

@@ -179,8 +179,9 @@
     <None Include="scrollbar_space.png" />
     <None Include="scrollbar_thumb.png" />
     <None Include="Resources\ajax-loader.gif" />
-    <None Include="Resources\release.png" />
     <None Include="Resources\dropdown.png" />
+    <None Include="Resources\shadow.png" />
+    <None Include="Resources\release.png" />
     <Content Include="TextFile1.txt" />
   </ItemGroup>
 </Project>

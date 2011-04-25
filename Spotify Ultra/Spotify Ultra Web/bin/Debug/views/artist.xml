@@ -28,6 +28,8 @@ releases = _releases.GetElementsByTagName("album");
 /** Get Local Content */
 var localAlbums = queryLocalFiles("SELECT DISTINCT album FROM song WHERE artist='"+title+"'");
 
+/** Get biography from Last.FM */
+var bio = "No biography";
 
 
 
@@ -59,7 +61,7 @@ var localAlbums = queryLocalFiles("SELECT DISTINCT album FROM song WHERE artist=
 
 		<? } ?> 
 		<section text="Albums" width="-1" left="0" height="24">Albums</section>
-		<space height="70"/>
+		<space height="10"/>
 
 <?
 for(var i=0; i < releases.Count ; i++){ 	
@@ -70,10 +72,13 @@ for(var i=0; i < releases.Count ; i++){
 ?>
 		<inflate src="components/album.xml" name="@{name}" artist="@{artist}" uri="@{href}"/>
 
-		<space height="50"/>
 % }
 	
 	
+	</section>
+	<section name="biography">
+		<label width="640" top="@TOP" left="40" height="80" color="#aaFFaa">Biography</label>
+		<label width="640" top="@TOP" left="40" height="180">@{bio}</label>
 	</section>
 </view>
 		

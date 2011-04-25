@@ -52,21 +52,29 @@ namespace Board
         {
             get
             {
-                return  Color.LightGray;
+                return Color.FromArgb(97, 97, 97);
             }
         }
+        public Color SectionTextShadow
+        {
+            get
+            {
+                return Color.FromArgb(119, 119, 119);
+            }
+        }
+      
         public Color SectionText
         {
             get
             {
-                return  Color.White;
+                return Bg;
             }
         }
         public Color Bg
         {
             get
             {
-                return Color.FromArgb(60,60,60);
+                return BackColor;
             }
         }
       
@@ -81,7 +89,7 @@ namespace Board
         {
             get
             {
-                return  Color.Black;
+                return Color.FromArgb(38, 38, 38);
             }
         }
         public Color Fg
@@ -102,7 +110,7 @@ namespace Board
         {
             get
             {
-                return Color.FromArgb(55,55,55);
+                return Color.FromArgb(44,44,44);
             }
         }
 
@@ -256,6 +264,7 @@ namespace Board
                                     }
                                    
                                 }
+                                
                                 if (_Element.Type == "entry")
                                 {
                                     /**
@@ -833,6 +842,77 @@ namespace Board
                 }
             }
         }
+        
+        /// <date>2011-04-25 12:04</date>
+        /// <summary>
+        /// Draws an image
+        /// </summary>
+        /// <param name="image">The image to draw</param>
+        /// <param name="Bounds">The bounds of the image</param>
+        /// <param name="g">The graphics</param>
+        /// <param name="hasShadow">Decides whether image should have an shadow</param>
+        public void DrawImage(Image image,Rectangle Bounds,Graphics g,bool hasShadow)
+        {
+             /** If drop shadow is specified draw it
+              * */
+            int shadowOffset = 8;
+            if (hasShadow)
+            {
+                // the shadow chunk
+                int sQuad = 4;
+
+                // the offset
+                int sOffset = 4;
+
+                // the shadow layer
+                Bitmap shadow = Resource1.shadow;
+                // draw the left top corner
+                g.DrawImage(shadow, new Rectangle(Bounds.Left - sQuad, Bounds.Top - sQuad, sQuad, sQuad), new Rectangle(0, 0, sQuad, sQuad), GraphicsUnit.Pixel);
+
+                // draw the right top corner
+                g.DrawImage(shadow, new Rectangle(Bounds.Left + Bounds.Width, Bounds.Top - sQuad, sQuad, sQuad), new Rectangle(shadow.Width - sQuad, 0, sQuad, sQuad), GraphicsUnit.Pixel);
+
+                // size of vertical sides
+                Size verticalSize = new Size(sQuad, Bounds.Height + shadowOffset - sQuad * 2);
+
+                // size of horizontal sides
+                Size horizontalSize = new Size(Bounds.Width + shadowOffset - sQuad * 2, sQuad);
+
+                // draw the bottom left corner
+                g.DrawImage(shadow, new Rectangle(Bounds.Left - sQuad, Bounds.Top + Bounds.Height, sQuad, sQuad), new Rectangle(0, shadow.Height - sQuad, sQuad, sQuad), GraphicsUnit.Pixel);
+
+                // draw the bottom right corner
+                g.DrawImage(shadow, new Rectangle(Bounds.Left + Bounds.Width, Bounds.Top + Bounds.Height, sQuad, sQuad), new Rectangle(shadow.Width - sOffset, shadow.Height - sQuad, sQuad, sQuad), GraphicsUnit.Pixel);
+
+
+                // fill the left side
+                g.DrawImage(shadow, new Rectangle(new Point(Bounds.Left - sQuad, Bounds.Top), verticalSize), new Rectangle(0, sQuad, sQuad, sQuad), GraphicsUnit.Pixel);
+
+                // fill the right side
+                g.DrawImage(shadow, new Rectangle(new Point(Bounds.Width + Bounds.Left, Bounds.Top), verticalSize), new Rectangle(shadow.Height - sQuad, sQuad, sQuad, sQuad), GraphicsUnit.Pixel);
+                //  g.DrawImage(shadow,new Rectangle(Bounds.Left-shadowOffset,Bounds.Top-shadowOffset,Bounds.Width+shadowOffset+2,Bounds.Height+shadowOffset+2));
+
+                // fill the top side
+
+                g.DrawImage(shadow, new Rectangle(new Point(Bounds.Left, Bounds.Top - sQuad), horizontalSize), new Rectangle(sQuad, 0, sQuad, sQuad), GraphicsUnit.Pixel);
+
+                // fill the bottom side
+
+                g.DrawImage(shadow, new Rectangle(new Point(Bounds.Left, Bounds.Top + Bounds.Height), horizontalSize), new Rectangle(sQuad, shadow.Height - sQuad, sQuad, sQuad), GraphicsUnit.Pixel);
+
+            }
+
+            // Draw the image
+            g.DrawImage(image, Bounds);
+
+           
+
+        }
+
+        public void DrawString(String str, Font font, bool shadow,Graphics g)
+        {
+        }
+
         Dictionary<String,Image> Images;
         /// <summary>
         /// Executes when the loading of the page has been finished and downloading images
@@ -1335,7 +1415,7 @@ namespace Board
                     EnTry = Color.Gray;
                 }
             }
-            Color ForeGround = MainForm.FadeColor(-0.2f, Fg);
+            Color ForeGround = Fg;
             if (_Element.Selected == true)
             {
                 
@@ -1433,8 +1513,33 @@ namespace Board
                                 setFont = new Font(setFont, FontStyle.Underline);
                             }
                            d.DrawString(_Element.GetAttribute(Column.Key.ToLower()), setFont, new SolidBrush(fg), new Point( column_position, top + 2));
-                           column_position += column;
+                       
+                            /***
+                             * 2011-04-25 11:08  STOCKHOLM 
+                             * Draw child elements!
+                             * */
+                           foreach (Element _elm in _Element.Elements)
+                           {
+                               if (_elm.GetAttribute("elm") == "")
+                                   continue;
+                               // If the element's column attribute maatch the entry one draw it on the specified column
+                               if (_elm.GetAttribute("column") == Column.Key.ToString())
+                               {
+                                   // The bounds of the element. The elements position should be relative to the entry's position
+                                   Rectangle elmBounds = new Rectangle(column_position,top+2,_elm.Width,_elm.Height);
+                                   /**
+                                    * The sub item should not affect the current entryship so
+                                    * we create an new dummy _entryship value assigned to zero
+                                    * so we can pass it*/
+                                   int _entryship = 0;
+                                   DrawElement(_elm, d,ref _entryship, elmBounds, 0);
+                               }
+                           }
+                             column_position += column;
+                            
                         }
+
+                       
 
                     // If the entry is playing, draw the playback icon
 
@@ -1451,6 +1556,7 @@ namespace Board
               
                     break;
 
+               
 
                 case "header":
                     entryship = 0;
@@ -1465,7 +1571,10 @@ namespace Board
                     // If image is not null, do not show any picture
                     if (Rs != null)
                     {
-                        d.DrawImage(Rs, new Rectangle(left, top, width, height));
+                        bool hasShadow = true;
+                          
+
+                        DrawImage(Rs, new Rectangle(left, top, width, height),d,hasShadow);
                     }
                         // But if the element hasn't been called before, start an downloading of the image
                     else if (!_Element.FirstCall)
@@ -1509,34 +1618,56 @@ namespace Board
                      d.DrawString(_Element.GetAttribute("text"), labelFont, new SolidBrush(Color.Black), new Point(left, top+2));
                     }
                     d.DrawString(_Element.GetAttribute("text"), labelFont, new SolidBrush(Foreground), new Point(left, top));
+
+                    /**
+                     * Get hyperlinks
+                     * */
+
                    
                     break;
                 case "button":
                     break;
                 case "section":
+                   
                     d.FillRectangle(new SolidBrush(Section), new Rectangle(0, top, width, height));
-                    d.DrawString(_Element.Data, new Font("Arial Black", 10), new SolidBrush(Fg), new Point(left, top));
+                    d.DrawString(_Element.Data, new Font(labelFont.FontFamily, 15.0f, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(SectionTextShadow), new Point(left + 30, top + 1));
+                    d.DrawString(_Element.Data, new Font(labelFont.FontFamily, 15.0f,FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(SectionText), new Point(left + 30, top));
                    
                     break;
                 case "divider":
            
-                    d.DrawLine(new Pen(Divider), left, top, left + width, top);
+                    d.DrawLine(new Pen(Divider), left, top-height/2, left + width, top-height/2);
                  
                     break;
                 case "space":
 
                     break;
+                case "div":
+                    Color bg = Bg;
+                    try
+                    {
+                       bg= ColorTranslator.FromHtml(_Element.GetAttribute("bgcolor"));
+                    }
+                    catch
+                    {
+                    }
+                    d.FillRectangle(new SolidBrush(bg), Bounds);
+                    break;
+
             }
             // Say the element has been called for the first time
             _Element.FirstCall = true;
             // Draw all child elements with coordinates relative to the current element (nesting)
-            foreach (Element rt in _Element.Elements)
+            if (_Element.Type == "div")
             {
+                foreach (Element rt in _Element.Elements)
+                {
 
-                // Get bounds
-                Rectangle ElementBounds = new Rectangle( _Element.Left +  Bounds.Left + padding, _Element.Top + Bounds.Top + padding, Bounds.Width - (padding * 2), Bounds.Height - (padding * 2));
+                    // Get bounds
+                    Rectangle ElementBounds = new Rectangle(_Element.Left + Bounds.Left + padding, _Element.Top + Bounds.Top + padding, Bounds.Width - (padding * 2), Bounds.Height - (padding * 2));
 
-                DrawElement(rt, d, ref entryship, ElementBounds, padding);
+                    DrawElement(rt, d, ref entryship, ElementBounds, padding);
+                }
             }
             // increase ptop
             
