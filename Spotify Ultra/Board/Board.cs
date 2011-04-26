@@ -1836,11 +1836,13 @@ namespace Board
         /// <param name="point"> The point to draw the columnheader on</param>
         private void DrawHeaders(Graphics p, System.Drawing.Point point)
         {
+
             // fill the columnheader background
-            p.FillRectangle(new LinearGradientBrush(new Point(point.X,point.Y),new Point(point.X,point.Y+columnheader_height),Color.FromArgb(210,210,210),Color.FromArgb(180,180,180)),new Rectangle(point,new Size(this.Width-scrollbar_size,columnheader_height)));
+            int scrollOffset = (this.ItemOffset > 0 ?scrollbar_size:  0);
+            p.FillRectangle(new LinearGradientBrush(new Point(point.X,point.Y),new Point(point.X,point.Y+columnheader_height),Color.FromArgb(210,210,210),Color.FromArgb(180,180,180)),new Rectangle(point,new Size(this.Width-scrollOffset,columnheader_height)));
             // draw border line
-            p.DrawLine(new Pen(Color.Black), new Point(0, point.Y + columnheader_height - 1), new Point(this.Width - scrollbar_size, point.Y + columnheader_height - 1));
-            p.DrawLine(new Pen(Color.White), new Point(0,point.Y ), new Point(this.Width-scrollbar_size, point.Y ));
+            p.DrawLine(new Pen(Color.Black), new Point(0, point.Y + columnheader_height - 1), new Point(this.Width - scrollOffset, point.Y + columnheader_height - 1));
+            p.DrawLine(new Pen(Color.White), new Point(0,point.Y ), new Point(this.Width-scrollOffset, point.Y ));
 
             //draw all columns
 
