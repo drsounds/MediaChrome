@@ -347,7 +347,8 @@ namespace SpofityRuntime
                         {
 
                             d = Link.Create(e.Adress);
-
+                            ct = Album.CreateFromLink(d);
+                            Thread.Sleep(100);
                             do
                             {
                                 Thread.Sleep(1000);
@@ -1837,8 +1838,8 @@ namespace SpofityRuntime
                      * */
                     Thread.Sleep(100);
                     Dictionary<String, String> CFH = new Dictionary<string, string>();
-                    CFH.Add("spotify:home", "Home");
-                    CFH.Add("spotify:local", "Local Music");
+                    CFH.Add("spotify:home:a", "Home");
+                    CFH.Add("spotify:local:a", "Local Music");
 
                     foreach (KeyValuePair<string, string> menuitem in CFH)
                     {

@@ -19,21 +19,20 @@
  /*  */
 ?>
 <view>
-	<section name="Overview" list="true" reorder="true">
+	<section name="Overview" list="true" >
+		<space height="10"/>
+		 <label height="50" size="14" left="10" top="@TOP" width="500">Search results for '@{parameter}'</label>
 		
-		<label height="50" size="14" left="10" top="@TOP" width="500">You searched for @{parameter} which gave an  @{count_tracks} results </label>
+		<!--<label height="50" color="#aaeeaa" left="10" top="@TOP" width="500">Did you mean</label> -->
 		
-		<label height="50" color="#aaeeaa" left="10" top="@TOP" width="500">Did you mean</label>
-<space height="80"/>
-	<section width="50" color="#aaeeaa" >Tracks</section>
-<space height="20"/>
+
 <? 
 /** Get local songs */
 var local_content = queryLocalFiles("SELECT * FROM song WHERE artist LIKE '%"+parameter+"%' OR album LIKE '%"+parameter+"%' OR name LIKE '%"+parameter+"%'");
 
 for(var i=0; i < local_content.Count; i++){ var local_song=local_content[i];
 ?> 
-	<entry left="0" width="-1" top="@TOP" height="18" title="@{local_song.Title}"   artist="@{local_song.Artist}" album="@{local_song.Album}" uri="@{local_song.Path}"/>
+	<entry left="0" width="-1" top="@TOP" height="18" color_artist="#dddddd" color_album="#dddddd" title="@{local_song.Title}"   artist="@{local_song.Artist}" album="@{local_song.Album}" uri="@{local_song.Path}"/>
 <?
 }
 
@@ -53,13 +52,13 @@ for(var i=0; i < count_tracks; i++){
 	album = album.replace("&","and").replace("\"","'").replace("'","").replace(";","");
 ?>
 
-		<entry left="0" width="-1" top="@TOP" height="18" href_artist="@{artist_uri}" href_album="@{album_uri}" uri="@{uri}">
-			<title><![CDATA[@{title}]]></title>
-			<artist><![CDATA[@{artist}]]></artist>
-			<album><![CDATA[@{album}]]></album>
+		<entry left="0" width="-1" top="@TOP" height="18"  href_artist="@{artist_uri}" href_album="@{album_uri}" uri="@{uri}">
+			<title noelm="true"><![CDATA[@{title}]]></title>
+			<artist noelm="true"><![CDATA[@{artist}]]></artist>
+			<album noelm="true"><![CDATA[@{album}]]></album>
 		</entry>
 <? } ?>
-	</section>
+	</section><? if(false){?>
 	<section name="Playlists">
 		<label size="20" left="310" top="@TOP" width="500" height="100">Playlists</label>
 		<label size="20" color="#888888" left="310" top="@TOP" width="500" height="100">List is coming from totalspotify.com</label>
@@ -85,4 +84,5 @@ for(var i=0; i < count_tracks; i++){
 			}
 			?>
 	</section>
+	<? } ?>
 </view>

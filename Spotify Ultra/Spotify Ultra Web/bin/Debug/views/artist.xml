@@ -36,10 +36,10 @@ var bio = "No biography";
 ?>
 <view>
 	<toolbar>
-		<item title="share" onclick="command()"/>
+	<!--	<item title="share" onclick="command()"/>
 		<menu title="example">
 			<menuitem onclick="test1()" title="A"/>
-		</menu>
+		</menu> -->
 	</toolbar>
 	<section name="Overview">
 		
@@ -47,7 +47,7 @@ var bio = "No biography";
 		<img src="http://krakelin.com/artist.png" top="@TOP" left="10" width="120" height="120" persistent="true" />
 <label size="20" left="310" top="@TOP" width="500" height="10" href="@{parameter}">@{title}</label> 	
 		
-		<label size="20" color="#aaaaaa" left="310" top="@TOP" width="500" height="20">testw</label> 
+	
 		<space height="130"/>
 		<?
 	if(localAlbums.Count > 0){
@@ -76,9 +76,6 @@ for(var i=0; i < releases.Count ; i++){
 	
 	
 	</section>
-	<section name="biography">
-		<label width="640" top="@TOP" left="40" height="80" color="#aaFFaa">Biography</label>
-		<label width="640" top="@TOP" left="40" height="180">@{bio}</label>
-	</section>
+	
 </view>
 		

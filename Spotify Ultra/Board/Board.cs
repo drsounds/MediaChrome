@@ -204,6 +204,7 @@ namespace Board
         {
             get
             {
+                
                 if (CurrentView != null)
                     if (CurrentView.Content != null)
                         if (CurrentView.Content.View != null)
