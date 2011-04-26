@@ -31,11 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.timer4 = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
@@ -92,21 +88,6 @@
             this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // timer2
-            // 
-            this.timer2.Enabled = true;
-            this.timer2.Tick += new System.EventHandler(this.Timer2Tick);
-            // 
-            // timer3
-            // 
-            this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
-            // 
-            // timer4
-            // 
-            this.timer4.Enabled = true;
-            this.timer4.Interval = 1050;
-            this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
             // 
             // contextMenuStrip1
             // 
@@ -565,18 +546,12 @@
 
         }
 
-
-        private System.Windows.Forms.Timer timer2;
-
         #endregion
 
         private System.Windows.Forms.ImageList imageList1;
-        
+
         private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Timer timer4;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem playToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;

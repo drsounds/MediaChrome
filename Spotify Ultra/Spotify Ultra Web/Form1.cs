@@ -226,14 +226,15 @@ namespace SpofityRuntime
         bool splitting1 = false;
         private void Form1_Load(object sender, EventArgs e)
         {
-
+       
             splitter1 = new Panel();
             // Width of sidebar
             int treeViewWidth = 220;
             // Create treeview
             treeview =  new Board.DrawBoard();
             board = new Board.DrawBoard();
-            board.Click += new EventHandler(board_Click);
+            this.Controls.Add(board);
+         board.Click += new EventHandler(board_Click);
             board.LinkClick += new Board.DrawBoard.LinkClicked(board_LinkClick);
             board.BeginNavigating += new Board.DrawBoard.NavigateEventHandler(board_BeforeNavigating);
             treeview.Dock = DockStyle.Left;
@@ -288,7 +289,7 @@ namespace SpofityRuntime
             board.Navigate("spotify:home:1", "spotify", "views");
             board.PlaybackRequested += new Board.DrawBoard.PlaybackStartEvent(board_PlaybackRequested);
             treeview.Navigate("spotify:menu:1", "spotify", "views");
-
+           
            
         }
         /// <date>2011-04-25 14:59</date>
@@ -1560,25 +1561,7 @@ namespace SpofityRuntime
 
         private void timer4_Tick(object sender, EventArgs e)
         {
-            if (flashT < 5)
-            {
-                if (flashT % 2 == 0)
-                {
-                    pane5.BackgroundImage = null;
-                    pane5.BackColor = Color.Gray;
-                }
-                else
-                {
-                    pane5.BackgroundImage = Properties.Resources.top_bar_blue;
-                    pane5.BackColor = SystemColors.Control;
-                }
-                flashT++;
-            }
-            else
-            {
-                pane5.BackgroundImage = Properties.Resources.top_bar_blue;
-                pane5.BackColor = SystemColors.Control;
-            }
+            
         }
 
         private void pane6_Paint_1(object sender, PaintEventArgs e)
@@ -1774,6 +1757,11 @@ namespace SpofityRuntime
         private void cBtn8_Click_1(object sender, EventArgs e)
         {
             this.NextSong();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
         }
     }
      public class Pane : System.Windows.Forms.Panel

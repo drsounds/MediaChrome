@@ -1378,8 +1378,8 @@ namespace Board
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-
             Draw(this.CreateGraphics());
+
 
            
 
@@ -1623,8 +1623,8 @@ namespace Board
                     else if (!_Element.FirstCall)
                     {
 
-                        Thread D = new Thread(DownloadImage);
-                        D.Start((object)_Element.GetAttribute("src"));
+                 //       Thread D = new Thread(DownloadImage);
+                   //     D.Start((object)_Element.GetAttribute("src"));
                     }
                     break;
 
@@ -1712,7 +1712,8 @@ namespace Board
                     DrawElement(rt, d, ref entryship, ElementBounds, padding);
                 }
             }
-            // increase ptop
+            // Clean resource
+            
             
         }
         /// <summary>
@@ -1837,6 +1838,7 @@ namespace Board
         
         public void Draw(Graphics p)
         {
+
             try
             {
           /*      this.pictureBox1.Left = this.Width / 2 - this.pictureBox1.Width / 2;
@@ -2580,7 +2582,7 @@ namespace Board
 
         private void Artist_Paint(object sender, PaintEventArgs e)
         {
-            Draw(e.Graphics);
+            this.Draw(e.Graphics);
         }
 
         private void Artist_MouseLeave(object sender, EventArgs e)
@@ -2931,23 +2933,24 @@ namespace Board
             /***
              * Re-render the layout elements
              * */
-            if(this.currentView!=null)
+         /*   if(this.currentView!=null)
+                
                 if (this.CurrentView.Content != null)
                 {
                     Thread c = new Thread(currentView.Content.UpdateAsync);
                     c.Start();
                     
-                }
+                }*/
         }
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            if (CurrentView != null)
+            /*if (CurrentView != null)
                 if (CurrentView.Content != null)
                 {
                     Thread r = new Thread(CurrentView.Content.CheckPendingChanges);
                     r.Start();
-                }
+                }*/
         }
 
         private void DrawBoard_DragEnter(object sender, DragEventArgs e)
