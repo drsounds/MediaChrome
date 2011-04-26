@@ -862,6 +862,7 @@ namespace Board
                     Image img = Bitmap.FromFile(address);
 
                     // add it to the images list
+                    
                     elm.Bitmap = img;
                 }
                 catch
@@ -873,6 +874,7 @@ namespace Board
                     catch { }
                 }
             }
+            elm.FirstCall = true;
             }
 
         }
@@ -1619,8 +1621,8 @@ namespace Board
                 case "img":
 
                     Image Rs = null;
-                    Images.TryGetValue(_Element.GetAttribute("src"), out Rs);
-
+                   // Images.TryGetValue(_Element.GetAttribute("src"), out Rs);
+                    Rs = _Element.Bitmap;
                     // If image is not null, do not show any picture
                     if (Rs != null)
                     {
@@ -1709,7 +1711,7 @@ namespace Board
 
             }
             // Say the element has been called for the first time
-            _Element.FirstCall = true;
+         
             // Draw all child elements with coordinates relative to the current element (nesting)
             if (_Element.Type == "div")
             {
