@@ -584,8 +584,7 @@ namespace Board
             View view = (View)address;
         
             {
-                // Reset the ptop
-                Element.ptop = 20;
+              
                 // Get the uri
                 String uri = view.Address;
 
@@ -813,19 +812,33 @@ namespace Board
         /// <param name="token">A element to use</param>
         public void DownloadImage(object token)
         {
-           
-            lock(Mutex)
-            {
-
-             
-            // Get image string
             Element elm = (Element)token;
             string address = elm.GetAttribute("src");
+            try
+            {
+                // Get image string
+                // create dummy bitmap to indicate the image is going to load
+
+                
+                if (Images.ContainsKey(address))
+                    return;
+                else
+                    Images.Add(address, Resource1.release);
+            }
+            catch { } 
+
+            lock (Mutex)
+            {
+
+
+                
+            
             /**
              * We can set an imagedownload event to handle and redirect image requests.
              * */
             if (BeginDownloadImage != null)
             {
+                
                 // Create event args
                 ImageDownloadEventArgs args = new ImageDownloadEventArgs();
                 args.Adress = address;
@@ -833,7 +846,9 @@ namespace Board
                 if (args.Cancel)
                     return;
                 // Check for changed address
-                address = args.Adress;
+               
+                Images[address]=args.Bitmap;
+                return;
             }
 
             // if the address points to an local file (not starting with http:) start an local file process instead
@@ -844,10 +859,10 @@ namespace Board
                     // Create an webclient and download the image from the internet and read it into an bitmap stream
                     WebClient X = new WebClient();
 
-                    Image R = Bitmap.FromStream(X.OpenRead((string)token));
-
+                    Image  cf= Bitmap.FromStream(X.OpenRead((string)token));
+                    Images.Add(address,cf);
                     // Add the bitmap to the list
-                    elm.Bitmap = R;
+                 
                 }
                 catch (Exception e)
                 {
@@ -859,22 +874,22 @@ namespace Board
                 try
                 {
                     // Load the local image into an bitmap stream
-                    Image img = Bitmap.FromFile(address);
+                    
 
                     // add it to the images list
                     
-                    elm.Bitmap = img;
+                    
                 }
                 catch
                 {
                     try
                     {
-                       elm.Bitmap=( Resource1.release);
+
                     }
                     catch { }
                 }
             }
-            elm.FirstCall = true;
+   
             }
 
         }
@@ -1215,9 +1230,20 @@ namespace Board
         /// <param name="Title">The title of the item</param>
         /// <param name="Attributs">String array of attributes</param>
         /// <param name="uris">String array of uris (hrefs) of attributes</param>
-        public void AddItem(String Uri, String Title, String[] Attributs, String[] uris)
+        public Element AddItem(String Uri, String Title, String[] Attributs, String[] uris,int width,int height)
         {
             Element newItem = new Element(CurSection,this);
+            newItem.Type = "entry";
+            newItem.SetAttribute("title", Title);
+            newItem.SetAttribute("width", width.ToString());
+
+            newItem.SetAttribute("height", height.ToString());
+            newItem.SetAttribute("uri", Uri);
+            newItem.SetAttribute("href", Uri);
+            newItem.SetAttribute("type", "entry");
+            
+            this.CurSection.AddElement(newItem,this.currentView.Content);
+            return newItem;
         }
         /// <summary>
         /// Gets and sets the selected index . Returns -1 if no entries was found. Applies only with elements of type "entry".
@@ -1622,17 +1648,19 @@ namespace Board
 
                     Image Rs = null;
                    // Images.TryGetValue(_Element.GetAttribute("src"), out Rs);
-                    Rs = _Element.Bitmap;
+                    
                     // If image is not null, do not show any picture
-                    if (Rs != null)
+                    string src = _Element.GetAttribute("src");
+                    if (Images.ContainsKey(src))
                     {
                         bool hasShadow = true;
-                          
+                        Rs = Images[src]; 
+                        if(Rs!=null)
 
-                        DrawImage(Rs, new Rectangle(left, top, width, height),d,hasShadow);
+                         DrawImage(Rs, new Rectangle(left, top, width, height),d,hasShadow);
                     }
                         // But if the element hasn't been called before, start an downloading of the image
-                    else if (!_Element.FirstCall)
+                    else
                     {
 
                        Thread D = new Thread(DownloadImage);

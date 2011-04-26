@@ -353,7 +353,8 @@ namespace Board
 	    public static int LIST_LEFT = 140;	
 	    public  static void SecElement(ref Element X,Spofity R)
 	    {
-	        int topPos = R.TopPos;
+            X.AssertBounds(false);
+	        /*int topPos = R.TopPos;
 	        if(X.GetAttribute("position")==("absolute"))
         	{
         		try
@@ -427,7 +428,7 @@ namespace Board
 	                			topPos+=ITEM_HEIGHT;
 	                			R.topPos+=ITEM_HEIGHT;
 	                	}
-	                R.CountItems++;
+	                R.CountItems++;*/
 	    }
 	    public void Serialize()
 	    {
@@ -906,7 +907,7 @@ namespace Board
             {
 
                 // Reset the ptop
-                Element.ptop = 20;
+               
                 // Clear current buffer 
                 this.view.Sections.Clear();
 
@@ -1126,7 +1127,7 @@ namespace Board
                     _Section = RenderSection(_Section, iSection);
 
                     this.view.Sections.Add(_Section);
-                    Element.ptop = 20;
+                    _Section.ptop = 20;
 
 
                 }
@@ -1320,13 +1321,15 @@ namespace Board
     /// </summary>
 	public class Section
 	{
+
+        public int ptop = 20;
         /// <summary>
         /// Rebuilds the collection
         /// </summary>
         public void RebuildList()
         {
             // reset ptop
-            Element.ptop = 20;
+            ptop = 20;
             foreach (Element ct in this.elements)
             {
                 ct.SetAttribute("left", ct.OldLeft.ToString());
@@ -1384,7 +1387,7 @@ namespace Board
                 return;
 
             // Reset ptop
-            Element.ptop = 20;
+            ptop = 20;
 
             // build view according to filter
             foreach (Element ct in this.elements)
@@ -1804,7 +1807,17 @@ namespace Board
         /// ptop is to auto-align elements which has no valid top location - eg. smaller 
         /// than zero and should be applied in this way. Default is 20 so we ge an margin at the top
         /// </summary>
-        public static int ptop = 20;
+        public int ptop
+        {
+            get
+            {
+                return this.ParentSection.ptop;
+            }
+            set
+            {
+                this.ParentSection.ptop = value;
+            }
+        }
 
         /// <summary>
         /// Assign bounds of the object according to the parameters that is set in the textual parameter list (attributes)
@@ -1845,11 +1858,11 @@ namespace Board
             if (top < 1)
             {
 
-                top = Element.ptop;
+                top = ptop;
                     if (!Persistent)
                     {
 
-                        Element.ptop += height;
+                      ptop += height;
                        
                     }
                     else

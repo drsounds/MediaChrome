@@ -95,6 +95,7 @@ namespace SpofityRuntime
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.ResizeRedraw, true);
             this.ResumeLayout();
+            playlistsToAdd = new Stack<Board.Element>();
         }
         Spotify.Session SpotifySession;
         public Form1(string userName,string Password)
@@ -220,13 +221,16 @@ namespace SpofityRuntime
             frmImport.ShowDialog();
             return null;
         }
+
+        public Stack<Board.Element> playlistsToAdd;
         /// <summary>
         /// Will split the window when mouse move if true
         /// </summary>
         bool splitting1 = false;
         private void Form1_Load(object sender, EventArgs e)
         {
-       
+
+         
             splitter1 = new Panel();
             // Width of sidebar
             int treeViewWidth = 220;
@@ -289,8 +293,30 @@ namespace SpofityRuntime
             board.Navigate("spotify:home:1", "spotify", "views");
             board.PlaybackRequested += new Board.DrawBoard.PlaybackStartEvent(board_PlaybackRequested);
             treeview.Navigate("spotify:menu:1", "spotify", "views");
+
+             /**
+              * Add items on treeview
+              * 
+              */
+
+            // Add standard list items
            
            
+           
+           
+           
+        }
+
+        /// <summary>
+        /// Adds divider to the listview
+        /// </summary>
+        private void AddDivider()
+        {
+             Board.Element Splitter = this.treeview.AddItem("","",new String[]{},new String[]{},-1,10);
+            Splitter.Type = "divider";
+            Splitter.SetAttribute("type", "divider");
+            Splitter.Height = 10;
+            
         }
         private static object Mutex = new object();
        
@@ -321,7 +347,6 @@ namespace SpofityRuntime
                         {
 
                             d = Link.Create(e.Adress);
-                            ct = Album.CreateFromLink(d);
 
                             do
                             {
@@ -342,7 +367,7 @@ namespace SpofityRuntime
                             // Download the image if it don't exists in the cache, otherwise the system can load it directly
 
                             // Download the bitmap
-                            Bitmap cf = Session.LoadImageSync(ct.CoverId, new TimeSpan(1, 0, 0));
+                            Image cf = Session.LoadImageSync(ct.CoverId, new TimeSpan(1, 0, 0));
 
                             using (StreamWriter SW = new StreamWriter(ImageFilePath))
                             {
@@ -351,10 +376,17 @@ namespace SpofityRuntime
                             }
 
 
-                            
+                            e.Bitmap = cf;
+                            return;
                         }
                     }
-                    e.Adress = ImageFilePath;
+                    else
+                    {
+                        Image cf = Bitmap.FromFile(ImageFilePath);
+                        e.Bitmap = cf;
+                        return;
+                    }
+                  
                 }
                 catch
                 {
@@ -1785,6 +1817,53 @@ namespace SpofityRuntime
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+
+        }
+
+        private void timer1_Tick_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                // Get if the spotify playlists are loaded
+                if (Program.MediaEngines["sp"].PlaylistsLoaded)
+                {
+                    /**
+                     * Add standard menu items
+                     * */
+                    Thread.Sleep(100);
+                    Dictionary<String, String> CFH = new Dictionary<string, string>();
+                    CFH.Add("spotify:home", "Home");
+                    CFH.Add("spotify:local", "Local Music");
+
+                    foreach (KeyValuePair<string, string> menuitem in CFH)
+                    {
+                        Board.Element _home = this.treeview.AddItem(menuitem.Key, menuitem.Value, new String[] { }, new String[] { },500,16);
+                        _home.SetAttribute("href", menuitem.Value);
+                    }
+              
+
+
+                    foreach (MediaChrome.Views.Playlist playlist in Program.MediaEngines["sp"].Playlists)
+                    {
+                        // Add the playlist element
+
+
+                        Board.Element cf = this.treeview.AddItem(playlist.ID, playlist.Title, new String[] { }, new String[] { },500,16);
+                        cf.SetAttribute("href", playlist.ID);
+                    
+                       
+                    }
+                    timer2.Stop();
+
+                }
+               
+            }
+            catch { }
 
         }
     }

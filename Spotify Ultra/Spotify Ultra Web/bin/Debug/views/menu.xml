@@ -1,7 +1,5 @@
  <view>
 	<section name="Menu">
-		<entry left="0" width="500" height="16" top="@TOP" title="Home" href="spotify:home:1"/>
-		<entry left="0" width="500" height="16" top="@TOP" title="Local Files" href="spotify:local:1"/>
 		
 	</section>
 </view>
