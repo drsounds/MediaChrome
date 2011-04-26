@@ -1396,19 +1396,19 @@ namespace SpofityRuntime
         {
 
         }
-       
-	     public string currentArtist
-	     {
-	     	get{return lArtist.Text;}
-	     	set{lArtist.Text=value;}
-	    
-	     }
-	     public string currentAlbum
-	     {
-	     	get{return lAlbum.Text;}
-	     	set{lAlbum.Text=value;}
-	    
-	     }
+
+        public string currentArtist
+        {
+            get;
+            set;
+
+        }
+        public string currentAlbum
+        {
+            get;
+            set;
+
+        }
         void CBtn1Load(object sender, EventArgs e)
         {
         
@@ -1864,6 +1864,16 @@ namespace SpofityRuntime
                
             }
             catch { }
+
+        }
+
+        private void cBtn8_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cBtn4_Load(object sender, EventArgs e)
+        {
 
         }
     }

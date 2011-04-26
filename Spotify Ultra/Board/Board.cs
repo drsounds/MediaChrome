@@ -1508,12 +1508,12 @@ namespace Board
             
             // Font size for the font
             // Try to find text size otherwise apply default
-            int textSize = 8;
+            int textSize = 0;
             int.TryParse(_Element.GetAttribute("size"), out textSize);
             if (textSize == 0)
                 textSize = 8;
 
-            String fontName = FontFace;
+            String fontName = "MS Sans Serif";
             if (_Element.GetAttribute("font") != "")
             {
                 fontName = _Element.GetAttribute("font");
@@ -1837,7 +1837,7 @@ namespace Board
         private void DrawHeaders(Graphics p, System.Drawing.Point point)
         {
             // fill the columnheader background
-            p.FillRectangle(new LinearGradientBrush(new Point(0,0),new Point(0,columnheader_height),Color.FromArgb(210,210,210),Color.FromArgb(200,200,200)),new Rectangle(point,new Size(this.Width-scrollbar_size,columnheader_height)));
+            p.FillRectangle(new LinearGradientBrush(new Point(point.X,point.Y),new Point(point.X,point.Y+columnheader_height),Color.FromArgb(210,210,210),Color.FromArgb(180,180,180)),new Rectangle(point,new Size(this.Width-scrollbar_size,columnheader_height)));
             // draw border line
             p.DrawLine(new Pen(Color.Black), new Point(0, point.Y + columnheader_height - 1), new Point(this.Width - scrollbar_size, point.Y + columnheader_height - 1));
             p.DrawLine(new Pen(Color.White), new Point(0,point.Y ), new Point(this.Width-scrollbar_size, point.Y ));
