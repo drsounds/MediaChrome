@@ -806,16 +806,21 @@ namespace Board
             
 
         }
+        internal static Object Mutex = new Object();
         /// <summary>
         /// Method to asynchronisly download an image to an img element
         /// </summary>
-        /// <param name="token"></param>
+        /// <param name="token">A element to use</param>
         public void DownloadImage(object token)
         {
-            
-            // Get image string
-            string address = (string)token;
+           
+            lock(Mutex)
+            {
 
+             
+            // Get image string
+            Element elm = (Element)token;
+            string address = elm.GetAttribute("src");
             /**
              * We can set an imagedownload event to handle and redirect image requests.
              * */
@@ -842,7 +847,7 @@ namespace Board
                     Image R = Bitmap.FromStream(X.OpenRead((string)token));
 
                     // Add the bitmap to the list
-                    Images.Add((string)token, R);
+                    elm.Bitmap = R;
                 }
                 catch (Exception e)
                 {
@@ -857,17 +862,19 @@ namespace Board
                     Image img = Bitmap.FromFile(address);
 
                     // add it to the images list
-                    Images.Add((string)token, img);
+                    elm.Bitmap = img;
                 }
                 catch
                 {
                     try
                     {
-                        Images.Add((string)token, Resource1.release);
+                       elm.Bitmap=( Resource1.release);
                     }
                     catch { }
                 }
             }
+            }
+
         }
         
         /// <date>2011-04-25 12:04</date>
@@ -1029,6 +1036,7 @@ namespace Board
         {
             public String Adress {get;set;}
             public bool Cancel { get; set; }
+            public Image Bitmap { get; set; }
         }
 
         /// <summary>
@@ -1488,8 +1496,10 @@ namespace Board
 
 
 
-            
 
+            // Reset entryship if element is not an entry
+            if (_Element.Type != "entry")
+                entryship = 0;
             // 
 
             // draw selection background but currently only for entry
@@ -1623,8 +1633,8 @@ namespace Board
                     else if (!_Element.FirstCall)
                     {
 
-                 //       Thread D = new Thread(DownloadImage);
-                   //     D.Start((object)_Element.GetAttribute("src"));
+                       Thread D = new Thread(DownloadImage);
+                     D.Start((object)_Element);
                     }
                     break;
 
@@ -1712,8 +1722,7 @@ namespace Board
                     DrawElement(rt, d, ref entryship, ElementBounds, padding);
                 }
             }
-            // Clean resource
-            
+            // increase ptop
             
         }
         /// <summary>

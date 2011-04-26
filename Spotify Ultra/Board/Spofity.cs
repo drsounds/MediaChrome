@@ -1701,6 +1701,10 @@ namespace Board
         /// </summary>
         public Element Original { get; set; }
 
+        /// <summary>
+        /// Bitmap contents of the element
+        /// </summary>
+        public Image Bitmap { get; set; }
 
         /// <summary>
         /// Gets whether this elements is an copy of another element or an original. Used in the filter system

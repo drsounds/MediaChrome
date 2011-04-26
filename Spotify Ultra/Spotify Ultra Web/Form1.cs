@@ -292,6 +292,8 @@ namespace SpofityRuntime
            
            
         }
+        private static object Mutex;
+       
         /// <date>2011-04-25 14:59</date>
         /// <summary>
         /// 
@@ -300,40 +302,49 @@ namespace SpofityRuntime
         /// <param name="e"></param>
         void board_BeginDownloadImage(object sender, Board.DrawBoard.ImageDownloadEventArgs e)
         {
+           
             // if the adress starts with spotify, download the cover image
             if (e.Adress.StartsWith("spotify:"))
             {
                 try
                 {
-                    Link d = Link.Create(e.Adress);
-                    Album ct = Album.CreateFromLink(d);
-                    Thread.Sleep(3000);
-                    while (!ct.IsLoaded) { }
-                    /**
-                     * Store the covers in an temporary folder. Create temporary directy if not exist
-                     * */
-                    if (!Directory.Exists("C:\\temp"))
+                    Mutex = new object();
+                    Album ct = null;
+                    Link d = null;
+                    lock(Mutex)
                     {
-                        Directory.CreateDirectory("C:\\temp");
-                    }
+                       
+                         d= Link.Create(e.Adress);
+                         ct = Album.CreateFromLink(d);
+                   
+                        Thread.Sleep(3000);
+                        while (!ct.IsLoaded) { }
+                        /**
+                         * Store the covers in an temporary folder. Create temporary directy if not exist
+                         * */
+                        if (!Directory.Exists("C:\\temp"))
+                        {
+                            Directory.CreateDirectory("C:\\temp");
+                        }
 
               
-                    // set the path for the image
-                    string ImageFilePath = "C:\\temp\\" + ct.CoverId + ".bmp"; ;
-                    // Download the image if it don't exists in the cache, otherwise the system can load it directly
-                    if (!File.Exists(ImageFilePath))
-                    {
-                        // Download the bitmap
-                        Bitmap cf = Session.LoadImageSync(ct.CoverId, new TimeSpan(1, 0, 0));
-                      
-                        using (StreamWriter SW = new StreamWriter(ImageFilePath))
+                        // set the path for the image
+                        string ImageFilePath = "C:\\temp\\" + ct.CoverId + ".bmp"; ;
+                        // Download the image if it don't exists in the cache, otherwise the system can load it directly
+                        if (!File.Exists(ImageFilePath))
                         {
-                            cf.Save(SW.BaseStream, ImageFormat.Bmp);
-                            SW.Close();
-                        }
+                            // Download the bitmap
+                            Bitmap cf = Session.LoadImageSync(ct.CoverId, new TimeSpan(1, 0, 0));
+                      
+                            using (StreamWriter SW = new StreamWriter(ImageFilePath))
+                            {
+                                cf.Save(SW.BaseStream, ImageFormat.Bmp);
+                                SW.Close();
+                            }
                         
+                        }
+                        e.Adress = "C:\\temp\\" + ct.CoverId + ".bmp";
                     }
-                    e.Adress = "C:\\temp\\" + ct.CoverId + ".bmp";
                 }
                 catch
                 {
