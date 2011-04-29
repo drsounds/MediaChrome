@@ -557,6 +557,9 @@ namespace Board
                 }
             }
         }
+
+   
+
         #region ScriptFunctions
 
         /// <summary>
@@ -722,9 +725,17 @@ namespace Board
             XmlNodeList items = iSection.ChildNodes;
             foreach (XmlNode node in items)
             {
+                if (node.GetType() == typeof(XmlText))
+                {
+                    XmlText r = (XmlText)node;
+
+                   
+                }
                 if (node.GetType() != typeof(XmlElement))
                     continue;
                 XmlElement item = (XmlElement)node;
+                
+
                 // Create various kind of controls depending of node type
                 Element CT = new Element(srcSection,this.ParentBoard);
 
@@ -753,7 +764,9 @@ namespace Board
                 // Set the type of the element to the item's tag definition
                 CT.SetAttribute("type", item.Name);
                 CT.SetAttribute("text", item.InnerText);
-                CT.Data = item.InnerText;
+                CT.Data = item.InnerXml;
+                ExtractXml(item, CT);
+              
 
                 // By default the top of the element should be set according to the page settings
                 CT.SetAttribute("top", "@TOP");
@@ -801,6 +814,278 @@ namespace Board
             }
             return C;
         }
+    public enum ParseMode
+    {
+        Beginning,Attribute,Value
+    }
+    public string ExtractTagAttribute(Element Output, string tag)
+    {
+        /***
+         * Create new xml document and parse the tag
+         * */
+        XmlDocument XD = new XmlDocument();
+        String xml = "<xml>" + tag+"</xml>";
+        
+        XD.LoadXml(xml);
+
+        var elm = XD.DocumentElement.ChildNodes[0];
+
+        /**
+         * Convert the element to an Spofity element
+         * */
+
+        Output.Type = elm.Name; // Set type of element
+        
+        // Assert properties
+        foreach (XmlAttribute r in elm.Attributes)
+        {
+            Output.SetAttribute(r.Name, r.Value);
+        }
+        
+        // Assert child elements
+        foreach (XmlNode Node in elm.ChildNodes)
+        {
+            Output.SetAttribute(Node.Name, Node.InnerText);
+        }
+        // Return the element type (TagName)
+        return elm.Name;
+    }
+    /// <summary>
+    /// Extract all [attrb=value] implented in the string and return the tag name
+    /// 
+    /// </summary>
+    /// <param name="Output">The element to apply</param>
+    /// <param name="tag">The tag to harash</param>
+    /// <returns></returns>
+        public string ExtractTagAttributes(Element Output, string tag)
+        {
+
+            return ExtractTagAttribute(Output, tag);
+
+            /**
+             * Current character mode 
+             * [ 0 = Beginning of tag,
+             *   1 = At attribute name,
+             *   2 = inside attribute value ]
+             *   */
+           ParseMode currentState = ParseMode.Beginning;
+
+            /**
+             * If the cursor is inside an "" this variable
+             * will be true, and if so it will skip the whitespace
+             * */
+
+            bool insideString = false;                   
+
+            StringBuilder buffer = new StringBuilder();                 // The buffer of chars for the current token
+
+            String bufferReady = "";                                    // The buffer of prevous ready string (attribute name)
+
+            String elementName = "";                                    // The tag name of the element
+
+            List<Board.Attribute> attributes = new List<Attribute>();   // The list of attributes to create
+
+            for (int i = 0; i < tag.Length; i++)
+            {
+                
+                char token = tag[i];     
+                
+                /**
+                 * If the current character is an " toggle
+                 * inside buffer (do not change mode on whitespace)
+                 * */
+                if(token=='"')
+                {
+                    insideString=!insideString;
+                    continue;
+                }
+
+                switch(currentState)
+                {
+                    case ParseMode.Attribute:
+                        
+                        if(token==' '&&!insideString)
+                        {
+                            /** Flush the buffer and move the content
+                             * to the attribute bufffer */
+                            bufferReady=buffer.ToString();   
+                             buffer.Clear();
+                            // Set parse mode to attribute
+                             currentState = ParseMode.Value;
+                            continue;
+
+                        }
+                        break;
+                    case ParseMode.Value:
+                        if(token==' ' || token=='>'&&!insideString)
+                        {
+                            if(tag[token-1]==' ')
+                                continue;
+                            // Get the value
+                            String value = buffer.ToString();
+                            buffer.Clear();
+                            // Create element's attribute
+                            Board.Attribute d = new Attribute() { name=bufferReady,value=value};
+                            // add the attribute to the element
+                            Output.Attributes.Add(d);
+
+                            // If not inside string and reach > or / return
+                            if ((token == '>' || token == '/') && !insideString)
+                            {
+                                return elementName;
+                            }
+                            else
+                            {
+                             currentState=   ParseMode.Attribute;
+                            }
+                            continue;
+                        }
+                        break;
+                    case ParseMode.Beginning:
+                        if(token==' ')
+                        {
+                            if(tag[token-1]==' ')
+                                continue;
+                            elementName = buffer.ToString();
+                            // Clear the buffer
+                             buffer.Clear();
+
+                            // Set parse mode to attribute
+                            currentState=ParseMode.Attribute;
+                            continue;
+                        }
+                        break;
+              
+                }
+
+                // Otherwise append the char to the current buffer
+                buffer.Append(token);
+
+              
+            }
+            return elementName;
+        }
+        /// <summary>
+        /// Extract element from tag and put it into CT
+        /// </summary>
+        /// <param name="i">ref int to position</param>
+        /// <param name="cf"></param>
+        /// <param name="CT"></param>
+        public void  ExtractTag(ref int totalSize,ref int i, string Cf, Element CT)
+        {
+            /**
+             * Get element contents
+             * */
+
+            // Get starttag
+            var j = Cf.IndexOf('<', i);        // get index < of first position
+   
+            var k = Cf.IndexOf('>',j);             // get index of ending > of tag name
+
+            /** 
+             * Handle short tag elements
+            */
+            if (Cf.Substring(k - 1, 1) == "/")
+            {
+                Element bOutput = new Element(CT.ParentSection, this.ParentBoard);
+            
+                // Get the element
+                string type_ = Cf.Substring(j + 1, (k - 1) - j - 2).Trim();
+                string type= ExtractTagAttribute(bOutput,type_);
+                bOutput.SetAttribute("type", type);
+                bOutput.Type = type;
+                CT.Elements.Add(bOutput);
+                int t_pos_ = j - totalSize;
+                bOutput.SetAttribute("t_pos", j.ToString());
+                i = Cf.IndexOf("/>", j + 1);
+
+                // Set the length of the element
+                bOutput.SetAttribute("t_length", (type_+3).Length.ToString());
+                return;
+            }
+            var elmName = Cf.Substring(j+1,k-j-1);   // Extract tag name
+
+
+            // Get Contents
+            var m = Cf.IndexOf("</",k);            // Get index of end tag
+
+            var elmContents = Cf.Substring(k+1,m-k-1); // Extract tag contents
+
+            i += (k - j) - (m - k) +3;
+            
+            /**
+             * Create output element. Tell it can be implemented to the type
+             * */
+            Element Output = new Element(CT.ParentSection, this.ParentBoard); // Create new element
+            int t_pos = j - totalSize;
+            Output.SetAttribute("t_pos", j.ToString()); // set element textual position
+            
+            
+            var tagName = ExtractTagAttributes(Output,elmName);
+            Output.SetAttribute("type",tagName);       // Set the type of inline markup to the elmName
+            // increase totalsize
+            Output.SetAttribute("t_length",(elmName.Length + elmContents.Length + 4 + 1 +tagName.Length*2).ToString());
+            CT.Elements.Add(Output);                // Add the element to children
+
+
+            Output.Data = elmContents;              // Set output's textContent
+            
+
+        }
+        
+        public void ExtractXml(XmlNode item, Element CT)
+        {
+             // Extract contents to string
+
+                //    Elements
+                var childNodes = item.ChildNodes;
+
+                // The current node
+                int currentNode = 0;
+
+                // the current element
+                XmlElement currentElm=null;
+                CT.Data = item.InnerText;
+                CT.InnerXML = item.InnerXml;
+
+                // Numeric opinter to the child elements
+                int elmPointer = 0;
+                /***
+                 * Mark all occuranses of XML tags
+                 * */
+
+            // totalsize of all elements
+                int totalSize = 0;
+                for (int i = 0; i < item.InnerXml.Length; i++)
+                    {
+                        if (i > 0)
+                        {
+                            char ch = item.InnerXml[i];
+                            // If the current char is an < extract next child node
+                            if (ch == '<')
+                            {
+                                if (item.InnerXml[i + 1] == '/')
+                                {
+                                    // jump to position after next > 
+                                    i = item.InnerXml.IndexOf('>', i);
+                                    continue;
+                                }
+
+                                // Store current I
+                                int oldI = i;
+                                // get element tag name and populate the item
+                                ExtractTag(ref totalSize, ref i, item.InnerXml, CT);
+
+
+                                // Remove the string encloseed by the tag
+                                continue;
+                            }
+                        }
+                
+                }
+             
+            
+        }
         /// <summary>
         /// This is an recursive method which will create elements on an section
         /// Board to view.
@@ -844,6 +1129,10 @@ namespace Board
                 CT.Type = item.Name;
                 CT.SetAttribute("text", item.InnerText);
                 CT.Data = item.InnerText;
+                
+                // Extract the elent's inner data
+                if(item.HasAttribute("content"))
+                ExtractXml(item, CT);
 
                 // By default the top of the element should be set according to the page settings
                 CT.SetAttribute("top", "@TOP");
@@ -855,6 +1144,9 @@ namespace Board
 
                 switch (item.Name.ToLower())
                 {
+                    case "a":
+                        CT.SetAttribute("type", "label");
+                        break;
                     case "p":
                         CT.SetAttribute("type", "label");
                         break;
@@ -883,7 +1175,7 @@ namespace Board
                
 
                 // Do this for children
-                RenderElements(C,CT, item);
+              
 
             }
             return C;
@@ -1070,7 +1362,7 @@ namespace Board
     /// <param name="pretemplate">The mako syntaxed template. Used for recurring updates</param>
         public void Initialize(string parameter,string pretemplate, string data, MakoEngine engine)
         {
-            try
+       
             {
                 this.Receivers = new List<ContentReceiver>();
 
@@ -1185,9 +1477,7 @@ namespace Board
 
                 LoadData();
             }
-            catch (Exception e)
-            {
-            }
+            
         }
 
         bool _Section_PlaybackItemChanged(Spofity sender, Element element, string uri)
@@ -1700,6 +1990,14 @@ namespace Board
 	public class Element 
 	{
         /// <summary>
+        ///  Inner XML
+        /// </summary>
+        public String InnerXML { get; set; }
+        /// <summary>
+        /// Font for element's textContent
+        /// </summary>
+        public Font Font { get; set; }
+        /// <summary>
         /// Gets the instance of the elements which it wa copied from or Null if it wasn't an copy. Used in the filter system
         /// </summary>
         public Element Original { get; set; }
@@ -1742,6 +2040,11 @@ namespace Board
             return dc;
         }
 
+        /// <summary>
+        /// Text position for embedding the element inside a text block
+        /// </summary>
+        public int TextPosition { get; set; }
+
         public int OldLeft { get; set; }
         public int OldTop { get; set; }
        
@@ -1750,7 +2053,20 @@ namespace Board
         /// handler when it tries to draw at the first time but prevent it are done always.
         /// </summary>
         public bool FirstCall;
-
+        /// <summary>
+        /// Find the textual position of the element
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <returns>An element if found, NULL otherwise</returns>
+        public Element ElementAt(int pos)
+        {
+            foreach (Element child in Elements)
+            {
+                if (child.GetAttribute("t_pos")==pos.ToString())
+                    return child;
+            }
+            return null;
+        }
         /// <summary>
         /// Gets and set the persistency. If true, the ptop will not be 
         /// changed after appending but will use the last valueo of it.
@@ -2030,11 +2346,14 @@ namespace Board
 	    {
 	        get
 	        {
+                if (GetAttribute("type") != "")
+                    return GetAttribute("type");
 	            return type;
 	        }
 	        set
 	        {
 	            type = value;
+                SetAttribute("type", type);
 	        }
 	    }
         /// <summary>

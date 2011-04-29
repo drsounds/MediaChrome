@@ -1,0 +1,85 @@
+<?
+/****
+ * Playlist view for Spotify ultra
+ */
+ 
+ var playlist = getCurrentPlaylist();
+ 
+?>
+<view>
+<?
+	 if(ownPlaylist()){
+?>
+	<toolbar>
+	<!--	<item title="Share" onclick=""/>
+		<item title="Edit text" onclick="edit('uri')"/>
+		<item title="Upload image" onclick="image()"/>-->
+	</toolbar>
+	<section name="Playlist" list="true" dragable="true" reorder="true"  >
+		<space height="18"/>
+		<!-- entries -->
+		<?
+		for(var i=0; i < playlist.Songs.Count; i++){ var Track = playlist.Songs[i];
+	
+		var name = Track.Title;
+		var artist = Track.Artist;
+		var album = Track.Album;
+		var link = Track.Path;
+		?> 
+		<entry top="@TOP" height="18" width="-1" left="0" > 
+			<title noelm="true"><![CDATA[@{name}]]></title>
+			<artist noelm="true"><![CDATA[@{artist}]]></artist>
+			<album noelm="true"><![CDATA[@{album}]]></album>
+			<uri noelm="true"><![CDATA[@{link}]]></uri>
+		</entry>
+		<?
+		}
+		?>
+	</section>
+	<?
+} 
+if(false){
+	?>
+	<section name="Playlist" draggable="true">
+		<space height="10"/>
+		<label width="500" left="10" height="30"  top="@TOP" size="15">Playlist</label>
+		<label width="500" left="10" height="70" color="#AAAAAA"  top="@TOP" size="12">No description</label>
+		<divider height="10"/>
+		<img src=""  left="20" width="120" height="120" top="@TOP" persistent="true"/>
+		
+		<!-- entries -->
+		<?
+		for(var i=0; i < playlist.Songs.Count; i++){ var Track = playlist.Songs[i];
+			var name = Track.Title;
+			var artist = Track.Artist;
+			var album = Track.Album;
+			var link = Track.Path;
+			/* If name and artist represents "" add an divider */
+			if(title==" "){
+				continue;
+			}
+			if(artist==" "){
+		?>
+		<label height="20" left="150" top="@TOP" width="-1" color="#aaaaaa">@{name}</label>
+		<?
+				if(album!=" "){
+				?>
+		<label height="20" left="150" top="@TOP" width="-1" color="#666666">@{album}</label>
+				<?
+				}
+				continue;
+			}
+		?> 
+		<entry top="@TOP" uri="@{link}" height="18" left="150" width="-1" >
+			<title noelm="true"><![CDATA[@{name}]]></title>
+			<artist noelm="true"><![CDATA[@{artist}]]></artist>
+			<album noelm="true"><![CDATA[@{album}]]></album>
+			
+		</entry>
+		<?
+		}
+		
+		?>
+	</section>
+	<? } ?> 
+</view>

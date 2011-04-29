@@ -77,7 +77,6 @@ L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\S
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.UpdatePlaylist.resources
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\GenerateResource.read.1.tlog
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\GenerateResource.write.1.tlog
-L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\Board.dll
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\System.Data.SQLite.DLL
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\System.Data.SQLite.Linq.dll
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\System.Data.SQLite.xml
@@ -95,3 +94,4 @@ L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\I
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\MediaChrome.Spotify.SpotifyView.resources
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\JsonFx.dll
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\JsonFx.xml
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\Board.exe

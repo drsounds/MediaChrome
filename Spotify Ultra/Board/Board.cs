@@ -1436,6 +1436,198 @@ namespace Board
             }
         }
 
+       
+
+        /// <summary>
+        /// Method to dynamically draw text and include subsets of elements inside the markup of the text
+        /// </summary>
+        /// <param name="elm"></param>
+        /// <param name="font">The font to use (measuring scale)</param>
+        /// <param name="g">The graphics to use</param>
+        /// <param name="position">Rectangle of position</param>
+        /// <param name="left">Left position of character start</param>
+        /// <param name="row">row on character start</param>
+        public void DrawText(String text,String xml,Element elm,Font font,Graphics g,Brush fontBrush,Rectangle position,ref int entryship,ref int left,ref int row)
+        {
+            List<Element> elementsToShow = new List<Element>();
+            foreach (Element d in elm.Elements)
+            {
+                elementsToShow.Add(d);
+            }
+           this.Cursor = Cursors.Default;
+
+
+            // Denotaes if inside XML
+           bool insideXML = false;
+
+            // Position inside element
+           int elmPos = 0;
+
+            // Current element length
+           int currentElmLength = 0;
+            // string buffer
+            StringBuilder buffer = new StringBuilder();
+
+            int tagLevel = 0;
+           
+            // Iterate through all characters and build the text
+            for (var i = 0; i < xml.Length; i++)
+            {
+                
+                // Get the current char
+                char d = xml[i];
+                switch (d)
+                {
+                    case '<':
+                        tagLevel++;
+                        break;
+                    case '>':
+                        tagLevel--;
+                        break;
+                }
+                // boolean indicating sub elements were found
+                bool elmFound = false;
+                
+                // If i points on an sub text block iterate it
+                for (int j=0; j < elementsToShow.Count; j++)
+                {
+                    Element child = elementsToShow[j];
+                    // If child.font is null assign the current font
+                    if (child.Font == null)
+                        child.Font = font;
+
+                    // Get position relative to the one without xml tags
+                 
+                   
+                     if (child.GetAttribute("t_pos") == (i).ToString())
+                    {
+                       // set current element length
+                        currentElmLength=int.Parse(child.GetAttribute("t_length"));
+
+                        elmPos = 0;
+                        elmFound = true;
+                        // Measure bounds
+                        Rectangle pos = new Rectangle(left + position.Left, row + position.Top, position.Width, position.Height);
+                         /**
+                          * IF elm of type br add row
+                          * */
+                        if (child.GetAttribute("type") == "br")
+                        {
+                            child.Data = "ABCD";
+                            
+                        }
+                        if (child.Data != "")
+                        {
+                            // measure text boundaries
+                            pos = new Rectangle(position.Left + left, position.Top + row, (int)GetTextWidth(child.Data,child.Font,g), (int)g.MeasureString(child.Data, child.Font).Height);
+
+
+                            
+                            // draw the child
+                            Rectangle nPos = new Rectangle(pos.Left - left, pos.Top - row, 50, 50);
+
+                            // Create new font for the child
+                            Font cFont = (child.Font);
+
+                            // if mouse is over the link assign new font
+
+                            if (mouseX >= nPos.Left + left && mouseX <= nPos.Left + left +  (int)GetTextWidth(child.Data,cFont,g) && mouseY >= nPos.Top + row && mouseY <= row + nPos.Top + (int)g.MeasureString(child.Data, cFont).Height)
+                            {
+                                // Make text underline
+                                cFont = new Font(child.Font, FontStyle.Underline);
+                                child.Font = cFont;
+                                this.Cursor = Cursors.Hand;
+
+                            }
+                            else
+                            {
+                                child.Font = new Font(cFont, FontStyle.Regular);
+                            }
+                            if (child.Data == null)
+
+                                DrawElement(child, g, ref entryship, new Rectangle(pos.Left,pos.Top,120,120),0, ref left, ref row);
+                            else
+                            DrawElement(child, g, ref entryship, nPos, 0, ref left, ref row);
+
+                            // Increase left to the strings width
+                            if (child.Data != "ABCD")
+                            {
+                                Font fnt = child.Font;
+                                if(fnt==null)
+                                    fnt = font;
+                                if (child.Data != null)
+                                {
+
+                                    left += (int)GetTextWidth(child.Data.ToString(), fnt, g) / 2;
+                                }
+                                else
+                                {
+                                    left += child.Width;
+                                }
+                            }
+                            elmFound = true;
+                            elementsToShow.Remove(child);
+                           
+                           
+                            
+                           
+
+
+
+
+                            break;
+                        }
+                        else // for items other than with strings
+                        {
+                            Rectangle nPos = new Rectangle(pos.Left - left, pos.Top - row, child.Width, child.Height);
+
+                            DrawElement(child, g, ref entryship, nPos, 0, ref left, ref top);
+                             left += child.Width;
+                        }
+                        
+                         // Skip the tokens concerning the markup
+                        
+                        // Measure new length if data is set
+                        
+                          
+                       if(left+(int)GetTextWidth(elm.Data,font,g) >= this.Width)
+                           row += (int)g.MeasureString("ABCD", font).Height;
+                      
+
+                    }
+                     
+                }
+                // draw the character if no children were found
+                if (!elmFound&&tagLevel < 1 && currentElmLength < elmPos)
+                {
+                    if (d == '>')
+                        continue;
+                    if (d == ' ')
+                        left += 5;
+                    
+                    g.DrawString(d.ToString(), font, fontBrush, position.Left + left, position.Top + row);
+                    left += (int)GetTextWidth(d.ToString(), font,g);
+                }
+               
+                // if the character exceeds the width separate it to new row
+                if (left >= this.Width-10)
+                {
+                    row += (int)g.MeasureString("ABCD", font).Height;
+                    left = 0;
+                }
+                elmPos++;
+            
+            }
+        
+        }
+
+        private float GetTextWidth(string p, System.Drawing.Font font,Graphics d)
+        {
+            return d.MeasureString(p, font).Width - 3;
+        }
+
+        
+
         /// <summary>
         /// The vertical scroll range
         /// </summary>
@@ -1451,6 +1643,7 @@ namespace Board
             }
         }
 
+
         /// <summary>
         /// The default typeface to use for the view
         /// </summary>
@@ -1465,14 +1658,14 @@ namespace Board
         /// <param name="padding">The padding to use when nesting child elements</param>
    
         /// <param name="entryship">The number of entry placed</param>
-        public void DrawElement(Element _Element, Graphics d,ref int entryship,Rectangle Bounds,int padding)
+        public void DrawElement(Element _Element, Graphics d,ref int entryship,Rectangle Bounds,int padding,ref int t_left,ref int t_row)
         {
+            
            
             /**
              * Get screen coordinates of the element
              * */
-            if (_Element.Top + _Element.Height < scrollY)
-                return;
+          
 
             int height = Bounds.Height;
             int left = Bounds.Left;
@@ -1522,6 +1715,8 @@ namespace Board
             // if element is hovred, set the font to be underlined
             bool hovered = (_Element.GetAttribute("hover") == "true");
             Font labelFont = new Font(fontName, textSize, hovered ? FontStyle.Underline : FontStyle.Regular);
+            if (_Element.Font != null)
+                labelFont = _Element.Font;
 
 
 
@@ -1539,6 +1734,11 @@ namespace Board
             * */
             switch (_Element.Type)
             {
+                case "br":
+                    t_row += (int)d.MeasureString("ABCD", _Element.Font).Height;
+                    t_left = 0;
+                    return;
+                 
 
                 case "entry":
 
@@ -1614,7 +1814,7 @@ namespace Board
                                     * we create an new dummy _entryship value assigned to zero
                                     * so we can pass it*/
                                    int _entryship = 0;
-                                   DrawElement(_elm, d,ref _entryship, elmBounds, 0);
+                                   DrawElement(_elm, d,ref _entryship, elmBounds, 0,ref t_left,ref t_row);
                                }
                            }
                              column_position += column;
@@ -1642,7 +1842,7 @@ namespace Board
 
                 case "header":
                     entryship = 0;
-                    d.DrawString(_Element.GetAttribute("title"), labelFont, new SolidBrush(Fg), new Point(left, top));
+                    DrawText(_Element.GetAttribute("title"),_Element.GetAttribute("title"), _Element, labelFont,d, new SolidBrush(Fg),new Rectangle(left,top,0,0),ref entryship,ref t_left,ref t_row);
                    
                     break;
                 case "img":
@@ -1670,10 +1870,10 @@ namespace Board
                     break;
 
 
-                case "label":
-
+                default:
+                  
                     
-                    // Try use custom color, otherwise by default
+                 // Try use custom color, otherwise by default
                     Color Foreground = Fg;
 
                    
@@ -1689,7 +1889,7 @@ namespace Board
                         labelFont = new Font(labelFont, FontStyle.Underline);
                     }
                   
-
+                       /*
 
                     if (_Element.GetAttribute("position") == "absolute")
                     {
@@ -1706,7 +1906,8 @@ namespace Board
                     /**
                      * Get hyperlinks
                      * */
-
+                 
+                    DrawText(_Element.Data,_Element.Data, _Element, labelFont, d, new SolidBrush(Foreground), Bounds,ref entryship, ref t_left, ref t_row);
                    
                     break;
                 case "button":
@@ -1750,7 +1951,7 @@ namespace Board
                     // Get bounds
                     Rectangle ElementBounds = new Rectangle(_Element.Left + Bounds.Left + padding, _Element.Top + Bounds.Top + padding, Bounds.Width - (padding * 2), Bounds.Height - (padding * 2));
 
-                    DrawElement(rt, d, ref entryship, ElementBounds, padding);
+                    DrawElement(rt, d, ref entryship, ElementBounds, padding,ref t_left,ref t_row);
                 }
             }
             // increase ptop
@@ -1881,7 +2082,7 @@ namespace Board
         public void Draw(Graphics p)
         {
 
-            try
+      //      try
             {
           /*      this.pictureBox1.Left = this.Width / 2 - this.pictureBox1.Width / 2;
                 this.pictureBox1.Top = this.Height / 2 - this.pictureBox1.Height / 2;
@@ -1922,7 +2123,8 @@ namespace Board
                                 // Draw the element and it's children
                                 if (ScreenCoordinates.Bottom < 0 || ScreenCoordinates.Top > this.Height)
                                     continue;
-                                DrawElement(_Element, d, ref entryship, ScreenCoordinates, 3);
+                                int t_left = 0, t_row =  0;
+                                DrawElement(_Element, d, ref entryship, ScreenCoordinates, 3,ref t_left,ref t_row);
 
 
 
@@ -1941,15 +2143,7 @@ namespace Board
                 if (reoredering)
                 {
 
-                    // Get the element for the position
-                    Element df = GetItemAtPos(new Point(mouseX, mouseY));
-
-                    // get the element's bounds
-                    Rectangle o_bounds = df.GetCoordinates(scrollX, scrollY, new Rectangle(0, 0, this.Width, this.Height), 0);
-
-                    // Draw the line
-                    d.DrawLine(new Pen(Color.White), new Point(0, o_bounds.Top + o_bounds.Height), new Point(this.Width - scrollbar_size, o_bounds.Top + o_bounds.Height));
-
+                  
                 }
                 /***
                  * Draw the tab header on top
@@ -2170,7 +2364,7 @@ namespace Board
                  * */
                 R.Render();
             }
-            catch
+      //      catch
             {
             }
         }
@@ -2282,6 +2476,7 @@ namespace Board
                     {
                         _Element.Selected = true;
                         dragURI = _Element.GetAttribute("href");
+                        
                       
                     }
 
@@ -2322,6 +2517,8 @@ namespace Board
             {
                 if (ct.GetAttribute("draggable") == "true")
                 {
+                    GrabbedElements = new List<Element>();
+                    GrabbedElements.Add(ct);
 
                     DataObject D = new DataObject(DataFormats.CommaSeparatedValue, UriToStrings(GrabbedElements));
                     DoDragDrop(D, DragDropEffects.Copy);
@@ -2352,14 +2549,16 @@ namespace Board
 
                         if (args.Cancel)
                             return;
-
+                        
                        
 
 
                     }
+
                     GrabbedElements = new List<Element>();
                     GrabbedElements.AddRange(this.SelectedItems);
-                    reoredering = true;
+                    DataObject D = new DataObject(DataFormats.CommaSeparatedValue, UriToStrings(GrabbedElements));
+                    DoDragDrop(D, DragDropEffects.Copy);
                 }
             }
         }
@@ -2729,45 +2928,7 @@ namespace Board
                 if (GrabbedElements != null)
                 {
 
-                    // Get destination element
-                    Element targetPos = GetItemAtPos(new Point(mouseX, mouseY));
-
-                    // if no target element was found cancel
-                    if (targetPos == null)
-                        return;
-                    // Only if the targetPos represents an element of type entry it should procced
-                    if (targetPos.Type != "entry")
-                        return;
-                    // Get the index of the element (but we use the index for all types of items, not only entries)
-                    int index = this.ViewBuffer.IndexOf(targetPos);
-
-                    // Old index is the position of the first element in the collection
-                    int oldIndex = this.ViewBuffer.IndexOf(GrabbedElements[0]);
-
-                    // Remove the elements from it's old location if it doesn't exists
-                    foreach (Element cf in GrabbedElements)
-                        ViewBuffer.Remove(cf);
-                    // Insert the new elements
-                    ViewBuffer.InsertRange(index, GrabbedElements);
-
-                    // Rebuild the list
-                    this.CurSection.RebuildList();
-
-
-
-                    // Raise the itemdrag event
-                    if (FinishedReorder != null)
-                    {
-
-                        // Create event args and pass the indexes, but only representing them as entries list
-                        ItemReorderEventArgs reorderArgs = new ItemReorderEventArgs();
-                        reorderArgs.Collection.AddRange(GrabbedElements);
-                        reorderArgs.OldPos = RealIndexToEntryIndex(oldIndex);
-                        reorderArgs.NewPosition = RealIndexToEntryIndex(index);
-
-                        // Pass the event
-                        FinishedReorder(this, reorderArgs);
-                    }
+                   
                    
 
                 }
@@ -2912,12 +3073,48 @@ namespace Board
         {
         	 dragging=false;
 
-            
-             
+             // Get destination element
+             Element targetPos = GetItemAtPos(new Point(mouseX, mouseY));
+
+             // if no target element was found cancel
+             if (targetPos == null)
+                 return;
+             // Only if the targetPos represents an element of type entry it should procced
+             if (targetPos.Type != "entry")
+                 return;
+             // Get the index of the element (but we use the index for all types of items, not only entries)
+             int index = this.ViewBuffer.IndexOf(targetPos);
+
+             // Old index is the position of the first element in the collection
+             List<Element> GrabbedElements = (List<Element>)e.Data;
+             int oldIndex = this.ViewBuffer.IndexOf(GrabbedElements[0]);
+
+             // Remove the elements from it's old location if it doesn't exists
+             foreach (Element cf in GrabbedElements)
+                 ViewBuffer.Remove(cf);
+             // Insert the new elements
+             ViewBuffer.InsertRange(index, GrabbedElements);
+
+             // Rebuild the list
+             this.CurSection.RebuildList();
+
+
+
+             // Raise the itemdrag event
+             if (FinishedReorder != null)
              {
 
-                 // TODO: Handle external items
+                 // Create event args and pass the indexes, but only representing them as entries list
+                 ItemReorderEventArgs reorderArgs = new ItemReorderEventArgs();
+                 reorderArgs.Collection.AddRange(GrabbedElements);
+                 reorderArgs.OldPos = RealIndexToEntryIndex(oldIndex);
+                 reorderArgs.NewPosition = RealIndexToEntryIndex(index);
+
+                 // Pass the event
+                 FinishedReorder(this, reorderArgs);
              }
+             
+            
 
         }
 
@@ -2997,16 +3194,11 @@ namespace Board
 
         private void DrawBoard_DragEnter(object sender, DragEventArgs e)
         {
-
-        }
-
-        private void DrawBoard_DragOver(object sender, DragEventArgs e)
-        {
-            // If grabbed elements is not null and beginreorder event handler is set, do the tasks
+            e.Effect = DragDropEffects.Copy;
             if (GrabbedElements != null)
             {
                 if (this.BeginReorder != null)
-                {   // Create reorder args
+                {  // Create reorder args
                     ItemReorderEventArgs args = new ItemReorderEventArgs();
                     args.Collection = GrabbedElements;
 
@@ -3015,6 +3207,23 @@ namespace Board
                         e.Effect = DragDropEffects.Copy;
                     return;
                 }
+            }  
+        }
+
+        private void DrawBoard_DragOver(object sender, DragEventArgs e)
+        {
+            // If grabbed elements is not null and beginreorder event handler is set, do the tasks
+            if (GrabbedElements != null)
+            {
+                // Get the element for the position
+                Element df = GetItemAtPos(new Point(mouseX, mouseY));
+
+                // get the element's bounds
+                Rectangle o_bounds = df.GetCoordinates(scrollX, scrollY, new Rectangle(0, 0, this.Width, this.Height), 0);
+
+                // Draw the line
+                 this.CreateGraphics().DrawLine(new Pen(Color.White), new Point(0, o_bounds.Top + o_bounds.Height), new Point(this.Width - scrollbar_size, o_bounds.Top + o_bounds.Height));
+
                
                 e.Effect = DragDropEffects.Copy;
             }

@@ -1,0 +1,37 @@
+<?
+/***
+ * Album view component. Not to use separetely
+ **/
+ 
+ /* Get Local Songs */
+var songs = queryLocalFiles("SELECT * FROM song WHERE album='"+arg_name+"' AND artist='"+arg_artist+"' ORDER BY no ASC LIMIT 100");
+?>
+<view>
+	<section name="component">
+		<label left="150"  height="23" size="10" top="@top" width="320"  >@{arg_name}</label>
+		
+		<img src="@{songs[0].CoverArt}" width="128" left="10" height="128" top="@TOP"  persistent="true"/>
+		<!-- An example tracklist -->
+<?
+function zeroNumber(no){	
+	return  no < 10 ? "0"+no : no;
+}
+var album_name="name";
+var trackNo = 0;
+for(var i=0; i < songs.Count; i++){ 
+	trackNo++;
+	var song = songs[i];
+?>
+
+		<entry  left="150" width="-1" top="@TOP" height="18" uri="@{song.Path}" no="@{i}" artist="" title="@{song.Title}" href_artist="" collection="" album=""/>
+<? }  if(trackNo < 8){
+ for(var x =0; x < (8-trackNo); x++){ ?> 
+ 
+ <space height="20" top="@TOP"/> 
+ <? } ?>
+	
+% }
+<space height="20"/>
+<divider height="10" top="@TOP"/>
+	</section>
+</view>

@@ -1,0 +1,18 @@
+<?
+		var localFiles = queryLocalFiles("SELECT * FROM song WHERE ( name <> '')  ORDER BY artist,album,no,name ASC  LIMIT 200");
+	?>	
+<view>
+	<toolbar>
+		<item title="+ Import music" onclick="importMusic()"/>
+	</toolbar>
+	<section name="Local files" list="true">
+% for(var i=0; i < localFiles.Count; i++){ var song = localFiles[i]; var title =song.Title.replace("&","").replace("\"","");
+		<entry top="@TOP" left="0" height="16" width="-1" >
+			<title noelm="true"><![CDATA[@{title}]]></title>
+			<uri noelm="true"><![CDATA[@{song.Path}]]></uri>
+			<artist noelm="true"><![CDATA[@{song.Artist}]]></artist>
+			<album noelm="true"><![CDATA[@{song.Album}]]></album>
+		</entry>
+% }
+	</section>
+</view>

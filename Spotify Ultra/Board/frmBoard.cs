@@ -37,7 +37,7 @@ namespace Board
         }
         private void frmBoard_Load(object sender, EventArgs e)
         {
-
+            board1.Navigate("segurify:cheatview:c", "segurify", "views");
         }
     }
 }

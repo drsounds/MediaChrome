@@ -11,8 +11,8 @@ namespace Board
         [STAThread]
         public static void Main(String[] args)
         {
-           
-            MakoParser D = new MakoParser();
+
+            frmBoard D = new frmBoard();
 
             Application.Run(D);
         }

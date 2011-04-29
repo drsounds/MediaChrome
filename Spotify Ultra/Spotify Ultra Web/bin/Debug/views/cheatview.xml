@@ -10,6 +10,6 @@ var elm = $("label_me");
 
 <view>
 	<section name="Debug view">
-		<label width="500" top="@TOP" height="10" id="label_me" ondblclick="event_handler()">Click me</label>
+		<label width="500" top="@TOP" height="10" id="label_me" ondblclick="event_handler()">Click <a href="spotify:c">me</a></label>
 	</section>
 </view>

@@ -1,0 +1,17 @@
+<?
+
+function event_handler(){
+var elm = $("label_me");
+	setContent(elm,"Hayla!");
+	commit();
+	
+}
+?>
+
+<view>
+	<section name="Debug view">
+		<label color="#999999" width="500" top="@TOP" height="10" id="label_me" ondblclick="event_handler()">Storbritanien och USA 1930-talet != krig mellan varandra <br/>Med <a href="F">nazityskland</a> hade<br/> sovjetunionen  <br/> <img width="10" height="10" src="http://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/MolotovRibbentropStalin.jpg/250px-MolotovRibbentropStalin.jpg"></img>
+		
+		</label>
+	</section>
+</view>

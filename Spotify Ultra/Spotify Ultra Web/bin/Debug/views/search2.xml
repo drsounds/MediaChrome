@@ -1,0 +1,31 @@
+<?
+/*****
+ * Search view for mediachrome
+ */
+var result = findMusic(parameter);
+?>
+<view>
+	<section name="Overview" list="true">
+		
+		<label height="50" size="14" left="10" top="@TOP" width="500">You searched for @{parameter} which gave an  @{count_tracks} results </label>
+		
+		<label height="50" color="#aaeeaa" left="10" top="@TOP" width="500">Did you mean</label>
+<space height="80"/>
+	<section width="50" color="#aaeeaa" >Tracks</section>
+<space height="20"/>
+<? 
+/** Get local songs */
+
+for(var i=0; i < result.Count; i++){ var song = result[i];
+			?>
+		<entry uri="@{song.Path}">
+			<title><![CDATA[@{song.Title}]]></title>
+			<artist><![CDATA[@{song.Artist}]]></artist>
+			<album><![CDATA[@{song.Album}]]></album>
+			<provider><![CDATA[@{song.Store}]]></provider>
+		</entry>
+		<?
+}
+?>
+	</section>
+</view>

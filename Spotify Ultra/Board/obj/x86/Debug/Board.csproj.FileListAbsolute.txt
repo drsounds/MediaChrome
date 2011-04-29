@@ -17,10 +17,10 @@ L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.Mak
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\bin\Debug\Board.pdb
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.frmBoard.resources
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.Resource1.resources
-L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\bin\Debug\Board.dll
-L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.dll
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.ViewError.resources
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource.read.1.tlog
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource.write.1.tlog
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource.read.369.tlog
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource.write.369.tlog
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\bin\Debug\Board.exe
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.exe
