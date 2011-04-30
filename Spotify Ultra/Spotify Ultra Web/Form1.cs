@@ -221,7 +221,16 @@ namespace SpofityRuntime
             frmImport.ShowDialog();
             return null;
         }
-
+        /// <summary>
+        /// Method to start an external web page in an external browser outside SpotifyUltra. Used by scripts
+        /// </summary>
+        /// <param name="uri">The url</param>
+        /// <returns></returns>
+        public object __extern(string uri)
+        {
+            Process.Start(uri);
+            return null;
+        }
         public Stack<Board.Element> playlistsToAdd;
         /// <summary>
         /// Will split the window when mouse move if true
@@ -481,7 +490,8 @@ namespace SpofityRuntime
               d.RuntimeMachine.SetFunction("navigate", new Func<string,object>(__navigate));
               d.RuntimeMachine.SetFunction("getCurrentPlaylist", new Func< object>(__getCurrentPlaylist));
               d.RuntimeMachine.SetFunction("ownPlaylist", new Func<object>(__ownPlaylist));
-        }
+              d.RuntimeMachine.SetFunction("extern", new Func<string, object>(__extern));
+        }   
 
         /// <summary>
         ///  Used by the script to get local files

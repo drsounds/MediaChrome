@@ -4,18 +4,29 @@
  */
  
  var playlist = getCurrentPlaylist();
- 
+
+ /* Playlist URI */
+ var uri = playlist.ID.replace("sp:","").replace(":","__");
+ var suri = uri.replace(":","__");
+ suri=suri.replace("segurify:","");
+ suri=suri.replace(":playlist","__playlist");
+ suri=suri.replace("playlist:","playlist__");
+ var msglink = "http://spotiapps.krakelin.com/playlists/"+suri+".description";
+ var description = synchronize_data("http://spotiapps.krakelin.com/playlists/"+suri+".description");
+ if(!description)
+	description=" ";
 ?>
 <view>
 <?
 	 if(ownPlaylist()){
 ?>
 	<toolbar>
-	<!--	<item title="Share" onclick=""/>
-		<item title="Edit text" onclick="edit('uri')"/>
-		<item title="Upload image" onclick="image()"/>-->
+		<item title="Share" onclick="extern('http://www.facebook.se')"/>
+		<item title="Edit description" onclick="extern('http://spotiapps.krakelin.com/playlists/upload.php?uri=@{uri}')"/>-
 	</toolbar>
 	<section name="Playlist" list="true" dragable="true" reorder="true"  >
+		<img src="http://spotiapps.krakelin.com/playlists/@{suri}.png" left="10" width="120" height="120" persistent="true" top="@TOP"/>
+		<label left="120" top="@TOP" width="-1" size="12" color="#888888" height="64">Love playlist for love days. Check out our <a href="http://www.dn.se/">website</a>! Also check our facebook</label>
 		<space height="18"/>
 		<!-- entries -->
 		<?

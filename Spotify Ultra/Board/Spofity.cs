@@ -765,7 +765,7 @@ namespace Board
                 CT.SetAttribute("type", item.Name);
                 CT.SetAttribute("text", item.InnerText);
                 CT.Data = item.InnerXml;
-                ExtractXml(item, CT);
+           //     ExtractXml(item, CT);
               
 
                 // By default the top of the element should be set according to the page settings
@@ -1033,7 +1033,7 @@ namespace Board
 
         }
         
-        public void ExtractXml(XmlNode item, Element CT)
+        public void  ExtractXml(XmlNode item, Element CT)
         {
              // Extract contents to string
 
@@ -1128,11 +1128,11 @@ namespace Board
                 CT.SetAttribute("type", item.Name);
                 CT.Type = item.Name;
                 CT.SetAttribute("text", item.InnerText);
-                CT.Data = item.InnerText;
+                CT.Data = item.InnerXml;
                 
-                // Extract the elent's inner data
-                if(item.HasAttribute("content"))
-                ExtractXml(item, CT);
+                // Extract the elent's inner data, but only if it's attribute is set to content
+            ///    if(item.HasAttribute("content"))
+          //      ExtractXml(item, CT);
 
                 // By default the top of the element should be set according to the page settings
                 CT.SetAttribute("top", "@TOP");
@@ -2007,6 +2007,23 @@ namespace Board
         /// </summary>
         public Image Bitmap { get; set; }
 
+        /// <summary>
+        /// Asserts font of the object by their attributes
+        /// </summary>
+        public void AssertFont()
+        {
+            // Create new font if the font of the instance is NULL
+            if (this.Font == null)
+                this.Font = new Font("MS Sans Serif",8, FontStyle.Regular);
+
+            // Assert element font attributes
+            if (this.GetAttribute("bold") != "")
+                this.Font = new System.Drawing.Font(this.Font, FontStyle.Bold);
+            if (this.GetAttribute("size") != "")
+                this.Font = new System.Drawing.Font(this.Font.FontFamily, float.Parse(this.GetAttribute("size")), this.Font.Style);
+            if (this.GetAttribute("font") != "")
+                this.Font = new System.Drawing.Font(this.Font.FontFamily, this.Font.Size, this.Font.Style, GraphicsUnit.Pixel);
+        }
         /// <summary>
         /// Gets whether this elements is an copy of another element or an original. Used in the filter system
         /// </summary>

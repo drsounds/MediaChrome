@@ -54,26 +54,26 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.ucSearch2 = new SpofityRuntime.ucSearch();
-            this.cBtn4 = new SpofityRuntime.cBtn();
-            this.cBtn3 = new SpofityRuntime.cBtn();
-            this.textBox1 = new SpofityRuntime.ucSearch();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.panel4 = new System.Windows.Forms.Panel();
-            this.ucPosBar1 = new webclassprototype.ucPosBar();
-            this.cBtn2 = new SpofityRuntime.cBtn();
-            this.cBtn1 = new SpofityRuntime.cBtn();
-            this.cBtn8 = new SpofityRuntime.cBtn();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.panel3 = new System.Windows.Forms.Panel();
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
             this.listViewX1 = new SpofityRuntime.XListView();
+            this.ucPosBar1 = new webclassprototype.ucPosBar();
+            this.cBtn2 = new SpofityRuntime.cBtn();
+            this.cBtn1 = new SpofityRuntime.cBtn();
+            this.cBtn8 = new SpofityRuntime.cBtn();
+            this.ucSearch2 = new SpofityRuntime.ucSearch();
+            this.cBtn4 = new SpofityRuntime.cBtn();
+            this.cBtn3 = new SpofityRuntime.cBtn();
+            this.textBox1 = new SpofityRuntime.ucSearch();
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.pane5.SuspendLayout();
@@ -256,59 +256,6 @@
             this.label1.TabIndex = 15;
             this.label1.Text = "Filter";
             // 
-            // ucSearch2
-            // 
-            this.ucSearch2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ucSearch2.BackColor = System.Drawing.Color.Transparent;
-            this.ucSearch2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ucSearch2.BackgroundImage")));
-            this.ucSearch2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ucSearch2.Location = new System.Drawing.Point(887, 7);
-            this.ucSearch2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.ucSearch2.Name = "ucSearch2";
-            this.ucSearch2.Size = new System.Drawing.Size(180, 33);
-            this.ucSearch2.TabIndex = 16;
-            this.ucSearch2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ucSearch2_KeyUp);
-            // 
-            // cBtn4
-            // 
-            this.cBtn4.BackColor = System.Drawing.Color.Transparent;
-            this.cBtn4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn4.BackgroundImage")));
-            this.cBtn4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.cBtn4.Img = global::SpofityRuntime.Properties.Resources.forward;
-            this.cBtn4.Location = new System.Drawing.Point(50, 7);
-            this.cBtn4.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.cBtn4.Name = "cBtn4";
-            this.cBtn4.Size = new System.Drawing.Size(28, 28);
-            this.cBtn4.TabIndex = 11;
-            this.cBtn4.Load += new System.EventHandler(this.cBtn4_Load);
-            this.cBtn4.Click += new System.EventHandler(this.CBtn4Click);
-            // 
-            // cBtn3
-            // 
-            this.cBtn3.BackColor = System.Drawing.Color.Transparent;
-            this.cBtn3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn3.BackgroundImage")));
-            this.cBtn3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.cBtn3.Img = global::SpofityRuntime.Properties.Resources.back;
-            this.cBtn3.Location = new System.Drawing.Point(20, 7);
-            this.cBtn3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.cBtn3.Name = "cBtn3";
-            this.cBtn3.Size = new System.Drawing.Size(26, 28);
-            this.cBtn3.TabIndex = 10;
-            this.cBtn3.Load += new System.EventHandler(this.cBtn3_Load);
-            this.cBtn3.Click += new System.EventHandler(this.CBtn3Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.Transparent;
-            this.textBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("textBox1.BackgroundImage")));
-            this.textBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.textBox1.Location = new System.Drawing.Point(108, 7);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(180, 33);
-            this.textBox1.TabIndex = 9;
-            this.textBox1.SearchClicked += new System.EventHandler(this.textBox1_SearchClicked);
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -362,59 +309,6 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1076, 53);
             this.panel4.TabIndex = 23;
-            // 
-            // ucPosBar1
-            // 
-            this.ucPosBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ucPosBar1.BackColor = System.Drawing.Color.Black;
-            this.ucPosBar1.BorderColor = System.Drawing.Color.Black;
-            this.ucPosBar1.FillColor = System.Drawing.Color.White;
-            this.ucPosBar1.Location = new System.Drawing.Point(141, 23);
-            this.ucPosBar1.Maximum = 100F;
-            this.ucPosBar1.Name = "ucPosBar1";
-            this.ucPosBar1.Size = new System.Drawing.Size(872, 12);
-            this.ucPosBar1.TabIndex = 14;
-            this.ucPosBar1.Value = 0F;
-            // 
-            // cBtn2
-            // 
-            this.cBtn2.BackColor = System.Drawing.Color.Transparent;
-            this.cBtn2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn2.BackgroundImage")));
-            this.cBtn2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.cBtn2.Img = null;
-            this.cBtn2.Location = new System.Drawing.Point(18, 10);
-            this.cBtn2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.cBtn2.Name = "cBtn2";
-            this.cBtn2.Size = new System.Drawing.Size(26, 25);
-            this.cBtn2.TabIndex = 10;
-            this.cBtn2.Load += new System.EventHandler(this.cBtn8_Load_1);
-            // 
-            // cBtn1
-            // 
-            this.cBtn1.BackColor = System.Drawing.Color.Transparent;
-            this.cBtn1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn1.BackgroundImage")));
-            this.cBtn1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.cBtn1.Img = null;
-            this.cBtn1.Location = new System.Drawing.Point(92, 10);
-            this.cBtn1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.cBtn1.Name = "cBtn1";
-            this.cBtn1.Size = new System.Drawing.Size(26, 25);
-            this.cBtn1.TabIndex = 10;
-            this.cBtn1.Load += new System.EventHandler(this.cBtn8_Load_1);
-            // 
-            // cBtn8
-            // 
-            this.cBtn8.BackColor = System.Drawing.Color.Transparent;
-            this.cBtn8.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn8.BackgroundImage")));
-            this.cBtn8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.cBtn8.Img = global::SpofityRuntime.Properties.Resources.play;
-            this.cBtn8.Location = new System.Drawing.Point(48, 4);
-            this.cBtn8.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.cBtn8.Name = "cBtn8";
-            this.cBtn8.Size = new System.Drawing.Size(37, 37);
-            this.cBtn8.TabIndex = 10;
-            this.cBtn8.Load += new System.EventHandler(this.cBtn8_Load_1);
             // 
             // menuStrip2
             // 
@@ -477,6 +371,112 @@
             this.listViewX1.View = System.Windows.Forms.View.Details;
             this.listViewX1.Visible = false;
             // 
+            // ucPosBar1
+            // 
+            this.ucPosBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ucPosBar1.BackColor = System.Drawing.Color.Black;
+            this.ucPosBar1.BorderColor = System.Drawing.Color.Black;
+            this.ucPosBar1.FillColor = System.Drawing.Color.White;
+            this.ucPosBar1.Location = new System.Drawing.Point(141, 23);
+            this.ucPosBar1.Maximum = 100F;
+            this.ucPosBar1.Name = "ucPosBar1";
+            this.ucPosBar1.Size = new System.Drawing.Size(872, 12);
+            this.ucPosBar1.TabIndex = 14;
+            this.ucPosBar1.Value = 0F;
+            // 
+            // cBtn2
+            // 
+            this.cBtn2.BackColor = System.Drawing.Color.Transparent;
+            this.cBtn2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn2.BackgroundImage")));
+            this.cBtn2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cBtn2.Img = null;
+            this.cBtn2.Location = new System.Drawing.Point(18, 10);
+            this.cBtn2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cBtn2.Name = "cBtn2";
+            this.cBtn2.Size = new System.Drawing.Size(26, 25);
+            this.cBtn2.TabIndex = 10;
+            this.cBtn2.Load += new System.EventHandler(this.cBtn8_Load_1);
+            // 
+            // cBtn1
+            // 
+            this.cBtn1.BackColor = System.Drawing.Color.Transparent;
+            this.cBtn1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn1.BackgroundImage")));
+            this.cBtn1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cBtn1.Img = null;
+            this.cBtn1.Location = new System.Drawing.Point(92, 10);
+            this.cBtn1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cBtn1.Name = "cBtn1";
+            this.cBtn1.Size = new System.Drawing.Size(26, 25);
+            this.cBtn1.TabIndex = 10;
+            this.cBtn1.Load += new System.EventHandler(this.cBtn8_Load_1);
+            // 
+            // cBtn8
+            // 
+            this.cBtn8.BackColor = System.Drawing.Color.Transparent;
+            this.cBtn8.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn8.BackgroundImage")));
+            this.cBtn8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cBtn8.Img = global::SpofityRuntime.Properties.Resources.play;
+            this.cBtn8.Location = new System.Drawing.Point(48, 4);
+            this.cBtn8.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cBtn8.Name = "cBtn8";
+            this.cBtn8.Size = new System.Drawing.Size(37, 37);
+            this.cBtn8.TabIndex = 10;
+            this.cBtn8.Load += new System.EventHandler(this.cBtn8_Load_1);
+            // 
+            // ucSearch2
+            // 
+            this.ucSearch2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ucSearch2.BackColor = System.Drawing.Color.Transparent;
+            this.ucSearch2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ucSearch2.BackgroundImage")));
+            this.ucSearch2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ucSearch2.Location = new System.Drawing.Point(887, 7);
+            this.ucSearch2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.ucSearch2.Name = "ucSearch2";
+            this.ucSearch2.Size = new System.Drawing.Size(180, 33);
+            this.ucSearch2.TabIndex = 16;
+            this.ucSearch2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ucSearch2_KeyUp);
+            // 
+            // cBtn4
+            // 
+            this.cBtn4.BackColor = System.Drawing.Color.Transparent;
+            this.cBtn4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn4.BackgroundImage")));
+            this.cBtn4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cBtn4.Img = global::SpofityRuntime.Properties.Resources.forward;
+            this.cBtn4.Location = new System.Drawing.Point(50, 7);
+            this.cBtn4.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cBtn4.Name = "cBtn4";
+            this.cBtn4.Size = new System.Drawing.Size(28, 28);
+            this.cBtn4.TabIndex = 11;
+            this.cBtn4.Load += new System.EventHandler(this.cBtn4_Load);
+            this.cBtn4.Click += new System.EventHandler(this.CBtn4Click);
+            // 
+            // cBtn3
+            // 
+            this.cBtn3.BackColor = System.Drawing.Color.Transparent;
+            this.cBtn3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn3.BackgroundImage")));
+            this.cBtn3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cBtn3.Img = global::SpofityRuntime.Properties.Resources.back;
+            this.cBtn3.Location = new System.Drawing.Point(20, 7);
+            this.cBtn3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cBtn3.Name = "cBtn3";
+            this.cBtn3.Size = new System.Drawing.Size(26, 28);
+            this.cBtn3.TabIndex = 10;
+            this.cBtn3.Load += new System.EventHandler(this.cBtn3_Load);
+            this.cBtn3.Click += new System.EventHandler(this.CBtn3Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.Transparent;
+            this.textBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("textBox1.BackgroundImage")));
+            this.textBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.textBox1.Location = new System.Drawing.Point(108, 7);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(180, 33);
+            this.textBox1.TabIndex = 9;
+            this.textBox1.SearchClicked += new System.EventHandler(this.textBox1_SearchClicked);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -489,6 +489,7 @@
             this.Controls.Add(this.panel2);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Tahoma", 8F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "Form1";

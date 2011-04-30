@@ -1436,8 +1436,162 @@ namespace Board
             }
         }
 
-       
+        
+        public enum ParseMode
+        {
+            Beginning,Attribute,Value
+        }
+        /// <summary>
+        /// Parses an tag and result it as an element
+        /// </summary>
+        /// <param name="src">The source string</param>
+        /// <param name="i">Current position of the string</param>
+        /// <returns>An element</returns>
+        private Element ParseTag(string src, ref int i)
+        {
+            i++;
+            Element Result = new Element(this.CurSection,this);             // The result element to inflate
+             /**
+             * Current character mode 
+             * [ 0 = Beginning of tag,
+             *   1 = At attribute name,
+             *   2 = inside attribute value ]
+             *   */
+                ParseMode currentState = ParseMode.Beginning;
 
+                /**
+                 * If the cursor is inside an "" this variable
+                 * will be true, and if so it will skip the whitespace
+                 * */
+
+                
+                bool insideString = false;                                  // Denotates if the current pointer is in the string
+                StringBuilder elementBuffer = new StringBuilder();
+                StringBuilder valueBuffer = new StringBuilder();                 // The buffer of chars for the current token
+                StringBuilder attributeBuffer = new StringBuilder();
+            StringBuilder InsideBuffer = new StringBuilder();
+                String bufferReady = "";                                    // The buffer of prevous ready string (attribute name)
+
+                String elementName = ""; 
+            
+            string tag = src;
+
+
+            bool insideElement=false;                                       // denotates whether inside the elemetn
+            for (;i < src.Length;i++)
+            {
+                
+                // current character
+                char token = src[i];
+    
+                    if (token == '"')
+                    {
+                        insideString = !insideString;
+                        continue;
+                    }
+                    /** 
+                     * If inside the element assert the inner bounds
+                     * */
+                    if(insideElement)
+                    {
+                        // If the inside string reaches it's end return to to end mode
+                        if(token == '<')
+                        {
+                            // Set result data to inner content
+                            Result.Data=InsideBuffer.ToString();
+                            insideString = false;
+                            i += elementName.Length + 2;
+                            return Result;
+                        }
+                        // Append the token
+                        InsideBuffer.Append(token);
+                    }
+                    // If the current position is on an /> return
+                    if(src[i] == '/' && src[i+1]=='>' && !insideString && !insideElement)
+                    {
+                        i += 2;
+                        return Result;
+                    }
+            
+                    switch (currentState)
+                    {
+                        case ParseMode.Attribute:
+                            // if the current token is an whitespace and previous was it skip the current token
+                            if(src[i-1]==' '&&token==' ')
+                                continue;
+                            if (token == '=' && !insideString)
+                            {
+                                /** Flush the buffer and move the content
+                                 * to the attribute bufffer */
+                                
+                              
+                                // Set parse mode to attribute
+                                currentState = ParseMode.Value;
+                                continue;
+
+                            }
+                            attributeBuffer.Append(token);
+                            continue;
+                            
+                        case ParseMode.Value:
+                            if ((token == ' ' || token == '>' )&& !insideString)
+                            {
+                                
+                                // Get the value
+                                String value = valueBuffer.ToString();
+                               
+                                // Create element's attribute
+                                Board.Attribute d = new Attribute() { name = attributeBuffer.ToString(), value = value };
+                                // add the attribute to the element
+                                Result.Attributes.Add(d);
+
+                                // If not inside string and reach > or / return
+                                if ((token == '>' || token == '/') && !insideString)
+                                {
+                                    insideElement = true;
+                                    continue;
+                                }
+                                else
+                                {
+                                    currentState = ParseMode.Attribute;
+                                }
+                                continue;
+                            }
+                            if(!insideString)
+                            {}
+                            break;
+                        case ParseMode.Beginning:
+                            if (token == ' ')
+                            {
+                                if(i>0)
+                                if (tag[i - 1] == ' ')
+                                    continue;
+                                elementName = elementBuffer.ToString();
+
+                                // Set the type of element to the element's tag
+                                Result.Type = elementName;
+                                Result.SetAttribute("type",elementName);
+
+                                // Set parse mode to attribute
+                                currentState = ParseMode.Attribute;
+                                continue;
+                            }
+                            // Append the char to the element name
+                            elementBuffer.Append(token);
+                            break;
+
+                    }
+
+                    // Otherwise append the char to the current buffer
+                    valueBuffer.Append(token);
+
+
+                }
+            return Result;
+            }
+
+
+        
         /// <summary>
         /// Method to dynamically draw text and include subsets of elements inside the markup of the text
         /// </summary>
@@ -1447,7 +1601,7 @@ namespace Board
         /// <param name="position">Rectangle of position</param>
         /// <param name="left">Left position of character start</param>
         /// <param name="row">row on character start</param>
-        public void DrawText(String text,String xml,Element elm,Font font,Graphics g,Brush fontBrush,Rectangle position,ref int entryship,ref int left,ref int row)
+        public void DrawText(String xml,Element elm,Font font,Graphics g,Brush fontBrush,Rectangle position,ref int entryship,ref int left,ref int row)
         {
             List<Element> elementsToShow = new List<Element>();
             foreach (Element d in elm.Elements)
@@ -1487,118 +1641,20 @@ namespace Board
                 }
                 // boolean indicating sub elements were found
                 bool elmFound = false;
-                
-                // If i points on an sub text block iterate it
-                for (int j=0; j < elementsToShow.Count; j++)
+                if (d == '<')
                 {
-                    Element child = elementsToShow[j];
-                    // If child.font is null assign the current font
-                    if (child.Font == null)
-                        child.Font = font;
-
-                    // Get position relative to the one without xml tags
-                 
-                   
-                     if (child.GetAttribute("t_pos") == (i).ToString())
-                    {
-                       // set current element length
-                        currentElmLength=int.Parse(child.GetAttribute("t_length"));
-
-                        elmPos = 0;
-                        elmFound = true;
-                        // Measure bounds
-                        Rectangle pos = new Rectangle(left + position.Left, row + position.Top, position.Width, position.Height);
-                         /**
-                          * IF elm of type br add row
-                          * */
-                        if (child.GetAttribute("type") == "br")
-                        {
-                            child.Data = "ABCD";
-                            
-                        }
-                        if (child.Data != "")
-                        {
-                            // measure text boundaries
-                            pos = new Rectangle(position.Left + left, position.Top + row, (int)GetTextWidth(child.Data,child.Font,g), (int)g.MeasureString(child.Data, child.Font).Height);
-
-
-                            
-                            // draw the child
-                            Rectangle nPos = new Rectangle(pos.Left - left, pos.Top - row, 50, 50);
-
-                            // Create new font for the child
-                            Font cFont = (child.Font);
-
-                            // if mouse is over the link assign new font
-
-                            if (mouseX >= nPos.Left + left && mouseX <= nPos.Left + left +  (int)GetTextWidth(child.Data,cFont,g) && mouseY >= nPos.Top + row && mouseY <= row + nPos.Top + (int)g.MeasureString(child.Data, cFont).Height)
-                            {
-                                // Make text underline
-                                cFont = new Font(child.Font, FontStyle.Underline);
-                                child.Font = cFont;
-                                this.Cursor = Cursors.Hand;
-
-                            }
-                            else
-                            {
-                                child.Font = new Font(cFont, FontStyle.Regular);
-                            }
-                            if (child.Data == null)
-
-                                DrawElement(child, g, ref entryship, new Rectangle(pos.Left,pos.Top,120,120),0, ref left, ref row);
-                            else
-                            DrawElement(child, g, ref entryship, nPos, 0, ref left, ref row);
-
-                            // Increase left to the strings width
-                            if (child.Data != "ABCD")
-                            {
-                                Font fnt = child.Font;
-                                if(fnt==null)
-                                    fnt = font;
-                                if (child.Data != null)
-                                {
-
-                                    left += (int)GetTextWidth(child.Data.ToString(), fnt, g) / 2;
-                                }
-                                else
-                                {
-                                    left += child.Width;
-                                }
-                            }
-                            elmFound = true;
-                            elementsToShow.Remove(child);
-                           
-                           
-                            
-                           
-
-
-
-
-                            break;
-                        }
-                        else // for items other than with strings
-                        {
-                            Rectangle nPos = new Rectangle(pos.Left - left, pos.Top - row, child.Width, child.Height);
-
-                            DrawElement(child, g, ref entryship, nPos, 0, ref left, ref top);
-                             left += child.Width;
-                        }
-                        
-                         // Skip the tokens concerning the markup
-                        
-                        // Measure new length if data is set
-                        
-                          
-                       if(left+(int)GetTextWidth(elm.Data,font,g) >= this.Width)
-                           row += (int)g.MeasureString("ABCD", font).Height;
-                      
-
-                    }
-                     
+                    // if char indicates on < start parse an tag
+                    Element _elm = ParseTag(xml, ref i);
+                    _elm.Font = font;
+                    
+       
+                    DrawElement(_elm, g, ref entryship, new Rectangle(elm.Left, elm.Top -scrollY, this.Width, this.Height), 0, ref left, ref row);
+                    continue;
                 }
-                // draw the character if no children were found
-                if (!elmFound&&tagLevel < 1 && currentElmLength < elmPos)
+
+                
+               
+                if (!elmFound&&tagLevel < 1)
                 {
                     if (d == '>')
                         continue;
@@ -1669,7 +1725,7 @@ namespace Board
 
             int height = Bounds.Height;
             int left = Bounds.Left;
-            int top =  Bounds.Top;
+            int top =  Bounds.Top ;
             int width = Bounds.Width;
             /**
              * For consistency we apply selected rules to all kind of elements, not only the entry element but
@@ -1678,7 +1734,7 @@ namespace Board
 
             // Decide color of the entry wheather it selected or not.
             Color EnTry = (entryship % 2) == 1 ? Entry : Alt;
-
+            if(_Element.GetAttribute("type")=="entry")
             if (_Element.Selected == true)
             {
                 EnTry = Color.FromArgb(169, 217, 254);
@@ -1689,6 +1745,7 @@ namespace Board
                 }
             }
             Color ForeGround = Fg;
+            if(_Element.GetAttribute("type")=="entry")
             if (_Element.Selected == true)
             {
                 
@@ -1700,7 +1757,7 @@ namespace Board
                
             }
             
-            // Font size for the font
+         /*   // Font size for the font
             // Try to find text size otherwise apply default
             int textSize = 0;
             int.TryParse(_Element.GetAttribute("size"), out textSize);
@@ -1711,10 +1768,13 @@ namespace Board
             if (_Element.GetAttribute("font") != "")
             {
                 fontName = _Element.GetAttribute("font");
-            }
+            }*/
+
+            // Assert font properties
+            _Element.AssertFont();
             // if element is hovred, set the font to be underlined
             bool hovered = (_Element.GetAttribute("hover") == "true");
-            Font labelFont = new Font(fontName, textSize, hovered ? FontStyle.Underline : FontStyle.Regular);
+            Font labelFont = new Font(this.Font.FontFamily,this.Font.Size, hovered ? FontStyle.Underline :  FontStyle.Regular);
             if (_Element.Font != null)
                 labelFont = _Element.Font;
 
@@ -1840,11 +1900,7 @@ namespace Board
 
                
 
-                case "header":
-                    entryship = 0;
-                    DrawText(_Element.GetAttribute("title"),_Element.GetAttribute("title"), _Element, labelFont,d, new SolidBrush(Fg),new Rectangle(left,top,0,0),ref entryship,ref t_left,ref t_row);
-                   
-                    break;
+                
                 case "img":
 
                     Image Rs = null;
@@ -1906,8 +1962,11 @@ namespace Board
                     /**
                      * Get hyperlinks
                      * */
-                 
-                    DrawText(_Element.Data,_Element.Data, _Element, labelFont, d, new SolidBrush(Foreground), Bounds,ref entryship, ref t_left, ref t_row);
+                    int row=0;
+                    if(_Element.Data!=null)
+                        DrawText((_Element.Data),_Element,labelFont,d, new SolidBrush(ForeGround), new Rectangle(new Point(left, top + 2),new Size(width,height)),ref entryship,ref  t_left,ref t_row);
+
+                       
                    
                     break;
                 case "button":
@@ -2006,7 +2065,7 @@ namespace Board
         {
             get
             {
-                return this.Height - scrollbar_size * 2;
+                return this.Height - scrollbar_size * 4;
             }
         }
 
@@ -2015,7 +2074,7 @@ namespace Board
         {
             get
             {
-                return (int)Math.Round(((float)this.Height / (float)TotalHeight) * (spaceHeight - scrollbar_size));
+                return (int)Math.Round(((float)this.Height / (float)TotalHeight) * (spaceHeight - scrollbar_size*4));
             }
         }
 
@@ -2621,6 +2680,8 @@ namespace Board
                     scrollY = (this.TotalHeight / this.Height) * pos;
                     if (scrollY < 0)
                         scrollY = 0;
+                    if (scrollY >= this.TotalHeight - this.Height)
+                        scrollY = this.TotalHeight - this.Height;
                 }
                     return;
             }
@@ -3073,6 +3134,10 @@ namespace Board
         {
         	 dragging=false;
 
+            // Old index of songs (if reordering)
+             int oldIndex = -1;
+            // Denotates if moving element or handling outside data (uris)
+             bool elementMode = this.GrabbedElements != null;
              // Get destination element
              Element targetPos = GetItemAtPos(new Point(mouseX, mouseY));
 
@@ -3086,15 +3151,21 @@ namespace Board
              int index = this.ViewBuffer.IndexOf(targetPos);
 
              // Old index is the position of the first element in the collection
-             List<Element> GrabbedElements = (List<Element>)e.Data;
-             int oldIndex = this.ViewBuffer.IndexOf(GrabbedElements[0]);
+             if (elementMode)
+             {
+                 List<Element> GrabbedElements = this.GrabbedElements;
 
-             // Remove the elements from it's old location if it doesn't exists
-             foreach (Element cf in GrabbedElements)
-                 ViewBuffer.Remove(cf);
-             // Insert the new elements
-             ViewBuffer.InsertRange(index, GrabbedElements);
+                 oldIndex = this.ViewBuffer.IndexOf(GrabbedElements[0]);
 
+                 // Remove the elements from it's old location if it doesn't exists
+                 foreach (Element cf in GrabbedElements)
+                     ViewBuffer.Remove(cf);
+                 // Insert the new elements
+                 ViewBuffer.InsertRange(index, GrabbedElements);
+             }
+             else
+             {
+             }
              // Rebuild the list
              this.CurSection.RebuildList();
 
@@ -3216,7 +3287,7 @@ namespace Board
             if (GrabbedElements != null)
             {
                 // Get the element for the position
-                Element df = GetItemAtPos(new Point(mouseX, mouseY));
+                Element df = GetItemAtPos(new Point(e.X,e.Y));
 
                 // get the element's bounds
                 Rectangle o_bounds = df.GetCoordinates(scrollX, scrollY, new Rectangle(0, 0, this.Width, this.Height), 0);
