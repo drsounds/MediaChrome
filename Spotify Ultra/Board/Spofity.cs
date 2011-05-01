@@ -1990,6 +1990,11 @@ namespace Board
 	public class Element 
 	{
         /// <summary>
+        /// A object that can be attached to the element
+        /// </summary>
+        public object Attachment { get; set; }
+
+        /// <summary>
         ///  Inner XML
         /// </summary>
         public String InnerXML { get; set; }

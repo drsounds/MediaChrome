@@ -464,7 +464,7 @@ namespace SpofityRuntime
 		public void AddToPlaylist(string playlistID, Song _Song, int pos)
 		{
 			Spotify.Playlist List = Spotify.Playlist.Create(SpotifySession,Link.Create(playlistID));
-			if(List.Owner == SpotifySession.User)
+			if(List.Owner.CanonicalName  == SpotifySession.User.CanonicalName)
 			{
 				Spotify.Track D = Track.CreateFromLink(Link.Create(_Song.Path.Replace("sp:","")));
 				List.AddTracks(new Track[]{D},pos);

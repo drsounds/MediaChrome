@@ -1164,6 +1164,8 @@ namespace Board
         /// <returns>The element on the spot or NULL if not</returns>
         public Element GetItemAtPos(System.Drawing.Point point)
         {
+            mouseX = point.X;
+            mouseY = point.Y;
             if(ViewBuffer!=null)
             foreach (Element d in ViewBuffer)
             {
@@ -2574,12 +2576,12 @@ namespace Board
             Element ct = GetItemAtPos(new Point(e.X, e.Y));
             if (ct != null)
             {
-                if (ct.GetAttribute("draggable") == "true")
+                // If the element has an dragUri set attach it
+                if (ct.GetAttribute("draguri") !="")
                 {
-                    GrabbedElements = new List<Element>();
-                    GrabbedElements.Add(ct);
 
-                    DataObject D = new DataObject(DataFormats.CommaSeparatedValue, UriToStrings(GrabbedElements));
+
+                    DataObject D = new DataObject(DataFormats.StringFormat, ct.GetAttribute("draguri")) ;
                     DoDragDrop(D, DragDropEffects.Copy);
                     return;
                 }
@@ -2613,10 +2615,17 @@ namespace Board
 
 
                     }
+                    
+                   
 
                     GrabbedElements = new List<Element>();
                     GrabbedElements.AddRange(this.SelectedItems);
-                    DataObject D = new DataObject(DataFormats.CommaSeparatedValue, UriToStrings(GrabbedElements));
+                    
+                    
+                    // Compile a string with all uris for external handling
+                    
+                
+                    DataObject D = new DataObject(DataFormats.StringFormat,UriToStrings(GrabbedElements));
                     DoDragDrop(D, DragDropEffects.Copy);
                 }
             }
@@ -2662,7 +2671,7 @@ namespace Board
             StringBuilder buffer = new StringBuilder();
             foreach(Element d in elements)
             {
-                buffer.Append(d.GetAttribute("uri"));
+                buffer.Append(d.GetAttribute("uri")+"\n");
             }
             return buffer.ToString();
         }
@@ -3134,57 +3143,101 @@ namespace Board
         {
         	 dragging=false;
 
-            // Old index of songs (if reordering)
-             int oldIndex = -1;
-            // Denotates if moving element or handling outside data (uris)
-             bool elementMode = this.GrabbedElements != null;
-             // Get destination element
-             Element targetPos = GetItemAtPos(new Point(mouseX, mouseY));
+            /***
+             * If grabbedelements is not null, we treat there is a item
+             * moving action ongoing. Otherwise we treat this as an regular
+             * drop operation. The grabbed element collection should belong to
+             * the source drag'n drop source, for example the playlist view*/
 
-             // if no target element was found cancel
-             if (targetPos == null)
+            
+             if (GrabbedElements != null)
+             {
+                 // Old index of songs (if reordering)
+                 int oldIndex = -1;
+                 // Denotates if moving element or handling outside data (uris)
+                 bool elementMode = this.GrabbedElements != null;
+                 // Get destination element
+                 Element targetPos = GetItemAtPos(new Point(mouseX, mouseY));
+
+                 // if no target element was found cancel
+                 if (targetPos == null)
+                     return;
+                 // Only if the targetPos represents an element of type entry it should procced
+                 if (targetPos.Type != "entry")
+                     return;
+                 // Get the index of the element (but we use the index for all types of items, not only entries)
+                 int index = this.ViewBuffer.IndexOf(targetPos);
+
+                 // Old index is the position of the first element in the collection
+                 if (elementMode)
+                 {
+              
+
+                     oldIndex = this.ViewBuffer.IndexOf(GrabbedElements[0]);
+
+                     // Remove the elements from it's old location if it doesn't exists
+                     foreach (Element cf in GrabbedElements)
+                         ViewBuffer.Remove(cf);
+                     // Insert the new elements
+                     ViewBuffer.InsertRange(index, GrabbedElements);
+                 }
+                 else
+                 {
+                 }
+                 // Rebuild the list
+                 this.CurSection.RebuildList();
+
+
+
+                 // Raise the itemdrag event
+                 if (FinishedReorder != null)
+                 {
+
+                     // Create event args and pass the indexes, but only representing them as entries list
+                     ItemReorderEventArgs reorderArgs = new ItemReorderEventArgs();
+                     reorderArgs.Collection.AddRange(GrabbedElements);
+                     reorderArgs.OldPos = RealIndexToEntryIndex(oldIndex);
+                     reorderArgs.NewPosition = RealIndexToEntryIndex(index);
+
+                     // Pass the event
+                     FinishedReorder(this, reorderArgs);
+                     
+                 }
+
+                 // Nullify the grabbed elements
+                 GrabbedElements = null;
+
+             }
+             /**
+              * If the drop event is set, raise the drop operation
+              * */
+             if (DropElement != null)
+             {
+                 Element cf = this.GetItemAtPos(this.PointToClient(new Point(e.X, e.Y)));
+
+                 // Make the args for the drag operation
+                 ElementDragEventArgs args = new ElementDragEventArgs();
+
+                 args.Destination = cf;
+                 args.Index = this.CurSection.Elements.IndexOf(cf);
+                 args.Position = this.PointToClient(new Point(e.X, e.Y));
+                 args.Section = this.CurSection;
+                 args.DragArgs = e;
+                 
+                 // Raise the event
+                 DropElement(this, args);
+
+                 // Set the effect to this effect
+                 e.Effect = args.AllowedEffects;
                  return;
-             // Only if the targetPos represents an element of type entry it should procced
-             if (targetPos.Type != "entry")
-                 return;
-             // Get the index of the element (but we use the index for all types of items, not only entries)
-             int index = this.ViewBuffer.IndexOf(targetPos);
-
-             // Old index is the position of the first element in the collection
-             if (elementMode)
-             {
-                 List<Element> GrabbedElements = this.GrabbedElements;
-
-                 oldIndex = this.ViewBuffer.IndexOf(GrabbedElements[0]);
-
-                 // Remove the elements from it's old location if it doesn't exists
-                 foreach (Element cf in GrabbedElements)
-                     ViewBuffer.Remove(cf);
-                 // Insert the new elements
-                 ViewBuffer.InsertRange(index, GrabbedElements);
              }
-             else
-             {
-             }
-             // Rebuild the list
-             this.CurSection.RebuildList();
 
 
 
-             // Raise the itemdrag event
-             if (FinishedReorder != null)
-             {
 
-                 // Create event args and pass the indexes, but only representing them as entries list
-                 ItemReorderEventArgs reorderArgs = new ItemReorderEventArgs();
-                 reorderArgs.Collection.AddRange(GrabbedElements);
-                 reorderArgs.OldPos = RealIndexToEntryIndex(oldIndex);
-                 reorderArgs.NewPosition = RealIndexToEntryIndex(index);
 
-                 // Pass the event
-                 FinishedReorder(this, reorderArgs);
-             }
-             
+
+      
             
 
         }
@@ -3281,22 +3334,96 @@ namespace Board
             }  
         }
 
+
+
+        /// <summary>
+        /// Event args for elementDragEvent
+        /// </summary>
+        public class ElementDragEventArgs
+        {
+            public DragEventArgs DragArgs { get; set; }
+            /// <summary>
+            /// The element currently hovering
+            /// </summary>
+            public Element Destination { get; set; }
+
+            /// <summary>
+            /// The position of the mouse cursor, in client coordinates
+            /// </summary>
+            public Point Position { get; set; }
+
+            /// <summary>
+            /// The index of the item
+            /// </summary>
+            public int Index { get; set; }
+
+            /// <summary>
+            /// The view the element belongs to
+            /// </summary>
+            public View View { get; set; }
+
+            /// <summary>
+            /// The section the event is raising on
+            /// </summary>
+            public Section Section { get; set; }
+
+            /// <summary>
+            /// The allowed effect for the operation
+            /// </summary>
+            public DragDropEffects AllowedEffects;
+
+            public bool Cancel { get; set; }
+        }
+
+        /// <summary>
+        /// Event handler for dragging over child elements
+        /// </summary>
+        /// <param name="sender">the sender board</param>
+        /// <param name="e"></param>
+        public delegate void ElementDragEventHandler(object sender, ElementDragEventArgs e);
+
+        public event ElementDragEventHandler DragOverElement;
+        public event ElementDragEventHandler DropElement;
         private void DrawBoard_DragOver(object sender, DragEventArgs e)
         {
             // If grabbed elements is not null and beginreorder event handler is set, do the tasks
             if (GrabbedElements != null)
             {
                 // Get the element for the position
-                Element df = GetItemAtPos(new Point(e.X,e.Y));
+                Element df = GetItemAtPos(this.PointToClient(new Point(e.X, e.Y)));
+                if (df != null)
+                {
+                    // If the DragOverEvent is set, fire it. If the allowed effect is set to none, cancel the operation
+                    if (DragOverElement != null)
+                    {
+                        // Create event args
+                        ElementDragEventArgs args = new ElementDragEventArgs();
+                        args.DragArgs = e;
+                        args.Section = this.CurSection;
+                        args.View = this.CurrentView;
+                        args.Index = CurSection.Elements.IndexOf(df);
+                        args.Position = this.PointToClient(new Point(e.X, e.Y));
+                        args.Destination = df;
 
-                // get the element's bounds
-                Rectangle o_bounds = df.GetCoordinates(scrollX, scrollY, new Rectangle(0, 0, this.Width, this.Height), 0);
+                        // raise the event
+                        DragOverElement(this, args);
 
-                // Draw the line
-                 this.CreateGraphics().DrawLine(new Pen(Color.White), new Point(0, o_bounds.Top + o_bounds.Height), new Point(this.Width - scrollbar_size, o_bounds.Top + o_bounds.Height));
+                        e.Effect = args.AllowedEffects;
+                        // If the allowed effects has been changed to zero, cancel
+                        if (args.AllowedEffects == DragDropEffects.None)
+                        {
+                            return;
+                        }
+                    }
+                    // get the element's bounds
+                    Rectangle o_bounds = df.GetCoordinates(scrollX, scrollY, new Rectangle(0, 0, this.Width, this.Height), 0);
 
-               
-                e.Effect = DragDropEffects.Copy;
+                    // Draw the line
+                    this.CreateGraphics().DrawLine(new Pen(Color.White), new Point(0, o_bounds.Top + o_bounds.Height), new Point(this.Width - scrollbar_size, o_bounds.Top + o_bounds.Height));
+
+                }
+                    e.Effect = DragDropEffects.Copy;
+              
             }
         }
     }

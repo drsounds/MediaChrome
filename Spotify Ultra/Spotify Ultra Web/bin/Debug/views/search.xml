@@ -52,7 +52,7 @@ for(var i=0; i < count_tracks; i++){
 	album = album.replace("&","and").replace("\"","'").replace("'","").replace(";","");
 ?>
 
-		<entry left="0" width="-1" top="@TOP" height="18"  href_artist="@{artist_uri}" href_album="@{album_uri}" uri="@{uri}">
+		<entry dragUri="@{uri}" left="0" width="-1" top="@TOP" height="18"  href_artist="@{artist_uri}" href_album="@{album_uri}" uri="@{uri}">
 			<title noelm="true"><![CDATA[@{title}]]></title>
 			<artist noelm="true"><![CDATA[@{artist}]]></artist>
 			<album noelm="true"><![CDATA[@{album}]]></album>

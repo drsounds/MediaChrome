@@ -251,6 +251,7 @@ namespace SpofityRuntime
             board.LinkClick += new Board.DrawBoard.LinkClicked(board_LinkClick);
             board.BeginNavigating += new Board.DrawBoard.NavigateEventHandler(board_BeforeNavigating);
             treeview.Dock = DockStyle.Left;
+            treeview.DragDrop += new DragEventHandler(treeview_DragDrop);
             splitter1.Dock = DockStyle.Left;
             splitter1.Cursor = Cursors.VSplit;
             this.MouseMove+=new MouseEventHandler(Form1_MouseMove);
@@ -302,7 +303,8 @@ namespace SpofityRuntime
             board.Navigate("spotify:home:1", "spotify", "views");
             board.PlaybackRequested += new Board.DrawBoard.PlaybackStartEvent(board_PlaybackRequested);
             treeview.Navigate("spotify:menu:1", "spotify", "views");
-
+            treeview.DragOverElement += new Board.DrawBoard.ElementDragEventHandler(treeview_DragOverElement);
+            treeview.DropElement += new Board.DrawBoard.ElementDragEventHandler(treeview_DropElement);
              /**
               * Add items on treeview
               * 
@@ -314,6 +316,100 @@ namespace SpofityRuntime
            
            
            
+        }
+        /// <summary>
+        /// Converts spotify track objects to MediaChrome song objects
+        /// </summary>
+        /// <param name="uri">the uri to the song</param>
+        /// <returns>A mediachrome song</returns>
+        public MediaChrome.Song ConvertSpotifyTrackToMCSong(string uri)
+        {
+            // Get song from Spotify
+
+            MediaChrome.Song Song = new MediaChrome.Song();
+            Spotify.Track song = Spotify.Track.CreateFromLink(Link.Create(uri));
+
+            // Wait until the song has been loaded
+            while (song == null) { }
+            while (song.Error == sp_error.IS_LOADING) { }
+
+            // Set song attributes
+            Song.Title = song.Name;
+            Song.Path = song.LinkString;
+            Song.Artist = song.Artists[0].Name;
+            Song.Album = song.Album.Name;
+            return Song;
+
+        }
+        void treeview_DropElement(object sender, Board.DrawBoard.ElementDragEventArgs e)
+        {
+      
+             string data = (string)e.DragArgs.Data.GetData(DataFormats.StringFormat);
+            /**
+             * Check if the element dropping into is representing an playlist, if so add the track
+             * to the playlist
+             * */
+           if(data!=null)
+            {
+               // Parse the list of uris
+                if (data.Contains("\n"))
+                {
+                    String[] links = data.Split('\n');
+                    foreach (String track in links)
+                    {
+                        if (track.StartsWith("spotify:track:"))
+                        {
+                            // Get mediachrome song of the track
+                            MediaChrome.Song song = ConvertSpotifyTrackToMCSong(track);
+
+                            // Get playlist attachment
+                            MediaChrome.Views.Playlist Playlist = (MediaChrome.Views.Playlist)e.Destination.Attachment;
+
+                            // Add the song to the playlist
+                            Playlist.Add(song, e.Index);
+                        }
+                    }
+                }
+                else
+                {
+                    
+                
+                        if (data.StartsWith("spotify:track:"))
+                        {
+                            // Get mediachrome song of the track
+                            MediaChrome.Song song = ConvertSpotifyTrackToMCSong(data);
+
+                            // Get playlist attachment
+                            MediaChrome.Views.Playlist Playlist = (MediaChrome.Views.Playlist)e.Destination.Attachment;
+
+                            // Add the song to the playlist
+                            Playlist.Add(song, e.Index);
+                        }
+                    
+                }
+                
+            }
+        }
+
+        void treeview_DragOverElement(object sender, Board.DrawBoard.ElementDragEventArgs e)
+        {
+            e.AllowedEffects = DragDropEffects.Copy;
+
+            // Handle song drop
+             string data = (string)e.DragArgs.Data.GetData(DataFormats.StringFormat);
+           if(data!=null)
+            {
+                if (data.StartsWith("spotify:"))
+                {
+
+                }
+            }
+        }
+
+        void treeview_DragDrop(object sender, DragEventArgs e)
+        {
+           
+
         }
 
         /// <summary>
@@ -1866,6 +1962,9 @@ namespace SpofityRuntime
 
                         Board.Element cf = this.treeview.AddItem(playlist.ID, playlist.Title, new String[] { }, new String[] { },500,16);
                         cf.SetAttribute("href", playlist.ID);
+
+                        // Set the playlist as an attachment
+                        cf.Attachment=playlist;
                     
                        
                     }
