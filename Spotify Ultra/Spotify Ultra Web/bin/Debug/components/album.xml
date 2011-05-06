@@ -26,7 +26,7 @@ for(var i=0; i < songs.Length; i++){
 	var title = song.Name;
 	
 	
-	var href = song.Link;
+	var href = song.Path;
 	var album_href =  song.Artists[0].Link;
 
 	var primary = song.Artists[0].Name;

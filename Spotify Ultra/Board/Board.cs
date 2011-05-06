@@ -96,7 +96,7 @@ namespace Board
         {
             get
             {
-                return Color.White;
+                return Color.FromArgb(188,188,188);
             }
         }
         public Color Entry
@@ -1684,15 +1684,15 @@ namespace Board
                         continue;
                     if (d == ' ')
                         left += 5;
-                    
+                  
                     g.DrawString(d.ToString(), font, fontBrush, position.Left + left, position.Top + row);
-                    left += (int)GetTextWidth(d.ToString(), font,g);
+                    left += (int)Math.Floor(GetTextWidth(d.ToString(), font,g));
                 }
                
                 // if the character exceeds the width separate it to new row
                 if (left >= this.Width-10)
                 {
-                    row += (int)g.MeasureString("ABCD", font).Height;
+                    row += (int)g.MeasureString(d.ToString(), font).Height;
                     left = 0;
                 }
                 elmPos++;
@@ -1811,7 +1811,7 @@ namespace Board
             _Element.AssertFont();
             // if element is hovred, set the font to be underlined
             bool hovered = (_Element.GetAttribute("hover") == "true");
-            Font labelFont = new Font(this.Font.FontFamily,this.Font.Size, hovered ? FontStyle.Underline :  FontStyle.Regular);
+            Font labelFont = new Font(this.Font.FontFamily,this.Font.Size/100,FontStyle.Regular,GraphicsUnit.Inch);
             if (_Element.Font != null)
                 labelFont = _Element.Font;
 
@@ -2057,7 +2057,7 @@ namespace Board
         /// <summary>
         /// Distance between tabs
         /// </summary>
-        int tab_distance = 1;
+        int tab_distance = 10;
 
         /// <summary>
         /// Bitmap for the inactive section tab
@@ -2194,9 +2194,10 @@ namespace Board
         /// <param name="p">The graphics buffer</param>
         /// <param name="CurrentView"> The view to base from</param>
 
+
         
-     
-        
+        // integer for the current tab which is hovered
+        private int hovered_tab = -1;
         public void Draw(Graphics p)
         {
 
@@ -2277,11 +2278,30 @@ namespace Board
                 if (CurrentView != null)
                     if (CurrentView.Content != null)
                         if (CurrentView.Content.View != null)
+                        {
+                            // reset hovered tab
+                            hovered_tab = -1;
+                            // draw the bar
+                            d.DrawImage(Resource1.toolbar, new Rectangle(0, 0, (int)Math.Round(this.Width*1.1f), 22));
+                            position_counter = tabbar_start;
                             // Draw all section bar
                             for (int i = 0; i < CurrentView.Content.View.Sections.Count; i++)
                             {
-                                position_counter += i * (tab_width + tab_distance)+tab_width; 
-                                Section section = CurrentView.Content.View.Sections[i];
+                                 Section section = CurrentView.Content.View.Sections[i];
+                                 int tab_width = (int)d.MeasureString(section.Name, new Font(FontFace,10)).Width;
+                                
+
+                                // If the mouse cursor is pointing on an tab, raise it
+                                 if (mouseX >= position_counter && mouseX <= position_counter + tab_width+ tab_distance * 2 &&
+                                     mouseY < tabbar_height
+                                    
+                                     )
+                                 {
+                                     hovered_tab = i;
+                                 }
+                               
+                                
+                               
                                 // if you are at the current section draw the panes
 
 
@@ -2294,25 +2314,25 @@ namespace Board
                                         sectionTab = Resource1.tab;
                                     }
                                     // draw the tab bar
-                                    d.DrawImage(sectionTab, new Rectangle(tabbar_start + i * (tab_width + tab_distance), 1, tab_width, tabbar_height));
+                                    d.DrawImage(sectionTab, new Rectangle(position_counter, 1, tab_width+tab_distance*2, tabbar_height));
 
                                     // draw the tab background
-                                    d.DrawString(section.Name, new Font(FontFace, 8), new SolidBrush(Color.FromArgb(255, 255, 211)), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, tab_text_margin / 5));
+                                    d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(Color.FromArgb(255, 255, 211)), new Point(position_counter+tab_distance, tab_text_margin / 5));
                                 }
                                 else
                                 {
-                                    // Draw section tab, load if nulll
-                                    if (inactive_section_tab == null)
-                                    {
-                                        inactive_section_tab = Resource1.inactive;
-                                    }
-                                    // draw the tab bar
-                                    d.DrawImage(inactive_section_tab, new Rectangle(tabbar_start + ((tab_distance + tab_width) * i), 1, tab_width, tabbar_height - 1));
+                                
 
-                                    d.DrawString(section.Name, new Font(FontFace, 8), new SolidBrush(Color.Black), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, tab_text_margin / 5));
-                                    d.DrawString(section.Name, new Font(FontFace, 8), new SolidBrush(Color.White), new Point(tabbar_start + ((tab_distance + tab_width) * i) + tab_text_margin, +tab_text_margin / 5 - 1));
+                                    // draw the tab bar
+                                    d.DrawImage(Resource1.tab_separator, new Rectangle(position_counter+tab_width+tab_distance*2,0,2, tabbar_height - 1));
+
+                                    
+                                    d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(Color.White), new Point(position_counter+tab_distance, tab_text_margin / 5));
+                                    d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(Color.Black), new Point(position_counter+tab_distance, +tab_text_margin / 5 - 1));
                                 }
+                                position_counter += tab_width + tab_distance * 2;
                             }
+                        }
                 /**
                  * Draw the scrollbar
                  * */
@@ -2668,7 +2688,14 @@ namespace Board
                   
                         
                  }
-
+                /***
+                 * Handle tab click
+                 * */
+                if (hovered_tab > -1)
+                {
+                    this.currentSection = hovered_tab;
+                }
+#if (nbug)
                 /**
                  * Handle tab clicks so user can change the tab
                  * */
@@ -2689,11 +2716,15 @@ namespace Board
                     }
                 }
 
-                
+#endif
             }
             catch
             {
             }
+
+                
+
+
             /**
            * Get element for dragging (only those with attribute 'draggable')
            * */

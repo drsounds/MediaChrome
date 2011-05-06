@@ -558,7 +558,7 @@ namespace SpofityRuntime
                     D.Title = _Track.Name;
                     D.AlbumName = _Track.Album.Name;
                     D.Artist = _Track.Artists[0].Name;
-                    D.Path = "sp:" + _Track.LinkString;
+                    D.Path = _Track.LinkString;
                     Songs.Add(D);
                 }
                 catch

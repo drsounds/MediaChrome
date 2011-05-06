@@ -47,10 +47,10 @@ var title = artist.Name;
 for(var i=0; i < artist.Albums.Length ; i++){ 		
 	var release = artist.Albums[i];
 	var artist = artist.Name;
-	var href =  artist.Albums[i].Link;
+	var href =  artist.Albums[i].Link; 
 	
 ?>
-		<inflate src="components/album.xml" name="@{name}" artist="@{artist}" uri="@{href}"/>
+		<inflate src="components/album.xml" name="@{name}" artist="@{artist}" uri="spotify:album:2v4S7kXQeS3Hm8zsB89HOB"/>
 
 % }
 	

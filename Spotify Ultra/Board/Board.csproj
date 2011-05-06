@@ -184,9 +184,12 @@
     <None Include="Resources\ajax-loader.gif" />
     <None Include="Resources\dropdown.png" />
     <None Include="Resources\shadow.png" />
-    <None Include="Resources\release.png" />
     <Content Include="icon.ico" />
     <None Include="Resources\sectionbar.png" />
+    <None Include="Resources\toolbar.png" />
+    <None Include="Resources\release.png" />
+    <None Include="Resources\inactive.png" />
+    <None Include="Resources\tab_separator.png" />
     <Content Include="TextFile1.txt" />
   </ItemGroup>
 </Project>

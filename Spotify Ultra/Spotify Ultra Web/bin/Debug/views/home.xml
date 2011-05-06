@@ -75,6 +75,11 @@
 		
 		<space height="30"/>
 	</section>
+	
 % }
+	<section name="Top List">
+	</section>
+	<section name="Feed">
+	</section>
 </view>
 		

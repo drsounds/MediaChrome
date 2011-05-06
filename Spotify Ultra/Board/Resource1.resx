@@ -127,9 +127,6 @@
   <data name="scrollbar_down" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>scrollbar_down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="inactive" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>inactive.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="tab" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>tab.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -154,13 +151,22 @@
   <data name="dropdown" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\dropdown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="release" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\release.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="shadow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\shadow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="sectionbar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\sectionbar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="inactive" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\inactive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="release" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\release.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tab_separator" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\tab_separator.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toolbar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\toolbar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -164,5 +164,19 @@ namespace Board {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        internal static System.Drawing.Bitmap tab_separator {
+            get {
+                object obj = ResourceManager.GetObject("tab_separator", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap toolbar {
+            get {
+                object obj = ResourceManager.GetObject("toolbar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

@@ -2039,6 +2039,7 @@ namespace Board
                 this.Font = new System.Drawing.Font(this.Font.FontFamily, float.Parse(this.GetAttribute("size")), this.Font.Style);
             if (this.GetAttribute("font") != "")
                 this.Font = new System.Drawing.Font(this.Font.FontFamily, this.Font.Size, this.Font.Style, GraphicsUnit.Pixel);
+
         }
         /// <summary>
         /// Gets whether this elements is an copy of another element or an original. Used in the filter system
