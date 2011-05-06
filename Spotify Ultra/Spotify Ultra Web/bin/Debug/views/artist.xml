@@ -30,13 +30,13 @@ var title = artist.Name;
 	
 		<space height="130"/>
 		<?
-	if(localAlbums.Count > 0){
-	?>
-	
-	<section  width="-1" height="24" left="0" top="@TOP">Local Files</section>
-	<space height="60"/>
-% for(var i=0; i < localAlbums.Count; i++){ var localAlbum = localAlbums[i];
-	<inflate src="components/local_album.xml" name="@{localAlbum.Album}" artist="@{title}"/>
+		if(localAlbums.Count > 0){
+		?>
+		
+		<section  width="-1" height="24" left="0" top="@TOP">Local Files</section>
+		<space height="60"/>
+% for(var i=0; i lower than localAlbums.Count ; i++){ var localAlbum = localAlbums[i];
+		<inflate src="components/local_album.xml" name="@{localAlbum.Album}" artist="@{title}"/>
 % }
 
 		<? } ?> 
@@ -44,10 +44,10 @@ var title = artist.Name;
 		<space height="10"/>
 
 <?
-for(var i=0; i < artist.Albums.Length ; i++){ 	
+for(var i=0; i < artist.Albums.Length ; i++){ 		
 	var release = artist.Albums[i];
 	var artist = artist.Name;
-	var href = release.Link;
+	var href =  artist.Albums[i].Link;
 	
 ?>
 		<inflate src="components/album.xml" name="@{name}" artist="@{artist}" uri="@{href}"/>

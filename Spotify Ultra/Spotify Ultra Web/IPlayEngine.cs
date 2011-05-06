@@ -18,8 +18,26 @@ using MediaChrome.Views;
 
 namespace MediaChrome
 {
+    /// <summary>
+    /// A IMedia represents the instances of songs,artists and albums
+    /// </summary>
+    public interface IMedia
+    {
+        /// <summary>
+        /// The link to the artist
+        /// </summary>
+        string Link { get; set; }
 
-    
+        /// <summary>
+        /// The name of the artist
+        /// </summary>
+        string Name { get; set; }
+
+        /// <summary>
+        /// The engine the album is using
+        /// </summary>
+        IPlayEngine Engine { get; set; }
+    }
 	/*public interface IImportEngine 
 	{
 		bool Ready {get;set;}
@@ -32,7 +50,7 @@ namespace MediaChrome
     /// <summary>
     /// An artist
     /// </summary>
-    public class Artist
+    public class Artist : IMedia
     {
         /// <summary>
         /// Available albums for the artist
@@ -58,7 +76,7 @@ namespace MediaChrome
     /// <summary>
     /// Class for album
     /// </summary>
-    public class Album
+    public class Album : IMedia
     {
         /// <summary>
         /// Songs of the album

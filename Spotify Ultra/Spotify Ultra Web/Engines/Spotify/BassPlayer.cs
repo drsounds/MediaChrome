@@ -20,6 +20,16 @@ namespace SpofityRuntime
 {
 	public class SpotifyPlayer : MediaChrome.IPlayEngine
     {
+        /// <summary>
+        /// Dictionary containing references to loaded tracks, albums and object indexed by their uris
+        /// </summary>
+        private Dictionary<String, IMedia> artists;
+        
+        /// <summary>
+        /// Finds an artist
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
         public MediaChrome.Artist[] FindArtist(string ID)
         {
             throw new NotImplementedException();
@@ -30,12 +40,19 @@ namespace SpofityRuntime
         }
         public MediaChrome.Artist GetArtist(string ID)
         {
+            /**
+             * If the artist is already loaded get if from the list
+             * */
+            if (artists.ContainsKey(ID))
+                return (MediaChrome.Artist)artists[ID];
+
+
             // Initate objects
             Spotify.ArtistBrowse Browser = SpotifySession.BrowseArtistSync(Spotify.Artist.CreateFromLink(Link.Create(ID)), new TimeSpan(1050000));
             while (Browser == null) { }
             
             MediaChrome.Artist artist = new MediaChrome.Artist();
-
+            artists.Add(ID,artist);
             artist.Link = ID;
             artist.Engine = this;
 
@@ -56,16 +73,21 @@ namespace SpofityRuntime
         /// <returns></returns>
         public MediaChrome.Album GetAlbum(string ID)
         {
+            if (artists.ContainsKey(ID))
+                return (MediaChrome.Album)artists[ID];
             // Initiate objects
             Spotify.AlbumBrowse Browser = SpotifySession.BrowseAlbumSync(Spotify.Album.CreateFromLink(Link.Create(ID)), new TimeSpan(1050000));
             while (Browser == null) { }
             
             MediaChrome.Album result = new MediaChrome.Album();
+            artists.Add( ID,result);
             result.Name = Browser.Album.Name;
-            result.Artist = new MediaChrome.Artist();
-            result.Artist.Name = Browser.Album.Artist.Name;
-            result.Artist.Link = Browser.Album.Artist.LinkString;
+
+    
+            result.Artist = GetArtist(Browser.Artist.LinkString);
             result.Engine = this;
+            result.Link = Browser.Album.LinkString;
+
 
             // Create tracklist
             result.Songs = new Song[Browser.Tracks.Length];
@@ -274,7 +296,8 @@ namespace SpofityRuntime
 		}
 		public SpotifyPlayer()
 		{
-			
+			// Creat artists dictionary
+            artists = new Dictionary<string, MediaChrome.IMedia>();
 			view = new MediaChrome.Spotify.SpotifyView();
         	  Spocky.MyClass D = new Spocky.MyClass();
              SpotifySession = Spotify.Session.CreateInstance(D.AppKey(), "SpofityCaches", "SpofityCaches", "LinSpot");

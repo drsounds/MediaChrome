@@ -1620,7 +1620,7 @@ namespace Board
             {
                 elementsToShow.Add(d);
             }
-           this.Cursor = Cursors.Default;
+  
 
 
             // Denotaes if inside XML
@@ -2173,7 +2173,9 @@ namespace Board
             set
             {
                 hoveredElement = value;
-                if (hoveredElement.GetAttribute("href") != "")
+                if (dragging)
+                    return;
+                if (hoveredElement.GetAttribute("href") != "" )
                     this.Cursor = Cursors.Hand;
                 else
                     this.Cursor = Cursors.Default;
@@ -2849,7 +2851,7 @@ namespace Board
             }
             int entryship = 0;
             int top = 20;
-            this.Cursor = Cursors.Default;
+        //    this.Cursor = Cursors.Default;
 #if (nobug)
             try
             {
@@ -3262,7 +3264,8 @@ namespace Board
         }
         void DrawBoardDragDrop(object sender, DragEventArgs e)
         {
-        	 dragging=false;
+        	 
+            dragging=false;
 
          
             /***
@@ -3444,6 +3447,7 @@ namespace Board
 
         private void DrawBoard_DragEnter(object sender, DragEventArgs e)
         {
+            dragging = true;
             e.Effect = DragDropEffects.Copy;
             if (GrabbedElements != null)
             {
@@ -3548,9 +3552,18 @@ namespace Board
                     this.CreateGraphics().DrawLine(new Pen(Color.White), new Point(0, o_bounds.Top + o_bounds.Height), new Point(this.Width - scrollbar_size, o_bounds.Top + o_bounds.Height));
 
                 }
-                    e.Effect = DragDropEffects.Copy;
-              
+                
+                e.Effect =  DragDropEffects.Copy  ;
+                return;
+
             }
+            // Otherwise give drag'ndrop effect none
+            e.Effect = DragDropEffects.None;
+        }
+
+        private void DrawBoard_DragLeave(object sender, EventArgs e)
+        {
+            dragging = false;
         }
     }
    

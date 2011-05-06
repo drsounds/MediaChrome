@@ -2,7 +2,7 @@
 /***
  * Album view component. Not to use separetely
  **/
-	var album = getAlbum(parameter);
+	var album = getAlbum(arg_uri.replace("spotify:album:spotify:album:","spotify:album:"));
 	var songs = album.Songs;
 ?>
 <view>

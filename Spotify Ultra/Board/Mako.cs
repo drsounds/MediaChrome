@@ -29,6 +29,9 @@ namespace Board
         {
             // Initialize runtime engine. For now we use JavaScriptEngine
             RuntimeMachine = new JavaScriptEngine();
+
+            // Set JSPython to try as default
+           // JSPython = true;
             
             // Raise create event handler
             if (this.Create!=null)
@@ -229,6 +232,10 @@ namespace Board
             
         }
         /// <summary>
+        /// The javascript will be like as python
+        /// </summary>
+        public bool JSPython { get; set; }
+        /// <summary>
         /// Instance of the Jint engine running at runtime
         /// </summary>
         public IScriptEngine RuntimeMachine { get; set; }
@@ -300,11 +307,44 @@ namespace Board
                         // Jump forward two times if endcase is ?>
                         if(startCase)
                             i++;
-                        
-                        
+
+                        // Get the final output
+                        string codeOutput = executableSegment.ToString();
+                        // If in JSPython mode, convert all row breaks to ; and other syntax elements
+                        if (JSPython)
+                        {
+                            codeOutput = codeOutput.Replace("\n", ";");
+                            
+                            /**
+                             * Convert statements
+                             * */
+                            codeOutput = codeOutput.Replace(":", "{");
+                            codeOutput = codeOutput.Replace("end", "}");
+                           
+                            codeOutput = codeOutput.Replace("\nif ", "\nif(");
+                            codeOutput = codeOutput.Replace("then:", "){");
+                            codeOutput = codeOutput.Replace("do:", "){");
+
+                            codeOutput = codeOutput.Replace("endif", "}");
+                            
+
+
+                        }
+                        codeOutput = codeOutput.Replace("lt;", "<");
+                       
+
+                        codeOutput = codeOutput.Replace("lower than", "<");
+                        codeOutput = codeOutput.Replace("lower", "<");
+
+                        codeOutput = codeOutput.Replace("higher", ">");
+
+                        codeOutput = codeOutput.Replace("highter than", ">");
+                        codeOutput = codeOutput.Replace("gt;", ">");
                         // Append the code data to the string buffer
-                        finalOutput.Append(" "+ executableSegment.ToString() + " ");
+                        finalOutput.Append(" "+ codeOutput  + " ");
                         
+                        
+
                         // Clear outputcode buffer
                         executableSegment = new StringBuilder();
 

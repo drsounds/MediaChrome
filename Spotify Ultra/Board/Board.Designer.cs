@@ -69,6 +69,7 @@
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.DrawBoardDragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.DrawBoard_DragEnter);
             this.DragOver += new System.Windows.Forms.DragEventHandler(this.DrawBoard_DragOver);
+            this.DragLeave += new System.EventHandler(this.DrawBoard_DragLeave);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Artist_Paint);
             this.DoubleClick += new System.EventHandler(this.Artist_DoubleClick);
             this.Enter += new System.EventHandler(this.Artist_Enter);
