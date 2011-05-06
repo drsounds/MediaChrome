@@ -346,6 +346,7 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1076, 261);
             this.panel3.TabIndex = 24;
+            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint_1);
             // 
             // axWindowsMediaPlayer1
             // 

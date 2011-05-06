@@ -256,7 +256,7 @@ namespace Board
 
             }
 
-            if (_Element.Type == "entry")
+            if (_Element.Entry)
             {
                 /**
                  * Enumerte all columns and check for possible links
@@ -298,19 +298,21 @@ namespace Board
                     if (CurrentView.Content.View != null)
                         try
                         {
-                            
 
-                            for (int i = 0; i < ViewBuffer.Count; i++)
-                            {
-                                
-                                Element _Element = (Element)ViewBuffer[i];
+
+
+                            /**
+                             * Process the current hovered element
+                             * */
+
+                            Element _Element = HoveredElement;
+                            if(_Element!=null)
                                 ElementClick(_Element, mouseX, mouseY);
                                 
-                            }
-
                             /**
                              * Capture toolbaritemss
                              * */
+
                             int menupadding = 20;
                             int size = 0;
                             Graphics d = this.CreateGraphics();
@@ -786,7 +788,7 @@ namespace Board
                 String App = Parts[0];
                 String Querystring = Uri.Replace(nspace + ":" + App + ":", "");
 
-                View newView = new View(Uri, BaseFolder + "\\" + App + ".xml", Querystring);
+                View newView = new View(Uri, BaseFolder + "\\" + App + ".xml", Uri);
                
                 // Add the pending view to the view list
                 this.Views.Add(Uri,newView);
@@ -1317,7 +1319,7 @@ namespace Board
                         for (int i=0; i <t.Elements.Count;i++)
                            
                         {
-                            if (t.Elements[i].Type == "entry")
+                            if (t.Elements[i].Entry)
                             {
                                 if (t.Elements[i].GetAttribute("__playing") == "true")
                                 {
@@ -1344,7 +1346,7 @@ namespace Board
                     {
                         foreach (Element _elm in t.Elements)
                         {
-                            if (_elm.Type == "entry")
+                            if (_elm.Entry)
                             {
                                 if (_elm.GetAttribute("__playing") == "true")
                                 {
@@ -1370,10 +1372,17 @@ namespace Board
                 return selectedItems;
             }
         }
+
+  
+
         /// <summary>
         /// Decides if control has focus
         /// </summary>
         public new bool Focus { get; set; }
+
+
+       
+
         /// <summary>
         /// Method to handle keys in list
         /// </summary>
@@ -1385,6 +1394,7 @@ namespace Board
                 return base.IsInputKey(keyData); ;
             switch(keyData)
             {
+              
                 case Keys.Enter:
                     if (this.SelectedItems.Count > 0)
                         if (PlaybackRequested != null)
@@ -1649,8 +1659,20 @@ namespace Board
                     Element _elm = ParseTag(xml, ref i);
                     _elm.Font = font;
                     
+                    // Create the bounds for the new element
+                    Rectangle elementBounds = new Rectangle(elm.Left, elm.Top -scrollY, this.Width, this.Height);
        
-                    DrawElement(_elm, g, ref entryship, new Rectangle(elm.Left, elm.Top -scrollY, this.Width, this.Height), 0, ref left, ref row);
+                    DrawElement(_elm, g, ref entryship,elementBounds , 0, ref left, ref row);
+                    
+                    /**
+                     * If the cursor position is inside bounds of the element 
+                     * set the element as hovered */
+
+                    if(mouseX >= elementBounds.Left && mouseX <= elementBounds.Right && 
+                        mouseY >= elementBounds.Top && mouseY <= elementBounds.Bottom)
+                    {
+                        this.HoveredElement=_elm;
+                    }
                     continue;
                 }
 
@@ -1702,6 +1724,7 @@ namespace Board
         }
 
 
+
         /// <summary>
         /// The default typeface to use for the view
         /// </summary>
@@ -1729,6 +1752,18 @@ namespace Board
             int left = Bounds.Left;
             int top =  Bounds.Top ;
             int width = Bounds.Width;
+
+            /**
+             * Check if the mouse is inside the element's bounds 
+             * and if so set it as the hover element. The bounds are relative to the element's text
+             * position
+             * */
+
+            if (mouseX >= Bounds.Left + t_left && mouseX <= Bounds.Right + t_left &&
+                mouseY >= Bounds.Top + t_row && mouseY <= Bounds.Bottom + t_row)
+                this.HoveredElement = _Element;
+
+
             /**
              * For consistency we apply selected rules to all kind of elements, not only the entry element but
              * also to preserve worrk in the future
@@ -1736,7 +1771,7 @@ namespace Board
 
             // Decide color of the entry wheather it selected or not.
             Color EnTry = (entryship % 2) == 1 ? Entry : Alt;
-            if(_Element.GetAttribute("type")=="entry")
+            if(_Element.Entry)
             if (_Element.Selected == true)
             {
                 EnTry = Color.FromArgb(169, 217, 254);
@@ -1747,7 +1782,7 @@ namespace Board
                 }
             }
             Color ForeGround = Fg;
-            if(_Element.GetAttribute("type")=="entry")
+            if(_Element.Entry)
             if (_Element.Selected == true)
             {
                 
@@ -1784,7 +1819,7 @@ namespace Board
 
 
             // Reset entryship if element is not an entry
-            if (_Element.Type != "entry")
+            if (!_Element.Entry)
                 entryship = 0;
             // 
 
@@ -1975,8 +2010,9 @@ namespace Board
                     break;
                 case "section":
                    
-                    d.FillRectangle(new SolidBrush(Section), new Rectangle(0, top, width, height));
-                    d.DrawString(_Element.Data, new Font(labelFont.FontFamily, 15.0f, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(SectionTextShadow), new Point(left + 30, top + 1));
+                  //  d.FillRectangle(new SolidBrush(Section), new Rectangle(0, top, width, height));
+                    d.DrawImage(Resource1.sectionbar, 0, top, width, height);  
+                  d.DrawString(_Element.Data, new Font(labelFont.FontFamily, 15.0f, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(SectionTextShadow), new Point(left + 30, top + 1));
                     d.DrawString(_Element.Data, new Font(labelFont.FontFamily, 15.0f,FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(SectionText), new Point(left + 30, top));
                    
                     break;
@@ -2067,7 +2103,7 @@ namespace Board
         {
             get
             {
-                return this.Height - scrollbar_size * 4;
+                return this.Height - scrollbar_size * 2;
             }
         }
 
@@ -2076,7 +2112,7 @@ namespace Board
         {
             get
             {
-                return (int)Math.Round(((float)this.Height / (float)TotalHeight) * (spaceHeight - scrollbar_size*4));
+                return (int)Math.Round(((float)this.Height / (float)TotalHeight) * (spaceHeight - scrollbar_size*2));
             }
         }
 
@@ -2124,6 +2160,25 @@ namespace Board
 
         }
 
+        private Element hoveredElement;
+        /// <summary>
+        /// The element the mouse cursor is hovering on
+        /// </summary>
+        public Element HoveredElement
+        {
+            get
+            {
+                return hoveredElement;
+            }
+            set
+            {
+                hoveredElement = value;
+                if (hoveredElement.GetAttribute("href") != "")
+                    this.Cursor = Cursors.Hand;
+                else
+                    this.Cursor = Cursors.Default;
+            }
+        }
 
 
         /// <summary>
@@ -2132,7 +2187,7 @@ namespace Board
         private bool reoredering = false;
 
         /// <summary>
-        /// Draw inside an certain view
+        /// Draw inside an certain view. Mouse events are measured here instead of mousemove
         /// </summary>
         /// <param name="p">The graphics buffer</param>
         /// <param name="CurrentView"> The view to base from</param>
@@ -2298,7 +2353,7 @@ namespace Board
                             Element firstEntry = null;
                             foreach (Element elm in ViewBuffer)
                             {
-                                if (elm.Type == "entry")
+                                if (elm.Entry)
                                 {
                                     firstEntry = elm;
                                     break;
@@ -2516,9 +2571,68 @@ namespace Board
             int top = 20;
             try
             {
-                foreach (Element _Elm in ViewBuffer)
+
+                /**
+                 * If shift is pressed extend the selection range
+                 * */
+                if (ModifierKeys == Keys.Shift)
                 {
-                    _Elm.Selected = false;
+                    if (SelectedItems != null)
+                    {
+                        if (SelectedItems.Count > 0)
+                        {
+                            Element _elm = GetItemAtPos(new Point(e.X, e.Y));       // The element under the cursor
+                            int index = ViewBuffer.IndexOf(_elm);                   // Index of the element
+
+                            // Get current selection index
+                            int curIndex = ViewBuffer.IndexOf(SelectedItems[0]);
+
+                            // If the item below the cursor is below the already selected 
+                            if (index > curIndex)
+                            {
+                                // Get the last index of the selected items
+                                int lastIndex = ViewBuffer.IndexOf(SelectedItems[SelectedItems.Count - 1]);
+
+
+                                // If the last item has an index larger than than the current index, reduce the size of the selection
+                                if (lastIndex > curIndex)
+                                {
+                                    for (var i = lastIndex; i < curIndex; i--)
+                                    {
+                                        Element __elm = ViewBuffer[i];
+                                        if (__elm.Entry)
+                                        {
+                                            __elm.Selected = false;
+                                        }
+                                    }
+                                    return;
+                                }
+                                else // Otherwise enlarge the selection
+                                {
+                                    for (var i = lastIndex; i < index; i++)
+                                    {
+                                        Element __elm = ViewBuffer[i];
+                                        if (__elm.Entry)
+                                        {
+                                            __elm.Selected = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+                /**
+                 * If CTRL is pressed, do not deselect all items
+                 * */
+                if (!(ModifierKeys == Keys.Control))
+                {
+                    foreach (Element _Elm in ViewBuffer)
+                    {
+                        _Elm.Selected = false;
+                    }
                 }
                 foreach (Element _Element in ViewBuffer)
                 {
@@ -2535,7 +2649,15 @@ namespace Board
                
                     if (e.X >= _left  && e.X <= _left + _width  && e.Y >= _top  && e.Y <= _top + _height )
                     {
-                        _Element.Selected = true;
+                        // If ctrl is pressed toggle the selection
+                        if (ModifierKeys == Keys.Control)
+                        {
+                            _Element.Selected = !_Element.Selected;
+                        }
+                        else
+                        {
+                            _Element.Selected = true;
+                        }
                         dragURI = _Element.GetAttribute("href");
                         
                       
@@ -2594,12 +2716,12 @@ namespace Board
                     * */
 
                    // If the item is an entry and the list is marked as reordable, begin the process
-                if (this.CurSection.Reorder && ct.Type == "entry")
+                if ( ct.Entry)
                 {
                     
                     
                     // Raise the begin drag handle
-                    if (this.BeginReorder != null)
+                    if (this.BeginReorder != null && this.CurSection.Reorder )
                     {
                         ItemReorderEventArgs args = new ItemReorderEventArgs();
                         args.Collection = GrabbedElements;
@@ -2630,6 +2752,7 @@ namespace Board
                 }
             }
         }
+
         /// <summary>
         /// The raw data before mako preprocess
         /// </summary>
@@ -2727,6 +2850,7 @@ namespace Board
             int entryship = 0;
             int top = 20;
             this.Cursor = Cursors.Default;
+#if (nobug)
             try
             {
                 foreach (Element _Element in ViewBuffer)
@@ -2740,12 +2864,8 @@ namespace Board
                  	int _width = Bounds.Width;
                  	int _height = Bounds.Height;
 
-                    if (e.Y >= _top && e.Y <= _height + _top && e.X >= _left && e.X <= _left + _width && _Element.GetAttribute("href") != "")
-                    {
-                        this.Cursor = Cursors.Hand;
-                        // Set element to be hovered
-                    }
-                    if (_Element.Type == "entry")
+                  
+                    if (_Element.Entry)
                     {
                         /*
                          * Enumerte all columns and check for possible links
@@ -2772,7 +2892,7 @@ namespace Board
                              column_position += column;
                          }
                     }
-                	/* if(_Element.Type == "entry")
+                	/* if(_Element.Entry)
                     {
                 	 	if((e.X >= ARTISTLEFT+_left) && e.X <= ARTISTLEFT+_left+this.CreateGraphics().MeasureString(_Element.GetAttribute("author"),new Font(FontFace,8)).Width && _Element.GetAttribute("uri@author")!="")
                     	{
@@ -2784,6 +2904,7 @@ namespace Board
             catch
             {
             }
+#endif
         }
 
         /// <summary>
@@ -3024,7 +3145,7 @@ namespace Board
             foreach (Element ct in ViewBuffer)
             {
                 // only enumerate if the element is an type of entry
-                if (ct.Type == "entry")
+                if (ct.Entry)
                 {
                     // if index is as the index, remove the item
                     if (index == pos)
@@ -3052,7 +3173,7 @@ namespace Board
                 List<Element> entries = new List<Element>();
                 foreach (Element cf in this.ViewBuffer)
                 {
-                    if (cf.Type == "entry")
+                    if (cf.Entry)
                         entries.Add(cf);
                 }
                 return entries;
@@ -3113,7 +3234,7 @@ namespace Board
             foreach (Element ct in ViewBuffer)
             {
                 // only enumerate if the element is an type of entry
-                if (ct.Type == "entry")
+                if (ct.Entry)
                 {
                     // if index is as the index, insert the item
                     if (index == pos)
@@ -3143,6 +3264,7 @@ namespace Board
         {
         	 dragging=false;
 
+         
             /***
              * If grabbedelements is not null, we treat there is a item
              * moving action ongoing. Otherwise we treat this as an regular
@@ -3204,8 +3326,12 @@ namespace Board
                      
                  }
 
+
+
                  // Nullify the grabbed elements
                  GrabbedElements = null;
+
+                 
 
              }
              /**
@@ -3387,7 +3513,7 @@ namespace Board
         private void DrawBoard_DragOver(object sender, DragEventArgs e)
         {
             // If grabbed elements is not null and beginreorder event handler is set, do the tasks
-            if (GrabbedElements != null)
+            if (GrabbedElements != null && this.CurSection.Reorder)
             {
                 // Get the element for the position
                 Element df = GetItemAtPos(this.PointToClient(new Point(e.X, e.Y)));

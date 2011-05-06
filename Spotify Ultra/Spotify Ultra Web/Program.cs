@@ -32,7 +32,7 @@ namespace SpofityRuntime
         static void Main(string[] arguments)
         {
             mainForm = new Form1();
-            MediaEngines.Add("sp", new SpofityRuntime.SpotifyPlayer());
+            MediaEngines.Add("spotify", new SpofityRuntime.SpotifyPlayer());
             MediaEngines.Add("mp3", new MediaChrome.MP3Player());
             MediaEngines.Add("youtube", new MediaChrome.Youtube());
 

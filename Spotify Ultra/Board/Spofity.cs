@@ -88,7 +88,7 @@ namespace Board
             foreach (Element d in elements)
             {
                 // If the current has been found and the item is an entry add it to the playlist
-                if (found && d.Type == "entry")
+                if (found && d.Entry)
                 {
                     Playlist.Enqueue(d);
                 }
@@ -257,7 +257,7 @@ namespace Board
                 {
                     foreach (Element _elm in t.Elements)
                     {
-                        if (_elm.Type == "entry")
+                        if (_elm.Entry)
                         {
                             if (_elm.GetAttribute("__playing") == "true")
                             {
@@ -1726,7 +1726,7 @@ namespace Board
             {
                 foreach (Element d in this.Elements)
                 {
-                    if (d.Type == "entry" && d.GetAttribute("__playing")!="")
+                    if (d.Entry && d.GetAttribute("__playing")!="")
                         return d;
                 }
                 return null;
@@ -1746,7 +1746,7 @@ namespace Board
                 // only increase counter if element is an entry
                 foreach (Element d in this.Elements)
                 {
-                    if (d.Type == "entry")
+                    if (d.Entry)
                     {
                         if(d.GetAttribute("__playing")!="")
                             return i;
@@ -1761,7 +1761,7 @@ namespace Board
                 
                 foreach (Element d in this.Elements)
                 {
-                    if (d.Type == "entry")
+                    if (d.Entry)
                     {
                         if (d.GetAttribute("__playing") != "")
                         {
@@ -1774,7 +1774,7 @@ namespace Board
                 int counter =0;
                 foreach (Element elm in this.elements)
                 {
-                    if (elm.Type == "entry")
+                    if (elm.Entry)
                     {
                         if (counter == value)
                         {
@@ -1857,7 +1857,7 @@ namespace Board
                 
                     
 
-                if (d.Type == "entry")
+                if (d.Entry)
                 {
                     if (index == i)
                         return d;
@@ -1989,6 +1989,17 @@ namespace Board
     /// </summary>
 	public class Element 
 	{
+        /// <summary>
+        /// This elemeent can be selected and represents an entry
+        /// </summary>
+        public bool Entry
+        {
+            get
+            {
+                return this.GetAttribute("entry") == "true" ||
+                    this.GetAttribute("type") == "entry" || this.Type == "entry";
+            }
+        }
         /// <summary>
         /// A object that can be attached to the element
         /// </summary>

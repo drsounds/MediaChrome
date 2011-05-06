@@ -186,6 +186,7 @@
     <None Include="Resources\shadow.png" />
     <None Include="Resources\release.png" />
     <Content Include="icon.ico" />
+    <None Include="Resources\sectionbar.png" />
     <Content Include="TextFile1.txt" />
   </ItemGroup>
 </Project>

@@ -26,6 +26,22 @@ namespace MediaChrome
 	/// </summary>
 	public class Youtube : MediaChrome.IPlayEngine
     {
+        public MediaChrome.Artist[] FindArtist(string ID)
+        {
+            throw new NotImplementedException();
+        }
+        public MediaChrome.Album[] FindAlbum(string ID)
+        {
+            throw new NotImplementedException();
+        }
+        public MediaChrome.Album GetAlbum(string ID)
+        {
+            throw new NotImplementedException();
+        }
+        public MediaChrome.Artist GetArtist(string ID)
+        {
+            throw new NotImplementedException();
+        }
         public bool PlaylistsLoaded { get; set; }
         public event EventHandler PlaybackFinished;
         public SpofityRuntime.Form1 Host { get; set; }

@@ -24,6 +24,22 @@ namespace MediaChrome
 	/// </summary>
 	public class MP3Player : IPlayEngine
 	{
+        public MediaChrome.Artist[] FindArtist(string ID)
+        {
+            throw new NotImplementedException();
+        }
+        public MediaChrome.Album[] FindAlbum(string ID)
+        {
+            throw new NotImplementedException();
+        }
+        public MediaChrome.Album GetAlbum(string ID)
+        {
+            throw new NotImplementedException();
+        }
+        public MediaChrome.Artist GetArtist(string ID)
+        {
+            throw new NotImplementedException();
+        }
         public bool PlaylistsLoaded { get; set; }
         public event EventHandler PlaybackFinished;
         public SpofityRuntime.Form1 Host { get; set; }
@@ -139,7 +155,7 @@ namespace MediaChrome
 				try{
 				D.Title = DR.GetString(0);
 				D.Artist = DR.GetString(1);
-				D.Album = DR.GetString(2);
+				D.AlbumName = DR.GetString(2);
 				D.Path=DR.GetString(3);
 				D.Store=DR.GetString(4);
 				D.Engine=DR.GetString(5);

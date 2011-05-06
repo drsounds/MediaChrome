@@ -8,30 +8,10 @@ http://www.spotifyultra.com
 
 */
 
-// Lookup artist on Spotify's server
-
-var artistdata = synchronize_data("http://ws.spotify.com/lookup/1/?uri=spotify:artist:"+parameter.replace("spotify:artist:",""));
-var title = "";
-var releases = "";
-if(!(!artistdata)){
+var artist = getArtist(parameter);
 
 
-/** Get basic values */
-title = artistdata.GetElementsByTagName("name").Item(0).InnerText;
-
-/** Lookup releases by the artist  */
-var _releases = synchronize_data("http://ws.spotify.com/search/1/album?q=artist:\""+title.Replace(" ","%23")+"\"");
-releases = _releases.GetElementsByTagName("album");
-
-}
-
-/** Get Local Content */
-var localAlbums = queryLocalFiles("SELECT DISTINCT album FROM song WHERE artist='"+title+"'");
-
-/** Get biography from Last.FM */
-var bio = "No biography";
-
-
+var title = artist.Name;
 
 ?>
 <view>
@@ -64,11 +44,11 @@ var bio = "No biography";
 		<space height="10"/>
 
 <?
-for(var i=0; i < releases.Count ; i++){ 	
-	var release = releases.Item(i);		
-	var href = release.GetAttribute("href");		
-	var name = release.GetElementsByTagName("name").Item(0).InnerText.replace("&","and").replace("'","");
-	var artist = release.GetElementsByTagName("artist").Item(0).GetElementsByTagName("name").Item(0).InnerText.replace("&","and").replace("'","");;
+for(var i=0; i < artist.Albums.Length ; i++){ 	
+	var release = artist.Albums[i];
+	var artist = artist.Name;
+	var href = release.Link;
+	
 ?>
 		<inflate src="components/album.xml" name="@{name}" artist="@{artist}" uri="@{href}"/>
 

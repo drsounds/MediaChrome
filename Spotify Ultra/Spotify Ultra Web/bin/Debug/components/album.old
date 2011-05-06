@@ -1,0 +1,69 @@
+<?
+/***
+ * Album view component. Not to use separetely
+ **/
+ 
+ var album_name = arg_name.replace("&","and").replace("'","");
+ var track_count = arg_track_count;
+ var artist = artist_name;
+ var uri = arg_uri;
+	/** Sync album info from Spotify's Server */
+ var data = synchronize_data("http://ws.spotify.com/search/1/track?q=album:\""+album_name+"\"");
+ var trackNo=0;
+ /** Get Songs **/
+ var songs = data.GetElementsByTagName("track");
+?>
+<view>
+	<section name="component">
+		<label left="150"  height="23" top="@top" width="320" size="10"  href="@{uri}">@{album_name}</label>
+		
+		<img  left="10" width="128" height="128" top="@TOP" href="@{uri}" src="@{uri}" persistent="true"/>
+		<!-- An example tracklist -->
+<?
+function zeroNumber(no){	
+	return  no < 10 ? "0"+no : no;
+}
+var album_name="name";
+var trackNo = 0;
+for(var i=0; i < songs.Count; i++){ 
+
+	/* Set an tracknumber*/
+	
+	
+	var song = songs.Item(i);
+	var title = song.GetElementsByTagName("name").Item(0).InnerText.replace("&","and").replace("\"","").replace("'","");;
+	
+	
+	var href = song.GetAttribute("href");
+	var album_href = song.GetElementsByTagName("album").Item(0).GetAttribute("href");
+
+	var primary = song.GetElementsByTagName("artist").Item(0);
+	
+	
+	
+	var coartist = primary.GetElementsByTagName("name").Item(0).InnerText.replace("&","and").replace("\"","").replace("'","");;
+	var artist_uri = primary.GetAttribute("href");
+	
+	/* Only show artist if not equal to the album's artist */
+	var displayArtist = coartist != artist ? artist : " ";
+		/* If href matches the input assert the song */ 
+		
+	/* If the albums uri is equal to the one provided show songs */
+	if(album_href != uri)
+		continue;
+		trackNo++;
+?>
+
+		<entry  left="150" top="@TOP" height="18" uri="@{href}" no="@{zeroNumber(trackNo)}">
+			<title noelm="true"><![CDATA[@{title}]]></title>
+		</entry>
+<? }  if(trackNo < 8){
+ for(var x =0; x < (8-trackNo); x++){ ?> 
+ 
+ <space height="20" top="@TOP"/> 
+ <? } ?>
+	
+% }
+ <space height="30" top="@TOP"/> 
+	</section>
+</view>

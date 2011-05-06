@@ -318,6 +318,10 @@ namespace SpofityRuntime
            
         }
         /// <summary>
+        /// The current namespace for browsing (the engine to use for the particular view)
+        /// </summary>
+        public string CurrentNamespace { get; set; }
+        /// <summary>
         /// Converts spotify track objects to MediaChrome song objects
         /// </summary>
         /// <param name="uri">the uri to the song</param>
@@ -337,9 +341,19 @@ namespace SpofityRuntime
             Song.Title = song.Name;
             Song.Path = song.LinkString;
             Song.Artist = song.Artists[0].Name;
-            Song.Album = song.Album.Name;
+            Song.AlbumName = song.Album.Name;
             return Song;
 
+        }
+        /// <summary>
+        /// Browse to an view, relative to the underlying IPlayEngine
+        /// </summary>
+        /// <param name="uri"></param>
+        public void Browse(string uri)
+        {
+            String Engine = uri.Split(':')[0];
+            this.CurrentNamespace=Engine;
+            this.board.Navigate(uri, Engine, "views");
         }
         void treeview_DropElement(object sender, Board.DrawBoard.ElementDragEventArgs e)
         {
@@ -507,16 +521,16 @@ namespace SpofityRuntime
         {
             
             // If the uri starts with spotify:user:xx:playlist: load the playlist
-            if (uri.StartsWith("spotify:user:") && uri.Contains("playlist:"))
+            if (uri.StartsWith(CurrentNamespace+":user:") && uri.Contains("playlist:"))
             {
-                MediaChrome.Views.Playlist plst = Program.MediaEngines["sp"].ViewPlaylist("Name", uri);
+                MediaChrome.Views.Playlist plst = Program.MediaEngines[CurrentNamespace].ViewPlaylist("Name", uri);
                 CurrentPlaylist = plst;
 
 
 
             }
             // If the string starts with "spotify:" go to an specified adress, otherwise recall seearch intent
-            if (!uri.StartsWith("spotify:"))
+            if (uri.Split(':').Length < 2 )
             {
 
                 board.Navigate("spotify:search:" + uri, "spotify", "views");
@@ -538,6 +552,7 @@ namespace SpofityRuntime
         {
             // Create new list for all songs
             List<MediaChrome.Song> searchResult = new List<MediaChrome.Song>();
+
             // iterate through all sources
             foreach (MediaChrome.IPlayEngine Engine in Program.MediaEngines.Values)
             {
@@ -547,7 +562,30 @@ namespace SpofityRuntime
             }
             return searchResult;
         }
+        /// <summary>
+        /// Returns  an artist profile from the script
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns>An JS object representing the artist</returns>
+        public object __getArtist(string ID)
+        {
+            // Get the engine used
+            String engine = ID.Split(':')[0];
+            return Program.MediaEngines[engine].GetArtist(ID);
 
+        }
+
+        /// <summary>
+        /// Gets the album from the specified URI, from script
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns>An JS object representing the album</returns>
+        public object __getAlbum(string ID)
+        {
+            // Get the engine used
+            String engine = ID.Split(':')[0];
+            return Program.MediaEngines[engine].GetAlbum(ID);
+        }
         /// <summary>
         /// Script wrapper for the function
         /// </summary>
@@ -565,8 +603,8 @@ namespace SpofityRuntime
         /// <returns></returns>
         public object __navigate(string url)
         {
-            if(uri.StartsWith("spotify:"))
-                board.Navigate(url, "spotify", "views");
+            this.Browse(url);
+               // board.Navigate(url, "spotify", "views");
             // TODO: Add more handlers
             return null;
         }
@@ -579,7 +617,9 @@ namespace SpofityRuntime
         {
               Board.MakoEngine d = (Board.MakoEngine)sender;
               d.RuntimeMachine.SetFunction("queryLocalFiles",new Func<string, object>(__GetLocalFiles));
-
+              d.RuntimeMachine.SetFunction("getAlbum", new Func<string, object>(__getAlbum));
+              d.RuntimeMachine.SetFunction("getArtist", new Func<string, object>(__getArtist));
+                
               d.RuntimeMachine.SetFunction("findMusic", new Func<string, object>(__findMusic));
               d.RuntimeMachine.SetFunction("getPlaylist", new Func<string, object>(__getPlaylist));
               d.RuntimeMachine.SetFunction("importMusic", new Func<object>(__import_music));
@@ -613,6 +653,7 @@ namespace SpofityRuntime
         /// <returns></returns>
         public object __getCurrentPlaylist()
         {
+
             return CurrentPlaylist;
         }
         /// <summary>
@@ -625,7 +666,7 @@ namespace SpofityRuntime
         private Spotify.Session Session
         {
             get{
-                return ((SpofityRuntime.SpotifyPlayer)Program.MediaEngines["sp"]).SpotifySession;
+                return ((SpofityRuntime.SpotifyPlayer)Program.MediaEngines["spotify"]).SpotifySession;
             }
         }
         bool board_BeforeNavigating(object sender, string uri)
@@ -633,7 +674,7 @@ namespace SpofityRuntime
            // If the uri starts with spotify:user:xx:playlist: load the playlist
             if (uri.StartsWith("spotify:user:") && uri.Contains("playlist:"))
             {
-                MediaChrome.Views.Playlist plst = Program.MediaEngines["sp"].ViewPlaylist("Name", uri);
+                MediaChrome.Views.Playlist plst = Program.MediaEngines["spotify"].ViewPlaylist("Name", uri);
                 CurrentPlaylist = plst;
 
                 
@@ -772,7 +813,7 @@ namespace SpofityRuntime
             {
                 if (Url.StartsWith("spotify:"))
                 {
-                    var mediaEngine = Program.MediaEngines["sp"];
+                    var mediaEngine = Program.MediaEngines["spotify"];
                     this.CurrentPlayer = mediaEngine;
                     mediaEngine.Load(Url);
                     mediaEngine.Play();
@@ -1937,7 +1978,7 @@ namespace SpofityRuntime
             try
             {
                 // Get if the spotify playlists are loaded
-                if (Program.MediaEngines["sp"].PlaylistsLoaded)
+                if (Program.MediaEngines["spotify"].PlaylistsLoaded)
                 {
                     /**
                      * Add standard menu items
@@ -1955,7 +1996,7 @@ namespace SpofityRuntime
               
 
 
-                    foreach (MediaChrome.Views.Playlist playlist in Program.MediaEngines["sp"].Playlists)
+                    foreach (MediaChrome.Views.Playlist playlist in Program.MediaEngines["spotify"].Playlists)
                     {
                         // Add the playlist element
 
@@ -1983,6 +2024,11 @@ namespace SpofityRuntime
         }
 
         private void cBtn4_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel3_Paint_1(object sender, PaintEventArgs e)
         {
 
         }

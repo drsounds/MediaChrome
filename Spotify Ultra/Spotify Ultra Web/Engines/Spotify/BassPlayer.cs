@@ -20,6 +20,69 @@ namespace SpofityRuntime
 {
 	public class SpotifyPlayer : MediaChrome.IPlayEngine
     {
+        public MediaChrome.Artist[] FindArtist(string ID)
+        {
+            throw new NotImplementedException();
+        }
+        public MediaChrome.Album[] FindAlbum(string ID)
+        {
+            throw new  NotImplementedException();
+        }
+        public MediaChrome.Artist GetArtist(string ID)
+        {
+            // Initate objects
+            Spotify.ArtistBrowse Browser = SpotifySession.BrowseArtistSync(Spotify.Artist.CreateFromLink(Link.Create(ID)), new TimeSpan(1050000));
+            while (Browser == null) { }
+            
+            MediaChrome.Artist artist = new MediaChrome.Artist();
+
+            artist.Link = ID;
+            artist.Engine = this;
+
+            // Add albums to the artist instance
+            artist.Albums = new MediaChrome.Album[Browser.Albums.Length];
+            for (var i = 0; i < artist.Albums.Length; i++)
+            {
+                
+                artist.Albums[i] = GetAlbum(Browser.Albums[i].LinkString);
+                Thread.Sleep(100);
+            }
+            return artist;
+        }
+        /// <summary>
+        /// Gets an album. The ID
+        /// </summary>
+        /// <param name="Name">The URI to the album</param>
+        /// <returns></returns>
+        public MediaChrome.Album GetAlbum(string ID)
+        {
+            // Initiate objects
+            Spotify.AlbumBrowse Browser = SpotifySession.BrowseAlbumSync(Spotify.Album.CreateFromLink(Link.Create(ID)), new TimeSpan(1050000));
+            while (Browser == null) { }
+            
+            MediaChrome.Album result = new MediaChrome.Album();
+            result.Name = Browser.Album.Name;
+            result.Artist = new MediaChrome.Artist();
+            result.Artist.Name = Browser.Album.Artist.Name;
+            result.Artist.Link = Browser.Album.Artist.LinkString;
+            result.Engine = this;
+
+            // Create tracklist
+            result.Songs = new Song[Browser.Tracks.Length];
+
+            for(var i=0; i < Browser.Tracks.Length;i++)
+            {
+                Track currentTrack = Browser.Tracks[i];
+
+                Song d = TrackToSong(currentTrack);
+                result.Songs[i] = d;
+
+            }
+
+            result.Link = ID;
+            return result;
+            
+        }
         public bool PlaylistsLoaded { get; set; }
         public event EventHandler PlaybackFinished;
         public SpofityRuntime.Form1 Host { get; set; }
@@ -73,7 +136,7 @@ namespace SpofityRuntime
 		{
 			get
 			{
-				return "sp";
+				return "spotify";
 			}
 		}
 		public Song RawFind(Song _Song)
@@ -90,8 +153,40 @@ namespace SpofityRuntime
 			}
 			
 		}
-				
+        
+        /// <summary>
+        /// Convert an spotify artist to mediachroem artist
+        /// </summary>
+        /// <param name="artist"></param>
+        /// <returns></returns>
+        public MediaChrome.Artist CreateArtist(Spotify.Artist artist)
+        {
+            return GetArtist(artist.LinkString);
+       
+        }
 
+    
+
+        /// <summary>
+        /// Convert an spotify track to MediaChromeSong
+        /// </summary>
+        /// <param name="Df"></param>
+        /// <returns></returns>
+        public Song TrackToSong(Track  Df)
+        {
+
+            Song A = new MediaChrome.Song();
+            A.Title = Df.Name;
+            A.Artist = Df.Artists[0].Name;
+            A.Album = new MediaChrome.Album();
+            A.AlbumName = Df.Album.Name;
+       
+            A.Path = Df.LinkString;
+            A.Store = "Spotify";
+            A.Popularity = 0.5f;
+            A.Engine = "spotify";
+            return A;
+        }
 		public bool Ready {get;set;}
 		public int FilesCompleted {get;set;}
 		public int TotalFiles {get;set;}
@@ -104,15 +199,7 @@ namespace SpofityRuntime
 
                 foreach (Track Df in D.Tracks)
                 {
-                    Song A = new MediaChrome.Song();
-                    A.Title = Df.Name;
-                    A.Artist = Df.Artists[0].Name;
-                    A.Album = Df.Album.Name;
-                    A.Path = "sp:" + Df.LinkString;
-                    A.Store = "Spotify";
-                    A.Popularity = 0.5f;
-                    A.Engine = "sp";
-                    Songs.Add(A);
+                    Songs.Add(TrackToSong(Df));
 
                 }
             }
@@ -446,7 +533,7 @@ namespace SpofityRuntime
                 {
                     Song D = new Song();
                     D.Title = _Track.Name;
-                    D.Album = _Track.Album.Name;
+                    D.AlbumName = _Track.Album.Name;
                     D.Artist = _Track.Artists[0].Name;
                     D.Path = "sp:" + _Track.LinkString;
                     Songs.Add(D);

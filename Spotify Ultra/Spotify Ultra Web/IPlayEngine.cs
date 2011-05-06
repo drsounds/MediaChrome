@@ -29,10 +29,60 @@ namespace MediaChrome
 		void ImportEx(SQLiteConnection Conn,String rootDir );
 	}*/
 
+    /// <summary>
+    /// An artist
+    /// </summary>
     public class Artist
     {
-        public string Url { get; set; }
+        /// <summary>
+        /// Available albums for the artist
+        /// </summary>
+        public Album[] Albums { get; set; }
+
+        /// <summary>
+        /// The link to the artist
+        /// </summary>
+        public string Link { get; set; }
+
+        /// <summary>
+        /// The name of the artist
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// The engine the album is using
+        /// </summary>
+        public IPlayEngine Engine { get; set; }
+    }
+
+    /// <summary>
+    /// Class for album
+    /// </summary>
+    public class Album
+    {
+        /// <summary>
+        /// Songs of the album
+        /// </summary>
+        public Song[] Songs { get; set; }
+
+        /// <summary>
+        /// Album artist
+        /// </summary>
+        public Artist Artist { get; set; }
+        /// <summary>
+        /// Name of the album
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// The link of the album
+        /// </summary>
+        public String Link { get; set; }
+
+        /// <summary>
+        /// The engine the album is using
+        /// </summary>
+        public IPlayEngine Engine { get; set; }
     }
 
 	/// <summary>
@@ -46,11 +96,42 @@ namespace MediaChrome
         public string CoverArt { get; set; }
 		public string Title{get;set;}
 		public string ID {get;set;}
-		public string Artist{get;set;}
-        
+		public Artist[] Artists{get;set;}
+        public string Artist
+        {
+            get
+            {
+                if (Artists != null)
+                    return Artists[0].Name;
+                return "";
+            }
+            set
+            {
+                if (Artists == null)
+                    Artists = new Artist[1];
+                Artists[0] = new Artist();
+                Artists[0].Name = value;
+            }
+        }
         public string ArtistUrl { get; set; }
         public string AlbumUrl { get; set; }
-		public string Album {get;set;}
+		public Album Album {get;set;}
+        public string AlbumName
+        {
+            get
+            {
+                if (Album != null)
+                    return Album.Name;
+                return "";
+            }
+            set
+            {
+                if (Album == null)
+                    Album = new Album();
+                Album.Name = value;
+                
+            }
+        }
 		public string Path {get;set;}
 		public string Engine {get;set;}
 		public string Store {get;set;}
@@ -106,7 +187,39 @@ namespace MediaChrome
             get;
        
         }
+
+        /// <summary>
+        /// Get an artist by ID
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        Artist GetArtist(string ID);
+
+        /// <summary>
+        /// Find an artist
+        /// </summary>
+        /// <param name="Query"></param>
+        /// <returns></returns>
+        Artist[] FindArtist(string Query);
+
+        /// <summary>
+        /// Get an album
+        /// </summary>
+        /// <param name="album"></param>
+        /// <returns></returns>
+        Album GetAlbum(string album);
+
+        /// <summary>
+        /// Find an album
+        /// </summary>
+        /// <param name="album"></param>
+        /// <returns></returns>
+        Album[] FindAlbum(string album);
         event EventHandler PlaybackFinished;
+
+        /// <summary>
+        /// Gets whether the engine can handle playlists
+        /// </summary>
 		bool hasPlaylists {get;}
         /// <summary>
         /// The text status of the engine
@@ -137,13 +250,45 @@ namespace MediaChrome
 		int TotalFiles {get;set;}
 		List<Song> Find(String Query);
         void SongImport(Song[] songs);
+
+        /// <summary>
+        /// Starts playing the current song
+        /// </summary>
 		void Play();
+
+        /// <summary>
+        /// The position of the song
+        /// </summary>
         int Position { get; }
+
+        /// <summary>
+        /// Occurs when pausing
+        /// </summary>
 		void Pause();
+
+        /// <summary>
+        /// Occurs when stopping
+        /// </summary>
 		void Stop();
+
+        /// <summary>
+        /// Occurs when seeking
+        /// </summary>
+        /// <param name="pos"></param>
 		void Seek(double pos);
+
+        /// <summary>
+        /// Occurs when loading an song
+        /// </summary>
+        /// <param name="Content"></param>
 		void Load(String Content);
+        /// <summary>
+        /// Import music to the local database
+        /// </summary>
+        /// <param name="Conn"></param>
+        /// <param name="RootDir"></param>
 		void Import(SQLiteConnection Conn,string RootDir);
+
 		SpofityRuntime.Form1 Host{get;set;}
 		void Unload();
 		List<Song> Search();

@@ -123,6 +123,13 @@ namespace Board {
             }
         }
         
+        internal static System.Drawing.Bitmap sectionbar {
+            get {
+                object obj = ResourceManager.GetObject("sectionbar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap shadow {
             get {
                 object obj = ResourceManager.GetObject("shadow", resourceCulture);

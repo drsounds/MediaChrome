@@ -35,7 +35,7 @@ namespace SpofityRuntime
                 MediaChrome.Song LF = new MediaChrome.Song();
                 LF.Title = (String)DR["title"];
                 LF.Artist = (String)DR["artist"];
-                LF.Album = (String)DR["album"];
+                LF.AlbumName = (String)DR["album"];
                 LF.Path = (String)DR["path"];
                 try
                 {
@@ -73,7 +73,7 @@ namespace SpofityRuntime
               
                 LF.Title = GetData("name",DR);
                 LF.Artist = GetData("artist",DR);
-                LF.Album = GetData("album",DR);
+                LF.AlbumName = GetData("album",DR);
                 LF.Path = GetData("path",DR);
                     LF.CoverArt = GetData("cover_art",DR);
                
