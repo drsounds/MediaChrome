@@ -32,6 +32,86 @@
             Description of CListView.
             </summary>
         </member>
+        <member name="M:Board.Scrollbar.Draw(System.Drawing.Graphics)">
+            <summary>
+            Draws the current state of the scrollbar
+            </summary>
+            <param name="g">Graphics engine to draw on</param>
+        </member>
+        <member name="F:Board.Scrollbar.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Board.Scrollbar.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Board.Scrollbar.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Board.Scrollbar.Host">
+            <summary>
+            The drawboard the scrollbar belongs to
+            </summary>
+        </member>
+        <member name="E:Board.Scrollbar.Scrolling">
+            <summary>
+            Raises when moving the scrollbar
+            </summary>
+        </member>
+        <member name="P:Board.Scrollbar.FreeSpace">
+            <summary>
+            Gets the free space of the thumbs space
+            </summary>
+        </member>
+        <member name="P:Board.Scrollbar.ScrollSize">
+            <summary>
+            Gets scale of the scrollbar
+            </summary>
+        </member>
+        <member name="P:Board.Scrollbar.ThumbHeight">
+            <summary>
+            Gets or set the size of thumb - below 100
+            </summary>
+        </member>
+        <member name="P:Board.Scrollbar.SpaceHeight">
+            <summary>
+            Gets the height of the space
+            </summary>
+        </member>
+        <member name="P:Board.Scrollbar.Position">
+            <summary>
+            Gets or sets the position of the scrollbar
+            </summary>
+        </member>
+        <member name="P:Board.Scrollbar.ThumbPosition">
+            <summary>
+            Gets the Y-positiono of the thumb
+            </summary>
+        </member>
+        <member name="T:Board.Scrollbar.ScrollEventArgs">
+            <summary>
+            Class for scrolling event args
+            </summary>
+        </member>
+        <member name="P:Board.Scrollbar.ScrollEventArgs.Position">
+            <summary>
+            The position of the scroll
+            </summary>
+        </member>
+        <member name="T:Board.Scrollbar.ScrollEventHandler">
+            <summary>
+            Delagate for handling scrolling events
+            </summary>
+            <param name="Sender">the object which raised the delegate's event</param>
+            <param name="e">Arguments provided with the event</param>
+        </member>
         <member name="F:Board.MakoParser.components">
             <summary>
             Required designer variable.
@@ -1500,86 +1580,6 @@
               Overrides the current thread's CurrentUICulture property for all
               resource lookups using this strongly typed resource class.
             </summary>
-        </member>
-        <member name="M:Board.Scrollbar.Draw(System.Drawing.Graphics)">
-            <summary>
-            Draws the current state of the scrollbar
-            </summary>
-            <param name="g">Graphics engine to draw on</param>
-        </member>
-        <member name="F:Board.Scrollbar.components">
-            <summary> 
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:Board.Scrollbar.Dispose(System.Boolean)">
-            <summary> 
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:Board.Scrollbar.InitializeComponent">
-            <summary> 
-            Required method for Designer support - do not modify 
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="P:Board.Scrollbar.Host">
-            <summary>
-            The drawboard the scrollbar belongs to
-            </summary>
-        </member>
-        <member name="E:Board.Scrollbar.Scrolling">
-            <summary>
-            Raises when moving the scrollbar
-            </summary>
-        </member>
-        <member name="P:Board.Scrollbar.FreeSpace">
-            <summary>
-            Gets the free space of the thumbs space
-            </summary>
-        </member>
-        <member name="P:Board.Scrollbar.ScrollSize">
-            <summary>
-            Gets scale of the scrollbar
-            </summary>
-        </member>
-        <member name="P:Board.Scrollbar.ThumbHeight">
-            <summary>
-            Gets or set the size of thumb - below 100
-            </summary>
-        </member>
-        <member name="P:Board.Scrollbar.SpaceHeight">
-            <summary>
-            Gets the height of the space
-            </summary>
-        </member>
-        <member name="P:Board.Scrollbar.Position">
-            <summary>
-            Gets or sets the position of the scrollbar
-            </summary>
-        </member>
-        <member name="P:Board.Scrollbar.ThumbPosition">
-            <summary>
-            Gets the Y-positiono of the thumb
-            </summary>
-        </member>
-        <member name="T:Board.Scrollbar.ScrollEventArgs">
-            <summary>
-            Class for scrolling event args
-            </summary>
-        </member>
-        <member name="P:Board.Scrollbar.ScrollEventArgs.Position">
-            <summary>
-            The position of the scroll
-            </summary>
-        </member>
-        <member name="T:Board.Scrollbar.ScrollEventHandler">
-            <summary>
-            Delagate for handling scrolling events
-            </summary>
-            <param name="Sender">the object which raised the delegate's event</param>
-            <param name="e">Arguments provided with the event</param>
         </member>
     </members>
 </doc>

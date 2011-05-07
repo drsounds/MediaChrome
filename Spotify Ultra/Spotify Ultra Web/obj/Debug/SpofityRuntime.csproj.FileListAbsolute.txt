@@ -96,3 +96,6 @@ L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\J
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\JsonFx.xml
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\Board.exe
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.Engines.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\MediaChrome.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\bin\debug\MediaChrome.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Spotify Ultra Web\obj\Debug\SpofityRuntime.ServicesSelector.ServiceEntry.resources

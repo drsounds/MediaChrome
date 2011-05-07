@@ -221,6 +221,20 @@ namespace SpofityRuntime.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap header {
+            get {
+                object obj = ResourceManager.GetObject("header", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap header1 {
+            get {
+                object obj = ResourceManager.GetObject("header1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap icon {
             get {
                 object obj = ResourceManager.GetObject("icon", resourceCulture);
@@ -455,6 +469,13 @@ namespace SpofityRuntime.Properties {
         internal static System.Drawing.Bitmap update {
             get {
                 object obj = ResourceManager.GetObject("update", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap YouTube_logo {
+            get {
+                object obj = ResourceManager.GetObject("YouTube_logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

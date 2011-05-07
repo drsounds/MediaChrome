@@ -38,6 +38,23 @@ namespace SpofityRuntime
                 currentPlayer = value;
                 if (currentPlayer.Image != null)
                     this.pictureBox1.BackgroundImage = currentPlayer.Icon;
+                
+                // Get current section
+                Board.Section section = this.playlistView.CurrentView.Content.View.Sections[0];
+                section.Elements.Clear();
+
+                // Append playlists to the section view
+                foreach (MediaChrome.Views.Playlist d in currentPlayer.Playlists)
+                {
+                    Board.Element elm = new Board.Element(section, playlistView);
+                    elm.SetAttribute("type", "entry");
+                    elm.Height = 32;
+                    elm.SetAttribute("title", d.Title);
+                    elm.SetAttribute("href", d.ID);
+                    section.AddElement(elm, section.Parent);
+                }
+
+
             }
         }
         public class View
@@ -248,6 +265,7 @@ namespace SpofityRuntime
         /// Will split the window when mouse move if true
         /// </summary>
         bool splitting1 = false;
+        public Board.DrawBoard playlistView;
         private void Form1_Load(object sender, EventArgs e)
         {
             
@@ -270,6 +288,12 @@ namespace SpofityRuntime
             this.panel3.Controls.Add(board);
             scrollBar2.Host = board;
             this.board.ScrollBarY = scrollBar2;
+            playlistView = new Board.DrawBoard();
+            playlistView.Dock = DockStyle.Right;
+            this.panel3.Controls.Add(playlistView);
+            playlistView.Width = 500;
+            playlistView.Navigate("mediachrome:playlists:d", "mediachrome", "views");
+
             
          board.Click += new EventHandler(board_Click);
             board.LinkClick += new Board.DrawBoard.LinkClicked(board_LinkClick);
@@ -378,13 +402,14 @@ namespace SpofityRuntime
         /// <param name="uri"></param>
         public void Browse(string uri)
         {
+            String Engine = uri.Split(':')[0];
             /**
              * Find an media engine matching the parameter
              * */
             bool foundEngine = false;
             foreach (MediaChrome.IPlayEngine engine in Program.MediaEngines.Values)
             {
-                if (uri == engine.Namespace)
+                if (Engine == engine.Namespace)
                 {
                     foundEngine = true;
                     break;
@@ -396,15 +421,15 @@ namespace SpofityRuntime
              * */
             if (!foundEngine)
             {
-                if (this.currentPlayer != null)
+                if (this.CurrentPlayer != null)
                 {
-                    this.board.Navigate(this.currentPlayer.Namespace + ":search:" + uri, this.currentPlayer.Namespace, "views");
+                    this.board.Navigate(this.currentPlayer.Namespace + ":search:" + uri, this.CurrentPlayer.Namespace, "views");
                 }
                 return;
             }
 
             // Otherwise do an special query
-            String Engine = uri.Split(':')[0];
+          
             
             // If engine is http browse a webpage
             if (Engine == "http")
@@ -613,12 +638,24 @@ namespace SpofityRuntime
             // Create new list for all songs
             List<MediaChrome.Song> searchResult = new List<MediaChrome.Song>();
 
-            // iterate through all sources
-            foreach (MediaChrome.IPlayEngine Engine in Program.MediaEngines.Values)
+            /**
+             * If the current player has not been set, search on all service
+             * */
+            if (CurrentPlayer == null)
             {
-                List<MediaChrome.Song> songs = Engine.Find(query);
-                searchResult.AddRange(songs);
+                // iterate through all sources
+                foreach (MediaChrome.IPlayEngine Engine in Program.MediaEngines.Values)
+                {
+                    List<MediaChrome.Song> songs = Engine.Find(query);
+                    searchResult.AddRange(songs);
 
+                }
+            }
+            else
+            {
+                
+                 List<MediaChrome.Song> songs = CurrentPlayer.Find(query);
+                    searchResult.AddRange(songs);
             }
             return searchResult;
         }
@@ -2034,6 +2071,7 @@ namespace SpofityRuntime
 
         private void timer2_Tick(object sender, EventArgs e)
         {
+#if(nobug)
             try
             {
                 // Get if the spotify playlists are loaded
@@ -2074,6 +2112,7 @@ namespace SpofityRuntime
                
             }
             catch { }
+#endif
 
         }
 
@@ -2104,7 +2143,7 @@ namespace SpofityRuntime
             
             D.Show();
             D.Left = this.ClientRectangle.Left + this.Left;
-            D.Top = this.Top + this.ClientRectangle.Top + this.panel2.Height;
+            D.Top = this.PointToScreen(new Point(0,this.panel2.Top+this.panel2.Height)).Y;
 
         }
     }

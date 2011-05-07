@@ -1,0 +1,9 @@
+<?
+
+?>
+<view>
+	<section name="Overview">
+		<label size="12" top="@TOP" height="25" width="500">Live song search</label>
+		<label size="8" top="@TOP" height="12" width="500">Here is all live recordings with the your query '<a href="spotify:gigs:@{parameter}">@{parameter}</a>' Listen and enjoy	</label>
+	</section>
+</view>

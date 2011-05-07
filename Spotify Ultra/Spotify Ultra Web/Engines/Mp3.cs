@@ -59,7 +59,7 @@ namespace MediaChrome
         }
         public bool PlaylistsLoaded { get; set; }
         public event EventHandler PlaybackFinished;
-        public SpofityRuntime.Form1 Host { get; set; }
+        public Form Host { get; set; }
         Timer _Timer;
         private int position;
         public int Position 
@@ -466,7 +466,7 @@ namespace MediaChrome
             }
         }
 		
-		public void MoveSongPlaylist(string playlistID, int startLoc, int endLoc)
+		public void MoveSongPlaylist(string playlistID,Song _Song, int startLoc, int endLoc)
 		{
             try
             {
@@ -516,25 +516,33 @@ namespace MediaChrome
 		
 		public List<MediaChrome.Views.Playlist> Playlists 
         {
-			get 
-			{
-				
-				List<Views.Playlist> Playlists = new List<MediaChrome.Views.Playlist>();
-                DirectoryInfo D = new DirectoryInfo(SpofityRuntime.MainForm.DownloadDir);
-				FileInfo[] playlists = D.GetFiles("*.pls");
-				foreach(FileInfo __Playlist in playlists)
-				{
-                    try
+			get
+            {
+                List<Views.Playlist> Playlists = new List<MediaChrome.Views.Playlist>();
+                    
+                try
+                {
+
+                   DirectoryInfo D = new DirectoryInfo(SpofityRuntime.MainForm.DownloadDir);
+                    FileInfo[] playlists = D.GetFiles("*.pls");
+                    foreach (FileInfo __Playlist in playlists)
                     {
-                        Views.Playlist _Playlist = this.CreatePlaylist(__Playlist.Name.Replace(".pls",""));
-                        _Playlist.Engine = this;
-                        Playlists.Add(_Playlist);
+                        try
+                        {
+                            Views.Playlist _Playlist = this.CreatePlaylist(__Playlist.Name.Replace(".pls", ""));
+                            _Playlist.Engine = this;
+                            Playlists.Add(_Playlist);
+                        }
+                        catch
+                        {
+                        }
                     }
-                    catch
-                    {
-                    }
-				}
+                }
+                catch
+                {
+                }
 				return Playlists;
+            
 			}
 			
 		}

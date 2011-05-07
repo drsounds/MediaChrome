@@ -147,10 +147,10 @@
     <Compile Include="cBtn.Designer.cs">
       <DependentUpon>cBtn.cs</DependentUpon>
     </Compile>
-    <Compile Include="Engines.cs">
+    <Compile Include="ServicesSelector\Engines.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Engines.Designer.cs">
+    <Compile Include="ServicesSelector\Engines.designer.cs">
       <DependentUpon>Engines.cs</DependentUpon>
     </Compile>
     <Compile Include="Engines\Spotify\AudioData.cs" />
@@ -187,7 +187,6 @@
     <Compile Include="ImportLibrary.designer.cs">
       <DependentUpon>ImportLibrary.cs</DependentUpon>
     </Compile>
-    <Compile Include="IPlayEngine.cs" />
     <Compile Include="ListP.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -206,7 +205,6 @@
     <Compile Include="NewPlaylist.Designer.cs">
       <DependentUpon>NewPlaylist.cs</DependentUpon>
     </Compile>
-    <Compile Include="Playlist.cs" />
     <Compile Include="Program.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -214,6 +212,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ServicesSelector\ServiceEntry.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ServicesSelector\ServiceEntry.Designer.cs">
+      <DependentUpon>ServiceEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="Settings.Designer.cs">
@@ -252,7 +256,7 @@
     <EmbeddedResource Include="cBtn.resx">
       <DependentUpon>cBtn.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Engines.resx">
+    <EmbeddedResource Include="ServicesSelector\Engines.resx">
       <DependentUpon>Engines.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Engines\Spotify\Login.resx">
@@ -274,6 +278,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ServicesSelector\ServiceEntry.resx">
+      <DependentUpon>ServiceEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ucBar.resx">
       <DependentUpon>ucBar.cs</DependentUpon>
@@ -325,6 +332,10 @@
       <Project>{6471D06B-3647-4FDF-B980-7A59F9BDB790}</Project>
       <Name>Board</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MediaChrome\MediaChrome.csproj">
+      <Project>{1D280F8A-C27B-40A2-AA08-71DB6E82E530}</Project>
+      <Name>MediaChrome</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SacredRealm\Spocky\Spocky.csproj">
       <Project>{124CAA53-A566-45DC-AC7A-E24752AB2E58}</Project>
       <Name>Spocky</Name>
@@ -360,6 +371,8 @@
     <None Include="Resources\top_toolbar.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\YouTube_logo.png" />
+    <None Include="Resources\header.png" />
     <None Include="Resources\icon.png" />
     <None Include="Resources\toolbar.png" />
     <None Include="Properties\rbottom.png" />

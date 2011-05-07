@@ -42,7 +42,13 @@ namespace MediaChrome
         public bool Streaming { get; set; }
         public string Link;
         #endregion
-        public System.Drawing.Image Icon { get; set; }
+        public System.Drawing.Image Icon
+        {
+            get
+            {
+                return SpofityRuntime.Properties.Resources.YouTube_logo;
+            }
+        }
         public MediaChrome.Artist[] FindArtist(string ID)
         {
             throw new NotImplementedException();
@@ -61,7 +67,7 @@ namespace MediaChrome
         }
         public bool PlaylistsLoaded { get; set; }
         public event EventHandler PlaybackFinished;
-        public SpofityRuntime.Form1 Host { get; set; }
+        public Form Host { get; set; }
         private int position;
         public int Position
         {
@@ -327,7 +333,7 @@ namespace MediaChrome
 		
 		}
 		
-		public void MoveSongPlaylist(string playlistID, int startLoc, int endLoc)
+		public void MoveSongPlaylist(string playlistID,Song _Song, int startLoc, int endLoc)
 		{
 			
 		}

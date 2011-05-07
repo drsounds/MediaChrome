@@ -308,7 +308,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panel2.BackgroundImage = global::SpofityRuntime.Properties.Resources.toolbar;
+            this.panel2.BackgroundImage = global::SpofityRuntime.Properties.Resources.header1;
             this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.button1);
@@ -597,13 +597,13 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private System.Windows.Forms.Panel panel3;
         private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
-        private XListView listViewX1;
         private cBtn cBtn2;
         private cBtn cBtn1;
         private System.Windows.Forms.Label label3;
         private webclassprototype.ucPosBar ucPosBar1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private XListView listViewX1;
 
     }
 }

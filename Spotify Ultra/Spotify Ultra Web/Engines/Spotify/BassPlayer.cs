@@ -160,7 +160,7 @@ namespace SpofityRuntime
         }
         public bool PlaylistsLoaded { get; set; }
         public event EventHandler PlaybackFinished;
-        public SpofityRuntime.Form1 Host { get; set; }
+        public Form Host { get; set; }
         private double duration;
         public double Duration
         {
@@ -354,7 +354,24 @@ namespace SpofityRuntime
 			view = new MediaChrome.Spotify.SpotifyView();
         	  Spocky.MyClass D = new Spocky.MyClass();
              SpotifySession = Spotify.Session.CreateInstance(D.AppKey(), "SpofityCaches", "SpofityCaches", "LinSpot");
-        	
+             SpofityRuntime.Login sD = new SpofityRuntime.Login(this);
+             if (sD.ShowDialog() == DialogResult.OK)
+             {
+                 SpotifySession.LogInSync(sD.User, sD.Pass, new TimeSpan(4000));
+             }
+             SpotifySession.OnConnectionError += new SessionEventHandler(SpotifySession_OnConnectionError);
+             SpotifySession.OnMusicDelivery += new MusicDeliveryEventHandler(SpotifySession_OnMusicDelivery);
+
+             SpotifySession.OnEndOfTrack += new SessionEventHandler(SpotifySession_OnEndOfTrack);
+             SpotifySession.OnPlaylistContainerLoaded += new SessionEventHandler(SpotifySession_OnPlaylistContainerLoaded);
+             SpotifySession.OnAlbumBrowseComplete += new AlbumBrowseEventHandler(SpotifySession_OnAlbumBrowseComplete);
+             SpotifySession.OnImageLoaded += new ImageEventHandler(SpotifySession_OnImageLoaded);
+             SpotifySession.PlaylistContainer.OnContainerLoaded += new PlaylistContainerEventHandler(PlaylistContainer_OnContainerLoaded);
+             while (!playlistLoaded)
+             {
+                 Thread.Sleep(100);
+             }
+             LoggedIn = true;
        
         }
 
@@ -625,7 +642,7 @@ namespace SpofityRuntime
 			}
 		}
 		
-		public void MoveSongPlaylist(string playlistID, int startLoc, int endLoc)
+		public void MoveSongPlaylist(string playlistID,MediaChrome.Song _Song, int startLoc, int endLoc)
 		{
 			Spotify.Playlist List = Spotify.Playlist.Create(SpotifySession,Link.Create(playlistID));
 			if(List.Owner == SpotifySession.User)
@@ -637,8 +654,10 @@ namespace SpofityRuntime
 		public List<MediaChrome.Views.Playlist> Playlists {
 			get 
 			{
-				
+                if (playlists == null)
+                    return new List<MediaChrome.Views.Playlist>();
 				return playlists;
+              
 
 			}
 			

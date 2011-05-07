@@ -2,18 +2,7 @@
 /*****
  * Home view for Segurify
  */
- var search = (synchronize_data("http://ws.spotify.com/search/1/track?q="+parameter));
- 
- /**
- JSON didn't work properly so we use traditional XML 
- ***/
- 
- var count_tracks = search.GetElementsByTagName("track").Count;
- var tracks = search.GetElementsByTagName("track");
- 
- function GetValue(elm,name,defValue){
-	var contents = elm.GetElementsByTagName(name).Item(0).InnerText.replace("\"","'").replace("'","").replace(";","");
-	return contents; 
+ var result = findMusic(parameter);
 }
  
  /*  */
@@ -36,20 +25,11 @@ for(var i=0; i < local_content.Count; i++){ var local_song=local_content[i];
 <?
 }
 
-for(var i=0; i < count_tracks; i++){
-	/** Get artist names */
-	var title = GetValue(tracks.Item(i),"name","").replace("\"","'").replace("'","").replace(";","");
-/*	var artist = GetValue(tracks.Item(i).GetElementsByTagName("artist").Item(0),"name","Unknown");
-	var album = GetValue(tracks.Item(i).GetElementsByTagName("album").Item(0),"name","Unknown");*/
-	var uri = tracks.Item(i).GetAttribute("href");
-	var artist = tracks.Item(i).GetElementsByTagName("artist").Item(0).GetElementsByTagName("name").Item(0).InnerText;
-	var artist_uri = tracks.Item(i).GetElementsByTagName("artist").Item(0).GetAttribute("href");
+for(var i=0; i < result.Length; i++){
+var title = result[i].Name;
+var Artist = result[i].Artist;
+var Album = result[i].AlbumName;
 	
-	var album = tracks.Item(i).GetElementsByTagName("album").Item(0).GetElementsByTagName("name").Item(0).InnerText;
-	var album_uri = tracks.Item(i).GetElementsByTagName("album").Item(0).GetAttribute("href");
-	artist = artist.replace("&","nd").replace("\"","'").replace("'","").replace(";","");
-	title = title.replace("&","and").replace("\"","'").replace("'","").replace(";","");
-	album = album.replace("&","and").replace("\"","'").replace("'","").replace(";","");
 ?>
 
 		<entry dragUri="@{uri}" left="0" width="-1" top="@TOP" height="18"  href_artist="@{artist_uri}" href_album="@{album_uri}" uri="@{uri}">
@@ -58,31 +38,5 @@ for(var i=0; i < count_tracks; i++){
 			<album noelm="true"><![CDATA[@{album}]]></album>
 		</entry>
 <? } ?>
-	</section><? if(false){?>
-	<section name="Playlists">
-		<label size="20" left="310" top="@TOP" width="500" height="100">Playlists</label>
-		<label size="20" color="#888888" left="310" top="@TOP" width="500" height="100">List is coming from totalspotify.com</label>
-			<?
-			/**
-			Get data from totalspotify
-			*/
-			var feed = synchronize_data("http://www.totalspotify.com/rsssearch.php?search="+parameter);
-			var elements = feed.GetElementsByTagName("item");
-			for(var i=0; i < elements.Length ; i++){
-			
-			var name = GetValue(elements.Item(i),"title").replace("\"","'").replace("'","").replace(";","");;
-			var author = GetValue(elements.Item(i),"author").replace("\"","'").replace("'","").replace(";","");;
-			var link = eGetValue(elements.Item(i),"link").replace("\"","'").replace("'","").replace(";","");;
-			var description = eGetValue(elements.Item(i),"description").replace("\"","'").replace("'","").replace(";","");;
-			
-			
-			?>
-			<label size="10" height="30" width="500" top="@TOP">@{name}</label>
-			<label size="10" height="50" width="300" top="@TOP" color="#AAAAAA">@{description}</label>
-			<space height="50"/>
-			<?
-			}
-			?>
 	</section>
-	<? } ?>
 </view>
