@@ -23,11 +23,23 @@ namespace SpofityRuntime
      
     public partial class Form1 : GlassForms.GlassForm
     {
-
+        private MediaChrome.IPlayEngine currentPlayer;
         /// <summary>
         /// The current engine which plays an song.
         /// </summary>
-        public MediaChrome.IPlayEngine CurrentPlayer { get; set; }
+        public MediaChrome.IPlayEngine CurrentPlayer
+        {
+            get
+            {
+                return currentPlayer;
+            }
+            set
+            {
+                currentPlayer = value;
+                if (currentPlayer.Image != null)
+                    this.pictureBox1.BackgroundImage = currentPlayer.Icon;
+            }
+        }
         public class View
         {
             public View(String uri, string adress)
@@ -238,15 +250,27 @@ namespace SpofityRuntime
         bool splitting1 = false;
         private void Form1_Load(object sender, EventArgs e)
         {
+            
 
-         
+            // Initalize scrollbars
+            Board.Scrollbar scrollBar1 = new Board.Scrollbar();
+            Board.Scrollbar scrollBar2 = new Board.Scrollbar();
+           
+            scrollBar2.Dock = DockStyle.Right;
+            scrollBar1.Dock = DockStyle.Left;
             splitter1 = new Panel();
             // Width of sidebar
             int treeViewWidth = 220;
             // Create treeview
             treeview =  new Board.DrawBoard();
             board = new Board.DrawBoard();
-            this.Controls.Add(board);
+
+            // add right scrollbar
+            this.panel3.Controls.Add(scrollBar2);
+            this.panel3.Controls.Add(board);
+            scrollBar2.Host = board;
+            this.board.ScrollBarY = scrollBar2;
+            
          board.Click += new EventHandler(board_Click);
             board.LinkClick += new Board.DrawBoard.LinkClicked(board_LinkClick);
             board.BeginNavigating += new Board.DrawBoard.NavigateEventHandler(board_BeforeNavigating);
@@ -267,9 +291,12 @@ namespace SpofityRuntime
 
             this.panel3.Controls.Add(board);
             this.panel3.Controls.Add(splitter1);
-            
-            
+
+            this.panel3.Controls.Add(scrollBar1);
+            scrollBar1.Host = treeview;
+            treeview.ScrollBarY = scrollBar1;
             this.panel3.Controls.Add(treeview);
+            
             this.treeview.Columns.Clear();
             // Add treview columns
             this.treeview.Columns.Add("Icon",10);
@@ -351,7 +378,40 @@ namespace SpofityRuntime
         /// <param name="uri"></param>
         public void Browse(string uri)
         {
+            /**
+             * Find an media engine matching the parameter
+             * */
+            bool foundEngine = false;
+            foreach (MediaChrome.IPlayEngine engine in Program.MediaEngines.Values)
+            {
+                if (uri == engine.Namespace)
+                {
+                    foundEngine = true;
+                    break;
+                }
+            }
+            /**
+             * If no matching engine was found,
+             * start an search on the active engine
+             * */
+            if (!foundEngine)
+            {
+                if (this.currentPlayer != null)
+                {
+                    this.board.Navigate(this.currentPlayer.Namespace + ":search:" + uri, this.currentPlayer.Namespace, "views");
+                }
+                return;
+            }
+
+            // Otherwise do an special query
             String Engine = uri.Split(':')[0];
+            
+            // If engine is http browse a webpage
+            if (Engine == "http")
+            {
+                Process.Start(uri);
+                return;
+            }
             this.CurrentNamespace=Engine;
             this.board.Navigate(uri, Engine, "views");
         }
@@ -727,10 +787,9 @@ namespace SpofityRuntime
 
         void board_LinkClick(object sender, string hRef)
         {
-            if (hRef.StartsWith("spotify:"))
-            {
-                board.Navigate(hRef, "spotify", "views");
-            }
+            Browse(hRef);
+              
+            
         }
 
         void board_Click(object sender, EventArgs e)
@@ -1175,7 +1234,7 @@ namespace SpofityRuntime
          
         private void textBox1_SearchClicked(object sender, EventArgs e)
         {
-            board.Navigate(textBox1.Text, "spotify", "views"); 
+            Browse(textBox1.Text); 
 
         }
         private ListViewItem AddListEntry(string ListData)
@@ -2030,6 +2089,22 @@ namespace SpofityRuntime
 
         private void panel3_Paint_1(object sender, PaintEventArgs e)
         {
+
+        }
+
+        private void button1_Click_3(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            Engines D = new Engines();
+            D.Host = this;
+            
+            D.Show();
+            D.Left = this.ClientRectangle.Left + this.Left;
+            D.Top = this.Top + this.ClientRectangle.Top + this.panel2.Height;
 
         }
     }

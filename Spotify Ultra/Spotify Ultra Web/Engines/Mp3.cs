@@ -23,7 +23,24 @@ namespace MediaChrome
 	/// Description of Mp3.
 	/// </summary>
 	public class MP3Player : IPlayEngine
-	{
+    {
+        #region DefaultValues
+        public String Address { get; set; }
+        public String Company { get; set; }
+        public String Copyright { get; set; }
+        public bool LoggedIn { get; set; }
+        public void Login() { }
+        public void Logout() { }
+        public bool Purchase(Song song) { return false; }
+        public Uri ServiceUri { get; set; }
+        public void ShowOptions()      {      }
+        public bool DownloadStore { get; set; }
+        public Uri CompanyWebSite { get; set; }
+        public List<Song> Purchases { get; set; }
+        public bool Streaming { get; set; }
+        public string Link;
+        #endregion
+        public System.Drawing.Image Icon { get; set; }
         public MediaChrome.Artist[] FindArtist(string ID)
         {
             throw new NotImplementedException();
@@ -158,7 +175,7 @@ namespace MediaChrome
 				D.AlbumName = DR.GetString(2);
 				D.Path=DR.GetString(3);
 				D.Store=DR.GetString(4);
-				D.Engine=DR.GetString(5);
+				D.Engine=this;
 				}catch{}
 				Songs.Add(D);
 			}

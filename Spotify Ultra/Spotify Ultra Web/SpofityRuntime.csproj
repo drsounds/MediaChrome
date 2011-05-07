@@ -147,6 +147,12 @@
     <Compile Include="cBtn.Designer.cs">
       <DependentUpon>cBtn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Engines.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Engines.Designer.cs">
+      <DependentUpon>Engines.cs</DependentUpon>
+    </Compile>
     <Compile Include="Engines\Spotify\AudioData.cs" />
     <Compile Include="Engines\Spotify\BassPlayer.cs" />
     <Compile Include="Engines\Spotify\Login.cs">
@@ -245,6 +251,9 @@
     </Compile>
     <EmbeddedResource Include="cBtn.resx">
       <DependentUpon>cBtn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Engines.resx">
+      <DependentUpon>Engines.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Engines\Spotify\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -351,6 +360,8 @@
     <None Include="Resources\top_toolbar.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\icon.png" />
+    <None Include="Resources\toolbar.png" />
     <None Include="Properties\rbottom.png" />
     <None Include="Resources\top_wall1.png" />
     <None Include="Resources\section.png" />

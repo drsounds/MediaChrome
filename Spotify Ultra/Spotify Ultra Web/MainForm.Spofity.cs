@@ -100,7 +100,7 @@ namespace SpofityRuntime
             String Version = MainForm.findVersion(_Song.Title);
             String Commit = MainForm.findCommit(_Song.Title);
 
-            String Path = "music://t/" + _Song.Artist + "/" + _Song.Title.Replace("(" + Version + ")", "").Replace("[" + Commit + "]", "") + "/" + _Song.Album + (Version != "" ? "/" + Version : " ") + (Commit != "" ? "/" + Commit : "") + "?a=b" + (_Song.Engine != null || _Song.Engine != "" ? "&service=" + _Song.Engine : "") + (_Song.ID != null ? "&id=" + _Song.ID : "");
+            String Path = "music://t/" + _Song.Artist + "/" + _Song.Title.Replace("(" + Version + ")", "").Replace("[" + Commit + "]", "") + "/" + _Song.Album + (Version != "" ? "/" + Version : " ") + (Commit != "" ? "/" + Commit : "") + "?a=b" + (_Song.Engine != null || _Song.Engine != null ? "&service=" + _Song.Engine : "") + (_Song.ID != null ? "&id=" + _Song.ID : "");
             Path = Path.Replace("'", "").Replace("[", "").Replace("]", "").Replace("(", "").Replace(")", "");
             return Path;
         }

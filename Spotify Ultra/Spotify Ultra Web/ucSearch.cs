@@ -18,6 +18,7 @@ namespace SpofityRuntime
             this.textBox1.KeyUp += new KeyEventHandler(textBox1_KeyUp);
         }
 
+        
         void textBox1_KeyUp(object sender, KeyEventArgs e)
         {
             if(this.KeyUp!=null)
@@ -52,5 +53,24 @@ namespace SpofityRuntime
         {
             this.panel1.Visible = textBox1.Text != "";
         }
+
+        private void textBox1_EnterKeyPressed(object sender, EventArgs e)
+        {
+            SearchClicked(this, new EventArgs());
+        }
+    }
+    public class MyTextBox : TextBox
+    {
+        public event EventHandler EnterKeyPressed;
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == 0x100 && (int)m.WParam == 13)
+                if (EnterKeyPressed != null)
+                    EnterKeyPressed(this, new EventArgs());
+
+
+            base.WndProc(ref m);
+        }
+
     }
 }

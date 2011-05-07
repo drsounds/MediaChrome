@@ -26,6 +26,23 @@ namespace MediaChrome
 	/// </summary>
 	public class Youtube : MediaChrome.IPlayEngine
     {
+        #region DefaultValues
+        public String Address { get; set; }
+        public String Company { get; set; }
+        public String Copyright { get; set; }
+        public bool LoggedIn { get; set; }
+        public void Login() { }
+        public void Logout() { }
+        public bool Purchase(Song song) { return false; }
+        public Uri ServiceUri { get; set; }
+        public void ShowOptions() { }
+        public bool DownloadStore { get; set; }
+        public Uri CompanyWebSite { get; set; }
+        public List<Song> Purchases { get; set; }
+        public bool Streaming { get; set; }
+        public string Link;
+        #endregion
+        public System.Drawing.Image Icon { get; set; }
         public MediaChrome.Artist[] FindArtist(string ID)
         {
             throw new NotImplementedException();
@@ -202,7 +219,7 @@ namespace MediaChrome
 				try{
                 _Song.Path="youtube:"+((XmlElement)Item.GetElementsByTagName("link")[3]).GetAttribute("href").Replace("http://gdata.youtube.com/feeds/api/videos/","").Replace("?v=1","");
                 //_Song.Path = "youtube:" + ((XmlElement)Item.GetElementsByTagName("link")[0]).GetAttribute("href");
-                _Song.Engine = "youtube";
+                _Song.Engine = this;
 				_Song.Store="Youtube";
 				songs.Add(_Song);
 				}

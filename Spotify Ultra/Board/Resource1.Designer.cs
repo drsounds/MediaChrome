@@ -88,13 +88,6 @@ namespace Board {
             }
         }
         
-        internal static System.Drawing.Bitmap scrollbar {
-            get {
-                object obj = ResourceManager.GetObject("scrollbar", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap scrollbar_down {
             get {
                 object obj = ResourceManager.GetObject("scrollbar_down", resourceCulture);
@@ -112,6 +105,13 @@ namespace Board {
         internal static System.Drawing.Bitmap scrollbar_thumb {
             get {
                 object obj = ResourceManager.GetObject("scrollbar_thumb", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap scrollbar_thumb2 {
+            get {
+                object obj = ResourceManager.GetObject("scrollbar_thumb2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

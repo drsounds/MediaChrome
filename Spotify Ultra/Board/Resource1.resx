@@ -124,14 +124,8 @@
   <data name="scrollbar_space" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>scrollbar_space.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="scrollbar_down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>scrollbar_down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="tab" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>tab.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="scrollbar_up" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>scrollbar_up.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="scrollbar_thumb" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>scrollbar_thumb.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -141,9 +135,6 @@
   </data>
   <data name="speaker_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>speaker_selected.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="scrollbar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>scrollbar.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ajax-loader" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\ajax-loader.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -160,13 +151,22 @@
   <data name="inactive" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\inactive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="release" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\release.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="tab_separator" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\tab_separator.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="toolbar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\toolbar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="release" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\release.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="scrollbar_down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\scrollbar_down.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="scrollbar_thumb2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\scrollbar_thumb2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="scrollbar_up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\scrollbar_up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

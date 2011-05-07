@@ -19,7 +19,7 @@
 		
 
 	
-		<label height="50" color="#eeeeee" left="10" top="@TOP" width="500">Welcome to Spotify Ultra, the open source Spotify client</label>
+		<label height="50" color="#eeeeee" left="10" top="@TOP" width="500">Welcome to Spotify Ultra, the <a color="#FFFFFF" href="http://en.wikipedia.org/wiki/Open_Source">open source</a> Spotify client <br/>bc<br/>bc<br/>bc<br/>bc<br/>bc<br/>bc<br/>bc<br/>bc<br/>bc<br/>bc<br/>bc</label>
 		<?
 	
 			var advertisement = ads[0];
@@ -28,7 +28,6 @@
 		var left = 10;
 		?>
 		
-		<img width="340" height="120" left="@{left}" top="@TOP" draguri="spotify:track:5gaH9LcQN4hAEyXorAQ0rW" persistent="true" href="@{ad[1]}" src="@{ad[0]}"/>
 		<?
 		
 		?>
@@ -57,7 +56,7 @@
 			var top = row*(120+10)+10;
 			
 		?>
-		<img src="@{cover}" href="@{cover}" width="120" height="120" left="@{left}" top="@{top}"/>
+		
 		<?
 			
 				

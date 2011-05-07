@@ -14,12 +14,65 @@ using MediaChrome;
 using SpofityRuntime;
 using Spotify;
 using Un4seen.Bass;
-using Un4seen.Bass;
+
 
 namespace SpofityRuntime
 {
 	public class SpotifyPlayer : MediaChrome.IPlayEngine
     {
+        #region DefaultValues
+        public String Address { get; set; }
+        public String Company { get; set; }
+        public String Copyright { get; set; }
+        public bool LoggedIn { get; set; }
+        public void Login() {
+           
+
+            SpofityRuntime.Login sD = new SpofityRuntime.Login(this);
+            if (sD.ShowDialog() == DialogResult.OK)
+            {
+                SpotifySession.LogInSync(sD.User, sD.Pass, new TimeSpan(4000));
+            }
+            SpotifySession.OnConnectionError += new SessionEventHandler(SpotifySession_OnConnectionError);
+            SpotifySession.OnMusicDelivery += new MusicDeliveryEventHandler(SpotifySession_OnMusicDelivery);
+
+            SpotifySession.OnEndOfTrack += new SessionEventHandler(SpotifySession_OnEndOfTrack);
+            SpotifySession.OnPlaylistContainerLoaded += new SessionEventHandler(SpotifySession_OnPlaylistContainerLoaded);
+            SpotifySession.OnAlbumBrowseComplete += new AlbumBrowseEventHandler(SpotifySession_OnAlbumBrowseComplete);
+            SpotifySession.OnImageLoaded += new ImageEventHandler(SpotifySession_OnImageLoaded);
+            SpotifySession.PlaylistContainer.OnContainerLoaded += new PlaylistContainerEventHandler(PlaylistContainer_OnContainerLoaded);
+            while (!playlistLoaded)
+            {
+                Thread.Sleep(100);
+            }
+            LoggedIn = true;
+        }
+        public void Logout() {
+
+            SpotifySession.LogOut();
+        }
+        public bool Purchase(Song song) { return false; }
+        public Uri ServiceUri { get; set; }
+        public void ShowOptions() { }
+        public bool DownloadStore
+        {
+            get
+            {
+                return false;
+            }
+        }
+        public Uri CompanyWebSite { get; set; }
+        public List<Song> Purchases { get; set; }
+        public bool Streaming { get { return true; } }
+       
+        #endregion
+        public System.Drawing.Image Icon
+        {
+            get
+            {
+                return Properties.Resources.icon;
+            }
+        }
         /// <summary>
         /// Dictionary containing references to loaded tracks, albums and object indexed by their uris
         /// </summary>
@@ -206,7 +259,7 @@ namespace SpofityRuntime
             A.Path = Df.LinkString;
             A.Store = "Spotify";
             A.Popularity = 0.5f;
-            A.Engine = "spotify";
+            A.Engine = this;
             return A;
         }
 		public bool Ready {get;set;}
@@ -301,25 +354,7 @@ namespace SpofityRuntime
 			view = new MediaChrome.Spotify.SpotifyView();
         	  Spocky.MyClass D = new Spocky.MyClass();
              SpotifySession = Spotify.Session.CreateInstance(D.AppKey(), "SpofityCaches", "SpofityCaches", "LinSpot");
-        	 Application.EnableVisualStyles();
-            
-            SpofityRuntime.Login sD = new SpofityRuntime.Login(this);
-            if(sD.ShowDialog() == DialogResult.OK)
-            {
-        	    SpotifySession.LogInSync(sD.User,sD.Pass,new TimeSpan(4000));
-            }
-        	SpotifySession.OnConnectionError+= new SessionEventHandler(SpotifySession_OnConnectionError);
-        	SpotifySession.OnMusicDelivery+= new MusicDeliveryEventHandler(SpotifySession_OnMusicDelivery);
-            
-        	SpotifySession.OnEndOfTrack+= new SessionEventHandler(SpotifySession_OnEndOfTrack);
-        	SpotifySession.OnPlaylistContainerLoaded+= new SessionEventHandler(SpotifySession_OnPlaylistContainerLoaded);
-        	SpotifySession.OnAlbumBrowseComplete+= new AlbumBrowseEventHandler(SpotifySession_OnAlbumBrowseComplete);
-        	SpotifySession.OnImageLoaded+= new ImageEventHandler(SpotifySession_OnImageLoaded);
-            SpotifySession.PlaylistContainer.OnContainerLoaded += new PlaylistContainerEventHandler(PlaylistContainer_OnContainerLoaded);
-            while (!playlistLoaded)
-            {
-                Thread.Sleep(100);
-            }
+        	
        
         }
 

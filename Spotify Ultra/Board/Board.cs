@@ -12,6 +12,7 @@ using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.Drawing.Text;
 
 namespace Board
 {
@@ -19,6 +20,7 @@ namespace Board
     public partial class DrawBoard : UserControl
     {
 
+       
 
         /// <summary>
         /// Delegate for playback start event handlers
@@ -167,7 +169,7 @@ namespace Board
             InitializeComponent();
             Images = new Dictionary<String,Image>();
             AllowDrop=true;
-            this.Click+= new EventHandler(DrawBoard_Click);
+          //  this.Click+= new EventHandler(DrawBoard_Click);
             // Assign default columnwidths
             Columns = new Dictionary<string, int>();
 
@@ -245,8 +247,7 @@ namespace Board
             int _top = _Element.Bounds.Top;
             int _width = _Element.Bounds.Width;
             int _height = _Element.Bounds.Height;
-            if (mouseX >= Bounds.Left && mouseX <= Bounds.Width + Bounds.Left && mouseY >= Bounds.Top && mouseY <= Bounds.Top + Bounds.Height)
-            {
+            
                 // If the element has an onclick handler, execute the script
                 if (_Element.GetAttribute("onclick") != "")
                 {
@@ -254,7 +255,7 @@ namespace Board
                     return;
                 }
 
-            }
+            
 
             if (_Element.Entry)
             {
@@ -278,7 +279,7 @@ namespace Board
 
                 }
             }
-            if (_Element.GetAttribute("href") != "" && mouseX >= _left && mouseX <= _left + _width && mouseY >= _top && mouseY <= _top + _height)
+            if (_Element.GetAttribute("href") != "" )
             {
                 // If the itemclicked event are not null, raise it
                 if (LinkClick != null)
@@ -292,7 +293,11 @@ namespace Board
         public Dictionary<String, int> Columns;
         void DrawBoard_Click(object sender, EventArgs e)
         {
-           
+            if (HoveredElement != null)
+            {
+                ElementClick(HoveredElement, mouseX, mouseY);
+            }
+#if(nobug)
             if (CurrentView != null)
                 if (CurrentView.Content != null)
                     if (CurrentView.Content.View != null)
@@ -367,6 +372,7 @@ namespace Board
                         catch (Exception ex)
                         {
                         }
+#endif
 
             }
 
@@ -998,6 +1004,7 @@ namespace Board
         {
             
         }
+        public event ScrollEventHandler Scrolling;
         int LEFT = 140;
         int ARTISTLEFT=550;
         int ROWHEIGHT = 20;
@@ -1040,8 +1047,10 @@ namespace Board
                 try
                 {
                     this.CurrentView.Content.ScrollY = value;
+                    
                 }
                 catch { }
+                AssertScroll();
         	}
         	
         }
@@ -1540,6 +1549,7 @@ namespace Board
                                 // Set parse mode to attribute
                                 currentState = ParseMode.Value;
                                 continue;
+                                
 
                             }
                             attributeBuffer.Append(token);
@@ -1554,9 +1564,10 @@ namespace Board
                                
                                 // Create element's attribute
                                 Board.Attribute d = new Attribute() { name = attributeBuffer.ToString(), value = value };
+                                attributeBuffer.Clear();
                                 // add the attribute to the element
                                 Result.Attributes.Add(d);
-
+                                
                                 // If not inside string and reach > or / return
                                 if ((token == '>' || token == '/') && !insideString)
                                 {
@@ -1567,10 +1578,14 @@ namespace Board
                                 {
                                     currentState = ParseMode.Attribute;
                                 }
+
+                                // Clear value buffer
+                                valueBuffer.Clear();
                                 continue;
                             }
                             if(!insideString)
                             {}
+                            valueBuffer.Append(token);
                             break;
                         case ParseMode.Beginning:
                             if (token == ' ')
@@ -1591,11 +1606,12 @@ namespace Board
                             // Append the char to the element name
                             elementBuffer.Append(token);
                             break;
+                       
 
                     }
 
                     // Otherwise append the char to the current buffer
-                    valueBuffer.Append(token);
+                    
 
 
                 }
@@ -1642,15 +1658,7 @@ namespace Board
                 
                 // Get the current char
                 char d = xml[i];
-                switch (d)
-                {
-                    case '<':
-                        tagLevel++;
-                        break;
-                    case '>':
-                        tagLevel--;
-                        break;
-                }
+               
                 // boolean indicating sub elements were found
                 bool elmFound = false;
                 if (d == '<')
@@ -1660,19 +1668,23 @@ namespace Board
                     _elm.Font = font;
                     
                     // Create the bounds for the new element
-                    Rectangle elementBounds = new Rectangle(elm.Left, elm.Top -scrollY, this.Width, this.Height);
-       
+                    Rectangle elementBounds = new Rectangle(elm.Left, elm.Top -scrollY, _elm.Width, _elm.Height);
+                    /**
+                                * If the cursor position is inside bounds of the element 
+                                * set the element as hovered */
+                    if (_elm.Data != null)
+                    {
+                        elementBounds.Width = (int)GetTextWidth(_elm.Data, _elm.Font, g);
+                        elementBounds.Height = (int)GetTextHeight(_elm.Data, _elm.Font, g);
+                    }
+                    if (mouseX >= elementBounds.Left +left && mouseX <= elementBounds.Right+left &&
+                        mouseY >= elementBounds.Top +row && mouseY <= elementBounds.Bottom + row)
+                    {
+                        this.HoveredElement = _elm;
+                    }
                     DrawElement(_elm, g, ref entryship,elementBounds , 0, ref left, ref row);
                     
-                    /**
-                     * If the cursor position is inside bounds of the element 
-                     * set the element as hovered */
-
-                    if(mouseX >= elementBounds.Left && mouseX <= elementBounds.Right && 
-                        mouseY >= elementBounds.Top && mouseY <= elementBounds.Bottom)
-                    {
-                        this.HoveredElement=_elm;
-                    }
+                  
                     continue;
                 }
 
@@ -1684,7 +1696,7 @@ namespace Board
                         continue;
                     if (d == ' ')
                         left += 5;
-                  
+                    g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
                     g.DrawString(d.ToString(), font, fontBrush, position.Left + left, position.Top + row);
                     left += (int)Math.Floor(GetTextWidth(d.ToString(), font,g));
                 }
@@ -1706,8 +1718,10 @@ namespace Board
             return d.MeasureString(p, font).Width - 3;
         }
 
-        
-
+        private float GetTextHeight(string p, System.Drawing.Font font, Graphics d)
+        {
+            return d.MeasureString(p, font).Height;
+        }
         /// <summary>
         /// The vertical scroll range
         /// </summary>
@@ -1728,7 +1742,17 @@ namespace Board
         /// <summary>
         /// The default typeface to use for the view
         /// </summary>
-        public string FontFace = "MS Sans Serif";
+        public string FontFace
+        {
+            get
+            {
+                return Font.FontFamily.Name;
+            }
+            set
+            {
+                Font = new Font(value, Font.Size, Font.Style);
+            }
+        }
 
         /// <summary>
         /// Function to draw an element on an view view
@@ -1742,7 +1766,7 @@ namespace Board
         public void DrawElement(Element _Element, Graphics d,ref int entryship,Rectangle Bounds,int padding,ref int t_left,ref int t_row)
         {
             
-           
+          
             /**
              * Get screen coordinates of the element
              * */
@@ -1801,7 +1825,7 @@ namespace Board
             if (textSize == 0)
                 textSize = 8;
 
-            String fontName = "MS Sans Serif";
+            String fontName = this.Font.FontFamily;
             if (_Element.GetAttribute("font") != "")
             {
                 fontName = _Element.GetAttribute("font");
@@ -1939,7 +1963,7 @@ namespace Board
 
                 
                 case "img":
-
+                case "image":
                     Image Rs = null;
                    // Images.TryGetValue(_Element.GetAttribute("src"), out Rs);
                     
@@ -1948,10 +1972,11 @@ namespace Board
                     if (Images.ContainsKey(src))
                     {
                         bool hasShadow = true;
-                        Rs = Images[src]; 
-                        if(Rs!=null)
-
-                         DrawImage(Rs, new Rectangle(left, top, width, height),d,hasShadow);
+                        Rs = Images[src];
+                        if (Rs == null)
+                            Rs = Resource1.release;
+                         DrawImage(Rs, new Rectangle(left+t_left, top+t_row, width, height),d,hasShadow);
+                        
                     }
                         // But if the element hasn't been called before, start an downloading of the image
                     else
@@ -2181,7 +2206,90 @@ namespace Board
                     this.Cursor = Cursors.Default;
             }
         }
+        /// <summary>
+        /// Gets the space of the scrollY
+        /// </summary>
+        int scroll_space
+        {
+            get
+            {
+                return (this.Height - scrollbar_size );
+            }
+        }
+      
+        /// <summary>
+        ///  Gets the free space of the thumb.
+        /// </summary>
 
+        int free_height
+        {
+            get
+            {
+                return scroll_space - ThumbSize;
+            }
+        }
+
+        /// <summary>
+        /// Gets the size of the thumb
+        /// </summary>
+        int ThumbSize
+        {
+            get
+            {
+                return (int) ((float)ScrollOffset * (float)scroll_space);
+            }
+        }
+        /// <summary>
+        /// Gets the scroll offset
+        /// </summary>
+        float ScrollOffset
+        {
+            get
+            {
+                return (float)this.Height / ((float)TotalHeight );
+            }
+        }
+
+        /// <summary>
+        /// The step of the scrollY in the offset
+        /// </summary>
+        float ScrollStep
+        {
+            get
+            {
+                if(TotalHeight>0)
+                  return( this.free_height * ScrollOffset )*scrollY ;
+                return 0;
+            }
+           
+        }
+
+        /// <summary>
+        /// Returns the maximum scrollY
+        /// </summary>
+        int MaxScrollY
+        {
+            get
+            {
+                return (this.TotalHeight - this.Height);
+            }
+        }
+        /// <summary>
+        /// Sets the scroll Y
+        /// </summary>
+
+        int ThumbScrollY
+        {
+            get
+            {
+                return (int)(((float)scrollY / MaxScrollY) * (this.free_height));
+            }
+            set
+            {
+                if(value*ScrollStep <= MaxScrollY && value*ScrollStep >=0)
+                scrollY = (int)(value * ScrollStep);
+            }
+        }
 
         /// <summary>
         /// Determines if an reordering progress is ongoing.
@@ -2200,7 +2308,7 @@ namespace Board
         private int hovered_tab = -1;
         public void Draw(Graphics p)
         {
-
+            
       //      try
             {
           /*      this.pictureBox1.Left = this.Width / 2 - this.pictureBox1.Width / 2;
@@ -2270,8 +2378,8 @@ namespace Board
 
 
                 // draw an bounding rectangle
-                d.FillRectangle(new SolidBrush(Color.Black), new Rectangle(0, 0, this.Bounds.Width, tabbar_height));
-                d.DrawLine(new Pen(Color.FromArgb(128, 128, 128)), new Point(0, tabbar_height), new Point(this.Bounds.Width, tabbar_height));
+                d.DrawImage(Resource1.toolbar, new Rectangle(0, 0, (int)Math.Round(this.Width * 1.1f), 22));
+                //d.DrawLine(new Pen(Color.FromArgb(128, 128, 128)), new Point(0, tabbar_height), new Point(this.Bounds.Width, tabbar_height));
 
                 // Position counter for tabbar. Useful for meausing toolitems
                 int position_counter = tabbar_start;
@@ -2282,26 +2390,25 @@ namespace Board
                             // reset hovered tab
                             hovered_tab = -1;
                             // draw the bar
-                            d.DrawImage(Resource1.toolbar, new Rectangle(0, 0, (int)Math.Round(this.Width*1.1f), 22));
                             position_counter = tabbar_start;
                             // Draw all section bar
                             for (int i = 0; i < CurrentView.Content.View.Sections.Count; i++)
                             {
-                                 Section section = CurrentView.Content.View.Sections[i];
-                                 int tab_width = (int)d.MeasureString(section.Name, new Font(FontFace,10)).Width;
-                                
+                                Section section = CurrentView.Content.View.Sections[i];
+                                int tab_width = (int)d.MeasureString(section.Name, new Font(FontFace, 10)).Width;
+
 
                                 // If the mouse cursor is pointing on an tab, raise it
-                                 if (mouseX >= position_counter && mouseX <= position_counter + tab_width+ tab_distance * 2 &&
-                                     mouseY < tabbar_height
-                                    
-                                     )
-                                 {
-                                     hovered_tab = i;
-                                 }
-                               
-                                
-                               
+                                if (mouseX >= position_counter && mouseX <= position_counter + tab_width + tab_distance * 2 &&
+                                    mouseY < tabbar_height
+
+                                    )
+                                {
+                                    hovered_tab = i;
+                                }
+
+
+
                                 // if you are at the current section draw the panes
 
 
@@ -2314,25 +2421,29 @@ namespace Board
                                         sectionTab = Resource1.tab;
                                     }
                                     // draw the tab bar
-                                    d.DrawImage(sectionTab, new Rectangle(position_counter, 1, tab_width+tab_distance*2, tabbar_height));
+                                    d.DrawImage(sectionTab, new Rectangle(position_counter, 1, tab_width + tab_distance * 2, tabbar_height));
 
                                     // draw the tab background
-                                    d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(Color.FromArgb(255, 255, 211)), new Point(position_counter+tab_distance, tab_text_margin / 5));
+                                    d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(Color.FromArgb(255, 255, 211)), new Point(position_counter + tab_distance, tab_text_margin / 5));
                                 }
                                 else
                                 {
-                                
+
 
                                     // draw the tab bar
-                                    d.DrawImage(Resource1.tab_separator, new Rectangle(position_counter+tab_width+tab_distance*2,0,2, tabbar_height - 1));
+                                    d.DrawImage(Resource1.tab_separator, new Rectangle(position_counter + tab_width + tab_distance * 2, 0, 2, tabbar_height - 1));
 
-                                    
-                                    d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(Color.White), new Point(position_counter+tab_distance, tab_text_margin / 5));
-                                    d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(Color.Black), new Point(position_counter+tab_distance, +tab_text_margin / 5 - 1));
+
+                                    d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(Color.White), new Point(position_counter + tab_distance, tab_text_margin / 5));
+                                    d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(Color.Black), new Point(position_counter + tab_distance, +tab_text_margin / 5 - 1));
                                 }
                                 position_counter += tab_width + tab_distance * 2;
                             }
                         }
+                        else
+                        {
+                        }
+#if (nobug)
                 /**
                  * Draw the scrollbar
                  * */
@@ -2357,16 +2468,23 @@ namespace Board
 
                     // The position of the scrollbar graphically
 
+                    
 
-                    d.DrawImage(Resource1.scrollbar_thumb, new Rectangle(this.Width - scrollbar_size, scrollbar_size + scrollTop, scrollbar_size, bar_offset), new Rectangle(0, 0, scrollbar_size, bar_offset), GraphicsUnit.Pixel);
+
+
+                /*    d.DrawImage(Resource1.scrollbar_thumb, new Rectangle(this.Width - scrollbar_size, scrollbar_size + scrollTop, scrollbar_size, bar_offset), new Rectangle(0, 0, scrollbar_size, bar_offset), GraphicsUnit.Pixel);
 
                     d.DrawImage(Resource1.scrollbar_thumb, new Rectangle(this.Width - scrollbar_size, scrollbar_size + scrollTop + bar_offset, scrollbar_size, +thumbHeight), new Rectangle(0, bar_offset, scrollbar_size, 3), GraphicsUnit.Pixel);
                     d.DrawImage(Resource1.scrollbar_thumb, new Rectangle(this.Width - scrollbar_size, scrollbar_size + scrollTop + bar_offset + thumbHeight, scrollbar_size, bar_offset), new Rectangle(0, Resource1.scrollbar_thumb.Height - bar_offset, scrollbar_size, bar_offset), GraphicsUnit.Pixel);
+               */
+                    d.DrawImage(Resource1.scrollbar_thumb, new Rectangle(this.Width - scrollbar_size, scrollbar_size+ThumbScrollY, scrollbar_size, +thumbHeight), new Rectangle(0, bar_offset, scrollbar_size, 3), GraphicsUnit.Pixel);
+             
                 }
+#endif
                 /***
                 * If the Section is an list, draw listheaders
                 * */
-
+                if(CurrentView!=null)
                 if (CurrentView.Content != null)
                     if (CurrentView.Content.View != null)
                         if (CurrentView.Content.View.Sections[currentSection].List)
@@ -2506,6 +2624,11 @@ namespace Board
             {
             }
         }
+
+        /// <summary>
+        /// Scrollbar belonging to the view
+        /// </summary>
+        public Scrollbar ScrollBarY { get; set; }
         /// <summary>
         /// Returns if an active view exists
         /// </summary>
@@ -2573,7 +2696,7 @@ namespace Board
             if (e.X >= Width - this.scrollbar_size)
             {
                 // If the pointer points on the thumb start scrolling mode
-                if (e.Y >= scrollTop && e.Y <= scrollTop + thumbHeight)
+                if (e.Y >= scrollTop - scrollbar_size && e.Y <= scrollTop + thumbHeight + scrollbar_size)
                 {
                     scrolling = e.Y - scrollTop;
                     
@@ -2728,9 +2851,15 @@ namespace Board
             /**
            * Get element for dragging (only those with attribute 'draggable')
            * */
-            Element ct = GetItemAtPos(new Point(e.X, e.Y));
+            Element ct = HoveredElement;
             if (ct != null)
             {
+               /* if (ct.GetAttribute("href") != "")
+                {
+                    DataObject D = new DataObject(DataFormats.StringFormat, ct.GetAttribute("href"));
+                    DoDragDrop(D, DragDropEffects.Copy);
+                    return;
+                }*/
                 // If the element has an dragUri set attach it
                 if (ct.GetAttribute("draguri") !="")
                 {
@@ -3015,7 +3144,8 @@ namespace Board
             }
         }
         /// <summary>
-        /// This function calculates the total height of all it's content
+        /// Gets the difference between the total height of 
+        /// the elements and the height of the visible boundary
         /// </summary>
 
         public int ItemOffset
@@ -3595,6 +3725,36 @@ namespace Board
         private void DrawBoard_DragLeave(object sender, EventArgs e)
         {
             dragging = false;
+        }
+
+        private void DrawBoard_Scroll(object sender, ScrollEventArgs e)
+        {
+           
+        }
+
+        /// <summary>
+        /// Updates the scrollbar
+        /// </summary>
+        private void AssertScroll()
+        {
+            if (this.ScrollBarY != null)
+            {
+                if (this.TotalHeight - this.Height == 0)
+                {
+                    ScrollBarY.Position = 0;
+                    ScrollBarY.ThumbHeight = 0;
+                    ScrollBarY.Hide();
+                    return;
+                }
+                ScrollBarY.Show();
+                ScrollBarY.Position = this.scrollY / (this.TotalHeight - this.Height);
+                ScrollBarY.ThumbHeight = ((float)this.Height / (float)this.TotalHeight);
+
+            }
+        }
+        private void DrawBoard_SizeChanged(object sender, EventArgs e)
+        {
+            AssertScroll();
         }
     }
    

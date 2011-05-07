@@ -63,9 +63,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            this.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "DrawBoard";
             this.Size = new System.Drawing.Size(736, 539);
             this.Load += new System.EventHandler(this.Artist_Load);
+            this.Scroll += new System.Windows.Forms.ScrollEventHandler(this.DrawBoard_Scroll);
+            this.SizeChanged += new System.EventHandler(this.DrawBoard_SizeChanged);
+            this.Click += new System.EventHandler(this.DrawBoard_Click);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.DrawBoardDragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.DrawBoard_DragEnter);
             this.DragOver += new System.Windows.Forms.DragEventHandler(this.DrawBoard_DragOver);

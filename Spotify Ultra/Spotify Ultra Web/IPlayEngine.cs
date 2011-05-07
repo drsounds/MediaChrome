@@ -109,11 +109,56 @@ namespace MediaChrome
 	/// 
 	
 	
-	public class Song{
+	public class Song :IMedia
+    {
+        
+        public String Name
+        {
+            get
+            {
+                return Title;
+            }
+            set
+            {
+                Title = value;
+            }
+        }
+        public String Link
+        {
+            get
+            {
+                return Path;
+            }
+            set
+            {
+                Path = value;
+            }
+        }
+        /// <summary>
+        /// Decides whether the song is checked.
+        /// </summary>
         public bool Checked { get; set; }
+
+        /// <summary>
+        /// Address to an bitmap file with coverart, either locally or remote
+        /// </summary>
         public string CoverArt { get; set; }
+        
+        
+
+        /// <summary>
+        /// The title of the song
+        /// </summary>
 		public string Title{get;set;}
+
+        /// <summary>
+        /// The ID of the song (URI)
+        /// </summary>
 		public string ID {get;set;}
+
+        /// <summary>
+        /// An array of artists, first is primary
+        /// </summary>
 		public Artist[] Artists{get;set;}
         public string Artist
         {
@@ -131,9 +176,25 @@ namespace MediaChrome
                 Artists[0].Name = value;
             }
         }
+
+        /// <summary>
+        /// Gets and sets the artist's uri of the track
+        /// </summary>
         public string ArtistUrl { get; set; }
+
+        /// <summary>
+        /// Gets and sets the service URI for the album of the song
+        /// </summary>
         public string AlbumUrl { get; set; }
+
+        /// <summary>
+        /// The album of the song.
+        /// </summary>
 		public Album Album {get;set;}
+
+        /// <summary>
+        /// Gets the album name or sets it, making a default album instance
+        /// </summary>
         public string AlbumName
         {
             get
@@ -150,18 +211,65 @@ namespace MediaChrome
                 
             }
         }
+
+        /// <summary>
+        /// The MediaChrome' uri of the song
+        /// </summary>
 		public string Path {get;set;}
-		public string Engine {get;set;}
+        
+        /// <summary>
+        /// Gets and sets the engine used for the song
+        /// </summary>
+        public IPlayEngine Engine
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// The store of the song
+        /// </summary>
 		public string Store {get;set;}
+
+        /// <summary>
+        /// The version of the song
+        /// </summary>
 		public string Version {get;set;}
+
+        /// <summary>
+        /// Popularity of the song at the store
+        /// </summary>
         public float Popularity { get; set; }
+
+        /// <summary>
+        /// Gets or sets the contributing musician of the song
+        /// </summary>
 		public string Contributing {get;set;}
+
+        /// <summary>
+        /// Gets or sets the featured artist on the song
+        /// </summary>
 		public string Feature {get;set;}
+
+        /// <summary>
+        /// Gets and sets the desired Media Engine for this particular instance
+        /// </summary>
 		public string ProposedEngine {get;set;}
+
+        /// <summary>
+        /// Gets and sets the composer of the song
+        /// </summary>
 		public string Composer {get;set;}
+
+       
+      
         public bool Subsong=false;
         public bool opned = false;
         public Song ParentSong = null;
+
+        /// <summary>
+        /// Sub-songs. Not used
+        /// </summary>
         private List<Song> subSongs;
         public List<Song> SubSongs
         {
@@ -197,15 +305,97 @@ namespace MediaChrome
         }
 
 	}
-	
+
+	/// <summary>
+	/// A media service plug in for media chrome. Each music service who want to be integrated
+    /// with the mediachrome framework must implement this class.
+	/// </summary>
 	public interface IPlayEngine
 	{
+        
+
+        /// <summary>
+        /// Shows options dialogue.
+        /// </summary>
+        void ShowOptions();
+
+        /// <summary>
+        /// The copyright of the service
+        /// </summary>
+        String Copyright { get; set; }
+
+        /// <summary>
+        /// Physical adress to the company
+        /// </summary>
+        String Address { get; set; }
+        /// <summary>
+        /// The company providing the service
+        /// </summary>
+        String Company { get; set; }
+
+        /// <summary>
+        /// The url to the company's website
+        /// </summary>
+        Uri CompanyWebSite { get; set; }
+
+        /// <summary>
+        /// The web resource of the service
+        /// </summary>
+        Uri ServiceUri { get; set; }
+
+        /// <summary>
+        /// Handles purchases of an song
+        /// </summary>
+        /// <param name="song">A song</param>
+        /// <remarks>Not implemented</remarks>
+        /// <returns>Whether the purchase was accepted or rejected by the merchant</returns>
+        bool Purchase(Song song);
+
+        /// <summary>
+        /// Gets and sets whether the user is logged in to the service
+        /// </summary>
+        bool LoggedIn { get; set; }
+
+        /// <summary>
+        /// Show the log in creditals. Log in is handled by each service
+        /// </summary>
+        void Login();
+
+
+        /// <summary>
+        /// Defines whether the music is streamed from an internet source
+        /// </summary>
+        /// <remarks>Not implemented</remarks>
+        bool Streaming { get; }
+
+        /// <summary>
+        /// Defines if purchases is available at the service
+        /// </summary>
+        /// <remarks>Not implemented</remarks>
+        /// 
+        bool DownloadStore { get; }
+
+        /// <summary>
+        /// Returns a list of songs ready for purchase
+        /// </summary>
+        List<Song> Purchases { get; }
+
+        /// <summary>
+        /// Method for logging out the user from the service
+        /// </summary>
+        void Logout();
+        /// <summary>
+        /// Image representing the service
+        /// </summary>
         string Image
         {
             get;
        
         }
-
+        /// <summary>
+        /// The icon for the Engine
+        /// </summary>
+        System.Drawing.Image Icon { get; }
         /// <summary>
         /// Get an artist by ID
         /// </summary>
@@ -263,10 +453,35 @@ namespace MediaChrome
         /// Gets and sets if the playlists has been loaded
         /// </summary>
         bool PlaylistsLoaded { get; set; }
+
+        /// <summary>
+        /// Namespace of the IPlayEngine. Used for as an arbitrary
+        /// identifier for the engine. Must not contain any whitespaces
+        /// and not be modified at any point at the application cycle.
+        /// </summary>
 		string Namespace {get;}
+
+        /// <summary>
+        /// Title of the engine. Must not be modified upon runtime
+        /// </summary>
 		string Title {get;}
+
+        /// <summary>
+        /// Total local files
+        /// </summary>
 		int TotalFiles {get;set;}
+
+        /// <summary>
+        /// Query for songs on the service cloud
+        /// </summary>
+        /// <param name="Query">The textual query</param>
+        /// <returns></returns>
 		List<Song> Find(String Query);
+
+        /// <summary>
+        /// Import songs into the local library according to the specifications.
+        /// </summary>
+        /// <param name="songs"></param>
         void SongImport(Song[] songs);
 
         /// <summary>
@@ -306,10 +521,28 @@ namespace MediaChrome
         /// <param name="Conn"></param>
         /// <param name="RootDir"></param>
 		void Import(SQLiteConnection Conn,string RootDir);
+        
+        /// <summary>
+        /// Host form. Used by the runtime
+        /// </summary>
+        SpofityRuntime.Form1 Host{get;set;}
 
-		SpofityRuntime.Form1 Host{get;set;}
+        /// <summary>
+        /// Unload the engine
+        /// </summary>
 		void Unload();
+
+        /// <summary>
+        /// Raw search songs from the service
+        /// </summary>
+        /// <returns>An list of songs</returns>
 		List<Song> Search();
+
+        /// <summary>
+        /// Unknown
+        /// </summary>
+        /// <param name="_Song"></param>
+        /// <returns></returns>
         Song RawFind(Song _Song);
 		//string RawFind(Song _Song);
 		List<MediaChrome.Views.Playlist> Playlists {get;}

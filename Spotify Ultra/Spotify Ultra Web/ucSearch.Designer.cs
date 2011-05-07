@@ -29,7 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new SpofityRuntime.MyTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
@@ -40,16 +40,17 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(99, 13);
             this.textBox1.TabIndex = 1;
+            this.textBox1.EnterKeyPressed += new System.EventHandler(this.textBox1_EnterKeyPressed);
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            this.textBox1.KeyUp+=new System.Windows.Forms.KeyEventHandler(textBox1_KeyUp);
+            this.textBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyUp);
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.BackgroundImage =  global::SpofityRuntime.Properties.Resources.searchbtn;
+            this.panel1.BackgroundImage = global::SpofityRuntime.Properties.Resources.searchbtn;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel1.Location = new System.Drawing.Point(140, 5);
+            this.panel1.Location = new System.Drawing.Point(143, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(21, 19);
             this.panel1.TabIndex = 3;
@@ -60,7 +61,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = (System.Drawing.Image)resources.GetObject("searchfield3");
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.textBox1);
@@ -75,7 +75,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private MyTextBox textBox1;
         private System.Windows.Forms.Panel panel1;
     }
 }

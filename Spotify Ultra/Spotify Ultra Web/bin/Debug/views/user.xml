@@ -6,7 +6,7 @@
  var playlist = getCurrentPlaylist();
 
  /* Playlist URI */
- var uri = playlist.ID.replace("sp:","").replace(":","__");
+ var uri = playlist.ID.replace("spotify:spotify:","spotify:").replace(":","__");
  var suri = uri.replace(":","__");
  suri=suri.replace("segurify:","");
  suri=suri.replace(":playlist","__playlist");

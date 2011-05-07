@@ -221,6 +221,13 @@ namespace SpofityRuntime.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap icon {
+            get {
+                object obj = ResourceManager.GetObject("icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap kan1 {
             get {
                 object obj = ResourceManager.GetObject("kan1", resourceCulture);
@@ -389,6 +396,20 @@ namespace SpofityRuntime.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap toolbar {
+            get {
+                object obj = ResourceManager.GetObject("toolbar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap toolbar1 {
+            get {
+                object obj = ResourceManager.GetObject("toolbar1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap top_bar_blue {
             get {
                 object obj = ResourceManager.GetObject("top_bar_blue", resourceCulture);
@@ -413,6 +434,13 @@ namespace SpofityRuntime.Properties {
         internal static System.Drawing.Bitmap top_wall1 {
             get {
                 object obj = ResourceManager.GetObject("top_wall1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap top_wall11 {
+            get {
+                object obj = ResourceManager.GetObject("top_wall11", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -2022,7 +2022,7 @@ namespace Board
         /// Bitmap contents of the element
         /// </summary>
         public Image Bitmap { get; set; }
-
+        
         /// <summary>
         /// Asserts font of the object by their attributes
         /// </summary>
@@ -2030,7 +2030,7 @@ namespace Board
         {
             // Create new font if the font of the instance is NULL
             if (this.Font == null)
-                this.Font = new Font("MS Sans Serif",8, FontStyle.Regular);
+                this.Font = new Font("Tahoma",8.5f, FontStyle.Regular);
 
             // Assert element font attributes
             if (this.GetAttribute("bold") != "")
