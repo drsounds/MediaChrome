@@ -63,9 +63,45 @@ namespace MediaChrome
 		public int max=0;
 		public int countFiles=110;
 		
-		public void Import(string RootDir){
-            Importer.Import(SpofityRuntime.MainForm.MakeConnection(), RootDir);
-		}
+		public void Import(string RootDir)
+        {
+            List<Song> songs =    Importer.Import( RootDir);
+        
+            SQLiteConnection Conn = new SQLiteConnection("Data Source=sqlite.db;");
+            try
+            {
+                Conn.Open();
+            }
+            catch
+            {
+            
+			
+				foreach(Song Ds in songs)
+				{
+					SQLiteCommand C = new SQLiteCommand("SELECT count(*) FROM song WHERE path='"+Ds.Path+"'",(SQLiteConnection)Conn);
+					SQLiteDataReader SQDR = C.ExecuteReader();
+					
+					if(SQDR.HasRows)
+					{
+						SQDR.Read();
+						if(SQDR.GetInt32(0)==0)
+						{
+							try
+							{
+							SQLiteCommand Df = new SQLiteCommand("INSERT INTO song (name,artist,album,engine,path,genre,store) VALUES(\""+Ds.Name+"\",\""+Ds.Artists[0].Name+"\",\""+Ds.Album.Name+"\",\"sp\",\"sp:"+Ds.Path+"\",\"pop\",\"Spotify\")",Conn);
+							Df.ExecuteNonQuery();
+							}
+							catch
+							{
+								
+							}
+						}
+					}
+				}
+			}
+			Conn.Close();
+        
+        }
 		
 		void Button1Click(object sender, EventArgs e)
 		{

@@ -19,8 +19,21 @@ namespace Board
     
     public partial class DrawBoard : UserControl
     {
+        /// <summary>
+        /// Set default colors
+        /// </summary>
+        public void SetColors()
+        {
+            Section = Color.FromArgb(97, 97, 97);
+            SectionTextShadow = Color.FromArgb(119, 119, 119);
+            TextFade = Color.Gray;
+            Fg = Color.FromArgb(10, 10, 10);
+            Divider = Color.FromArgb(138, 138, 138);
+            Alt = Color.FromArgb(211, 211, 211);
+            //this.Background = Resource1.view_bg;
+        }
+        #region Delegates and events
 
-       
 
         /// <summary>
         /// Delegate for playback start event handlers
@@ -50,28 +63,40 @@ namespace Board
         /// </summary>
         public event NavigateEventHandler BeginNavigating;
         public bool Snart =true;
+        #endregion
+        #region Colors
+
+        /// <summary>
+        /// Gets or sets if the rows should aternate or have dividers
+        /// </summary>
+        [DefaultValue(true)]
+        public bool Alternate
+        {
+            get;
+            set;
+        }
+        public Image Background
+        {
+            get;
+            set;
+        }
         public Color Section
         {
-            get
-            {
-                return Color.FromArgb(97, 97, 97);
-            }
-        }
-        public Color SectionTextShadow
-        {
-            get
-            {
-                return Color.FromArgb(119, 119, 119);
-            }
+            get;
+            set;
         }
       
+        public Color SectionTextShadow
+        {
+            get;
+            set;
+        }
+
         public Color SectionText
         {
-            get
-            {
-                return Bg;
-            }
+            get { return Bg; }
         }
+
         public Color Bg
         {
             get
@@ -79,43 +104,90 @@ namespace Board
                 return BackColor;
             }
         }
-      
+    
         public Color TextFade
         {
-            get
-            {
-                return Color.Gray;
-            }
+            get;
+            set;
         }
+        
         public Color Divider
         {
-            get
-            {
-                return Color.FromArgb(38, 38, 38);
-            }
+            get;
+            set;
         }
+   
         public Color Fg
         {
-            get
-            {
-                return Color.FromArgb(188,188,188);
-            }
+            get;
+            set;
         }
         public Color Entry
         {
-            get
-            {
-                return   Bg;
-            }
+            get { return Bg; }
         }
+        
         public Color Alt
         {
-            get
+            get;
+            set;
+        }
+        #if(nobug)
+        [DefaultValue(Color.FromArgb(97, 97, 97))]
+        public Color Section
+        {
+            get;
+            set;
+        }
+        [DefaultValue(Color.FromArgb(119, 119, 119))]
+        public Color SectionTextShadow
+        {
+            get;
+            set;
+        }
+      
+        public Color SectionText
+        {
+            get{return Bg;}
+        }
+    
+        public Color Bg
+        {
+           get
             {
-                return Color.FromArgb(44,44,44);
+                return BackColor;
             }
         }
-
+        [DefaultValue(Color.Gray)]
+        public Color TextFade
+        {
+            get;
+            set;
+        }
+        [DefaultValue(Color.FromArgb(38, 38, 38))]
+        public Color Divider
+        {
+            get;
+            set;
+        }
+        [DefaultValue(Color.FromArgb(188,188,188))]
+        public Color Fg
+        {
+            get;
+            set;
+        }
+        public Color Entry
+        {
+            get{return Bg;}
+        }
+        [DefaultValue(Color.FromArgb(44,44,44))]
+        public Color Alt
+        {
+            get;
+            set;
+        }
+#endif
+        #endregion
         int rowtop=0;
         /// <summary>
         /// The view hiearchy. All views called has their address attached to it, before reloading checking the list for possible
@@ -180,6 +252,7 @@ namespace Board
             Columns.Add("Artist", 150);
             Columns.Add("Length", 50);
             Columns.Add("Album", 200);
+            SetColors();
 
         }
         /// <summary>
@@ -828,76 +901,78 @@ namespace Board
                 // Get image string
                 // create dummy bitmap to indicate the image is going to load
 
-                
-                if (Images.ContainsKey(address))
-                    return;
-                else
-                    Images.Add(address, Resource1.release);
+
+                elm.Bitmap = Resource1.release;
+                elm.ImagePending = true;
             }
             catch { } 
 
-            lock (Mutex)
+            /**
+             * Lock the function so it cannot be run simultany
+             * */
+         //   lock (Mutex)
             {
 
 
                 
             
-            /**
-             * We can set an imagedownload event to handle and redirect image requests.
-             * */
-            if (BeginDownloadImage != null)
-            {
+                /**
+                 * We can set an imagedownload event to handle and redirect image requests.
+                 * */
+                if (BeginDownloadImage != null)
+                {
                 
-                // Create event args
-                ImageDownloadEventArgs args = new ImageDownloadEventArgs();
-                args.Adress = address;
-                BeginDownloadImage(this, args);
-                if (args.Cancel)
-                    return;
-                // Check for changed address
+                    // Create event args
+                    ImageDownloadEventArgs args = new ImageDownloadEventArgs();
+                    args.Adress = address;
+                    BeginDownloadImage(this, args);
+                    if (args.Cancel)
+                        return;
+                    // Check for changed address
                
-                Images[address]=args.Bitmap;
-                return;
-            }
-
-            // if the address points to an local file (not starting with http:) start an local file process instead
-            if (address.StartsWith("http:"))
-            {
-                try
-                {
-                    // Create an webclient and download the image from the internet and read it into an bitmap stream
-                    WebClient X = new WebClient();
-
-                    Image  cf= Bitmap.FromStream(X.OpenRead((string)token));
-                    Images.Add(address,cf);
-                    // Add the bitmap to the list
-                 
+                    elm.Bitmap=args.Bitmap;
+                    return;
                 }
-                catch (Exception e)
-                {
-                }
-            }
-            else
-                
-            {
-                try
-                {
-                    // Load the local image into an bitmap stream
-                    
 
-                    // add it to the images list
-                    
-                    
-                }
-                catch
+                // if the address points to an local file (not starting with http:) start an local file process instead
+                if (address.StartsWith("http:"))
                 {
                     try
                     {
+                        // Create an webclient and download the image from the internet and read it into an bitmap stream
+                        WebClient X = new WebClient();
 
+                        Image  cf= Bitmap.FromStream(X.OpenRead((string)token));
+                    
+                        // Add the bitmap to the list
+                        elm.Bitmap = cf;
+                        
                     }
-                    catch { }
+                    catch (Exception e)
+                    {
+                    }
                 }
-            }
+                else
+                
+                {
+                    try
+                    {
+                        // Load the local image into an bitmap stream
+                    
+
+                        // add it to the images list
+                    
+                    
+                    }
+                    catch
+                    {
+                        try
+                        {
+
+                        }
+                        catch { }
+                    }
+                }
    
             }
 
@@ -1002,7 +1077,7 @@ namespace Board
         
         private void Artist_Load(object sender, EventArgs e)
         {
-            
+            this.SuspendLayout();
         }
         public event ScrollEventHandler Scrolling;
         int LEFT = 140;
@@ -1323,17 +1398,22 @@ namespace Board
             {
                 if (d.Content != null)
                 {
-                    foreach (Section t in d.Content.View.Sections)
+                    if (d.Content.View != null)
                     {
-                        for (int i=0; i <t.Elements.Count;i++)
-                           
+                        if (d.Content.View.Sections != null)
                         {
-                            if (t.Elements[i].Entry)
+                            foreach (Section t in d.Content.View.Sections)
                             {
-                                if (t.Elements[i].GetAttribute("__playing") == "true")
+                                for (int i = 0; i < t.Elements.Count; i++)
                                 {
-                                    t.Elements[i].SetAttribute("__playing", "");
-                            
+                                    if (t.Elements[i].Entry)
+                                    {
+                                        if (t.Elements[i].GetAttribute("__playing") == "true")
+                                        {
+                                            t.Elements[i].SetAttribute("__playing", "");
+
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -1659,6 +1739,18 @@ namespace Board
                 // Get the current char
                 char d = xml[i];
                
+                // if a newline break
+                if (d == '\n')
+                {
+                    row += 8;
+                    left = 0;
+                    continue;
+                }
+                if (d == '\t')
+                {
+                    left += 10;
+                }
+                
                 // boolean indicating sub elements were found
                 bool elmFound = false;
                 if (d == '<')
@@ -1885,9 +1977,16 @@ namespace Board
                     // For some unknown reason ptop crashes
                     // TODO: Fixthis this in another way
                    // top -= height / 2;
-                    
-                        d.FillRectangle(new SolidBrush(EnTry), new Rectangle(left, top, width, height));
-                        /* d.DrawString(_Element.GetAttribute("no"), labelFont, new SolidBrush(MainForm.FadeColor(-0.4f, ForeGround)), new Point(LEFT + 1, top));
+                  //  if (Alternate)
+                    {
+                        d.FillRectangle(new SolidBrush(Color.FromArgb(65,EnTry)), new Rectangle(left, top, width, height));
+                    }
+                  /*  else
+                    {
+                        d.DrawLine(new Pen(Color.FromArgb(15,Divider)), new Point(left, top + height), new Point(width, top + height));
+                    }
+                    */
+                /* d.DrawString(_Element.GetAttribute("no"), labelFont, new SolidBrush(MainForm.FadeColor(-0.4f, ForeGround)), new Point(LEFT + 1, top));
 
                           d.DrawString(_Element.GetAttribute("title"), labelFont, new SolidBrush(ForeGround), new Point(left + 20, top + 2));
                           d.DrawString(_Element.GetAttribute("author"), labelFont, new SolidBrush(ForeGround), new Point(left + ARTISTLEFT, top + 2));
@@ -1964,27 +2063,26 @@ namespace Board
                 
                 case "img":
                 case "image":
-                    Image Rs = null;
+                    bool hasShadow=_Element.GetAttribute("shadow")!="";
+                  
                    // Images.TryGetValue(_Element.GetAttribute("src"), out Rs);
-                    
-                    // If image is not null, do not show any picture
-                    string src = _Element.GetAttribute("src");
-                    if (Images.ContainsKey(src))
+                   
+                    if (!_Element.ImageRequested)
                     {
-                        bool hasShadow = true;
-                        Rs = Images[src];
-                        if (Rs == null)
-                            Rs = Resource1.release;
-                         DrawImage(Rs, new Rectangle(left+t_left, top+t_row, width, height),d,hasShadow);
+                        // Set image requested to true
+                        _Element.ImageRequested = true;
+                        Thread D = new Thread(DownloadImage);
+                        D.Start((object)_Element);
+                    }
+                
+                    if (_Element.Bitmap == null)
+                        _Element.Bitmap = Resource1.release;
+                  
+                     DrawImage(_Element.Bitmap, new Rectangle(left+t_left, top+t_row, width, height),d,hasShadow);
                         
-                    }
+                    
                         // But if the element hasn't been called before, start an downloading of the image
-                    else
-                    {
-
-                       Thread D = new Thread(DownloadImage);
-                     D.Start((object)_Element);
-                    }
+                   
                     break;
 
 
@@ -2306,6 +2404,11 @@ namespace Board
         
         // integer for the current tab which is hovered
         private int hovered_tab = -1;
+
+        /// <summary>
+        /// Draws the view
+        /// </summary>
+        /// <param name="p">The graphics to draw with</param>
         public void Draw(Graphics p)
         {
             
@@ -2315,7 +2418,8 @@ namespace Board
                 this.pictureBox1.Top = this.Height / 2 - this.pictureBox1.Height / 2;
                 // Show progress icon if current view is loading...
                 this.pictureBox1.Visible = this.CurrentView.Content == null;*/
-                this.BackColor = Color.FromArgb(50, 50, 50);
+             // Color.FromArgb(50, 50, 50);
+
                 if (CurrentView != null)
                 {
                     if (CurrentView.Content != null)
@@ -2334,7 +2438,11 @@ namespace Board
                 BufferedGraphics R = D.Allocate(p, new Rectangle(0, 0, this.Bounds.Width, this.Bounds.Height));
                 Graphics d = R.Graphics;
                 d.FillRectangle(new SolidBrush(Bg), new Rectangle(0, 0, this.Bounds.Width, this.Bounds.Height));
+                
+                // Draw background image
 
+                if (this.Background != null)
+                    d.DrawImage(this.Background, new Rectangle(0, 0, this.Width, this.Height));
                 /**
                  * If the currentView isn't null begin draw all elements on the board
                  * */

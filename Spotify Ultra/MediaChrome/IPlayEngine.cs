@@ -10,7 +10,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Data.SQLite;
 
 using System.IO;
 
@@ -112,7 +111,109 @@ namespace MediaChrome
 	
 	public class Song :IMedia
     {
-        
+        public static class UriHelper
+        {
+            public static Dictionary<String, String> Querystrings(Uri d)
+            {
+                Dictionary<String, String> QueryList = new Dictionary<string, string>();
+
+                String[] Queries = d.Query.Split('&');
+                if (d.Query == "")
+                    return new Dictionary<string, string>();
+                foreach (String query in Queries)
+                {
+                    try
+                    {
+                        string[] pair = query.Split('=');
+                        QueryList.Add(pair[0].Replace("?", ""), pair[1]);
+                    }
+                    catch
+                    {
+                    }
+                }
+                return QueryList;
+            }
+        }
+        public static String findVersion(String text)
+        {
+            bool inVersion = false;
+            String ver = "";
+            foreach (Char d in text)
+            {
+                if (inVersion)
+                    ver += d;
+                if (d == ')')
+                {
+                    inVersion = false;
+                    continue;
+                }
+                if (d == '(')
+                {
+                    inVersion = true;
+                    continue;
+                }
+            }
+            return ver;
+        }
+        public static String findCommit(String text)
+        {
+            bool inVersion = false;
+            String ver = "";
+            foreach (Char d in text)
+            {
+
+                if (d == ']')
+                {
+                    inVersion = false;
+                    continue;
+                }
+                if (d == '[')
+                {
+                    inVersion = true;
+                    continue;
+                }
+                if (inVersion)
+                    ver += d;
+            }
+            return ver;
+        }
+        public static Song GetSongFromURI(String D)
+        {
+            Song P = new Song();
+
+
+
+            P.Version = findVersion(D);
+            P.Contributing = findCommit(D);
+            Uri Url = new System.Uri(D.Replace("(" + P.Version + ")", "").Replace("[" + P.Contributing + "]", "").Replace("{", "").Replace("}", ""));
+
+
+            P.Artist = Url.Segments[1].Replace("/", "").Replace("%20", " ");//Url.Host.Replace("_"," ");
+            P.Title = Url.Segments[2].Replace("/", "").Replace("%20", " ");
+
+
+
+            P.AlbumName = Url.Segments[3].Replace("/", "").Replace("%20", " ");
+            try
+            {
+                P.ProposedEngine = UriHelper.Querystrings(Url)["service"];
+            }
+            catch
+            {
+
+            }
+            P.Path = D;
+            try
+            {
+                P.ID = UriHelper.Querystrings(Url)["id"];
+            }
+            catch
+            {
+
+            }
+            return P;
+        }
+       
         public String Name
         {
             get
@@ -413,6 +514,15 @@ namespace MediaChrome
         Artist[] FindArtist(string Query);
 
         /// <summary>
+        /// Get an album by artist
+        /// </summary>
+        /// <param name="artist">The artist for the query</param>
+        /// <param name="album">The name or ID of the album to locate, depending on the service</param>
+        /// <returns>An instance of the album enclosed into an Album class instance</returns>
+        /// <remarks>Used in conjunction with views frameworks</remarks>
+        Album GetAlbum(Artist artist, string album);
+
+        /// <summary>
         /// Get an album
         /// </summary>
         /// <param name="album">The name or ID of the album to locate, depending on the service</param>
@@ -523,7 +633,7 @@ namespace MediaChrome
         /// </summary>
         /// <param name="Conn">SQLiteConnection instance for accessing the internal database</param>
         /// <param name="RootDir">The file directory for the local files to recurse on</param>
-		void Import(SQLiteConnection Conn,string RootDir);
+		List<Song> Import(string RootDir);
         
         /// <summary>
         /// Host form. Used by the runtime
@@ -542,14 +652,19 @@ namespace MediaChrome
 		List<Song> Search();
 
         /// <summary>
-        /// Unknown
+        /// Used to do an fast extraction of a song instance from an song query 
         /// </summary>
-        /// <param name="_Song"></param>
+        /// <param name="_Song">instance of song class without a real connection
+        /// to an existing service instance</param>
      
         /// <returns></returns>
         Song RawFind(Song _Song);
 		//string RawFind(Song _Song);
-		List<MediaChrome.Views.Playlist> Playlists {get;}
+		
+        /// <summary>
+        /// Returns a list of playlists from the current service
+        /// </summary>
+        List<MediaChrome.Views.Playlist> Playlists {get;}
 		/// <summary>
 		/// Playlist-related functionality
 		/// </summary>

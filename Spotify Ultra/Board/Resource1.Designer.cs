@@ -178,5 +178,12 @@ namespace Board {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        internal static System.Drawing.Bitmap view_bg {
+            get {
+                object obj = ResourceManager.GetObject("view_bg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

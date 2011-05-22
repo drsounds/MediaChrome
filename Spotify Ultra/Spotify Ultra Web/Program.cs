@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.IO;
 using Spotify;
+
 namespace SpofityRuntime
 {
     static class Program
@@ -32,10 +33,10 @@ namespace SpofityRuntime
         static void Main(string[] arguments)
         {
             mainForm = new Form1();
-            MediaEngines.Add("spotify", new SpofityRuntime.SpotifyPlayer());
+         //   MediaEngines.Add("spotify", new SpofityRuntime.SpotifyPlayer());
+          //  MediaEngines.Add("mp3", new MediaChrome.MP3Player());
+           // MediaEngines.Add("youtube", new MediaChrome.Youtube());
             MediaEngines.Add("mp3", new MediaChrome.MP3Player());
-            MediaEngines.Add("youtube", new MediaChrome.Youtube());
-
             // Add next song event handling
             foreach(MediaChrome.IPlayEngine Engine in MediaEngines.Values)
             {

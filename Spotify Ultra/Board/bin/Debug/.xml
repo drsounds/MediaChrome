@@ -186,6 +186,11 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="M:Board.DrawBoard.SetColors">
+            <summary>
+            Set default colors
+            </summary>
+        </member>
         <member name="M:Board.DrawBoard.Filter(System.String,Board.Section.IViewFilter)">
             <summary>
             Filter the view according to the query
@@ -392,6 +397,12 @@
             <param name="p">The graphics buffer</param>
             <param name="CurrentView"> The view to base from</param>
         </member>
+        <member name="M:Board.DrawBoard.Draw(System.Drawing.Graphics)">
+            <summary>
+            Draws the view
+            </summary>
+            <param name="p">The graphics to draw with</param>
+        </member>
         <member name="M:Board.DrawBoard.ViewExist">
             <summary>
             Returns if an active view exists
@@ -501,6 +512,11 @@
         <member name="E:Board.DrawBoard.BeginNavigating">
             <summary>
             Occurs when the navigation has been finished. The first parameteer sender wwill provide an instance of MakoEngine
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.Alternate">
+            <summary>
+            Gets or sets if the rows should aternate or have dividers
             </summary>
         </member>
         <member name="P:Board.DrawBoard.Views">
@@ -1312,6 +1328,16 @@
             <summary>
             An list of arbitrary attributes applied to the object. These attributes provides the properties coming from
             the underlying input and are managed by the application. 
+            </summary>
+        </member>
+        <member name="P:Board.Element.ImagePending">
+            <summary>
+            Returns if the element has an pending image
+            </summary>
+        </member>
+        <member name="P:Board.Element.ImageRequested">
+            <summary>
+            Gets or sets if the image has ben requested.
             </summary>
         </member>
         <member name="P:Board.Element.Entry">

@@ -3,7 +3,4 @@ L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\MediaCh
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\MediaChrome.pdb
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\obj\Debug\MediaChrome.dll
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\obj\Debug\MediaChrome.pdb
-L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\System.Data.SQLite.DLL
-L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\System.Data.SQLite.Linq.dll
-L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\System.Data.SQLite.xml
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\docs.xml

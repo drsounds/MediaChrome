@@ -10,8 +10,6 @@ L:\Spotify Ultra\Board\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\ResolveAssemblyReference.cache
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.DrawBoard.resources
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.CListView.resources
-L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource-ResGen.read.1.tlog
-L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.pdb
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.MakoParser.resources
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\bin\Debug\Board.pdb
@@ -20,9 +18,10 @@ L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.Res
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.ViewError.resources
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource.read.1.tlog
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource.write.1.tlog
-L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource.read.369.tlog
-L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource.write.369.tlog
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\bin\Debug\Board.exe
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.exe
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\Board.Scrollbar.resources
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\bin\Debug\.xml
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource-ResGen.read.1.tlog
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\bin\Debug\Board.exe.config

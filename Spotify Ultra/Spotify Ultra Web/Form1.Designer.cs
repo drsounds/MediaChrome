@@ -324,6 +324,9 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1078, 53);
             this.panel2.TabIndex = 12;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            this.panel2.DoubleClick += new System.EventHandler(this.panel2_DoubleClick);
+            this.panel2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             // 
             // pictureBox1
             // 
@@ -522,6 +525,7 @@
             this.Controls.Add(this.panel2);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Tahoma", 8F);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "Form1";
@@ -533,6 +537,8 @@
             this.ResizeBegin += new System.EventHandler(this.Form1_ResizeBegin);
             this.ResizeEnd += new System.EventHandler(this.Form1_ResizeEnd);
             this.Enter += new System.EventHandler(this.Form1Enter);
+            this.Leave += new System.EventHandler(this.Form1_Leave);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.contextMenuStrip1.ResumeLayout(false);
             this.contextMenuStrip2.ResumeLayout(false);

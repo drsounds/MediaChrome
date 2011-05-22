@@ -223,6 +223,15 @@
             <param name="Query">The search query.</param>
             <returns>Return an array of the founded artist at the engine</returns>
         </member>
+        <member name="M:MediaChrome.IPlayEngine.GetAlbum(MediaChrome.Artist,System.String)">
+            <summary>
+            Get an album by artist
+            </summary>
+            <param name="artist">The artist for the query</param>
+            <param name="album">The name or ID of the album to locate, depending on the service</param>
+            <returns>An instance of the album enclosed into an Album class instance</returns>
+            <remarks>Used in conjunction with views frameworks</remarks>
+        </member>
         <member name="M:MediaChrome.IPlayEngine.GetAlbum(System.String)">
             <summary>
             Get an album
@@ -278,7 +287,7 @@
             </summary>
             <param name="Content">The data uri associated with the song</param>
         </member>
-        <member name="M:MediaChrome.IPlayEngine.Import(System.Data.SQLite.SQLiteConnection,System.String)">
+        <member name="M:MediaChrome.IPlayEngine.Import(System.String)">
             <summary>
             Import music to the local database
             </summary>
@@ -462,6 +471,11 @@
         <member name="P:MediaChrome.IPlayEngine.Host">
             <summary>
             Host form. Used by the runtime
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Playlists">
+            <summary>
+            Returns a list of playlists from the current service
             </summary>
         </member>
         <member name="P:MediaChrome.IPlayEngine.Length">

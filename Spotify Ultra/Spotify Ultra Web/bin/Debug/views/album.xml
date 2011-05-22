@@ -3,16 +3,7 @@
  * 
  **/
 
-	/** Sync album info from Spotify's Server */
- var adata = synchronize_data("http://ws.spotify.com/lookup/1/?uri=spotify:album:"+parameter.replace("spotify:album:","")+"");
 
- var artist = adata.GetElementsByTagName("artist").Item(0).GetElementsByTagName("name").Item(0).InnerText;
- var artist_uri = adata.GetElementsByTagName("artist").Item(0).GetAttribute("href");
- var name = adata.GetElementsByTagName("name").Item(0).InnerText;
- var data = synchronize_data("http://ws.spotify.com/search/1/track?q=album:\""+name+"\" artist:\""+artist+"\"");
- 
- /** Get Songs **/
- var songs = data.GetElementsByTagName("track");
  
  
  

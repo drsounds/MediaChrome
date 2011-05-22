@@ -1,5 +1,10 @@
  <view>
 	<section name="Menu">
+		<entry title="Home" width="-1" height="16" top="@TOP" href="@{service}:home:a"/>
+		<entry title="Radio" width="-1" height="16" top="@TOP" href="@{service}:radio:a"/>
+		<entry title="Local Music" width="-1" height="16" top="@TOP" href="@{service}:local:c"/>
+	
+		<entry title="Store" width="-1" height="16" top="@TOP" href="@{service}:store:a"/>
 		
 	</section>
 </view>

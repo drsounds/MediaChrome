@@ -8,11 +8,11 @@ http://www.spotifyultra.com
 
 */
 
-var artist = getArtist(parameter);
+var artist = getArtist(service,parameter);
 
 
 var title = artist.Name;
-
+var bio = "Nice artist who loves music";
 ?>
 <view>
 	<toolbar>
@@ -23,10 +23,9 @@ var title = artist.Name;
 	</toolbar>
 	<section name="Overview">
 		
-		<label size="20" left="310" top="@TOP" width="500" height="10"></label> 
+		<label size="20" left="110" top="@TOP" width="500" height="10"></label> 
 		<img src="http://krakelin.com/artist.png" top="@TOP" left="10" width="120" height="120" persistent="true" />
-<label size="20" left="310" top="@TOP" width="500" height="10" href="@{parameter}">@{title}</label> 	
-		
+<label size="10" left="150" top="@TOP" width="500" height="10" href="@{parameter}">@{title} <br/> @{bio}</label> 	
 	
 		<space height="130"/>
 		<?
@@ -50,8 +49,8 @@ for(var i=0; i < artist.Albums.Length ; i++){
 	var href =  artist.Albums[i].Link; 
 	
 ?>
-		<inflate src="components/album.xml" name="@{name}" artist="@{artist}" uri="spotify:album:2v4S7kXQeS3Hm8zsB89HOB"/>
-
+		<inflate src="components/album.xml" name="@{name}" artist="@{artist}" service="@{service}"/>
+ 
 % }
 	
 	

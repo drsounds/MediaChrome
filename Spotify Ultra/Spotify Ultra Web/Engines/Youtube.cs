@@ -26,6 +26,10 @@ namespace MediaChrome
 	/// </summary>
 	public class Youtube : MediaChrome.IPlayEngine
     {
+        public List<Song> Import(String query)
+        {
+            return new List<Song>();
+        }
         #region DefaultValues
         public String Address { get; set; }
         public String Company { get; set; }
@@ -57,6 +61,10 @@ namespace MediaChrome
         {
             throw new NotImplementedException();
         }
+        public MediaChrome.Album GetAlbum(Artist artist,string ID)
+        {
+            throw new NotImplementedException();
+        }
         public MediaChrome.Album GetAlbum(string ID)
         {
             throw new NotImplementedException();
@@ -65,6 +73,7 @@ namespace MediaChrome
         {
             throw new NotImplementedException();
         }
+
         public bool PlaylistsLoaded { get; set; }
         public event EventHandler PlaybackFinished;
         public Form Host { get; set; }
@@ -290,12 +299,12 @@ namespace MediaChrome
          //   YouPlayer.Navigate(Content.Replace("youtube:",""));
 		}
 		
-		public void ImportEx(System.Data.SQLite.SQLiteConnection Conn, string RootDir)
+		public void ImportEx(object Conn, string RootDir)
 		{
 			throw new NotImplementedException();
 		}
 		
-		public void Import(System.Data.SQLite.SQLiteConnection Conn, string RootDir)
+		public void Import(object Conn, string RootDir)
 		{
 			throw new NotImplementedException();
 		}

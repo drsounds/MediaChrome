@@ -260,9 +260,13 @@ namespace Board
             /**
              * Tell the runtime machine about the argument
              * */
-            String[] arguments = argument.Split(':');
-            RuntimeMachine.SetVariable("parameter",argument.Replace(arguments[0]+":","").Replace(arguments[1]+":","") );
-     
+            try
+            {
+                String[] arguments = argument.Split(':');
+                RuntimeMachine.SetVariable("parameter", argument.Replace(arguments[0] + ":", "").Replace(arguments[1] + ":", ""));
+                RuntimeMachine.SetVariable("service", arguments[0]);
+            }
+            catch { }
             /**
              * This string defines the call-stack of the query
              * This is done before any other preprocessing

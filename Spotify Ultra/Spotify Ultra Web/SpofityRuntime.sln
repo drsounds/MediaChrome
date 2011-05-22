@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpofityRuntime", "SpofityRuntime.csproj", "{2B72EF2A-6611-4492-A753-0E1C8612A3E2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Board", "..\Board\Board.csproj", "{6471D06B-3647-4FDF-B980-7A59F9BDB790}"
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xmlfick", "..\xmlfick\xmlfick.csproj", "{E344CCBA-1F8B-4FE5-AB1F-3DD444DF64D3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaChrome", "..\MediaChrome\MediaChrome.csproj", "{1D280F8A-C27B-40A2-AA08-71DB6E82E530}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeskWiki", "..\DeskWiki\DeskWiki.csproj", "{73C5EBB2-4FFF-4479-9B56-B3B0EE4FEC40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,6 +76,16 @@ Global
 		{1D280F8A-C27B-40A2-AA08-71DB6E82E530}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{1D280F8A-C27B-40A2-AA08-71DB6E82E530}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{1D280F8A-C27B-40A2-AA08-71DB6E82E530}.Release|x86.ActiveCfg = Release|Any CPU
+		{73C5EBB2-4FFF-4479-9B56-B3B0EE4FEC40}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{73C5EBB2-4FFF-4479-9B56-B3B0EE4FEC40}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{73C5EBB2-4FFF-4479-9B56-B3B0EE4FEC40}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{73C5EBB2-4FFF-4479-9B56-B3B0EE4FEC40}.Debug|x86.ActiveCfg = Debug|x86
+		{73C5EBB2-4FFF-4479-9B56-B3B0EE4FEC40}.Debug|x86.Build.0 = Debug|x86
+		{73C5EBB2-4FFF-4479-9B56-B3B0EE4FEC40}.Release|Any CPU.ActiveCfg = Release|x86
+		{73C5EBB2-4FFF-4479-9B56-B3B0EE4FEC40}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{73C5EBB2-4FFF-4479-9B56-B3B0EE4FEC40}.Release|Mixed Platforms.Build.0 = Release|x86
+		{73C5EBB2-4FFF-4479-9B56-B3B0EE4FEC40}.Release|x86.ActiveCfg = Release|x86
+		{73C5EBB2-4FFF-4479-9B56-B3B0EE4FEC40}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -20,6 +20,10 @@ namespace SpofityRuntime
 {
 	public class SpotifyPlayer : MediaChrome.IPlayEngine
     {
+        public List<Song> Import(String query)
+        {
+            return new List<Song>();
+        }
         #region DefaultValues
         public String Address { get; set; }
         public String Company { get; set; }
@@ -119,6 +123,47 @@ namespace SpofityRuntime
             }
             return artist;
         }
+
+        /// <summary>
+        /// Gets an album. The ID
+        /// </summary>
+        /// <param name="Name">The URI to the album</param>
+        /// <returns></returns>
+        public MediaChrome.Album GetAlbum(MediaChrome.Artist artist, string ID)
+        {
+            if (artists.ContainsKey(ID))
+                return (MediaChrome.Album)artists[ID];
+            // Initiate objects
+            Spotify.AlbumBrowse Browser = SpotifySession.BrowseAlbumSync(Spotify.Album.CreateFromLink(Link.Create(ID)), new TimeSpan(1050000));
+            while (Browser == null) { }
+
+            MediaChrome.Album result = new MediaChrome.Album();
+            artists.Add(ID, result);
+            result.Name = Browser.Album.Name;
+
+
+            result.Artist = artist;
+            result.Engine = this;
+            result.Link = Browser.Album.LinkString;
+
+
+            // Create tracklist
+            result.Songs = new Song[Browser.Tracks.Length];
+
+            for (var i = 0; i < Browser.Tracks.Length; i++)
+            {
+                Track currentTrack = Browser.Tracks[i];
+
+                Song d = TrackToSong(currentTrack);
+                result.Songs[i] = d;
+
+            }
+
+            result.Link = ID;
+            return result;
+
+        }
+
         /// <summary>
         /// Gets an album. The ID
         /// </summary>
@@ -284,42 +329,10 @@ namespace SpofityRuntime
             }
 			return Songs;
 		}
-		public void Import(SQLiteConnection Conn,String Query)
+		public List<Song> Import(object Connx,String Query)
 		{
-            try
-            {
-                Conn.Open();
-            }
-            catch
-            {
-            }
-			foreach(Spotify.Playlist D in SpotifySession.PlaylistContainer.CurrentLists)
-			{
-				foreach(Track Ds in D.CurrentTracks)
-				{
-					SQLiteCommand C = new SQLiteCommand("SELECT count(*) FROM song WHERE path='sp:"+Ds.LinkString+"'",Conn);
-					SQLiteDataReader SQDR = C.ExecuteReader();
-					
-					if(SQDR.HasRows)
-					{
-						SQDR.Read();
-						if(SQDR.GetInt32(0)==0)
-						{
-							try
-							{
-							SQLiteCommand Df = new SQLiteCommand("INSERT INTO song (name,artist,album,engine,path,genre,store) VALUES(\""+Ds.Name+"\",\""+Ds.Artists[0].Name+"\",\""+Ds.Album.Name+"\",\"sp\",\"sp:"+Ds.LinkString+"\",\"pop\",\"Spotify\")",Conn);
-							Df.ExecuteNonQuery();
-							}
-							catch
-							{
-								
-							}
-						}
-					}
-				}
-			}
-			Conn.Close();
-		}
+            return new List<Song>();
+        }
 		public void ImportEx(SQLiteConnection Conn,String Query)
 		{
 			
@@ -342,7 +355,78 @@ namespace SpofityRuntime
 		private  AutoResetEvent loggedOut = new AutoResetEvent(false);
 		public  Track currentTrack = null;
 		public  bool Sucess=false;
-		
+        public static object Mutex = new object();
+		public System.Drawing.Image DownloadCover(string url)
+        {
+            return null;
+#if (nobug)
+           // if the adress starts with spotify, download the cover image
+            if (url.StartsWith("spotify:"))
+            {
+                try
+                {
+                    /**
+                     * Check if image is already downloaded, if so do not try to download an new one.
+                     * All images is stored as their uri but with : replaced to _
+                     * */
+                    string ImageFilePath = "C:\\temp\\" + url.Replace(":", "_") + ".jpeg"; ;
+                    if (!File.Exists(ImageFilePath))
+                    {
+                        Spotify.Album ct = null;
+                        Link d = null;
+                        lock (Mutex)
+                        {
+
+                            d = Link.Create(e.Adress);
+                            ct = Spotify.Album.CreateFromLink(d);
+                            Thread.Sleep(100);
+                            do
+                            {
+                                Thread.Sleep(1000);
+                            } while (!ct.IsLoaded);
+
+                            /**
+                             * Store the covers in an temporary folder. Create temporary directy if not exist
+                             * */
+                            if (!Directory.Exists("C:\\temp"))
+                            {
+                                Directory.CreateDirectory("C:\\temp");
+                            }
+
+
+                            // set the path for the image
+
+                            // Download the image if it don't exists in the cache, otherwise the system can load it directly
+
+                            // Download the bitmap
+                            System.Drawing.Image cf =Session.LoadImageSync(ct.CoverId, new TimeSpan(1, 0, 0));
+
+                            using (StreamWriter SW = new StreamWriter(ImageFilePath))
+                            {
+                                cf.Save(SW.BaseStream, ImageFormat.Jpeg);
+                                SW.Close();
+                            }
+
+
+                            e.Bitmap = cf;
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        Image cf = Bitmap.FromFile(ImageFilePath);
+                        return = cf;
+                        
+                    }
+
+                }
+                catch
+                {
+                }
+
+            }
+#endif
+        }
 		public List<MediaChrome.Song> Search()
 		{
 			return new List<MediaChrome.Song>();
@@ -413,19 +497,19 @@ namespace SpofityRuntime
 
          void SpotifySession_OnImageLoaded(Session sender, ImageEventArgs e)
         {
-        	/*
+       
 			if (e.Image != null)
 			{
 				try
 				{
-					string d = GetAppString()+"\\covers\\"+e.State+".jpg";
+					string d = "C:\\covers\\"+e.Id+".jpg";
 					e.Image.Save(d, System.Drawing.Imaging.ImageFormat.Jpeg);
 					
 				}
 				catch
 				{
 				}
-			}*/
+			}
         }
       
          void SpotifySession_OnPlaylistContainerLoaded(Session sender, SessionEventArgs e)

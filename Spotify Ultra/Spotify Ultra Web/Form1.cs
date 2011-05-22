@@ -16,13 +16,283 @@ using System.Xml;
 
 using GlassForms;
 using Spotify;
+using MediaChrome;
 
 namespace SpofityRuntime
 {
 
      
-    public partial class Form1 : GlassForms.GlassForm
+    public partial class Form1 : Form
     {
+        #region SongQuery
+
+
+        /// <summary>
+        /// Indicating a song is under resolution
+        /// </summary>
+        bool resolvingSong = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Dictionary<String,String> Querys { get; set; }
+        /// <summary>
+        /// Resolve an song from available services
+        /// </summary>
+        /// <param name="dr"></param>
+        void _ResolveSong(Object dr)
+        {
+            resolvingSong = true;
+
+            Song _Song = (Song)dr;
+
+            if (Querys != null)
+                if (Querys.ContainsKey("service"))
+                {
+                    if (Program.MediaEngines.ContainsKey(Querys["service"]))
+                    {
+                        IPlayEngine Engine = Program.MediaEngines[Querys["service"]];
+                        CurrentPlayer = Engine;
+                        watchSong = Engine.RawFind(_Song);
+                        resolvingSong = false;
+                        return;
+                        /* */
+                    }
+                }
+
+            /**
+             * Elsewhere, iterate through installed music services
+             * and check if there is a matching track to play the song on
+             * */
+            foreach (IPlayEngine Engine in Program.MediaEngines.Values)
+            {
+
+                Song f = Engine.RawFind(_Song);
+
+                if (f != null)
+                {
+                    CurrentPlayer = Engine;
+                    resolvingSong = false;
+                    watchSong = f;
+                    return;
+                }
+
+
+                /*  currentTrack = f;
+
+                  currentPlayer = Engine;
+                  Engine.Load((currentTrack.Path));
+                  currentTrack = _Song;
+                  Engine.Play();
+*/
+
+
+            }
+            resolvingSong = false;
+            ResolvingSongThread = null;
+            ShowMessage("There was no service found for the song");
+        }
+
+        private void ShowMessage(string p)
+        {
+            
+        }
+
+        /// <summary>
+        /// Thread used for song resolution among service
+        /// </summary>
+        public Thread ResolvingSongThread { get; set; }
+        /// <summary>
+        /// Check if an song exist
+        /// </summary>
+        /// <param name="_Song"></param>
+        /// <returns></returns>
+        public bool Song_Exists(Song _Song)
+        {
+
+
+
+
+            if (Querys != null)
+                if (Querys.ContainsKey("service"))
+                {
+                    if (Program.MediaEngines.ContainsKey(Querys["service"]))
+                    {
+                        IPlayEngine Engine = Program.MediaEngines[Querys["service"]];
+                        currentPlayer = Engine;
+                        watchSong = Engine.RawFind(_Song);
+                        _Song.Checked = true;
+                        return true;
+                        /* */
+                    }
+                }
+
+            /**
+             * Elsewhere, iterate through installed music services
+             * and check if there is a matching track to play the song on
+             * */
+            foreach (IPlayEngine Engine in Program.MediaEngines.Values)
+            {
+
+                Song f = Engine.RawFind(_Song);
+
+                if (f != null)
+                {
+                    CurrentPlayer = Engine;
+                    _Song.Checked = true;
+                    //CurrentPlayer = f;
+                    return true;
+                }
+
+
+                /*  currentTrack = f;
+
+                  currentPlayer = Engine;
+                  Engine.Load((currentTrack.Path));
+                  currentTrack = _Song;
+                  Engine.Play();
+*/
+
+
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Play and item and lookup the item from avaliable sources
+        /// </summary>
+        /// <param name="Query"></param>
+        /// <returns></returns>
+        public bool PlayItem(String Query)
+        {
+            /*    if (ResolvingSongThread != null)
+                    return false;*/
+#if (nobug)
+            /// <summary>
+            /// Stop the current player to play the media, but first
+            /// be sure that there is a current instance of a class witihn the IMediaEngine
+            /// </summary>
+            if (currentPlayer != null)
+            {
+                currentPlayer.Stop();
+                foreach (Control d in Program.mainForm.Playboard.Controls)
+                {
+                    if (d.GetType() == currentPlayer.MediaControl.GetType())
+                    {
+                        d.Hide();
+                    }
+                }
+            }
+#endif
+            /// <summary>
+            /// Get the engine namespace from the query passed
+            /// </summary>
+            string engine = Query.Split(':')[0];
+            try
+            {
+                Song _Song = Song.GetSongFromURI(Query);
+                if (_Song.ID != null && _Song.ID != "" && _Song.ProposedEngine != "" && _Song.ProposedEngine != null)
+                {
+                    try
+                    {
+                        IPlayEngine Df = Program.MediaEngines[_Song.ProposedEngine];
+                        CurrentPlayer = Df;
+                        CurrentPlayer.Load(_Song.ID);
+                
+                        return true;
+                    }
+                    catch
+                    {
+
+                    }
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            IPlayEngine D = null;
+            if (Query.StartsWith("music:") || Query.StartsWith("song:"))
+            {
+
+                Song _Song = Song.GetSongFromURI(Query);
+                Uri d = new System.Uri(Query.Replace("music:", "http:").Replace("song:", "http:"));
+                if (_Song.ID != null && _Song.ID != "" && _Song.ProposedEngine != "" && _Song.ProposedEngine != null)
+                {
+                    try
+                    {
+                        IPlayEngine Df = Program.MediaEngines[_Song.ProposedEngine];
+                        CurrentPlayer = Df;
+                        CurrentPlayer.Load(Df.Namespace + ":" + _Song.ID);
+                        // crrentTrack = _Song;
+                        return true;
+                    }
+                    catch
+                    {
+
+                    }
+
+                }
+                ResolvingSongThread = new Thread(_ResolveSong);
+                ResolvingSongThread.Start((object)_Song);
+                /***
+                 * If a default service is assigned, try the service
+                 * before attempting to find it on other service
+                 * */
+
+
+                Querys = Song.UriHelper.Querystrings(d);
+
+
+
+
+                return true;
+            }
+            else
+            {
+                /// <summary>
+                /// Get the player from the list
+                /// </summary>
+                /// 
+                if (Program.MediaEngines.ContainsKey(engine))
+                {
+                    D = Program.MediaEngines[engine];
+                }
+
+            }
+            if (D != null)
+            {
+
+                D.MediaControl.Dock = DockStyle.Fill;
+                D.MediaControl.Show();
+                D.MediaControl.Enabled = true;
+                /// <summary>
+                /// Remove the engine specification of the Query URI
+                /// </summary>
+                String Path = Query.Replace(engine + ":", "");
+                /// <summary>
+                /// Send it to the media player
+                /// </summary>
+                D.Load((Path));
+                /// <summary>
+                /// Play the media
+                /// </summary>
+                D.Play();
+                CurrentPlayer = D;
+
+
+            }
+            else
+            {
+                MessageBox.Show("There is no media handler for the media");
+            }
+            return true;
+        }
+        #endregion
+
+
         private MediaChrome.IPlayEngine currentPlayer;
         /// <summary>
         /// The current engine which plays an song.
@@ -260,20 +530,53 @@ namespace SpofityRuntime
             Process.Start(uri);
             return null;
         }
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+        }
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+        }
         public Stack<Board.Element> playlistsToAdd;
+        private const int WM_SETREDRAW = 0x000B;
+
+
+          private const int WM_INVALIDATE = 0x0402 + 100;
+
+      
+        /// <summary>
+        /// Lock window from update
+        /// </summary>
+        /// <param name="hWnd"></param>
+        /// <returns></returns>
+        [DllImport("user32.dll")]
+        public static extern long LockWindowUpdate(IntPtr hWnd);
+
+
+        protected override void NotifyInvalidate(Rectangle invalidatedArea)
+        {
+           // invalidatedArea = new Rectangle(0, 0, 0, 0);
+        }
+        protected override void OnInvalidated(InvalidateEventArgs e)
+        {
+
+        }
         /// <summary>
         /// Will split the window when mouse move if true
         /// </summary>
+        /// 
+      
         bool splitting1 = false;
         public Board.DrawBoard playlistView;
         private void Form1_Load(object sender, EventArgs e)
         {
-            
-
+            Lock();
+            this.Invalidate();
             // Initalize scrollbars
             Board.Scrollbar scrollBar1 = new Board.Scrollbar();
             Board.Scrollbar scrollBar2 = new Board.Scrollbar();
-           
+        
             scrollBar2.Dock = DockStyle.Right;
             scrollBar1.Dock = DockStyle.Left;
             splitter1 = new Panel();
@@ -368,6 +671,11 @@ namespace SpofityRuntime
            
            
         }
+
+        private void Lock()
+        {
+//            throw new NotImplementedException();
+        }
         /// <summary>
         /// The current namespace for browsing (the engine to use for the particular view)
         /// </summary>
@@ -402,6 +710,10 @@ namespace SpofityRuntime
         /// <param name="uri"></param>
         public void Browse(string uri)
         {
+            if (uri.StartsWith("mc:") || uri.StartsWith("mediachrome:"))
+            {
+                uri = uri.Replace("mc:", "").Replace("mediachrome:", "");
+            }
             String Engine = uri.Split(':')[0];
             /**
              * Find an media engine matching the parameter
@@ -533,71 +845,7 @@ namespace SpofityRuntime
         void board_BeginDownloadImage(object sender, Board.DrawBoard.ImageDownloadEventArgs e)
         {
            
-            // if the adress starts with spotify, download the cover image
-            if (e.Adress.StartsWith("spotify:"))
-            {
-                try
-                {
-                    /**
-                     * Check if image is already downloaded, if so do not try to download an new one.
-                     * All images is stored as their uri but with : replaced to _
-                     * */
-                    string ImageFilePath = "C:\\temp\\" + e.Adress.Replace(":", "_") + ".jpeg"; ;
-                    if (!File.Exists(ImageFilePath))
-                    {
-                        Album ct = null;
-                        Link d = null;
-                        lock (Mutex)
-                        {
-
-                            d = Link.Create(e.Adress);
-                            ct = Album.CreateFromLink(d);
-                            Thread.Sleep(100);
-                            do
-                            {
-                                Thread.Sleep(1000);
-                            } while (!ct.IsLoaded);
-
-                            /**
-                             * Store the covers in an temporary folder. Create temporary directy if not exist
-                             * */
-                            if (!Directory.Exists("C:\\temp"))
-                            {
-                                Directory.CreateDirectory("C:\\temp");
-                            }
-
-
-                            // set the path for the image
-
-                            // Download the image if it don't exists in the cache, otherwise the system can load it directly
-
-                            // Download the bitmap
-                            Image cf = Session.LoadImageSync(ct.CoverId, new TimeSpan(1, 0, 0));
-
-                            using (StreamWriter SW = new StreamWriter(ImageFilePath))
-                            {
-                                cf.Save(SW.BaseStream, ImageFormat.Jpeg);
-                                SW.Close();
-                            }
-
-
-                            e.Bitmap = cf;
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        Image cf = Bitmap.FromFile(ImageFilePath);
-                        e.Bitmap = cf;
-                        return;
-                    }
-                  
-                }
-                catch
-                {
-                }
-
-            }
+            
             
 
         }
@@ -664,20 +912,28 @@ namespace SpofityRuntime
         /// </summary>
         /// <param name="ID"></param>
         /// <returns>An JS object representing the artist</returns>
-        public object __getArtist(string ID)
+        public object __getArtist(string engine,string ID)
         {
-            // Get the engine used
-            String engine = ID.Split(':')[0];
+     
             return Program.MediaEngines[engine].GetArtist(ID);
 
         }
-
         /// <summary>
         /// Gets the album from the specified URI, from script
         /// </summary>
         /// <param name="ID"></param>
         /// <returns>An JS object representing the album</returns>
-        public object __getAlbum(string ID)
+        public object __getAlbum(string engine,string ID)
+        {
+            
+            return Program.MediaEngines[engine].GetAlbum(ID);
+        }
+        /// <summary>
+        /// Gets the album from the specified URI, from script
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns>An JS object representing the album</returns>
+        public object __getAlbum(string ID) 
         {
             // Get the engine used
             String engine = ID.Split(':')[0];
@@ -715,7 +971,8 @@ namespace SpofityRuntime
               Board.MakoEngine d = (Board.MakoEngine)sender;
               d.RuntimeMachine.SetFunction("queryLocalFiles",new Func<string, object>(__GetLocalFiles));
               d.RuntimeMachine.SetFunction("getAlbum", new Func<string, object>(__getAlbum));
-              d.RuntimeMachine.SetFunction("getArtist", new Func<string, object>(__getArtist));
+              d.RuntimeMachine.SetFunction("getAlbum", new Func<string,string, object>(__getAlbum));
+              d.RuntimeMachine.SetFunction("getArtist", new Func<string, string, object>(__getArtist));
                 
               d.RuntimeMachine.SetFunction("findMusic", new Func<string, object>(__findMusic));
               d.RuntimeMachine.SetFunction("getPlaylist", new Func<string, object>(__getPlaylist));
@@ -872,13 +1129,15 @@ namespace SpofityRuntime
 
         bool board_PlaybackRequested(object sender, string Url)
         {
+            
             /**
              * Stop the current playing song
              * */
             if (CurrentPlayer != null)
                 CurrentPlayer.Stop();
 
-
+            PlayItem(Url);
+#if (nobug)
             // If url starts with Spotify:local: (eg. local file) load it another way. More handlers will be implemented soon as this
             // will be an mediachrome instance
             if(Url.StartsWith("spotify:local:"))
@@ -958,8 +1217,9 @@ namespace SpofityRuntime
                 sp_error ct = Program.SpotifySession.PlayerPlay(true);
             // Set the nowplaying view to the view provided
                 Board.Spofity Sender = (Board.Spofity)sender;
-                nowPlayingView = Sender;
-            return true;*/
+                nowPlayingView = Sender;*/
+#endif
+            return true;
             
         }
         /// <summary>
@@ -2146,10 +2406,59 @@ namespace SpofityRuntime
             D.Top = this.PointToScreen(new Point(0,this.panel2.Top+this.panel2.Height)).Y;
 
         }
+
+        public Song watchSong { get; set; }
+
+        private void Form1_Leave(object sender, EventArgs e)
+        {
+         LockWindowUpdate(this.Handle);
+        }
+
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+      
+        // Override the CreateParams property
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle |= CS_DROPSHADOW;
+                return cp;
+            }
+        }
+
+        private void panel2_DoubleClick(object sender, EventArgs e)
+        {
+            int nTaskBarHeight = Screen.PrimaryScreen.Bounds.Bottom - Screen.PrimaryScreen.WorkingArea.Bottom;
+            this.MaximumSize = new Size(this.Width, this.Height - nTaskBarHeight);
+            this.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
+
+        }
+
     }
      public class Pane : System.Windows.Forms.Panel
     {
          public bool Dark { get; set; }
          public Color SecondColor { get; set; }
     }
+     public class ExPanel : Panel
+     {
+         protected override void NotifyInvalidate(Rectangle invalidatedArea)
+         {
+             invalidatedArea = new Rectangle(0, 0, 0, 0);
+         }
+         protected override void OnInvalidated(InvalidateEventArgs e)
+         {
+             
+         }
+     }
 }

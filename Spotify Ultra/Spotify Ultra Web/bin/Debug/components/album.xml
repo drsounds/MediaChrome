@@ -2,12 +2,13 @@
 /***
  * Album view component. Not to use separetely
  **/
-	var album = getAlbum(arg_uri.replace("spotify:album:spotify:album:","spotify:album:"));
+	var album = getAlbum(arg_service,arg_uri);
 	var songs = album.Songs;
+	var uri="";
 ?>
 <view>
 	<section name="component">
-		<label left="150"  height="23" top="@top" width="320" size="10"  href="@{uri}">@{album.Name}</label>
+		<label left="150"  height="23" top="@top" width="320" size="10"  href="@{uri}">@{album.Name} </label>
 		
 		<img  left="10" width="128" height="128" top="@TOP" href="@{uri}" src="@{uri}" persistent="true"/>
 		<!-- An example tracklist -->
@@ -17,19 +18,17 @@ function zeroNumber(no){
 }
 var album_name="name";
 var trackNo = 0;
-for(var i=0; i < songs.Length; i++){ 
+for(var i=0; i < album.Songs.Length; i++){ 
 
 	/* Set an tracknumber*/
 	
 	
-	var song = songs[i];
+
 	var title = song.Name;
 	
 	
 	var href = song.Path;
-	var album_href =  song.Artists[0].Link;
-
-	var primary = song.Artists[0].Name;
+	
 	
 	
 	var coartist ="";

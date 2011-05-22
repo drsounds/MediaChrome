@@ -4,7 +4,7 @@
     <ProjectGuid>{6471D06B-3647-4FDF-B980-7A59F9BDB790}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>Board</RootNamespace>
     <AssemblyName>Board</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -155,6 +155,7 @@
     <EmbeddedResource Include="Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Scrollbar.resx">
       <DependentUpon>Scrollbar.cs</DependentUpon>
@@ -186,6 +187,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="tab.png" />
     <None Include="inactive.png" />
     <None Include="tab_.png" />
@@ -201,13 +203,14 @@
     <None Include="Resources\shadow.png" />
     <Content Include="icon.ico" />
     <None Include="Resources\sectionbar.png" />
-    <None Include="Resources\toolbar.png" />
     <None Include="Resources\inactive.png" />
     <None Include="Resources\tab_separator.png" />
     <None Include="Resources\release.png" />
     <None Include="Resources\scrollbar_thumb2.png" />
     <None Include="Resources\scrollbar_down.png" />
     <None Include="Resources\scrollbar_up.png" />
+    <None Include="Resources\view_bg.png" />
+    <None Include="Resources\toolbar.png" />
     <Content Include="TextFile1.txt" />
   </ItemGroup>
 </Project>

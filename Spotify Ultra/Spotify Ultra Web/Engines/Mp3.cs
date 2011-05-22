@@ -24,6 +24,10 @@ namespace MediaChrome
 	/// </summary>
 	public class MP3Player : IPlayEngine
     {
+        public List<Song> Import(String query)
+        {
+            return new List<Song>();
+        }
         #region DefaultValues
         public String Address { get; set; }
         public String Company { get; set; }
@@ -41,21 +45,98 @@ namespace MediaChrome
         public string Link;
         #endregion
         public System.Drawing.Image Icon { get; set; }
-        public MediaChrome.Artist[] FindArtist(string ID)
-        {
-            throw new NotImplementedException();
-        }
         public MediaChrome.Album[] FindAlbum(string ID)
         {
-            throw new NotImplementedException();
+            return new Album[] { };
+        }
+        public MediaChrome.Artist[] FindArtist(string ID)
+        {
+            return new Artist[] { };
+        }
+      
+
+        public MediaChrome.Album GetAlbum(Artist artist, string ID)
+        {
+            Album R = new Album();
+            SQLiteConnection D = SpofityRuntime.MainForm.MakeConnection();
+            SQLiteDataReader r = new SQLiteCommand("SELECT name,artist,album,path FROM song WHERE album = '" + ID + "' AND artist='"+artist.Name+"' ", D).ExecuteReader();
+            
+            // Create temporary list of songs
+
+            List<Song> songs = new List<Song>();
+            
+            // Add all songs from the result
+            while (r.Read())
+            {
+                Song d = new Song();
+                d.Album = R;
+                d.Artists = new Artist[] { artist };
+                d.Name = (string)r["name"];
+                d.Path = (string)r["path"];
+                d.Link = (string)r["path"];
+                d.Engine = this;
+                songs.Add(d);
+
+            }
+            R.Songs = songs.ToArray();
+            return R;
         }
         public MediaChrome.Album GetAlbum(string ID)
         {
-            throw new NotImplementedException();
+            Album R = new Album();
+            SQLiteConnection D = SpofityRuntime.MainForm.MakeConnection();
+            SQLiteDataReader r = new SQLiteCommand("SELECT name,artist,album,path FROM song WHERE album = '" + ID + "'", D).ExecuteReader();
+
+            // Create temporary list of songs
+
+            List<Song> songs = new List<Song>();
+
+            // Add all songs from the result
+            while (r.Read())
+            {
+                Song d = new Song();
+                d.Album = R;
+                d.Artist = (string)r["artist"];
+                d.Name = (string)r["name"];
+                d.Path = (string)r["path"];
+                d.Link = (string)r["path"];
+                d.Engine = this;
+                songs.Add(d);
+
+            }
+            R.Songs = songs.ToArray();
+            return R;
         }
+
+        /// <summary>
+        /// Gets an artist for the work
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
         public MediaChrome.Artist GetArtist(string ID)
         {
-            throw new NotImplementedException();
+            SQLiteConnection  D = SpofityRuntime.MainForm.MakeConnection();
+
+            Artist artist = new Artist();
+            artist.Name = ID;
+            artist.Link = ID;
+            /***
+             * Associate albums and songs to the artist
+             * */
+            SQLiteDataReader SQLDR = new SQLiteCommand("SELECT DISTINCT album FROM song WHERE artist='" + ID + "'", D).ExecuteReader();
+
+            List<Album> albums = new List<Album>(); // Create an temporary list of albums
+            while (SQLDR.Read())
+            {
+                Album r = GetAlbum(artist,(string)SQLDR["album"]);
+                albums.Add(r);
+            }
+            Artist d = new Artist();
+            d.Name = ID;
+            d.Albums = albums.ToArray();
+            return d;
+            
+
         }
         public bool PlaylistsLoaded { get; set; }
         public event EventHandler PlaybackFinished;
@@ -225,9 +306,9 @@ namespace MediaChrome
 				ImportData(Conn,R.FullName);
 			}
 		}
-		public void Import(SQLiteConnection Conn,string RootDir){
+		public void Import(object Conn,string RootDir){
 			Ready=false;
-			ImportData(Conn,RootDir);
+			ImportData((SQLiteConnection)Conn,RootDir);
 			Ready=true;
 			
 		}
