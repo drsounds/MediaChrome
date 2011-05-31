@@ -1,0 +1,495 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MediaChrome</name>
+    </assembly>
+    <members>
+        <member name="T:MediaChrome.IMedia">
+            <summary>
+            A IMedia represents the instances of songs,artists and albums
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IMedia.Link">
+            <summary>
+            The link to the artist
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IMedia.Name">
+            <summary>
+            The name of the artist
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IMedia.Engine">
+            <summary>
+            The engine the album is using
+            </summary>
+        </member>
+        <member name="T:MediaChrome.Artist">
+            <summary>
+            An artist
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Artist.Albums">
+            <summary>
+            Available albums for the artist
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Artist.Link">
+            <summary>
+            The link to the artist
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Artist.Name">
+            <summary>
+            The name of the artist
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Artist.Engine">
+            <summary>
+            The engine the album is using
+            </summary>
+        </member>
+        <member name="T:MediaChrome.Album">
+            <summary>
+            Class for album
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Album.Songs">
+            <summary>
+            Songs of the album
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Album.Artist">
+            <summary>
+            Album artist
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Album.Name">
+            <summary>
+            Name of the album
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Album.Link">
+            <summary>
+            The link of the album
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Album.Engine">
+            <summary>
+            The engine the album is using
+            </summary>
+        </member>
+        <member name="T:MediaChrome.Song">
+            <summary>
+            Description of IPlayEngine.
+            </summary>
+            
+        </member>
+        <member name="F:MediaChrome.Song.subSongs">
+            <summary>
+            Sub-songs. Not used
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Checked">
+            <summary>
+            Decides whether the song is checked.
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.CoverArt">
+            <summary>
+            Address to an bitmap file with coverart, either locally or remote
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Title">
+            <summary>
+            The title of the song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.ID">
+            <summary>
+            The ID of the song (URI)
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Artists">
+            <summary>
+            An array of artists, first is primary
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.ArtistUrl">
+            <summary>
+            Gets and sets the artist's uri of the track
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.AlbumUrl">
+            <summary>
+            Gets and sets the service URI for the album of the song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Album">
+            <summary>
+            The album of the song.
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.AlbumName">
+            <summary>
+            Gets the album name or sets it, making a default album instance
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Path">
+            <summary>
+            The MediaChrome' uri of the song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Engine">
+            <summary>
+            Gets and sets the engine used for the song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Store">
+            <summary>
+            The store of the song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Version">
+            <summary>
+            The version of the song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Popularity">
+            <summary>
+            Popularity of the song at the store
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Contributing">
+            <summary>
+            Gets or sets the contributing musician of the song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Feature">
+            <summary>
+            Gets or sets the featured artist on the song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.ProposedEngine">
+            <summary>
+            Gets and sets the desired Media Engine for this particular instance
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Composer">
+            <summary>
+            Gets and sets the composer of the song
+            </summary>
+        </member>
+        <member name="T:MediaChrome.IPlayEngine">
+            <summary>
+            A media service plug in for media chrome. Each music service who want to be integrated
+            with the mediachrome framework must implement this class.
+            </summary>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.ShowOptions">
+            <summary>
+            Shows options dialogue.
+            </summary>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Purchase(MediaChrome.Song)">
+            <summary>
+            Handles purchases of an song
+            </summary>
+            <param name="song">A song</param>
+            <remarks>Not implemented</remarks>
+            <returns>Whether the purchase was accepted or rejected by the merchant</returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Login">
+            <summary>
+            Show the log in creditals. Log in is handled by each service
+            </summary>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Logout">
+            <summary>
+            Method for logging out the user from the service
+            </summary>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.GetArtist(System.String)">
+            <summary>
+            Get an artist by ID
+            </summary>
+            <param name="ID">The ID or name of the artist to retrieve, depending on the service</param>
+            <returns>An artist enclosed in an instance of MediaChrome's Artist class</returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.FindArtist(System.String)">
+            <summary>
+            Find an artist
+            </summary>
+            <param name="Query">The search query.</param>
+            <returns>Return an array of the founded artist at the engine</returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.GetAlbum(MediaChrome.Artist,System.String)">
+            <summary>
+            Get an album by artist
+            </summary>
+            <param name="artist">The artist for the query</param>
+            <param name="album">The name or ID of the album to locate, depending on the service</param>
+            <returns>An instance of the album enclosed into an Album class instance</returns>
+            <remarks>Used in conjunction with views frameworks</remarks>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.GetAlbum(System.String)">
+            <summary>
+            Get an album
+            </summary>
+            <param name="album">The name or ID of the album to locate, depending on the service</param>
+            <returns>An instance of the album enclosed into an Album class instance</returns>
+            <remarks>Used in conjunction with views frameworks</remarks>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.FindAlbum(System.String)">
+            <summary>
+            Find an album
+            </summary>
+            <param name="album"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Find(System.String)">
+            <summary>
+            Query for songs on the service cloud
+            </summary>
+            <param name="Query">The textual query</param>
+            <returns></returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.SongImport(MediaChrome.Song[])">
+            <summary>
+            Import songs into the local library according to the specifications.
+            </summary>
+            <param name="songs"></param>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Play">
+            <summary>
+            Starts playing the current song
+            </summary>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Pause">
+            <summary>
+            Occurs when pausing
+            </summary>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Stop">
+            <summary>
+            Occurs when stopping
+            </summary>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Seek(System.Double)">
+            <summary>
+            Occurs when seeking
+            </summary>
+            <param name="pos">The new position of the media</param>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Load(System.String)">
+            <summary>
+            Occurs when loading an song
+            </summary>
+            <param name="Content">The data uri associated with the song</param>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Import(System.String)">
+            <summary>
+            Import music to the local database
+            </summary>
+            <param name="Conn">SQLiteConnection instance for accessing the internal database</param>
+            <param name="RootDir">The file directory for the local files to recurse on</param>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Unload">
+            <summary>
+            Unload the engine
+            </summary>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Search">
+            <summary>
+            Raw search songs from the service
+            </summary>
+            <returns>An list of songs</returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.RawFind(MediaChrome.Song)">
+            <returns></returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.ViewPlaylist(System.String,System.String)">
+            <summary>
+            Playlist-related functionality
+            </summary>
+            <returns>A instance of the playlist class with content from this source</returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.CreatePlaylist(System.String)">
+            <summary>
+            Creates an new playlist on the source.
+            </summary>
+            <param name="Name">The desired name of the playlist</param>
+            <returns>An instance of an playlist class representing the new playlist.</returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.AddToPlaylist(System.String,MediaChrome.Song,System.Int32)">
+            <summary>
+            Add an song to an playlist
+            </summary>
+            <param name="playlistID">The ID of the target playlist on the source</param>
+            <param name="_Song">The instance of the song</param>
+            <param name="pos">The desired position on the playlist to add on. -1 indicates the last position</param>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.AddToPlaylist(MediaChrome.Views.Playlist,MediaChrome.Song,System.Int32)">
+            <summary>
+            Add an song to an playlist
+            </summary>
+            <param name="playlistID">The ID of the target playlist on the source</param>
+            <param name="_Song">The instance of the song</param>
+            <param name="pos">The desired position on the playlist to add on. -1 indicates the last position</param>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.RemoveFromPlaylist(System.String,System.Int32)">
+            <summary>
+            Remove a song at the specified index on the playlist.
+            </summary>
+            <param name="playlistID">The ID of the playlist, specific for the service</param>
+            <param name="pos">The index of the song which should be removed</param>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.MoveSongPlaylist(System.String,MediaChrome.Song,System.Int32,System.Int32)">
+            <summary>
+            Moves an entry through the playlist, the collection between the starting and end index.
+            </summary>
+            <param name="playlistID">The ID of the playlist</param>
+            <param name="entry">The Song to move</param>
+            <param name="startLoc">start index of the chunk to move</param>
+            <param name="endLoc">end segment of cnhunk</param>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.LoadPlaylist(System.String,MediaChrome.Views.Playlist@)">
+            <summary>
+            Load an playlist and return the list. Obsolote.
+            </summary>
+            <param name="p"></param>
+            <param name="playlist"></param>
+            <returns></returns>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Copyright">
+            <summary>
+            The copyright of the service
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Address">
+            <summary>
+            Physical adress to the company
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Company">
+            <summary>
+            The company providing the service
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.CompanyWebSite">
+            <summary>
+            The url to the company's website
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.ServiceUri">
+            <summary>
+            The web resource of the service
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.LoggedIn">
+            <summary>
+            Gets and sets whether the user is logged in to the service
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Streaming">
+            <summary>
+            Defines whether the music is streamed from an internet source
+            </summary>
+            <remarks>Not implemented</remarks>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.DownloadStore">
+            <summary>
+            Defines if purchases is available at the service
+            </summary>
+            <remarks>Not implemented</remarks>
+            
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Purchases">
+            <summary>
+            Returns a list of songs ready for purchase
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Image">
+            <summary>
+            Image representing the service
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Icon">
+            <summary>
+            The icon for the Engine
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.hasPlaylists">
+            <summary>
+            Gets whether the engine can handle playlists
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Status">
+            <summary>
+            The text status of the engine
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.MediaControl">
+            <summary>
+            Visible control for the specific engine
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Ready">
+            <summary>
+            Denotes if the playback is ready
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Duration">
+            <summary>
+            Duration of the current song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.FilesCompleted">
+            <summary>
+            The amount of files complete in an import
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.PlaylistsLoaded">
+            <summary>
+            Gets and sets if the playlists has been loaded
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Namespace">
+            <summary>
+            Namespace of the IPlayEngine. Used for as an arbitrary
+            identifier for the engine. Must not contain any whitespaces
+            and not be modified at any point at the application cycle.
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Title">
+            <summary>
+            Title of the engine. Must not be modified upon runtime
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.TotalFiles">
+            <summary>
+            Total local files
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Position">
+            <summary>
+            The position of the song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Host">
+            <summary>
+            Host form. Used by the runtime
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Playlists">
+            <summary>
+            Returns a list of playlists from the current service
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Length">
+            <summary>
+            Returns the duration of the current song (in seconds)
+            </summary>
+        </member>
+    </members>
+</doc>

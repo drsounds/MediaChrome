@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shfbBuild product="Sandcastle Help File Builder GUI" version="1.7.0.0" projectFile="L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\SDK.shfb" started="2011-05-15 16:34:17">
+<buildStep step="Initializing">
+</buildStep>
+<buildStep step="FindingTools">
+Finding tools...
+Found Sandcastle in 'C:\Program Files\Sandcastle\'
+</buildStep>
+<buildStep step="ValidatingAssemblies">
+Validating and copying documentation assembly information...
+    L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\docs.xml -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\docs.xml
+    L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\MediaChrome.dll -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\MediaChrome.dll
+    Warning: No comments file associated with assembly 'L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\MediaChrome.dll'
+</buildStep>
+<buildStep step="GenerateSharedContent">
+Generating shared content files (en-US, Engelska (USA))...
+    Last step completed in 00:00:00.0750
+</buildStep>
+<buildStep step="CopyDependencies">
+Copying documentation assembly dependencies...
+No dependencies to copy
+    Last step completed in 00:00:00.0070
+</buildStep>
+<buildStep step="GenerateApiFilter">
+Generating API filter for MRefBuilder...
+    Last step completed in 00:00:00.0140
+</buildStep>
+<buildStep step="GenerateReflectionInfo">
+Generating reflection information...
+[L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\GenerateRefInfo.bat]
+MrefBuilder (v2.4.10520.1)
+Copyright &#184; Microsoft 2006
+Info: Loaded 1 assemblies for reflection and 0 dependency assemblies.
+Info: Wrote information on 3 namespaces, 9 types, and 112 members
+        1 fil(er) kopierad(e).
+XslTransform (v2.4.10520.1)
+Copyright &#184; Microsoft 2005-2006
+Info: Applying XSL transformation 'C:\Program Files\Sandcastle\ProductionTransforms\MergeDuplicates.xsl'.
+    Last step completed in 00:00:01.2790
+</buildStep>
+<buildStep step="GenerateNamespaceSummaries">
+Generating namespace summary information...
+    Last step completed in 00:00:00.0040
+</buildStep>
+<buildStep step="ApplyVisibilityProperties">
+Applying visibility properties to reflection information file
+    0 attribute nodes removed
+    0 explicit interface implementations removed
+    0 local and base class EII elements removed
+    0 inherited member elements removed
+    0 event backer fields noted for removal
+    0 'protected internal' members changed to 'protected'
+    Last step completed in 00:00:00.0920
+</buildStep>
+<buildStep step="TransformReflectionInfo">
+Transforming reflection output...
+[L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\TransformManifest.bat]
+XslTransform (v2.4.10520.1)
+Copyright &#184; Microsoft 2005-2006
+Info: Applying XSL transformation 'C:\Program Files\Sandcastle\ProductionTransforms\ApplyPrototypeDocModel.xsl'.
+Info: Applying XSL transformation 'C:\Program Files\Sandcastle\ProductionTransforms\AddGuidFilenames.xsl'.
+XslTransform (v2.4.10520.1)
+Copyright &#184; Microsoft 2005-2006
+Info: Applying XSL transformation 'C:\Program Files\Sandcastle\ProductionTransforms\ReflectionToManifest.xsl'.
+    Last step completed in 00:00:01.6680
+</buildStep>
+<buildStep step="ModifyHelpTopicFilenames">
+Modifying help topic filenames in reflection information file
+    No changes required
+    Last step completed in 00:00:00.0040
+</buildStep>
+<buildStep step="CopyStandardContent">
+Copying standard help content...
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\alert_caution.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\alert_caution.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\alert_note.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\alert_note.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\alert_security.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\alert_security.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\Caution.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\Caution.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\CFW.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\CFW.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\collapse_all.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\collapse_all.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\copycode.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\copycode.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\expand_all.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\expand_all.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\LastChild.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\LastChild.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\NotLastChild.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\NotLastChild.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\privclass.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\privclass.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\privdelegate.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\privdelegate.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\privenum.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\privenum.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\privevent.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\privevent.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\privfield.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\privfield.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\privinterface.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\privinterface.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\privmethod.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\privmethod.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\privproperty.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\privproperty.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\privstructure.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\privstructure.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\protclass.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protclass.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\protdelegate.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protdelegate.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\protenum.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protenum.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\protevent.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protevent.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\protfield.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protfield.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\protfield.png -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protfield.png
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\protinterface.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protinterface.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\protmethod.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protmethod.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\protoperator.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protoperator.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\protproperty.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protproperty.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\protstructure.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protstructure.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\pubclass.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\pubclass.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\pubdelegate.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\pubdelegate.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\pubenum.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\pubenum.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\pubevent.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\pubevent.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\pubfield.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\pubfield.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\pubinterface.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\pubinterface.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\pubmethod.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\pubmethod.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\puboperator.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\puboperator.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\pubproperty.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\pubproperty.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\pubstructure.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\pubstructure.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\security.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\security.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\icons\static.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\static.gif
+C:\Program Files\Sandcastle\Presentation\Prototype\scripts\CollapsibleSection.js -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\scripts\CollapsibleSection.js
+C:\Program Files\Sandcastle\Presentation\Prototype\scripts\CookieDataStore.js -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\scripts\CookieDataStore.js
+C:\Program Files\Sandcastle\Presentation\Prototype\scripts\ElementCollection.js -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\scripts\ElementCollection.js
+C:\Program Files\Sandcastle\Presentation\Prototype\scripts\EventUtilities.js -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\scripts\EventUtilities.js
+C:\Program Files\Sandcastle\Presentation\Prototype\scripts\LanguageFilter.js -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\scripts\LanguageFilter.js
+C:\Program Files\Sandcastle\Presentation\Prototype\scripts\MemberFilter.js -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\scripts\MemberFilter.js
+C:\Program Files\Sandcastle\Presentation\Prototype\scripts\script_prototype.js -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\scripts\script_prototype.js
+C:\Program Files\Sandcastle\Presentation\Prototype\scripts\SplitScreen.js -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\scripts\SplitScreen.js
+C:\Program Files\Sandcastle\Presentation\Prototype\scripts\StyleUtilities.js -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\scripts\StyleUtilities.js
+C:\Program Files\Sandcastle\Presentation\Prototype\styles\presentation.css -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\styles\presentation.css
+    Last step completed in 00:00:01.6600
+</buildStep>
+<buildStep step="CopyAdditionalContent">
+Copying additional content files...
+No additional content to copy
+    Last step completed in 00:00:00.0030
+</buildStep>
+<buildStep step="MergeTablesOfContent">
+Merging conceptual and additional tables of content...
+    Last step completed in 00:00:00.0880
+</buildStep>
+<buildStep step="CreateBuildAssemblerConfigs">
+Creating Sandcastle configuration files...
+    sandcastle.config
+    conceptual.config
+    Last step completed in 00:00:00.0420
+</buildStep>
+<buildStep step="MergeCustomConfigs">
+Merging custom build component configurations
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\sandcastle.config
+    No additional help attributes defined.  The 'HTML Help 2 Attributes' component was not added.
+    Last step completed in 00:00:00.0290
+</buildStep>
+<buildStep step="BuildReferenceTopics">
+Building reference help topics...
+[L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\BuildReferenceTopics.bat]
+BuildAssembler (v2.4.10520.1)
+Copyright &#184; Microsoft 2006
+Info: CopyFromFileComponent: Instantiating component.
+Info: CopyFromFileComponent: Loading data file 'C:\Program Files\Sandcastle\Presentation\Prototype\transforms\skeleton.xml'.
+Info: CopyFromIndexComponent: Instantiating component.
+Info: CopyFromIndexComponent: Searching for files that match '*.xml'.
+Info: CopyFromIndexComponent: Searching for files that match 'reflection.xml'.
+Info: CopyFromIndexComponent: Indexed 170218 elements in 107 files.
+Info: CopyFromIndexComponent: Loaded 0 copy components.
+Info: CopyFromIndexComponent: Instantiating component.
+Info: CopyFromIndexComponent: Loaded 0 copy components.
+Info: ForEachComponent: Instantiating component.
+Info: ForEachComponent: Loading subcomponents.
+Info: CopyFromIndexComponent: Instantiating component.
+Info: CopyFromIndexComponent: Loaded 0 copy components.
+Info: ForEachComponent: Loaded 1 subcomponents.
+Info: IfThenComponent: Instantiating component.
+Info: SyntaxComponent: Instantiating component.
+Info: SyntaxComponent: Loaded 3 syntax generators.
+Info: CopyFromIndexComponent: Instantiating component.
+Info: CopyFromIndexComponent: Searching for files that match 'C:\Windows\Microsoft.NET\Framework\v2.0.50727\en\*.xml'.
+Info: CopyFromIndexComponent: Searching for files that match 'L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\docs.xml'.
+Info: CopyFromIndexComponent: Indexed 81375 elements in 50 files.
+Info: CopyFromIndexComponent: Loaded 0 copy components.
+Info: ForEachComponent: Instantiating component.
+Info: ForEachComponent: Loading subcomponents.
+Info: IfThenComponent: Instantiating component.
+Info: CopyFromIndexComponent: Instantiating component.
+Info: CopyFromIndexComponent: Loaded 0 copy components.
+Info: CopyFromIndexComponent: Instantiating component.
+Info: CopyFromIndexComponent: Loaded 0 copy components.
+Info: ForEachComponent: Loaded 2 subcomponents.
+Info: CopyFromIndexComponent: Instantiating component.
+Info: CopyFromIndexComponent: Loaded 0 copy components.
+Info: ShowMissingComponent: Instantiating component.
+Info: ShowMissingComponent: 
+    [Sandcastle Help File Builder Components, version 1.7.0.0]
+    Show Missing Documentation Component. Copyright &#184; 2006-2008, Eric Woodruff, All Rights Reserved
+    http://www.codeplex.com/SHFB
+Info: ShowMissingComponent:   All Show Missing options are disabled.  The component will do nothing.
+Info: VersionInfoComponent: Instantiating component.
+Info: VersionInfoComponent: 
+    [Sandcastle Help File Builder Components, version 1.7.0.0]
+    Version Information Component. Copyright &#184; 2006-2008, Eric Woodruff, All Rights Reserved
+    http://www.codeplex.com/SHFB
+Info: CodeBlockComponent: Instantiating component.
+Info: CodeBlockComponent: 
+    [Sandcastle Help File Builder Components, version 1.7.0.0]
+    Code Block Component. Copyright &#184; 2006-2008, Eric Woodruff, All Rights Reserved.
+    Portions copyright (c) 2003, Jonathan de Halleux, All rights reserved.
+    http://www.codeplex.com/SHFB
+Info: TransformComponent: Instantiating component.
+Info: PostTransformComponent: Instantiating component.
+Info: PostTransformComponent: 
+    [Sandcastle Help File Builder Components, version 1.7.0.0]
+    Post-Transform Component. Copyright &#184; 2006-2008, Eric Woodruff, All Rights Reserved
+    http://www.codeplex.com/SHFB
+Info: SharedContentComponent: Instantiating component.
+Info: SharedContentComponent: Searching for files that match 'C:\Program Files\Sandcastle\Presentation\Prototype\content\shared_content.xml'.
+Info: SharedContentComponent: Loading shared content file 'C:\Program Files\Sandcastle\Presentation\Prototype\content\shared_content.xml'.
+Info: SharedContentComponent: Found 1 files in C:\Program Files\Sandcastle\Presentation\Prototype\content\shared_content.xml.
+Info: SharedContentComponent: Searching for files that match 'C:\Program Files\Sandcastle\Presentation\Prototype\content\reference_content.xml'.
+Info: SharedContentComponent: Loading shared content file 'C:\Program Files\Sandcastle\Presentation\Prototype\content\reference_content.xml'.
+Info: SharedContentComponent: Found 1 files in C:\Program Files\Sandcastle\Presentation\Prototype\content\reference_content.xml.
+Info: SharedContentComponent: Searching for files that match 'C:\Program Files\Sandcastle\Presentation\Shared\content\syntax_content.xml'.
+Info: SharedContentComponent: Loading shared content file 'C:\Program Files\Sandcastle\Presentation\Shared\content\syntax_content.xml'.
+Info: SharedContentComponent: Found 1 files in C:\Program Files\Sandcastle\Presentation\Shared\content\syntax_content.xml.
+Info: SharedContentComponent: Searching for files that match 'SharedBuilderContent.xml'.
+Info: SharedContentComponent: Loading shared content file 'L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\SharedBuilderContent.xml'.
+Info: SharedContentComponent: Overriding shared content item 'rootlink' with value in file 'L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\SharedBuilderContent.xml'.
+Info: SharedContentComponent: Overriding shared content item 'producttitle' with value in file 'L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\SharedBuilderContent.xml'.
+Info: SharedContentComponent: Overriding shared content item 'locationinformation' with value in file 'L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\SharedBuilderContent.xml'.
+Info: SharedContentComponent: Overriding shared content item 'locale' with value in file 'L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\SharedBuilderContent.xml'.
+Info: SharedContentComponent: Overriding shared content item 'copyright' with value in file 'L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\SharedBuilderContent.xml'.
+Info: SharedContentComponent: Found 1 files in SharedBuilderContent.xml.
+Info: SharedContentComponent: Searching for files that match 'PresentationStyleBuilderContent.xml'.
+Info: SharedContentComponent: Loading shared content file 'L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\PresentationStyleBuilderContent.xml'.
+Info: SharedContentComponent: Overriding shared content item 'header' with value in file 'L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\PresentationStyleBuilderContent.xml'.
+Info: SharedContentComponent: Overriding shared content item 'footer' with value in file 'L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\PresentationStyleBuilderContent.xml'.
+Info: SharedContentComponent: Found 1 files in PresentationStyleBuilderContent.xml.
+Info: SharedContentComponent: Loaded 225 shared content items.
+Info: ResolveReferenceLinksComponent2: Instantiating component.
+Info: ResolveReferenceLinksComponent2: Creating MSDN URL resolver.
+Info: ResolveReferenceLinksComponent2: Searching directory 'C:\Program Files\Sandcastle\Data\Reflection' for targets files of the form '*.xml'.
+Info: ResolveReferenceLinksComponent2: Searching directory 'L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working' for targets files of the form 'reflection.xml'.
+Info: ResolveReferenceLinksComponent2: Loaded 170218 reference targets.
+Info: SaveComponent: Instantiating component.
+Info: BuildAssembler: Building topic R:Project
+Warn: SharedContentComponent: Missing shared content item. Tag:'include'; Id:'topictitle'.
+Warn: SharedContentComponent: Missing shared content item. Tag:'include'; Id:'topictitle'.
+Info: BuildAssembler: Building topic N:
+Info: BuildAssembler: Building topic T:&lt;Module&gt;
+Info: BuildAssembler: Building topic N:MediaChrome
+Info: BuildAssembler: Building topic T:MediaChrome.Album
+Warn: ResolveReferenceLinksComponent2: Unknown reference link target 'M:System.Object.FieldGetter(System.String,System.String,System.Object@)'.
+Warn: ResolveReferenceLinksComponent2: Unknown reference link target 'M:System.Object.FieldSetter(System.String,System.String,System.Object)'.
+Warn: ResolveReferenceLinksComponent2: Unknown reference link target 'M:System.Object.GetFieldInfo(System.String,System.String)'.
+Info: BuildAssembler: Building topic M:MediaChrome.Album.#ctor
+Info: BuildAssembler: Building topic P:MediaChrome.Album.Artist
+Info: BuildAssembler: Building topic P:MediaChrome.Album.Engine
+Info: BuildAssembler: Building topic P:MediaChrome.Album.Link
+Info: BuildAssembler: Building topic P:MediaChrome.Album.Name
+Info: BuildAssembler: Building topic P:MediaChrome.Album.Songs
+Info: BuildAssembler: Building topic T:MediaChrome.Artist
+Warn: ResolveReferenceLinksComponent2: Unknown reference link target 'M:System.Object.FieldGetter(System.String,System.String,System.Object@)'.
+Warn: ResolveReferenceLinksComponent2: Unknown reference link target 'M:System.Object.FieldSetter(System.String,System.String,System.Object)'.
+Warn: ResolveReferenceLinksComponent2: Unknown reference link target 'M:System.Object.GetFieldInfo(System.String,System.String)'.
+Info: BuildAssembler: Building topic M:MediaChrome.Artist.#ctor
+Info: BuildAssembler: Building topic P:MediaChrome.Artist.Albums
+Info: BuildAssembler: Building topic P:MediaChrome.Artist.Engine
+Info: BuildAssembler: Building topic P:MediaChrome.Artist.Link
+Info: BuildAssembler: Building topic P:MediaChrome.Artist.Name
+Info: BuildAssembler: Building topic T:MediaChrome.Class1
+Warn: ResolveReferenceLinksComponent2: Unknown reference link target 'M:System.Object.FieldGetter(System.String,System.String,System.Object@)'.
+Warn: ResolveReferenceLinksComponent2: Unknown reference link target 'M:System.Object.FieldSetter(System.String,System.String,System.Object)'.
+Warn: ResolveReferenceLinksComponent2: Unknown reference link target 'M:System.Object.GetFieldInfo(System.String,System.String)'.
+Info: BuildAssembler: Building topic M:MediaChrome.Class1.#ctor
+Info: BuildAssembler: Building topic T:MediaChrome.IMedia
+Info: BuildAssembler: Building topic P:MediaChrome.IMedia.Engine
+Info: BuildAssembler: Building topic P:MediaChrome.IMedia.Link
+Info: BuildAssembler: Building topic P:MediaChrome.IMedia.Name
+Info: BuildAssembler: Building topic T:MediaChrome.IPlayEngine
+Info: BuildAssembler: Building topic Overload:MediaChrome.IPlayEngine.GetAlbum
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.Address
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.AddToPlaylist(System.String,MediaChrome.Song,System.Int32)
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.Company
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.CompanyWebSite
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.Copyright
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.CreatePlaylist(System.String)
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.DownloadStore
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.Duration
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.FilesCompleted
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.Find(System.String)
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.FindAlbum(System.String)
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.FindArtist(System.String)
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.GetAlbum(MediaChrome.Artist,System.String)
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.GetAlbum(System.String)
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.GetArtist(System.String)
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.hasPlaylists
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.Host
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.Icon
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.Image
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.Import(System.Object,System.String)
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.Length
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.Load(System.String)
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.LoadPlaylist(System.String,MediaChrome.Views.Playlist@)
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.LoggedIn
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.Login
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.Logout
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.MediaControl
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.MoveSongPlaylist(System.String,MediaChrome.Song,System.Int32,System.Int32)
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.Namespace
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.Pause
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.Play
+Info: BuildAssembler: Building topic E:MediaChrome.IPlayEngine.PlaybackFinished
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.Playlists
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.PlaylistsLoaded
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.Position
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.Purchase(MediaChrome.Song)
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.Purchases
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.RawFind(MediaChrome.Song)
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.Ready
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.RemoveFromPlaylist(System.String,System.Int32)
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.Search
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.Seek(System.Double)
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.ServiceUri
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.ShowOptions
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.SongImport(MediaChrome.Song[])
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.Status
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.Stop
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.Streaming
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.Title
+Info: BuildAssembler: Building topic P:MediaChrome.IPlayEngine.TotalFiles
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.Unload
+Info: BuildAssembler: Building topic M:MediaChrome.IPlayEngine.ViewPlaylist(System.String,System.String)
+Info: BuildAssembler: Building topic T:MediaChrome.Song
+Warn: ResolveReferenceLinksComponent2: Unknown reference link target 'M:System.Object.FieldGetter(System.String,System.String,System.Object@)'.
+Warn: ResolveReferenceLinksComponent2: Unknown reference link target 'M:System.Object.FieldSetter(System.String,System.String,System.Object)'.
+Warn: ResolveReferenceLinksComponent2: Unknown reference link target 'M:System.Object.GetFieldInfo(System.String,System.String)'.
+Info: BuildAssembler: Building topic M:MediaChrome.Song.#ctor
+Info: BuildAssembler: Building topic P:MediaChrome.Song.Album
+Info: BuildAssembler: Building topic P:MediaChrome.Song.AlbumName
+Info: BuildAssembler: Building topic P:MediaChrome.Song.AlbumUrl
+Info: BuildAssembler: Building topic P:MediaChrome.Song.Artist
+Info: BuildAssembler: Building topic P:MediaChrome.Song.Artists
+Info: BuildAssembler: Building topic P:MediaChrome.Song.ArtistUrl
+Info: BuildAssembler: Building topic P:MediaChrome.Song.Checked
+Info: BuildAssembler: Building topic P:MediaChrome.Song.Composer
+Info: BuildAssembler: Building topic P:MediaChrome.Song.Contributing
+Info: BuildAssembler: Building topic P:MediaChrome.Song.CoverArt
+Info: BuildAssembler: Building topic P:MediaChrome.Song.Engine
+Info: BuildAssembler: Building topic P:MediaChrome.Song.Feature
+Info: BuildAssembler: Building topic M:MediaChrome.Song.findCommit(System.String)
+Info: BuildAssembler: Building topic M:MediaChrome.Song.findVersion(System.String)
+Info: BuildAssembler: Building topic M:MediaChrome.Song.GetSongFromURI(System.String)
+Info: BuildAssembler: Building topic P:MediaChrome.Song.ID
+Info: BuildAssembler: Building topic P:MediaChrome.Song.Link
+Info: BuildAssembler: Building topic P:MediaChrome.Song.Name
+Info: BuildAssembler: Building topic F:MediaChrome.Song.opned
+Info: BuildAssembler: Building topic F:MediaChrome.Song.ParentSong
+Info: BuildAssembler: Building topic P:MediaChrome.Song.Path
+Info: BuildAssembler: Building topic P:MediaChrome.Song.Popularity
+Info: BuildAssembler: Building topic P:MediaChrome.Song.ProposedEngine
+Info: BuildAssembler: Building topic P:MediaChrome.Song.Store
+Info: BuildAssembler: Building topic F:MediaChrome.Song.Subsong
+Info: BuildAssembler: Building topic F:MediaChrome.Song.subSongs
+Info: BuildAssembler: Building topic P:MediaChrome.Song.SubSongs
+Info: BuildAssembler: Building topic P:MediaChrome.Song.Title
+Info: BuildAssembler: Building topic P:MediaChrome.Song.Version
+Info: BuildAssembler: Building topic T:MediaChrome.Song.UriHelper
+Info: BuildAssembler: Building topic M:MediaChrome.Song.UriHelper.Querystrings(System.Uri)
+Info: BuildAssembler: Building topic N:MediaChrome.Views
+Info: BuildAssembler: Building topic T:MediaChrome.Views.Playlist
+Warn: ResolveReferenceLinksComponent2: Unknown reference link target 'M:System.Object.FieldGetter(System.String,System.String,System.Object@)'.
+Warn: ResolveReferenceLinksComponent2: Unknown reference link target 'M:System.Object.FieldSetter(System.String,System.String,System.Object)'.
+Warn: ResolveReferenceLinksComponent2: Unknown reference link target 'M:System.Object.GetFieldInfo(System.String,System.String)'.
+Info: BuildAssembler: Building topic Overload:MediaChrome.Views.Playlist..ctor
+Info: BuildAssembler: Building topic M:MediaChrome.Views.Playlist.#ctor
+Info: BuildAssembler: Building topic M:MediaChrome.Views.Playlist.#ctor(MediaChrome.IPlayEngine,System.String,System.String,System.Windows.Forms.Form)
+Info: BuildAssembler: Building topic M:MediaChrome.Views.Playlist.Add(MediaChrome.Song,System.Int32)
+Info: BuildAssembler: Building topic P:MediaChrome.Views.Playlist.CanModify
+Info: BuildAssembler: Building topic P:MediaChrome.Views.Playlist.Engine
+Info: BuildAssembler: Building topic F:MediaChrome.Views.Playlist.Host
+Info: BuildAssembler: Building topic P:MediaChrome.Views.Playlist.ID
+Info: BuildAssembler: Building topic P:MediaChrome.Views.Playlist.Loaded
+Info: BuildAssembler: Building topic P:MediaChrome.Views.Playlist.Owner
+Info: BuildAssembler: Building topic M:MediaChrome.Views.Playlist.Remove(System.Int32)
+Info: BuildAssembler: Building topic M:MediaChrome.Views.Playlist.RetrieveData
+Info: BuildAssembler: Building topic M:MediaChrome.Views.Playlist.Rorder(MediaChrome.Song,System.Int32,System.Int32)
+Info: BuildAssembler: Building topic P:MediaChrome.Views.Playlist.Songs
+Info: BuildAssembler: Building topic P:MediaChrome.Views.Playlist.Title
+Info: Processed 127 topics
+    Last step completed in 00:00:58.4180
+</buildStep>
+<buildStep step="GenerateIntermediateTableOfContent">
+Generating intermediate table of content file...
+[L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\GenerateIntermediateTOC.bat]
+XslTransform (v2.4.10520.1)
+Copyright &#184; Microsoft 2005-2006
+Info: Applying XSL transformation 'C:\Program Files\Sandcastle\ProductionTransforms\CreatePrototypeToc.xsl'.
+
+Clearing any prior web output
+    Last step completed in 00:00:01.2970
+</buildStep>
+<buildStep step="ExtractingHtmlInfo">
+Extracting HTML info for Help 1.x and/or website...
+[L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\ExtractHtmlInfo.bat]
+Sandcastle Help File Builder HTML Extract, version 1.7.0.0
+Copyright &#184; 2008, Eric Woodruff, All Rights Reserved
+E-Mail: Eric@EWoodruff.us
+
+Using LCID '1033', code page '65001', encoding charset 'UTF-8'.
+Processed 127 HTML files
+Sorting keywords and generating See Also indices
+Saving website keyword index to L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\WebKI.xml
+Saving website table of content to L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\WebTOC.xml
+    Last step completed in 00:00:01.0950
+</buildStep>
+<buildStep step="GenerateHelpFormatTableOfContent">
+Generating website table of content file...
+    Last step completed in 00:00:00.0020
+</buildStep>
+<buildStep step="UpdateTableOfContent">
+Updating table of content with additional content items and determining default topic...
+    Last step completed in 00:00:00.0050
+</buildStep>
+<buildStep step="GenerateFullTextIndex">
+Generating full-text index for the website...
+
+    Last step completed in 00:00:01.1620
+</buildStep>
+<buildStep step="CopyingWebsiteFiles">
+Copying website files to output folder...
+
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\d4648875-d41a-783b-d5f4-638df39ee413.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\d4648875-d41a-783b-d5f4-638df39ee413.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\96f28dfd-2c23-c332-ac2f-6930f1f93bf9.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\96f28dfd-2c23-c332-ac2f-6930f1f93bf9.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\768899a6-3ddf-cf21-97b9-84ee66e3ce20.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\768899a6-3ddf-cf21-97b9-84ee66e3ce20.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\41373b7c-4ad4-6c97-8b9c-adad31230083.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\41373b7c-4ad4-6c97-8b9c-adad31230083.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\4b223b33-4f63-0f7d-2551-8877238fae2f.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\4b223b33-4f63-0f7d-2551-8877238fae2f.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\cbdb3eda-8f15-7f5a-47a5-9b56911b4c8e.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\cbdb3eda-8f15-7f5a-47a5-9b56911b4c8e.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\1a1a0417-e9f6-99ed-3b55-47c17dbcad08.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\1a1a0417-e9f6-99ed-3b55-47c17dbcad08.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\b96f53bb-1bd2-ee5c-15bd-e2363b52d363.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\b96f53bb-1bd2-ee5c-15bd-e2363b52d363.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\96be05fc-5021-ed0e-4792-9383066e544e.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\96be05fc-5021-ed0e-4792-9383066e544e.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\69dfaae7-4fd6-f399-dd3f-a9f89d934227.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\69dfaae7-4fd6-f399-dd3f-a9f89d934227.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\7fa44e5b-83ec-58ac-2039-9be8a56ffa83.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\7fa44e5b-83ec-58ac-2039-9be8a56ffa83.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\cb014b0f-3411-8d57-1259-734054af5ab5.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\cb014b0f-3411-8d57-1259-734054af5ab5.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\e788935f-5fb5-cc51-2b5e-6782df8880e5.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\e788935f-5fb5-cc51-2b5e-6782df8880e5.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\a7977c40-0e7e-ec6a-2ff3-289068abb028.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\a7977c40-0e7e-ec6a-2ff3-289068abb028.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\44cb88a9-073a-0d8c-7ff2-46e4ad8cf028.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\44cb88a9-073a-0d8c-7ff2-46e4ad8cf028.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\882b3cbc-5d6f-3139-ee17-f54cdd98c8a0.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\882b3cbc-5d6f-3139-ee17-f54cdd98c8a0.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\e07ece44-cea0-211f-3360-65362e5b329c.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\e07ece44-cea0-211f-3360-65362e5b329c.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\603db10c-7dcd-af94-8b9a-8641510135db.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\603db10c-7dcd-af94-8b9a-8641510135db.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\150c5eca-f2f6-53da-4a64-436fa6cb90f3.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\150c5eca-f2f6-53da-4a64-436fa6cb90f3.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\b7c8b939-f7b0-113a-b4f2-ea9807f07c72.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\b7c8b939-f7b0-113a-b4f2-ea9807f07c72.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\d13ba1b5-8f98-62b7-ba84-03fe0fed97c6.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\d13ba1b5-8f98-62b7-ba84-03fe0fed97c6.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\6dfdfcd0-ec21-d1d6-d7ec-371c99c9c433.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\6dfdfcd0-ec21-d1d6-d7ec-371c99c9c433.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\e2d42af0-7a8d-fd8e-7a42-df39d9a847d1.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\e2d42af0-7a8d-fd8e-7a42-df39d9a847d1.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\e81daaf6-728e-1062-4709-4c3971ea3585.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\e81daaf6-728e-1062-4709-4c3971ea3585.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\f124ba25-e305-6ff1-e2d6-aafd13257c20.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\f124ba25-e305-6ff1-e2d6-aafd13257c20.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\4cf74b71-4132-bdc6-22b6-145f10b2fe2f.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\4cf74b71-4132-bdc6-22b6-145f10b2fe2f.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\05a06194-b550-54ec-7c73-fbe521c28f73.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\05a06194-b550-54ec-7c73-fbe521c28f73.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\dd700e8b-45ca-b8e3-5513-263720cde50a.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\dd700e8b-45ca-b8e3-5513-263720cde50a.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\77971a2f-b5bd-105d-d5dd-c72ec951ae0c.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\77971a2f-b5bd-105d-d5dd-c72ec951ae0c.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\7f5ca0ed-39fd-5fe6-9d23-ffdf63bb2c3a.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\7f5ca0ed-39fd-5fe6-9d23-ffdf63bb2c3a.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\a0d4147e-d9c9-400d-bc07-b2ac65c9f0de.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\a0d4147e-d9c9-400d-bc07-b2ac65c9f0de.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\8d19cdce-e9ad-bd66-f12f-7da63fa15aa9.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\8d19cdce-e9ad-bd66-f12f-7da63fa15aa9.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\9feb9a5b-8707-2fd7-1f2b-6a23d97edb89.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\9feb9a5b-8707-2fd7-1f2b-6a23d97edb89.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\168cc5cd-5a82-e16d-3093-dab0f367e2e8.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\168cc5cd-5a82-e16d-3093-dab0f367e2e8.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\11caa5af-4799-249d-9d67-1905f3ec6c85.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\11caa5af-4799-249d-9d67-1905f3ec6c85.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\9d38275c-4bd0-024d-7cba-0dcdbd364b35.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\9d38275c-4bd0-024d-7cba-0dcdbd364b35.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\1e0756c4-aec9-06bc-221e-ad54d7183f11.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\1e0756c4-aec9-06bc-221e-ad54d7183f11.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\aa20b4ed-c4f5-2eaf-2c1f-99a9619723c9.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\aa20b4ed-c4f5-2eaf-2c1f-99a9619723c9.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\b4b92db6-1263-efec-34d9-c97b68798bb1.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\b4b92db6-1263-efec-34d9-c97b68798bb1.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\050116f6-2993-3a8e-9ab8-7175faf063c0.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\050116f6-2993-3a8e-9ab8-7175faf063c0.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\f46a9091-265c-a049-47c6-6129d55d7bc0.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\f46a9091-265c-a049-47c6-6129d55d7bc0.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\98be2229-6577-40ff-7795-a99af767ae58.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\98be2229-6577-40ff-7795-a99af767ae58.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\0fb084ca-f303-426d-bcf5-253072f801b8.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\0fb084ca-f303-426d-bcf5-253072f801b8.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\c3cf1c09-38c2-b209-29c1-79beeae36638.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\c3cf1c09-38c2-b209-29c1-79beeae36638.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\67a504c2-b1f2-69fc-f3ab-5fd08ceb8d9e.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\67a504c2-b1f2-69fc-f3ab-5fd08ceb8d9e.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\6595e499-a987-e207-aaca-15ac2f1eb06c.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\6595e499-a987-e207-aaca-15ac2f1eb06c.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\8fd868da-a722-9629-8246-26c48230a57e.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\8fd868da-a722-9629-8246-26c48230a57e.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\2161bcb2-f3bf-1cd0-3a57-350ccf27a636.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\2161bcb2-f3bf-1cd0-3a57-350ccf27a636.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\cfd82a86-5e98-edbd-19bf-1915501d3cba.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\cfd82a86-5e98-edbd-19bf-1915501d3cba.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\e0feaefa-7fc0-c83f-35c8-9a81ce810c7c.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\e0feaefa-7fc0-c83f-35c8-9a81ce810c7c.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\e4f623d1-586d-6663-333b-31457f1bd1bf.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\e4f623d1-586d-6663-333b-31457f1bd1bf.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\c57483b4-f44b-4bf7-dee6-39a98ee7cea2.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\c57483b4-f44b-4bf7-dee6-39a98ee7cea2.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\0ebf403c-7749-e385-3118-adfbf014226f.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\0ebf403c-7749-e385-3118-adfbf014226f.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\7daa035f-fb17-910b-0d5c-f7982eaaaf8d.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\7daa035f-fb17-910b-0d5c-f7982eaaaf8d.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\4cc883e5-2d53-62cc-ddcd-363a6800b0c2.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\4cc883e5-2d53-62cc-ddcd-363a6800b0c2.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\ec1d1daa-dd14-4fcc-bbc3-5dc742b76693.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\ec1d1daa-dd14-4fcc-bbc3-5dc742b76693.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\af69da93-1baa-f8ed-7589-9f2da2df9df6.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\af69da93-1baa-f8ed-7589-9f2da2df9df6.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\d231afbe-5893-7257-87a4-fa14ef66452e.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\d231afbe-5893-7257-87a4-fa14ef66452e.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\119fe41f-588d-aa49-7546-5b6137ff3ef6.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\119fe41f-588d-aa49-7546-5b6137ff3ef6.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\25e93432-b49d-d74e-9d1d-be2055e33512.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\25e93432-b49d-d74e-9d1d-be2055e33512.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\91686590-c82d-dfc9-069b-a0315e76597b.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\91686590-c82d-dfc9-069b-a0315e76597b.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\e7277463-225e-99f3-a4b4-e8ba6c1841e1.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\e7277463-225e-99f3-a4b4-e8ba6c1841e1.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\2d2c226a-bd1b-c0a8-7e5d-0e5855444d88.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\2d2c226a-bd1b-c0a8-7e5d-0e5855444d88.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\a117fb1a-69cc-c3ee-73ff-b5e2b8ae891f.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\a117fb1a-69cc-c3ee-73ff-b5e2b8ae891f.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\b0a450ad-58cb-ed0a-ba46-c96355752fdc.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\b0a450ad-58cb-ed0a-ba46-c96355752fdc.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\8f276cd4-839f-5465-3fb8-c48d86120599.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\8f276cd4-839f-5465-3fb8-c48d86120599.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\5ba3609a-45d5-9abe-8124-93d140457283.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\5ba3609a-45d5-9abe-8124-93d140457283.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\d92de8b1-7607-01a4-0f39-febcf9b833ec.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\d92de8b1-7607-01a4-0f39-febcf9b833ec.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\718ef53c-ce10-b5f2-ffac-f3bf678418d1.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\718ef53c-ce10-b5f2-ffac-f3bf678418d1.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\453602bb-82a0-ca68-9a2b-c4a72f4ca435.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\453602bb-82a0-ca68-9a2b-c4a72f4ca435.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\02d758e0-b2e4-3d03-11fe-b4d6acae4a39.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\02d758e0-b2e4-3d03-11fe-b4d6acae4a39.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\560af1e8-469d-f200-d99a-0427b613d0f4.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\560af1e8-469d-f200-d99a-0427b613d0f4.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\29176e05-26fa-20a1-e794-531d48134e2f.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\29176e05-26fa-20a1-e794-531d48134e2f.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\b7fd9a08-aa47-0d74-99f0-d0ef2d16e039.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\b7fd9a08-aa47-0d74-99f0-d0ef2d16e039.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\4b2b676d-a5b3-5648-64f5-77e8434b9977.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\4b2b676d-a5b3-5648-64f5-77e8434b9977.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\68063f6b-16b6-212b-5d87-1d7496c0e87b.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\68063f6b-16b6-212b-5d87-1d7496c0e87b.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\317956d9-0743-f809-4830-ddc3c4a05e51.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\317956d9-0743-f809-4830-ddc3c4a05e51.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\08c27970-f5c0-6397-39e5-f523903c6ee2.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\08c27970-f5c0-6397-39e5-f523903c6ee2.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\d82c2f16-d2bd-5b7d-8318-8643b1199467.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\d82c2f16-d2bd-5b7d-8318-8643b1199467.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\228fbd94-468f-60c0-9908-264cc7ccb54d.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\228fbd94-468f-60c0-9908-264cc7ccb54d.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\67397769-bd07-0638-f1e6-1dde59363c65.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\67397769-bd07-0638-f1e6-1dde59363c65.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\b89c3738-e7a3-9059-2b02-573bd3e19a2b.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\b89c3738-e7a3-9059-2b02-573bd3e19a2b.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\15fbb74f-36c5-7b2b-49d8-3277cac629cd.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\15fbb74f-36c5-7b2b-49d8-3277cac629cd.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\761460f3-97dd-7cf5-48eb-fc3fdc9bfd37.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\761460f3-97dd-7cf5-48eb-fc3fdc9bfd37.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\146ac5a5-4b77-6407-3810-6418f40336fd.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\146ac5a5-4b77-6407-3810-6418f40336fd.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\1ae956bb-8c58-27c9-d5a1-756d0276885c.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\1ae956bb-8c58-27c9-d5a1-756d0276885c.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\c373a918-9600-8968-d59b-7d2d0bb272e8.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\c373a918-9600-8968-d59b-7d2d0bb272e8.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\1299266b-65ca-9439-82b8-4fdb9efa34fa.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\1299266b-65ca-9439-82b8-4fdb9efa34fa.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\ef90e67f-034e-20f4-330d-4e086516b561.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\ef90e67f-034e-20f4-330d-4e086516b561.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\22cf416f-8fd5-8c86-1aba-07a054c6b8cd.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\22cf416f-8fd5-8c86-1aba-07a054c6b8cd.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\90899020-efd7-a73d-1af7-36929ff3dc28.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\90899020-efd7-a73d-1af7-36929ff3dc28.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\3f23e04c-0632-d3fd-09cb-faa19783b3a0.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\3f23e04c-0632-d3fd-09cb-faa19783b3a0.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\87d0115f-ed96-e4ef-936d-074b10343cbf.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\87d0115f-ed96-e4ef-936d-074b10343cbf.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\b6d36c84-43af-aaa0-4aef-99902bd9f126.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\b6d36c84-43af-aaa0-4aef-99902bd9f126.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\3e007308-b7f9-ed49-58aa-efe986c93328.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\3e007308-b7f9-ed49-58aa-efe986c93328.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\70fb739a-49f2-19db-c758-3ac5210fc3b5.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\70fb739a-49f2-19db-c758-3ac5210fc3b5.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\73fd45df-85fa-e5f5-40ae-be1ef3d5865d.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\73fd45df-85fa-e5f5-40ae-be1ef3d5865d.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\0466e72f-3bca-4fa6-8f63-a5e00b0ba7a6.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\0466e72f-3bca-4fa6-8f63-a5e00b0ba7a6.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\34286da9-178a-3c20-eb8c-60b46cb1d5d5.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\34286da9-178a-3c20-eb8c-60b46cb1d5d5.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\8dc48790-2d09-d749-0943-09a9545b1dad.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\8dc48790-2d09-d749-0943-09a9545b1dad.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\05bbe47d-0afa-f1ea-3a80-def6c99d6f11.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\05bbe47d-0afa-f1ea-3a80-def6c99d6f11.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\acb6cfbf-f0f8-5e32-55ce-86e317a6d72f.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\acb6cfbf-f0f8-5e32-55ce-86e317a6d72f.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\0d25a06d-ef60-d6c9-2645-b471b2131247.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\0d25a06d-ef60-d6c9-2645-b471b2131247.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\7770d343-8fc7-d48f-e1ff-a9d9e027cc21.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\7770d343-8fc7-d48f-e1ff-a9d9e027cc21.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\338adeeb-2377-8a1b-8292-61884999636c.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\338adeeb-2377-8a1b-8292-61884999636c.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\ec9b5c71-6136-dcde-ec19-6a10582717de.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\ec9b5c71-6136-dcde-ec19-6a10582717de.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\cb4d2203-d278-cec0-be5c-547e48888820.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\cb4d2203-d278-cec0-be5c-547e48888820.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\57a3a216-54ab-6637-47ab-39071b79d54b.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\57a3a216-54ab-6637-47ab-39071b79d54b.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\375fbabd-cb57-ec19-e263-723a2dd22a99.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\375fbabd-cb57-ec19-e263-723a2dd22a99.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\95789631-72ff-57a0-823f-9f1bee260995.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\95789631-72ff-57a0-823f-9f1bee260995.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\dbaf81de-7a29-c2bc-6459-c4920b42e2a6.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\dbaf81de-7a29-c2bc-6459-c4920b42e2a6.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\e0455ee5-a289-a8f7-a879-f28e084389ee.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\e0455ee5-a289-a8f7-a879-f28e084389ee.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\f02c3cd6-1673-7cf5-2bb8-e68936ba1f5b.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\f02c3cd6-1673-7cf5-2bb8-e68936ba1f5b.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\9cc985ba-3a5c-f168-3aee-707b31dc68a8.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\9cc985ba-3a5c-f168-3aee-707b31dc68a8.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\a13bfe27-6cfa-5b92-9de9-877e19e1fea1.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\a13bfe27-6cfa-5b92-9de9-877e19e1fea1.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\d9dd547e-4b56-d374-9d07-fa65ec201f90.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\d9dd547e-4b56-d374-9d07-fa65ec201f90.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\11ffc574-1970-0a8e-af66-d50b799c58c2.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\11ffc574-1970-0a8e-af66-d50b799c58c2.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\384fa505-4f1d-879a-be46-e93fff0904a2.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\384fa505-4f1d-879a-be46-e93fff0904a2.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\789b680a-1c01-2b70-c4a8-c0be98e03fc0.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\789b680a-1c01-2b70-c4a8-c0be98e03fc0.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\81ea9cec-e7b8-a6ab-fe1e-434be30a1c82.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\81ea9cec-e7b8-a6ab-fe1e-434be30a1c82.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\33764651-d8b8-cbc3-ae99-b7f7f8186650.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\33764651-d8b8-cbc3-ae99-b7f7f8186650.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\18ffd888-39c0-0922-986c-614c7a9328c2.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\18ffd888-39c0-0922-986c-614c7a9328c2.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\901e1d4d-74cf-2a1d-c537-c943e8f58e89.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\901e1d4d-74cf-2a1d-c537-c943e8f58e89.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\6127243b-79fb-aa00-449a-25c865a40aa0.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\6127243b-79fb-aa00-449a-25c865a40aa0.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\a3c6f615-0392-74e2-72cc-343171dec979.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\a3c6f615-0392-74e2-72cc-343171dec979.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\93d1d06f-34cb-305a-8ecb-13192af677f8.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\93d1d06f-34cb-305a-8ecb-13192af677f8.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\html\dac16d1c-4f0d-fab5-5d25-692c0e7e6613.htm -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\html\dac16d1c-4f0d-fab5-5d25-692c0e7e6613.htm
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\alert_caution.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\alert_caution.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\alert_note.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\alert_note.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\alert_security.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\alert_security.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\Caution.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\Caution.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\CFW.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\CFW.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\collapse_all.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\collapse_all.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\copycode.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\copycode.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\expand_all.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\expand_all.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\LastChild.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\LastChild.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\NotLastChild.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\NotLastChild.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\privclass.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\privclass.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\privdelegate.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\privdelegate.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\privenum.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\privenum.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\privevent.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\privevent.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\privfield.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\privfield.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\privinterface.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\privinterface.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\privmethod.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\privmethod.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\privproperty.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\privproperty.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\privstructure.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\privstructure.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protclass.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\protclass.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protdelegate.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\protdelegate.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protenum.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\protenum.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protevent.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\protevent.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protfield.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\protfield.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protfield.png -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\protfield.png
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protinterface.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\protinterface.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protmethod.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\protmethod.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protoperator.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\protoperator.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protproperty.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\protproperty.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\protstructure.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\protstructure.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\pubclass.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\pubclass.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\pubdelegate.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\pubdelegate.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\pubenum.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\pubenum.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\pubevent.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\pubevent.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\pubfield.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\pubfield.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\pubinterface.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\pubinterface.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\pubmethod.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\pubmethod.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\puboperator.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\puboperator.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\pubproperty.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\pubproperty.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\pubstructure.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\pubstructure.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\security.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\security.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\icons\static.gif -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\icons\static.gif
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\scripts\CollapsibleSection.js -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\scripts\CollapsibleSection.js
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\scripts\CookieDataStore.js -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\scripts\CookieDataStore.js
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\scripts\ElementCollection.js -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\scripts\ElementCollection.js
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\scripts\EventUtilities.js -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\scripts\EventUtilities.js
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\scripts\LanguageFilter.js -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\scripts\LanguageFilter.js
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\scripts\MemberFilter.js -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\scripts\MemberFilter.js
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\scripts\script_prototype.js -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\scripts\script_prototype.js
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\scripts\SplitScreen.js -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\scripts\SplitScreen.js
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\scripts\StyleUtilities.js -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\scripts\StyleUtilities.js
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\styles\presentation.css -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\styles\presentation.css
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_Files.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_Files.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_115.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_115.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_100.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_100.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_99.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_99.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_108.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_108.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_110.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_110.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_118.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_118.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_98.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_98.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_109.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_109.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_116.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_116.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_105.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_105.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_102.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_102.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_114.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_114.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_104.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_104.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_97.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_97.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_112.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_112.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_119.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_119.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_117.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_117.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_101.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_101.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_111.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_111.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_103.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_103.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_113.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_113.bin
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\Working\Output\fti\FTI_95.bin -&gt; L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\Help\fti\FTI_95.bin
+    Last step completed in 00:00:05.4890
+</buildStep>
+<buildStep step="CleanIntermediates">
+Removing intermediate files...
+    Last step completed in 00:00:01.3740
+</buildStep>
+<buildStep step="Completed">
+
+Build completed successfully.  Total time: 00:01:14,0220
+
+</buildStep>
+</shfbBuild>
