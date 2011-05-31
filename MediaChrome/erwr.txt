@@ -1,0 +1,31 @@
+Lockout levels:
+
+Class	Internet	Computer	Mobile	Assets
+======================================================================
+1	-		Y		-	nd
+2	Y		-		Y	nd		
+3	-		-		Y	nd		
+4	-		-		-	Y
+======================================================================
+5	-		-		-	-	
+
+
+Legend
+Y 		= Access
+- 		= No access
+nd 		= Not defined
+
+Assets		= Technic-related entities (books, newspaper, etc.)
+Mobile		= Smart-phone
+Computer	= x86 devices
+
+
+Class	Description
+=======================================================
+Partial Lockout --------------------------------------------------------------------
+1 	Computer access no internet access
+2	No computer access, access to internet with phone access with internet
+------------------------------------------------------------------------------------
+3	No computer access, phone access without internet
+4	No computer access, no no internet access, no mobile access. Access to technology related assets (books, art, discussion etc.)
+5	No computer access, no mobile access. No access to computer related assets.

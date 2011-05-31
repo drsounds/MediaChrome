@@ -1,0 +1,9 @@
+<?
+var d = synchronize_data("L:\\wiki\\"+parameter+".txt");
+
+?>
+<view>
+	<section name="Overview">
+		<label top="50" width="-1" height="-1">@{d}</label>
+	</section>
+</view>

@@ -1,0 +1,18 @@
+<?
+var playlist = getPlaylist("mp3:playlist:"+parameter);
+?>
+<view>
+	<section name="Playlist" list="true">
+	
+		<?
+		for(var i=0; i < playlist.Length; i++){ var song = playlist.Songs[i];
+		?>
+		<entry height="18" width="-1">
+			<title noelm="true"><![CDATA[@{song.Title}]]></title>
+			<artist noelm="true"><![CDATA[@{song.Artist}]]></artist>
+			<album noelm="true"><![CDATA[@{song.Album}]]></album>
+			<uri noelm="true"><![CDATA[@{song.Path}]]></uri>
+		</entry>
+		<? } ?>
+	</section>
+</view>

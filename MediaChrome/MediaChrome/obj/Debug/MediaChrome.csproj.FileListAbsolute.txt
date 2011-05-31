@@ -1,0 +1,12 @@
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\obj\Debug\ResolveAssemblyReference.cache
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\MediaChrome.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\MediaChrome.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\obj\Debug\MediaChrome.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\obj\Debug\MediaChrome.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\MediaChrome\bin\Debug\docs.xml
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\bin\Debug\MediaChrome.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\bin\Debug\MediaChrome.pdb
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\bin\Debug\docs.xml
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\obj\Debug\ResolveAssemblyReference.cache
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\obj\Debug\MediaChrome.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\obj\Debug\MediaChrome.pdb

@@ -1,0 +1,65 @@
+ public Color Section
+        {
+            get
+            {
+                return Color.FromArgb(97, 97, 97);
+            }
+        }
+        public Color SectionTextShadow
+        {
+            get
+            {
+                return Color.FromArgb(119, 119, 119);
+            }
+        }
+      
+        public Color SectionText
+        {
+            get
+            {
+                return Bg;
+            }
+        }
+        public Color Bg
+        {
+            get
+            {
+                return BackColor;
+            }
+        }
+      
+        public Color TextFade
+        {
+            get
+            {
+                return Color.Gray;
+            }
+        }
+        public Color Divider
+        {
+            get
+            {
+                return Color.FromArgb(38, 38, 38);
+            }
+        }
+        public Color Fg
+        {
+            get
+            {
+                return Color.FromArgb(188,188,188);
+            }
+        }
+        public Color Entry
+        {
+            get
+            {
+                return   Bg;
+            }
+        }
+        public Color Alt
+        {
+            get
+            {
+                return Color.FromArgb(44,44,44);
+            }
+        }

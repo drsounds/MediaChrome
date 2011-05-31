@@ -1,0 +1,42 @@
+<?
+function zeroNumber(no){	
+	return  no < 10 ? "0"+no : no;
+}
+var album_name="name";
+var trackNo = 0;
+for(var i=0; i < album.Songs.Length; i++){ 
+
+	/* Set an tracknumber*/
+	
+	
+	var song = album.Songs[i];
+	var title = song.Name;
+	
+	
+	var href = song.Path;
+	
+	
+	
+	var coartist ="";
+	var artist_uri = "";
+	
+	/* Only show artist if not equal to the album's artist */
+	var displayArtist = coartist != artist ? artist : " ";
+		/* If href matches the input assert the song */ 
+		
+	/* If the albums uri is equal to the one provided show songs */
+	if(album_href != uri)
+		continue;
+		trackNo++;
+?>
+
+		<entry  left="150" top="@TOP" height="18" uri="@{href}" no="@{zeroNumber(trackNo)}">
+			<title noelm="true"><![CDATA[@{title}]]></title>
+		</entry>
+<? }  if(trackNo < 8){
+ for(var x =0; x < (8-trackNo); x++){ ?> 
+ 
+ <space height="20" top="@TOP"/> 
+ <? } ?>
+	
+% }
