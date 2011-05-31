@@ -1,0 +1,68 @@
+.LOG
+12:00 2011-04-19
+Worked with creating the Mako engine allowing users to create own views in Spotify Ultra. This is an 
+simple implementation of the Mako engine but with javascript syntax for C# application. Apart from the
+graphical view subsystem.
+
+
+08:38 2011-04-20
+Decided to use an own drawn board like in Spotify, the advantadge of this is that we get better access to the elements 
+and have full control over it. Among disadvantadges is stability and trouble with the drawing cache. This should however
+be an separate project apart from Spotify ultra so we can re use it for own sake. 
+
+12:58 2011-04-20
+Ready with the work today. Things that has been done today:
+
+What have been done today:
+ * Writing the specification of the view subsystem (that I love)
+ * Making the inflation functionality.
+ * Fixed playlist system
+ 
+What does not work:
+ * Reload views [fixed]
+ * Issues with some elements
+ * Playback icon
+06:58 2011-04-21
+
+09:36 2011-04-21
+Skip an repurchase of the stolen phone; we assign the easter 
+time to this work and also refract the economy. Just also though
+something we got in the bad thing; otherwise there would be more
+android work than this... And we need to make some out of this...
+
+ * Fixed view system like Spotify
+
+Fixed vertical scrollbars
+10:42 2011-04-22
+* Fixed links in rows and possible to seek rows by up/down buttons.
+
+16:14 2011-04-22
+* Added simple header selection, encapsulate the scripting language into an interface to make it able to extend in 
+future!
+* 
+2011-04-21
+ 
+ * Added local file feature
+ * Use MediaChrome as plugin base to be able to extend the app in the future
+ * Added local album view in artist view.
+14:59 2011-04-25
+ * Fixed issues with artist view.
+ * Increased performance by smart drawing
+ * Fixing coverart for Spotify albums
+11:15 2011-04-26
+ * UI takes 99% of CPU, localaizxed 20% of problem to the cover view, disabled it to 
+see what I can do with it
+13:05 2011-04-26
+ * Reduced CPU % usage by -60% by locking image download threads.
+10:02 2011-05-06
+ * Rewrited the view subsystem and drawing so the object below the cursor is decided at drawing time, it 
+saves resources since it won't raise recheck on every time the cursor moves.
+ * Added Artist, Album class subsystem to MediaChrome and fixed so view subsystem now can handle several plugins
+by associating the first setence befoer : as pointer to IPlayEngine and associate the view content to this instead
+of ws.spotify.com as it ease the mediachrome target.
+07:25 2011-05-31
+
+2011-05-31 (2011-06-00)
+ * Fixed scrollbar behaviour, changed the code identity to 'MediaChrome'.
+
+

@@ -1,0 +1,56 @@
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\DeskWiki.exe
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\DeskWiki.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\obj\x86\Debug\ResolveAssemblyReference.cache
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\obj\x86\Debug\DeskWiki.Form1.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\obj\x86\Debug\DeskWiki.Properties.Resources.resources
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\obj\x86\Debug\GenerateResource.read.1.tlog
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\obj\x86\Debug\GenerateResource.write.1.tlog
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\obj\x86\Debug\DeskWiki.exe
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\obj\x86\Debug\DeskWiki.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\DeskWiki.exe.config
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\Resources\kan1.png
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\Resources\kan2.png
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\Board.exe
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\Jint.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\SpofityRuntime.exe
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\xmlfick.exe
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\MediaChrome.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\LibspotifySharp.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\AxInterop.WMPLib.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\System.Data.SQLite.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\Interop.WMPLib.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\Bass.Net.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\Spocky.dll
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\Board.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\xmlfick.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\SpofityRuntime.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\MediaChrome.pdb
+L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\DeskWiki\bin\Debug\System.Data.SQLite.xml
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\Resources\kan1.png
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\Resources\kan2.png
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\DeskWiki.exe.config
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\DeskWiki.exe
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\DeskWiki.pdb
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\Board.exe
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\Jint.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\xmlfick.exe
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\LibspotifySharp.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\Interop.WMPLib.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\System.Data.SQLite.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\Bass.Net.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\AxInterop.WMPLib.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\Spocky.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\Board.pdb
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\xmlfick.pdb
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\MediaChrome.pdb
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\System.Data.SQLite.xml
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\obj\x86\Debug\ResolveAssemblyReference.cache
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\obj\x86\Debug\DeskWiki.Form1.resources
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\obj\x86\Debug\DeskWiki.Properties.Resources.resources
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\obj\x86\Debug\GenerateResource.read.1.tlog
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\obj\x86\Debug\GenerateResource.write.1.tlog
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\obj\x86\Debug\DeskWiki.exe
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\obj\x86\Debug\DeskWiki.pdb
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\MediaChromeGUI.exe
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\MediaChrome.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\MediaChromeGUI.pdb
