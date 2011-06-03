@@ -491,5 +491,24 @@
             Returns the duration of the current song (in seconds)
             </summary>
         </member>
+        <member name="M:MediaChrome.Views.Playlist.#ctor(MediaChrome.IPlayEngine,System.String,System.String,System.Windows.Forms.Form)">
+            <summary>
+            Creates a new playlist without an buffer
+            </summary>
+            <param name="Engine">The engine to work with</param>
+            <param name="Name">Name of the playlist</param>
+            <param name="ID">The system id of the playlist (specific for the extension)</param>
+            <param name="host">The host of the playlist (the media provider)</param>
+        </member>
+        <member name="M:MediaChrome.Views.Playlist.#ctor(MediaChrome.IPlayEngine,System.String,System.String,System.Windows.Forms.Form,System.Collections.Generic.List{MediaChrome.Song})">
+            <summary>
+            Creates a new playlist without an buffer
+            </summary>
+            <param name="Engine">The engine to work with</param>
+            <param name="Name">Name of the playlist</param>
+            <param name="ID">The system id of the playlist (specific for the extension)</param>
+            <param name="host">The host of the playlist (the media provider)</param>
+            <param name="cache">The cache to use instead of loading an new one</param>
+        </member>
     </members>
 </doc>

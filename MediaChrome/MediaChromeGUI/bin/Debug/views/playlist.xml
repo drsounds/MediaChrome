@@ -1,13 +1,13 @@
 <?
-var playlist = getPlaylist("mp3:playlist:"+parameter);
+var playlist = getPlaylist(service,parameter);
 ?>
 <view>
 	<section name="Playlist" list="true">
 	
 		<?
-		for(var i=0; i < playlist.Length; i++){ var song = playlist.Songs[i];
+		for(var i=0; i < playlist.Songs.Count; i++){ var song = playlist.Songs[i];
 		?>
-		<entry height="18" width="-1">
+		<entry height="18" width="-1" left="0" top="@TOP">
 			<title noelm="true"><![CDATA[@{song.Title}]]></title>
 			<artist noelm="true"><![CDATA[@{song.Artist}]]></artist>
 			<album noelm="true"><![CDATA[@{song.Album}]]></album>

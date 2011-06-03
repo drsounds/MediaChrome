@@ -1421,6 +1421,29 @@ namespace Board
 
                         // Render element sections
                         _Section = RenderSection(_Section, iSection);
+                        
+                        /**
+                         * Set column headers by the column element is defined, define all columnheaders
+                         * */
+
+                        XmlNodeList Columns = d.GetElementsByTagName("columnheader");
+
+                        // If the column count is above zero, clear the default set of column headers
+                        // and use from the new list
+                        if (Columns.Count > 0)
+                            _Section.ColumnHeaders = new Dictionary<string, int>();
+
+                        
+                        foreach (XmlElement ColumnHeader in Columns)
+                        {
+                            try
+                            {
+                                _Section.ColumnHeaders.Add(ColumnHeader.GetAttribute("name"), int.Parse(ColumnHeader.GetAttribute("size")));
+                            }
+                            catch
+                            {
+                            }
+                        }
 
                         this.view.Sections.Add(_Section);
                         _Section.ptop = 20;
@@ -1619,7 +1642,10 @@ namespace Board
     /// </summary>
 	public class Section
 	{
-
+        /// <summary>
+        /// Columnheeaders for use in list mode
+        /// </summary>
+        public Dictionary<String, int> ColumnHeaders { get; set; }
         public int ptop = 20;
         /// <summary>
         /// Rebuilds the collection
@@ -1929,7 +1955,21 @@ namespace Board
 	    { 
             Parent = parent;
 	        elements = new List<Element>();
-	        Sets = new List<Set>();
+            // Add standard columns (title,position)
+            Sets = new List<Set>();
+            /**
+             * Set default column headers (title,artist,album,engine etc.)
+             * */
+            ColumnHeaders = new Dictionary<string, int>();
+            ColumnHeaders.Add("r", 30);
+            ColumnHeaders.Add("No", 50);
+            ColumnHeaders.Add("Title", 300);
+            ColumnHeaders.Add("Artist", 150);
+            ColumnHeaders.Add("Length", 50);
+            ColumnHeaders.Add("Album", 200);
+            ColumnHeaders.Add("Media Provider", 200);
+            ColumnHeaders.Add("User", 200);
+            ColumnHeaders = new Dictionary<string, int>();
 	    }
 	    private string name;
 	    [XmlElement("set")]
@@ -1998,6 +2038,10 @@ namespace Board
 	public class Element 
 	{
         /// <summary>
+        /// Store an boxed instance of any class in the element
+        /// </summary>
+        public object Tag {get;set;}
+        /// <summary>
         /// Returns if the element has an pending image
         /// </summary>
         public bool ImagePending
@@ -2055,14 +2099,19 @@ namespace Board
             // Create new font if the font of the instance is NULL
             if (this.Font == null)
                 this.Font = new Font("Tahoma",8.5f, FontStyle.Regular);
+            // Set up font size
+            float fontSize = 8;
+            float.TryParse(this.GetAttribute("size"), out fontSize);
+            if(fontSize<=0)
+                fontSize = 8;
 
             // Assert element font attributes
             if (this.GetAttribute("bold") != "")
                 this.Font = new System.Drawing.Font(this.Font, FontStyle.Bold);
             if (this.GetAttribute("size") != "")
-                this.Font = new System.Drawing.Font(this.Font.FontFamily, float.Parse(this.GetAttribute("size")), this.Font.Style);
+                this.Font = new System.Drawing.Font(this.Font.FontFamily, fontSize, this.Font.Style);
             if (this.GetAttribute("font") != "")
-                this.Font = new System.Drawing.Font(this.Font.FontFamily, this.Font.Size, this.Font.Style, GraphicsUnit.Pixel);
+                this.Font = new System.Drawing.Font(this.Font.FontFamily, fontSize, this.Font.Style, GraphicsUnit.Pixel);
 
         }
         /// <summary>

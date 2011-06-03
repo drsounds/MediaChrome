@@ -266,13 +266,7 @@ namespace Board
             // Assign default columnwidths
             Columns = new Dictionary<string, int>();
 
-            // Add standard columns (title,position)
-            Columns.Add("r", 30);
-            Columns.Add("No", 50);
-            Columns.Add("Title", 300);
-            Columns.Add("Artist", 150);
-            Columns.Add("Length", 50);
-            Columns.Add("Album", 200);
+            
             SetColors();
 
         }
@@ -380,6 +374,8 @@ namespace Board
                     LinkClick(_Element, _Element.GetAttribute("href"));
 
             }
+            if(ItemClicked!=null)
+            ItemClicked(this, !String.IsNullOrEmpty(_Element.GetAttribute("uri")) ? _Element.GetAttribute("uri") : _Element.GetAttribute("href"));
         }
         /// <summary>
         /// Column widths. They are used for the entries. -1 means until end of size
@@ -391,7 +387,7 @@ namespace Board
             {
                 ElementClick(HoveredElement, mouseX, mouseY);
             }
-#if(nobug)
+            #if(nobug)
             if (CurrentView != null)
                 if (CurrentView.Content != null)
                     if (CurrentView.Content.View != null)
@@ -1979,7 +1975,11 @@ namespace Board
 
                 case "entry":
 
-                    
+                    if (mouseX >= left && mouseX <= left + width &&
+                        mouseY >= top && mouseY <= top + height)
+                    {
+                        HoveredElement = _Element;
+                    }
                   
                     /*      if (_Element.GetAttribute("position") == ("absolute"))
                           {
@@ -2019,7 +2019,7 @@ namespace Board
                     // draw all attributes specified by the column handlers:
 
                         int column_position = left;
-                        foreach (KeyValuePair<string, int> Column in Columns)
+                        foreach (KeyValuePair<string, int> Column in CurSection.ColumnHeaders)
                         {
                            
 
@@ -2289,7 +2289,7 @@ namespace Board
         {
 
             // fill the columnheader background
-            int scrollOffset = (this.ItemOffset > 0 ?scrollbar_size:  0);
+            int scrollOffset = 0;// (this.ItemOffset > 0 ? scrollbar_size : 0);
             p.FillRectangle(new LinearGradientBrush(new Point(point.X,point.Y),new Point(point.X,point.Y+columnheader_height),Color.FromArgb(210,210,210),Color.FromArgb(180,180,180)),new Rectangle(point,new Size(this.Width-scrollOffset,columnheader_height)));
             // draw border line
             p.DrawLine(new Pen(Color.Black), new Point(0, point.Y + columnheader_height - 1), new Point(this.Width - scrollOffset, point.Y + columnheader_height - 1));
@@ -2302,7 +2302,7 @@ namespace Board
             int text_top = 2;
 
             // Draw headers
-            foreach (KeyValuePair<String, int> column in Columns)
+            foreach (KeyValuePair<String, int> column in CurSection.ColumnHeaders)
             {
 
                 p.DrawString(column.Key, new Font(FontFace, 8, FontStyle.Bold), new SolidBrush(Color.White), new Point(current_position, text_top + point.Y + 1));
@@ -3133,9 +3133,9 @@ namespace Board
             if (e.X >= Width - scrollbar_size)
                 return;
         	if(dragging)
-        		return;
+        		return;*/
             mouseX = e.X;
-            mouseY = e.Y;*/
+            mouseY = e.Y;
           
                 /**
                  * Drag and drop handling
@@ -3151,7 +3151,7 @@ namespace Board
             	if(!dragging)
             	{
                     // start dragging
-                    StartDragging();
+         //           StartDragging();
             	}
             	diffX = 0;
                 diffY = 0;

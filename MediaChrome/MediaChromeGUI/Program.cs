@@ -33,10 +33,10 @@ namespace MediaChrome
         static void Main(string[] arguments)
         {
             mainForm = new Form1();
-              MediaEngines.Add("spotify", new MediaChrome.SpotifyPlayer());
-          //  MediaEngines.Add("mp3", new MediaChrome.MP3Player());
-           // MediaEngines.Add("youtube", new MediaChrome.Youtube());
-           MediaEngines.Add("mp3", new MediaChrome.MP3Player());
+            MediaEngines.Add("spotify", new MediaChrome.SpotifyPlayer());
+         //   MediaEngines.Add("mp3", new MediaChrome.MP3Player());
+        //   MediaEngines.Add("youtube", new MediaChrome.Youtube());
+            MediaEngines.Add("mp3", new MediaChrome.MP3Player());
             // Add next song event handling
             foreach(MediaChrome.IPlayEngine Engine in MediaEngines.Values)
             {

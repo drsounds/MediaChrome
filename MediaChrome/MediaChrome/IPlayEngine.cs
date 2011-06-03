@@ -185,28 +185,28 @@ namespace MediaChrome
 
             P.Version = findVersion(D);
             P.Contributing = findCommit(D);
-            D = D.Replace("song://", "http://");
+            D = D.Replace(" ","-_").Replace("music://","song://").Replace("song://", "http://").Replace("music://","http://");
             Uri Url = new System.Uri(D.Replace("(" + P.Version + ")", "").Replace("[" + P.Contributing + "]", "").Replace("{", "").Replace("}", ""));
 
-
-            P.Artist = Url.Segments[0].Replace("/", "").Replace("%20", " ");//Url.Host.Replace("_"," ");
-            P.Title = Url.Segments[1].Replace("/", "").Replace("%20", " ");
-
+            P.Artist = Url.Host.Replace("-_"," ");
+            P.Title = Url.Segments[2].Replace("-_", " ").Replace("/", "").Replace("%20", " ");
 
 
-            P.AlbumName = Url.Segments[2].Replace("/", "").Replace("%20", " ");
+
+            P.AlbumName = Url.Segments[1].Replace("-_", " ").Replace("/", "").Replace("%20", " ");
+            P.Link = D.Replace("-_", " ");
             try
             {
-                P.ProposedEngine = UriHelper.Querystrings(Url)["service"];
+                P.ProposedEngine = UriHelper.Querystrings(Url)["service"].Replace("-_", " ");
             }
             catch
             {
 
             }
-            P.Path = D;
+            P.Path = D.Replace("-_", " ");
             try
             {
-                P.ID = UriHelper.Querystrings(Url)["id"];
+                P.ID = UriHelper.Querystrings(Url)["id"].Replace("-_", " ");
             }
             catch
             {

@@ -196,96 +196,6 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
-        <member name="T:Board.MakoEngine">
-            <summary>
-            This is an simple MakoEngine implementation for Jint.
-            Used to minic the Spotify's view engine.
-            
-            </summary>
-        </member>
-        <member name="M:Board.MakoEngine.__printx(System.String)">
-            <summary>
-            Callback where the output is thrown to, called by the parsed string
-            </summary>
-            <param name="values"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Board.MakoEngine.synchronize_data(System.String)">
-            <summary>
-            Synchronize data is called by the javascript preparser to get an ready to use JSON parsed data. If the dat can't be parsed as JSON
-            it will be returned as an common string
-            </summary>
-            <param name="uri">The address to the remote information to retrieve</param>
-            <returns></returns>
-        </member>
-        <member name="M:Board.MakoEngine.HandleToTokens(System.String,System.Char)">
-            <summary>
-            Function to convert variable signatures to variable concations for the parser
-            </summary>
-            <param name="Line"></param>
-            <param name="signature"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Board.MakoEngine.GetVariables(System.String,System.Char)">
-            <summary>
-            This function returns variable from the parser embedded in an output field, asserted with an custom sign {VARNAME}
-            </summary>
-            <param name="Line">The code line to execute</param>
-            <param name="signature">The char signature</param>
-            <returns>An list of processed variables</returns>
-        </member>
-        <member name="M:Board.MakoEngine.ExecuteScalarVariable(System.String,System.Char,System.Char,System.Boolean)">
-            <summary>
-            This function executes the scalar variable, works together with GetVariable. It will also parse the inherited 
-            codebase.
-            </summary>
-            <param name="Variable"></param>
-            <param name="reflector">Reflector divides which is the conditinoal statement and the boolean output</param>
-            <param name="divider">Boolean divider</param>
-            <param name="vetero">Which variable beside the reflector divider should be present in fallback</param>
-            <value>Returns an 2 field String array where {InitialVariableName,Output}</value>
-            <returns></returns>
-        </member>
-        <member name="M:Board.MakoEngine.Execute(System.String)">
-            <summary>
-            This function executes string in the js mako engine
-            </summary>
-            <param name="e"></param>
-        </member>
-        <member name="M:Board.MakoEngine.Preprocess(System.String,System.String,System.Boolean,System.Boolean)">
-            <summary>
-            This function preprosses the mako layer
-            </summary>
-            <param name="input">The input string to parse</param>
-            <param name="argument">The argument sent to the parser</param>
-        </member>
-        <member name="P:Board.MakoEngine.OldOutput">
-            <summary>
-            Returns the old output
-            </summary>
-        </member>
-        <member name="P:Board.MakoEngine.JSPython">
-            <summary>
-            The javascript will be like as python
-            </summary>
-        </member>
-        <member name="P:Board.MakoEngine.RuntimeMachine">
-            <summary>
-            Instance of the Jint engine running at runtime
-            </summary>
-        </member>
-        <member name="T:Board.MakoEngine.CreateEventHandler">
-            <summary>
-            Raises the create event handler. Useful to add features to the engine before running
-            </summary>
-            <param name="sender">The current instance of MakoEngine</param>
-            <param name="e">EventArg</param>
-        </member>
-        <member name="T:Board.MainForm">
-            <summary>
-            Description of MainForm.
-            </summary>
-        </member>
         <member name="T:Board.IBoardRender">
             Abstract drawing engine for the board
             
@@ -382,6 +292,96 @@
             <summary>
             Gets or sets the surface which 
             returns the drawing cache
+            </summary>
+        </member>
+        <member name="T:Board.MakoEngine">
+            <summary>
+            This is an simple MakoEngine implementation for Jint.
+            Used to minic the Spotify's view engine.
+            
+            </summary>
+        </member>
+        <member name="M:Board.MakoEngine.__printx(System.String)">
+            <summary>
+            Callback where the output is thrown to, called by the parsed string
+            </summary>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Board.MakoEngine.synchronize_data(System.String)">
+            <summary>
+            Synchronize data is called by the javascript preparser to get an ready to use JSON parsed data. If the dat can't be parsed as JSON
+            it will be returned as an common string
+            </summary>
+            <param name="uri">The address to the remote information to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Board.MakoEngine.HandleToTokens(System.String,System.Char)">
+            <summary>
+            Function to convert variable signatures to variable concations for the parser
+            </summary>
+            <param name="Line"></param>
+            <param name="signature"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Board.MakoEngine.GetVariables(System.String,System.Char)">
+            <summary>
+            This function returns variable from the parser embedded in an output field, asserted with an custom sign {VARNAME}
+            </summary>
+            <param name="Line">The code line to execute</param>
+            <param name="signature">The char signature</param>
+            <returns>An list of processed variables</returns>
+        </member>
+        <member name="M:Board.MakoEngine.ExecuteScalarVariable(System.String,System.Char,System.Char,System.Boolean)">
+            <summary>
+            This function executes the scalar variable, works together with GetVariable. It will also parse the inherited 
+            codebase.
+            </summary>
+            <param name="Variable"></param>
+            <param name="reflector">Reflector divides which is the conditinoal statement and the boolean output</param>
+            <param name="divider">Boolean divider</param>
+            <param name="vetero">Which variable beside the reflector divider should be present in fallback</param>
+            <value>Returns an 2 field String array where {InitialVariableName,Output}</value>
+            <returns></returns>
+        </member>
+        <member name="M:Board.MakoEngine.Execute(System.String)">
+            <summary>
+            This function executes string in the js mako engine
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Board.MakoEngine.Preprocess(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            This function preprosses the mako layer
+            </summary>
+            <param name="input">The input string to parse</param>
+            <param name="argument">The argument sent to the parser</param>
+        </member>
+        <member name="P:Board.MakoEngine.OldOutput">
+            <summary>
+            Returns the old output
+            </summary>
+        </member>
+        <member name="P:Board.MakoEngine.JSPython">
+            <summary>
+            The javascript will be like as python
+            </summary>
+        </member>
+        <member name="P:Board.MakoEngine.RuntimeMachine">
+            <summary>
+            Instance of the Jint engine running at runtime
+            </summary>
+        </member>
+        <member name="T:Board.MakoEngine.CreateEventHandler">
+            <summary>
+            Raises the create event handler. Useful to add features to the engine before running
+            </summary>
+            <param name="sender">The current instance of MakoEngine</param>
+            <param name="e">EventArg</param>
+        </member>
+        <member name="T:Board.MainForm">
+            <summary>
+            Description of MainForm.
             </summary>
         </member>
         <member name="M:Board.Spofity.PlayItem(Board.Element,System.Int32,System.Int32)">
@@ -707,6 +707,11 @@
             <param name="d"></param>
             <param name="X"></param>
         </member>
+        <member name="P:Board.Section.ColumnHeaders">
+            <summary>
+            Columnheeaders for use in list mode
+            </summary>
+        </member>
         <member name="P:Board.Section.Reorder">
             <summary>
             Gets or sets whether the entries in the view can be reordered.
@@ -852,6 +857,11 @@
             <summary>
             An list of arbitrary attributes applied to the object. These attributes provides the properties coming from
             the underlying input and are managed by the application. 
+            </summary>
+        </member>
+        <member name="P:Board.Element.Tag">
+            <summary>
+            Store an boxed instance of any class in the element
             </summary>
         </member>
         <member name="P:Board.Element.ImagePending">

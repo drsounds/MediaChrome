@@ -167,13 +167,13 @@ namespace MediaChrome
             {
                 FileStream d = File.Create(Path);
                 d.Close();
-               Playlist Plst = new Playlist(this,Name+".pls",Name,this.Host);
+               Playlist Plst = new Playlist(this,Name+".pls","mp3:playlist:"+Name,this.Host);
                Plst.CanModify = true;
                return Plst;
             }
             else
             {
-                Playlist D = ViewPlaylist(Name, Name + ".pls");
+                Playlist D = ViewPlaylist(Name,"mp3:playlist:"+Name);
                 D.CanModify = true;
                 return D;
             }
@@ -389,8 +389,25 @@ namespace MediaChrome
 		{
 			get { return player.currentItem.durationString; }
 		}
-		
-		
+
+        private Dictionary<string ,List<Song>> playlists;
+        /// <summary>
+        /// Cache of loaded playlists
+        /// </summary>
+        public Dictionary<string, List<Song>> Lists
+        {
+            get
+            {
+                if (playlists == null)
+                    playlists = new Dictionary<string, List<Song>>();
+                return playlists;
+            }
+            set
+            {
+                if(playlists == null)
+                    playlists = new Dictionary<string, List<Song>>();
+            }
+        }
 		
 		public void Seek(double pos)
 		{
@@ -414,51 +431,58 @@ namespace MediaChrome
             List<Song> _Songs = new List<Song>();
             playlist.CanModify = true;
             SQLiteConnection Conn = MediaChrome.MainForm.MakeConnection();
-      
-            using (StreamReader SR = new StreamReader(MediaChrome.MainForm.DownloadDir + "\\" + PlsID))
+            try
             {
-                String D = "";
-                while ((D = SR.ReadLine()) != null)
+                using (StreamReader SR = new StreamReader(MediaChrome.MainForm.DownloadDir + "\\" + PlsID.Replace(".pls","") + ".pls"))
                 {
-                    if (D.StartsWith("music:"))
+                    String D = "";
+                    while ((D = SR.ReadLine()) != null)
                     {
-                       /* Uri Url = new System.Uri(D);
-                        Song P = new Song();
-                        P.Artist = Url.Segments[1].Replace("/", "").Replace("%20", " ");//Url.Host.Replace("_"," ");
+                        if (D.StartsWith("music:"))
+                        {
+                            /* Uri Url = new System.Uri(D);
+                             Song P = new Song();
+                             P.Artist = Url.Segments[1].Replace("/", "").Replace("%20", " ");//Url.Host.Replace("_"," ");
 
-                        P.Album = Url.Segments[3].Replace("/", "").Replace("%20", " ");
-                        P.Title = Url.Segments[2].Replace("/", "").Replace("%20", " ");
+                             P.Album = Url.Segments[3].Replace("/", "").Replace("%20", " ");
+                             P.Title = Url.Segments[2].Replace("/", "").Replace("%20", " ");
 
-                        P.Path = D;
+                             P.Path = D;
                         
 
-                        _Songs.Add(P);*/
-                        Song P =MediaChrome. MainForm.GetSongFromURI(D);
-                        
-                        _Songs.Add(P);
+                             _Songs.Add(P);*/
+                            Song P = Song.GetSongFromURI(D);
 
-                        // TODO: TO be implemented later
+                            _Songs.Add(P);
 
-                    }
-                    else
-                    {
-                        SQLiteCommand Command = new SQLiteCommand("SELECT * FROM" + " WHERE path='" + D + "'", Conn);
-                        SQLiteDataReader SQLDR = Command.ExecuteReader();
-                        try
-                        {
-                            SQLDR.Read();
-                            Song _Song = MediaChrome.MainForm.GetSongFromQuery(SQLDR);
-
-                            _Songs.Add(_Song);
-                        }
-                        catch
-                        {
+                            // TODO: TO be implemented later
 
                         }
-                    }
+                        else
+                        {
+                            SQLiteCommand Command = new SQLiteCommand("SELECT * FROM " + " WHERE path='" + D + "'", Conn);
+                            SQLiteDataReader SQLDR = Command.ExecuteReader();
+                            try
+                            {
+                                SQLDR.Read();
+                                Song _Song = Song.GetSongFromURI(D);
+                                 
+                                _Songs.Add(_Song);
+                            }
+                            catch
+                            {
 
+                            }
+                        }
+
+                    }
                 }
             }
+            catch
+            {
+            }
+            // Add the list to the playlist cache
+            playlist.Songs = _Songs;
             Conn.Close();
             return _Songs;
         }
@@ -466,9 +490,18 @@ namespace MediaChrome
 		{
             try
             {
+                /**
+                 * Create an new playlist, load it if 
+                 * no previous buffer exist
+                 *
+                if (Lists.ContainsKey(PlsID))
+                    return new Playlist(this,Name, PlsID, this.Host);
                 Playlist d = new Playlist(this,Name,PlsID,this.Host);
-             
-          
+              
+                 */
+                Playlist d = new Playlist(this,Name,PlsID,Host);
+                LoadPlaylist(Name, ref d);
+                
                 return d;
             }
             catch
@@ -644,8 +677,12 @@ namespace MediaChrome
                     {
                         try
                         {
+                            /**
+                             * Create an playlist
+                             * */
                             Views.Playlist _Playlist = this.CreatePlaylist(__Playlist.Name.Replace(".pls", ""));
                             _Playlist.Engine = this;
+                            //_Playlist.ID = "mp3:playlist:" + __Playlist.Name.Replace(".pls", "");
                             Playlists.Add(_Playlist);
                         }
                         catch

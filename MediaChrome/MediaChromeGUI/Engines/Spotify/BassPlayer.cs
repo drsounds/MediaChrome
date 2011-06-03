@@ -259,11 +259,31 @@ namespace MediaChrome
 				return "spotify";
 			}
 		}
-		public Song RawFind(Song _Song)
-		{
-			// TODO: Add handler later
-			return null;
-		}
+        public Song RawFind(Song _Song)
+        {
+            // TODO: Add handler later
+            Spotify.Search result = SpotifySession.SearchSync("\""+_Song.Title + "\" artist:\"" + _Song.Artist + "\"", 0, 4, 0, 4, 0, 4, new TimeSpan(4000000));
+            // wait until the result has been generated
+            while (result == null) { }
+            // if song was found deliver the first match
+            if (result.TotalTracks > 0)
+            {
+                // Convert the track to an mc instance
+                Song c = new Song();
+                Track _track = result.Tracks[0];
+                c.Name = c.Name;
+                c.Artist = _track.Artists[0].Name;
+                c.AlbumName = _track.Album.Name;
+                c.Path = _track.LinkString;
+                c.Link = _track.LinkString;
+                c.Engine = this;
+                c.ProposedEngine = "spotify";
+                return c;
+            }
+
+            // Otherwise return null
+            return null;
+        }
 		private Spotify.SpotifyView view;
 		public Control MediaControl
 		{
@@ -306,6 +326,25 @@ namespace MediaChrome
             A.Popularity = 0.5f;
             A.Engine = this;
             return A;
+        }
+        public static MediaChrome.Song ConvertSpotifyTrackToMCSong(string uri)
+        {
+            // Get song from Spotify
+
+            MediaChrome.Song Song = new MediaChrome.Song();
+            Spotify.Track song = Spotify.Track.CreateFromLink(Link.Create(uri));
+
+            // Wait until the song has been loaded
+            while (song == null) { }
+            while (song.Error == sp_error.IS_LOADING) { }
+
+            // Set song attributes
+            Song.Title = song.Name;
+            Song.Path = song.LinkString;
+            Song.Artist = song.Artists[0].Name;
+            Song.AlbumName = song.Album.Name;
+            return Song;
+
         }
 		public bool Ready {get;set;}
 		public int FilesCompleted {get;set;}
@@ -641,7 +680,7 @@ namespace MediaChrome
          {
              
              
-             currentTrack = Track.CreateFromLink(Link.Create("spotify:track:"+URI));
+             currentTrack = Track.CreateFromLink(Link.Create("spotify:track:"+URI.Replace("spotify:track:","")));
              Thread.Sleep(100);
          	SpotifySession.PlayerLoad(currentTrack);
             try
