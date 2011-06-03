@@ -105,7 +105,7 @@ namespace MediaChrome
 
 
             // Initate objects
-            Spotify.ArtistBrowse Browser = SpotifySession.BrowseArtistSync(Spotify.Artist.CreateFromLink(Link.Create(ID)), new TimeSpan(1050000));
+            Spotify.ArtistBrowse Browser = SpotifySession.BrowseArtistSync(Spotify.Artist.CreateFromLink(Link.Create("spotify:artist:"+ID)), new TimeSpan(1050000));
             while (Browser == null) { }
             
             MediaChrome.Artist artist = new MediaChrome.Artist();
@@ -134,7 +134,7 @@ namespace MediaChrome
             if (artists.ContainsKey(ID))
                 return (MediaChrome.Album)artists[ID];
             // Initiate objects
-            Spotify.AlbumBrowse Browser = SpotifySession.BrowseAlbumSync(Spotify.Album.CreateFromLink(Link.Create(ID)), new TimeSpan(1050000));
+            Spotify.AlbumBrowse Browser = SpotifySession.BrowseAlbumSync(Spotify.Album.CreateFromLink(Link.Create("spotify:album"+ID)), new TimeSpan(1050000));
             while (Browser == null) { }
 
             MediaChrome.Album result = new MediaChrome.Album();
@@ -174,7 +174,7 @@ namespace MediaChrome
             if (artists.ContainsKey(ID))
                 return (MediaChrome.Album)artists[ID];
             // Initiate objects
-            Spotify.AlbumBrowse Browser = SpotifySession.BrowseAlbumSync(Spotify.Album.CreateFromLink(Link.Create(ID)), new TimeSpan(1050000));
+            Spotify.AlbumBrowse Browser = SpotifySession.BrowseAlbumSync(Spotify.Album.CreateFromLink(Link.Create("spotify:album:"+ID)), new TimeSpan(1050000));
             while (Browser == null) { }
             
             MediaChrome.Album result = new MediaChrome.Album();
@@ -641,7 +641,7 @@ namespace MediaChrome
          {
              
              
-             currentTrack = Track.CreateFromLink(Link.Create(URI));
+             currentTrack = Track.CreateFromLink(Link.Create("spotify:track:"+URI));
              Thread.Sleep(100);
          	SpotifySession.PlayerLoad(currentTrack);
             try
@@ -681,7 +681,7 @@ namespace MediaChrome
           
 			List<Song> Songs = new List<Song>();
             MediaChrome.Views.Playlist PList = new MediaChrome.Views.Playlist(this, "", PlsID, this.Host);
-            Spotify.Playlist List = Spotify.Playlist.Create(SpotifySession,Link.Create(PlsID.Replace("playlist:sp:","").Trim()));
+            Spotify.Playlist List = Spotify.Playlist.Create(SpotifySession,Link.Create("spotify:user:"+PlsID.Replace("playlist:sp:","").Trim()));
             while(List==null){}
             while (!List.IsLoaded) { }
 

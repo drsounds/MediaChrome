@@ -4,29 +4,6 @@
         <name>Board</name>
     </assembly>
     <members>
-        <member name="M:Board.frmBoard.LoadContent(System.String)">
-            <summary>
-            Method to load an example content
-            </summary>
-            <param name="address"></param>
-        </member>
-        <member name="F:Board.frmBoard.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:Board.frmBoard.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:Board.frmBoard.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
         <member name="T:Board.CListView">
             <summary>
             Description of CListView.
@@ -122,43 +99,18 @@
             <param name="Sender">the object which raised the delegate's event</param>
             <param name="e">Arguments provided with the event</param>
         </member>
-        <member name="F:Board.MakoParser.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:Board.MakoParser.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:Board.MakoParser.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="M:Board.MakoParser.TestContent(System.String)">
-            <summary>
-            Method to test content, output both preparsed and parsed content
-            </summary>
-            <param name="file"></param>
-        </member>
-        <member name="F:Board.MakoParser.Engine">
-            <summary>
-            Our test engine
-            </summary>
-        </member>
-        <member name="T:Board.MainForm">
-            <summary>
-            Description of MainForm.
-            </summary>
-        </member>
         <member name="T:Board.ViewError">
             <summary>
             Form to show about an view error
             </summary>
+        </member>
+        <member name="M:Board.ViewError.#ctor(System.String,System.String)">
+            <summary>
+            Custom constructor for ViewError, where you specify the
+            info to the user about the error.
+            </summary>
+            <param name="View"></param>
+            <param name="error"></param>
         </member>
         <member name="F:Board.ViewError.components">
             <summary>
@@ -177,698 +129,260 @@
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="M:Board.ViewError.#ctor(System.String,System.String)">
+        <member name="M:Board.MakoParser.TestContent(System.String)">
             <summary>
-            Custom constructor for ViewError, where you specify the
-            info to the user about the error.
-            </summary>
-            <param name="View"></param>
-            <param name="error"></param>
-        </member>
-        <member name="F:Board.DrawBoard.components">
-            <summary> 
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:Board.DrawBoard.InitializeComponent">
-            <summary> 
-            Required method for Designer support - do not modify 
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="M:Board.DrawBoard.SetColors">
-            <summary>
-            Set default colors
-            </summary>
-        </member>
-        <member name="M:Board.DrawBoard.Filter(System.String,Board.Section.IViewFilter)">
-            <summary>
-            Filter the view according to the query
-            </summary>
-            <param name="query">The query to filter</param>
-            <param name="filter">An instance to an implemented IViewFilter class for filter rules</param>
-        </member>
-        <member name="M:Board.DrawBoard.ElementClick(Board.Element,System.Int32,System.Int32)">
-            <summary>
-            Raises a click to the specified elemetn if the mouseX/Y is in bounds
-            </summary>
-            <param name="_Element"></param>
-            <param name="mouseX"></param>
-            <param name="mouseY"></param>
-        </member>
-        <member name="F:Board.DrawBoard.Columns">
-            <summary>
-            Column widths. They are used for the entries. -1 means until end of size
-            </summary>
-        </member>
-        <member name="M:Board.DrawBoard.UpdateView(Board.DrawBoard.View)">
-            <summary>
-            Force update of an certain instance of a view
-            </summary>
-            <param name="srcView">The view instance</param>
-        </member>
-        <member name="M:Board.DrawBoard.LoadViewAsync(System.Object)">
-            <summary>
-            Method to load an view asynchronisly
-            </summary>
-            <param name="address"></param>
-        </member>
-        <member name="F:Board.DrawBoard.CurrentQueue">
-            <summary>
-            Current play queue
-            </summary>
-        </member>
-        <member name="M:Board.DrawBoard.R_PlaybackStarted(System.Object,Board.Element,System.String)">
-            <summary>
-            Proxy event handler for playback
-            </summary>
-            <param name="sender"></param>
-            <param name="elm"></param>
-            <param name="uri"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Board.DrawBoard.Navigate(System.String,System.String,System.String)">
-            <summary>
-            Public method to navigate.
-            </summary>
-            <param name="Uri">The name of the view</param>
-            <param name="nspace">Namespace for the uri (xx:)</param>
-            <param nme="BaseFolder">The base folder where the .xml view files reside</param>
-        </member>
-        <member name="M:Board.DrawBoard.DownloadImage(System.Object)">
-            <summary>
-            Method to asynchronisly download an image to an img element
-            </summary>
-            <param name="token">A element to use</param>
-        </member>
-        <member name="M:Board.DrawBoard.DrawImage(System.Drawing.Image,System.Drawing.Rectangle,System.Drawing.Graphics,System.Boolean)">
-            <date>2011-04-25 12:04</date>
-            <summary>
-            Draws an image
-            </summary>
-            <param name="image">The image to draw</param>
-            <param name="Bounds">The bounds of the image</param>
-            <param name="g">The graphics</param>
-            <param name="hasShadow">Decides whether image should have an shadow</param>
-        </member>
-        <member name="M:Board.DrawBoard.D_FinishedLoading">
-            <summary>
-            Executes when the loading of the page has been finished and downloading images
-            </summary>
-        </member>
-        <member name="M:Board.DrawBoard.GetElementById(System.String)">
-            <summary>
-            Function to get an specific element by ID.
-            </summary>
-            <param name="ID">the id of the element</param>
-            <returns>The element if found, null otherwise</returns>
-        </member>
-        <member name="M:Board.DrawBoard.GetItemAtPos(System.Drawing.Point)">
-            <date>2011-04-24 15:17 </date>
-            <summary>
-            Function to get an element underlying the position. Relative to scrollX/scrollY
-            </summary>
-            <param name="point"></param>
-            <returns>The element on the spot or NULL if not</returns>
-        </member>
-        <member name="M:Board.DrawBoard.GetItemAt(System.Int32)">
-            <summary>
-            Method to get an particular item of type entry at an certain index (only items of type entry included)
-            </summary>
-            <returns>An element by type entry at the specified position or NULL if no elements where found or an exception was thrown</returns>
-            <param name="pos">The index of the element</param>
-            <remarks>Only elements of type entries is accessible.</remarks>
-        </member>
-        <member name="M:Board.DrawBoard.NextSong">
-            <summary>
-            Play next song
-            </summary>
-        </member>
-        <member name="M:Board.DrawBoard.AddItem(System.String,System.String,System.String[],System.String[],System.Int32,System.Int32)">
-            <summary>
-            Method to add new items to the list at runtime. Only applies to item of type 'entry'
-            </summary>
-            <param name="Uri">The uri of the item</param>
-            <param name="Title">The title of the item</param>
-            <param name="Attributs">String array of attributes</param>
-            <param name="uris">String array of uris (hrefs) of attributes</param>
-        </member>
-        <member name="M:Board.DrawBoard.GetPlayingSection">
-            <summary>
-            Get the section which has the current playing item
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Board.DrawBoard.IsInputKey(System.Windows.Forms.Keys)">
-            <summary>
-            Method to handle keys in list
-            </summary>
-            <param name="keyData"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Board.DrawBoard.ParseTag(System.String,System.Int32@)">
-            <summary>
-            Parses an tag and result it as an element
-            </summary>
-            <param name="src">The source string</param>
-            <param name="i">Current position of the string</param>
-            <returns>An element</returns>
-        </member>
-        <member name="M:Board.DrawBoard.DrawText(System.String,Board.Element,System.Drawing.Font,System.Drawing.Graphics,System.Drawing.Brush,System.Drawing.Rectangle,System.Int32@,System.Int32@,System.Int32@)">
-            <summary>
-            Method to dynamically draw text and include subsets of elements inside the markup of the text
-            </summary>
-            <param name="elm"></param>
-            <param name="font">The font to use (measuring scale)</param>
-            <param name="g">The graphics to use</param>
-            <param name="position">Rectangle of position</param>
-            <param name="left">Left position of character start</param>
-            <param name="row">row on character start</param>
-        </member>
-        <member name="M:Board.DrawBoard.DrawElement(Board.Element,System.Drawing.Graphics,System.Int32@,System.Drawing.Rectangle,System.Int32,System.Int32@,System.Int32@)">
-            <param name="entryship">The number of entry placed</param>
-        </member>
-        <member name="F:Board.DrawBoard.tab_distance">
-            <summary>
-            Distance between tabs
-            </summary>
-        </member>
-        <member name="F:Board.DrawBoard.inactive_section_tab">
-            <summary>
-            Bitmap for the inactive section tab
-            </summary>
-        </member>
-        <member name="F:Board.DrawBoard.sectionTab">
-            <summary>
-            Bitmap for the section tab
-            </summary>
-        </member>
-        <member name="F:Board.DrawBoard.tabbar_start">
-            <summary>
-             the horizontal position where the tab starts
-            </summary>
-        </member>
-        <member name="F:Board.DrawBoard.tabbar_height">
-            <summary>
-             height of the bounding_box
-            </summary>
-        </member>
-        <member name="F:Board.DrawBoard.tab_width">
-            <summary>
-            Width for active section tab
-            </summary>
-        </member>
-        <member name="F:Board.DrawBoard.scrollbar_size">
-            <summary>
-            Primary size for the scrollbar 
-            </summary>
-        </member>
-        <member name="F:Board.DrawBoard.columnheader_height">
-            <summary>
-            Height of columnheader
-            </summary>
-        </member>
-        <member name="M:Board.DrawBoard.DrawHeaders(System.Drawing.Graphics,System.Drawing.Point)">
-            <summary>
-            Method t odraw the ColumnHeaders
-            </summary>
-            <param name="p">The graphic engine to use</param>
-            <param name="point"> The point to draw the columnheader on</param>
-        </member>
-        <member name="F:Board.DrawBoard.reoredering">
-            <summary>
-            Determines if an reordering progress is ongoing.
-            </summary>
-        </member>
-        <member name="F:Board.DrawBoard.hovered_tab">
-            <summary>
-            Draw inside an certain view. Mouse events are measured here instead of mousemove
-            </summary>
-            <param name="p">The graphics buffer</param>
-            <param name="CurrentView"> The view to base from</param>
-        </member>
-        <member name="M:Board.DrawBoard.Draw(System.Drawing.Graphics)">
-            <summary>
-            Draws the view
-            </summary>
-            <param name="p">The graphics to draw with</param>
-        </member>
-        <member name="M:Board.DrawBoard.ViewExist">
-            <summary>
-            Returns if an active view exists
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="F:Board.DrawBoard.scrolling">
-            <summary>
-            Gets or sets whether the cursor is attached (is scrolling) on the scrollbar thumb if the returned offset is more than -1.
-            </summary>
-        </member>
-        <member name="F:Board.DrawBoard.rawSource">
-            <summary>
-            The raw data before mako preprocess
-            </summary>
-        </member>
-        <member name="F:Board.DrawBoard.output">
-            <summary>
-            The output of Mako
-            </summary>
-        </member>
-        <member name="F:Board.DrawBoard.ME">
-            <summary>
-            The mako engine
-            </summary>
-        </member>
-        <member name="M:Board.DrawBoard.Diff(System.Int32,System.Int32)">
-            <summary>
-            Method to load an page, preprocess it with mako and show it.
+            Method to test content, output both preparsed and parsed content
             </summary>
             <param name="file"></param>
         </member>
-        <member name="M:Board.DrawBoard.UriToStrings(System.Collections.Generic.List{Board.Element})">
+        <member name="F:Board.MakoParser.Engine">
             <summary>
-            Convert the list of elements to an csv list of uris
+            Our test engine
             </summary>
-            <param name="elements"></param>
+        </member>
+        <member name="F:Board.MakoParser.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Board.MakoParser.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Board.MakoParser.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Board.frmBoard.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Board.frmBoard.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Board.frmBoard.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Board.frmBoard.LoadContent(System.String)">
+            <summary>
+            Method to load an example content
+            </summary>
+            <param name="address"></param>
+        </member>
+        <member name="T:Board.Resource1">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Board.Resource1.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Board.Resource1.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:Board.MakoEngine">
+            <summary>
+            This is an simple MakoEngine implementation for Jint.
+            Used to minic the Spotify's view engine.
+            
+            </summary>
+        </member>
+        <member name="M:Board.MakoEngine.__printx(System.String)">
+            <summary>
+            Callback where the output is thrown to, called by the parsed string
+            </summary>
+            <param name="values"></param>
             <returns></returns>
         </member>
-        <member name="M:Board.DrawBoard.IsHigher(System.Int32,System.Collections.Generic.List{System.Int32})">
+        <member name="M:Board.MakoEngine.synchronize_data(System.String)">
             <summary>
-            Returns an new int the value has no any higher value in the specified collection
+            Synchronize data is called by the javascript preparser to get an ready to use JSON parsed data. If the dat can't be parsed as JSON
+            it will be returned as an common string
             </summary>
-            <param name="e">the number to look for</param>
-            <param name="collection">the collection to look in</param>
+            <param name="uri">The address to the remote information to retrieve</param>
             <returns></returns>
         </member>
-        <member name="M:Board.DrawBoard.RemoveEntryAt(System.Int32)">
-            <date>2011-04-24 16:18</date>
+        <member name="M:Board.MakoEngine.HandleToTokens(System.String,System.Char)">
             <summary>
-            Remove an entry at specified point. (index only applies to entries)
+            Function to convert variable signatures to variable concations for the parser
             </summary>
-            <param name="pos">The index of the entry</param>
+            <param name="Line"></param>
+            <param name="signature"></param>
+            <returns></returns>
         </member>
-        <member name="M:Board.DrawBoard.EntryIndexToRealIndex(System.Int32)">
+        <member name="M:Board.MakoEngine.GetVariables(System.String,System.Char)">
             <summary>
-            Converts the real index into an index for the entry
+            This function returns variable from the parser embedded in an output field, asserted with an custom sign {VARNAME}
             </summary>
-            <param name="index"></param>
-            <returns> the real index of the entry, -1 if failed</returns>
+            <param name="Line">The code line to execute</param>
+            <param name="signature">The char signature</param>
+            <returns>An list of processed variables</returns>
         </member>
-        <member name="M:Board.DrawBoard.RealIndexToEntryIndex(System.Int32)">
+        <member name="M:Board.MakoEngine.ExecuteScalarVariable(System.String,System.Char,System.Char,System.Boolean)">
             <summary>
-            Convert the physical index to real index
+            This function executes the scalar variable, works together with GetVariable. It will also parse the inherited 
+            codebase.
             </summary>
-            <param name="index">the real index</param>
-            <returns>The virtual entry index, -1 if failed or the index points to an item of not an entry</returns>
+            <param name="Variable"></param>
+            <param name="reflector">Reflector divides which is the conditinoal statement and the boolean output</param>
+            <param name="divider">Boolean divider</param>
+            <param name="vetero">Which variable beside the reflector divider should be present in fallback</param>
+            <value>Returns an 2 field String array where {InitialVariableName,Output}</value>
+            <returns></returns>
         </member>
-        <member name="M:Board.DrawBoard.InsertEntryAt(System.Collections.Generic.List{Board.Element},System.Int32)">
-            <date>2011-04-24 16:18</date>
+        <member name="M:Board.MakoEngine.Execute(System.String)">
             <summary>
-            Insert item at position which is synchronised with the range of items only by entries
+            This function executes string in the js mako engine
             </summary>
-            <param name="elements"></param>
-        </member>
-        <member name="M:Board.DrawBoard.InsertEntryAt(Board.Element,System.Int32)">
-            <date>2011-04-24 16:18</date>
-            <summary>
-            Insert item at position which is synchronised with the range of items only by entries
-            </summary>
-            <param name="elements"></param>
-        </member>
-        <member name="M:Board.DrawBoard.timrDownloadCheck_Tick(System.Object,System.EventArgs)">
-            <summary>
-            Check all ready receivers, run and delete them those are completed
-            </summary>
-            <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="M:Board.DrawBoard.tmrViewUpdate_Tick(System.Object,System.EventArgs)">
+        <member name="M:Board.MakoEngine.Preprocess(System.String,System.String,System.Boolean,System.Boolean)">
             <summary>
-            Update the view
+            This function preprosses the mako layer
             </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
+            <param name="input">The input string to parse</param>
+            <param name="argument">The argument sent to the parser</param>
         </member>
-        <member name="M:Board.DrawBoard.AssertScroll">
+        <member name="P:Board.MakoEngine.OldOutput">
             <summary>
-            Updates the scrollbar
+            Returns the old output
             </summary>
         </member>
-        <member name="E:Board.DrawBoard.AfterNavigating">
+        <member name="P:Board.MakoEngine.JSPython">
             <summary>
-            Occurs when the board is navigating to an new uri. 
+            The javascript will be like as python
             </summary>
         </member>
-        <member name="E:Board.DrawBoard.BeginNavigating">
+        <member name="P:Board.MakoEngine.RuntimeMachine">
             <summary>
-            Occurs when the navigation has been finished. The first parameteer sender wwill provide an instance of MakoEngine
+            Instance of the Jint engine running at runtime
             </summary>
         </member>
-        <member name="P:Board.DrawBoard.Alternate">
+        <member name="T:Board.MakoEngine.CreateEventHandler">
             <summary>
-            Gets or sets if the rows should aternate or have dividers
+            Raises the create event handler. Useful to add features to the engine before running
             </summary>
+            <param name="sender">The current instance of MakoEngine</param>
+            <param name="e">EventArg</param>
         </member>
-        <member name="P:Board.DrawBoard.Views">
+        <member name="T:Board.MainForm">
             <summary>
-            The view hiearchy. All views called has their address attached to it, before reloading checking the list for possible
-            view already exist
+            Description of MainForm.
             </summary>
         </member>
-        <member name="P:Board.DrawBoard.History">
-            <summary>
-            History of view for stack
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.Post">
-            <summary>
-            Forward history
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.currentSection">
-            <summary>
-            Current section on the specific view
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.CurSection">
-            <summary>
-            Returns the instance to the current active section
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.ViewBuffer">
-            <summary>
-            Get the list of elements for the current view
-            </summary>
-        </member>
-        <member name="E:Board.DrawBoard.Loaded">
-            <summary>
-            Should do an action on the javascript handler
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-        </member>
-        <member name="E:Board.DrawBoard.ItemClicked">
-            <summary>
-            Even raised when an user clicks an object
-            </summary>
-        </member>
-        <member name="E:Board.DrawBoard.LinkClick">
-            <summary>
-            Raises when an user clicks an link
-            </summary>
-        </member>
-        <member name="E:Board.DrawBoard.MakoGeneration">
-            <summary>
-            Occurs when the mako template engine has been init
-            </summary>
-        </member>
-        <member name="E:Board.DrawBoard.BeginDownloadImage">
-            <summary>
-            Occurs when an image is begin to be downloaded. Runs on another thread
-            </summary>
-        </member>
-        <member name="E:Board.DrawBoard.BeginReorder">
-            <summary>
-            Occurs when items are begin to be reordered.
-            </summary>
-        </member>
-        <member name="E:Board.DrawBoard.FinishedReorder">
-            <summary>
-            Occura when items has finished reordering
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.CurrentCollection">
-            <summary>
-            An shortcut to the current collection of elements
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.SelectedIndex">
-            <summary>
-            Gets and sets the selected index . Returns -1 if no entries was found. Applies only with elements of type "entry".
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.Focus">
-            <summary>
-            Decides if control has focus
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.ScrollX">
-            <summary>
-            Scroll X (Not in use yeat)
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.ScrollY">
-            <summary>
-            The vertical scroll range
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.FontFace">
-            <summary>
-            The default typeface to use for the view
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.HoveredElement">
-            <summary>
-            The element the mouse cursor is hovering on
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.scroll_space">
-            <summary>
-            Gets the space of the scrollY
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.free_height">
-            <summary>
-             Gets the free space of the thumb.
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.ThumbSize">
-            <summary>
-            Gets the size of the thumb
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.ScrollOffset">
-            <summary>
-            Gets the scroll offset
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.ScrollStep">
-            <summary>
-            The step of the scrollY in the offset
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.MaxScrollY">
-            <summary>
-            Returns the maximum scrollY
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.ThumbScrollY">
-            <summary>
-            Sets the scroll Y
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.ScrollBarY">
-            <summary>
-            Scrollbar belonging to the view
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.GrabbedElements">
-            <summary>
-            Element grabbed for drag'n drop
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.TotalHeight">
-            <summary>
-            This function calculates the scrol offset of items. Returns -1 if there is an problem
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.ItemOffset">
-            <summary>
-            Gets the difference between the total height of 
-            the elements and the height of the visible boundary
-            </summary>
-        </member>
-        <!-- Badly formed XML comment ignored for member "P:Board.DrawBoard.Entries" -->
-        <member name="T:Board.DrawBoard.PlaybackStartEvent">
-            <summary>
-            Delegate for playback start event handlers
-            </summary>
-            <param name="sender">the board where the event is happening on</param>
-            <param name="Url">An url to the object which request playback</param>
-            <returns>should return true if the playback can be started, if not return FALSE</returns>
-        </member>
-        <member name="T:Board.DrawBoard.NavigateEventHandler">
-            <summary>
-            Delegate for events relating to navigation
-            </summary>
-            <param name="sender">the Spofity instance resposible for the new view</param>
-            <param name="uri">the uri for navigation</param>
-        </member>
-        <member name="T:Board.DrawBoard.ToolMenuItem">
-            <summary>
-            Shortcut menuitem class, for instansiating shortcut menus from scripts
-            </summary>
-        </member>
-        <member name="T:Board.DrawBoard.LinkClicked">
-            <summary>
-            Raises when an object with an href clicked
-            </summary>
-            <param name="sender"></param>
-            <param name="link"></param>
-        </member>
-        <member name="T:Board.DrawBoard.ItemClick">
-            <summary>
-            Delegate for handling object click
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-        </member>
-        <member name="T:Board.DrawBoard.ItemDoubleClick">
-            <summary>
-            Delegate for handling object double click
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-        </member>
-        <member name="T:Board.DrawBoard.View">
-            <summary>
-            Class of an view instance
-            </summary>
-        </member>
-        <member name="F:Board.DrawBoard.View.Name">
-            <summary>
-            The name of the view, for measure
-            </summary>
-        </member>
-        <member name="F:Board.DrawBoard.View.Address">
-            <summary>
-            The adress to the view
-            </summary>
-        </member>
-        <member name="F:Board.DrawBoard.View.Argument">
-            <summary>
-            The argument provided to the view
-            </summary>
-        </member>
-        <member name="F:Board.DrawBoard.View.Content">
-            <summary>
-            The Spofity class instance of the content
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.View.Section">
-            <summary>
-            The section of the view
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.View.Loaded">
-            <summary>
-            Gets if the View has been loaded, eg. the Content is not null
-            </summary>
-        </member>
-        <member name="T:Board.DrawBoard.MakoCreateEventHandler">
-            <summary>
-            Delegate which manage events for mako creation
-            </summary>
-            <param name="sender">the current instance to mako</param>
-            <param name="e">eventargs</param>
-        </member>
-        <member name="T:Board.DrawBoard.PlayQueue">
-            <summary>
-            Class for play queue
-            </summary>
-        </member>
-        <member name="T:Board.DrawBoard.ImageDownloadEventHandler">
-            <summary>
-            Delegate for event relating to image downlods
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-        </member>
-        <member name="T:Board.DrawBoard.ElementMoveEventArgs">
-            <summary>
-            Event args for element move event handler
-            </summary>
-        </member>
-        <member name="T:Board.DrawBoard.ElementMoveEventHandler">
-            <summary>
-            Delegate for element move event handler
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-        </member>
-        <member name="T:Board.DrawBoard.ItemReorderEventArgs">
-            <date>2011-04-24 15:21</date>
-            <summary>
-            Event args for item reordering
-            </summary>
+        <member name="T:Board.IBoardRender">
+            Abstract drawing engine for the board
+            
         </member>
-        <member name="P:Board.DrawBoard.ItemReorderEventArgs.Cancel">
+        <member name="M:Board.IBoardRender.Initialize">
             <summary>
-            If in begin mode, Gets and sets whether the operation should be cancelled or not
+            Initializes the engine
             </summary>
         </member>
-        <member name="P:Board.DrawBoard.ItemReorderEventArgs.OldPos">
+        <member name="M:Board.IBoardRender.Destroy">
             <summary>
-            Old position
+            Clear the plate
             </summary>
         </member>
-        <member name="P:Board.DrawBoard.ItemReorderEventArgs.NewPosition">
+        <member name="M:Board.IBoardRender.DrawRectangle(System.Drawing.Color,System.Drawing.Rectangle)">
             <summary>
-            New Position
+            Draws an rectangle
             </summary>
+            <param name="left">x</param>
+            <param name="top">y</param>
+            <param name="width">width</param>
+            <param name="height">height</param>
         </member>
-        <member name="P:Board.DrawBoard.ItemReorderEventArgs.Collection">
+        <member name="M:Board.IBoardRender.DrawImage(System.Drawing.Bitmap,System.Drawing.Rectangle)">
             <summary>
-            The collection of elements to reorder
+            Draws an image with the specified coordinates. Should be scaled
+            
             </summary>
+            <param name="image"></param>
+            <param name="Bounds"></param>
         </member>
-        <member name="T:Board.DrawBoard.ItemReorderEvenHandler">
-            <date>2011-04-24 15:21</date>
+        <member name="M:Board.IBoardRender.DrawImage(System.Drawing.Bitmap,System.Drawing.Point)">
             <summary>
-            Delegate for item reordering
+            Draws an image with the specified coordinates. Should be scaled
+            
             </summary>
+            <param name="image"></param>
+            <param name="Bounds"></param>
         </member>
-        <member name="T:Board.DrawBoard.ElementDragEventArgs">
+        <member name="M:Board.IBoardRender.DrawLine(System.Drawing.Color,System.Drawing.Point,System.Drawing.Point)">
             <summary>
-            Event args for elementDragEvent
+            Draws an line.
             </summary>
+            <remarks>Points are absolute, not relative to each other</remarks>
+            <param name="color">Color of the line</param>
+            <param name="start">Starting point</param>
+            <param name="end">End point</param>
         </member>
-        <member name="F:Board.DrawBoard.ElementDragEventArgs.AllowedEffects">
+        <member name="M:Board.IBoardRender.DrawString(System.String,System.Drawing.Font,System.Drawing.Color,System.Drawing.Rectangle)">
             <summary>
-            The allowed effect for the operation
+            Draws an string. If the string exceeds the bounds,
+            clip it.
             </summary>
+            <param name="str">The string to draw</param>
+            <param name="font">The font to use</param>
+            <param name="Bounds">The bounds</param>
+            <param name="shadow">Decides if the string should have an shadow</param>
         </member>
-        <member name="P:Board.DrawBoard.ElementDragEventArgs.Destination">
+        <member name="M:Board.IBoardRender.DrawString(System.String,System.Drawing.Font,System.Drawing.Color,System.Drawing.Point)">
             <summary>
-            The element currently hovering
+            Draws an string. If the string exceeds the bounds,
+            clip it.
             </summary>
+            <param name="str">The string to draw</param>
+            <param name="font">The font to use</param>
+            <param name="Bounds">The bounds</param>
+            <param name="shadow">Decides if the string should have an shadow</param>
         </member>
-        <member name="P:Board.DrawBoard.ElementDragEventArgs.Position">
+        <member name="M:Board.IBoardRender.Clear(System.Drawing.Color)">
             <summary>
-            The position of the mouse cursor, in client coordinates
+            Clear the drawing cache and fill the 
+            output with the specified color.
             </summary>
+            <param name="color">The color to fill</param>
         </member>
-        <member name="P:Board.DrawBoard.ElementDragEventArgs.Index">
+        <member name="M:Board.IBoardRender.FillRectangle(System.Drawing.Color,System.Drawing.Rectangle)">
             <summary>
-            The index of the item
+            Fills an rectangle
             </summary>
+            <param name="bgColor"></param>
         </member>
-        <member name="P:Board.DrawBoard.ElementDragEventArgs.View">
+        <member name="M:Board.IBoardRender.FillRectangle(System.Drawing.Brush,System.Drawing.Rectangle)">
             <summary>
-            The view the element belongs to
+            Fills an rectangle
             </summary>
+            <param name="bgColor"></param>
         </member>
-        <member name="P:Board.DrawBoard.ElementDragEventArgs.Section">
+        <member name="M:Board.IBoardRender.Render">
             <summary>
-            The section the event is raising on
+            Render the graphics to the output
             </summary>
         </member>
-        <member name="T:Board.DrawBoard.ElementDragEventHandler">
+        <member name="P:Board.IBoardRender.Surface">
             <summary>
-            Event handler for dragging over child elements
+            Gets or sets the surface which 
+            returns the drawing cache
             </summary>
-            <param name="sender">the sender board</param>
-            <param name="e"></param>
         </member>
         <member name="M:Board.Spofity.PlayItem(Board.Element,System.Int32,System.Int32)">
             <summary>
@@ -1459,90 +973,700 @@
             Class for defining children element collection
             </summary>
         </member>
-        <member name="T:Board.MakoEngine">
-            <summary>
-            This is an simple MakoEngine implementation for Jint.
-            Used to minic the Spotify's view engine.
-            
+        <member name="F:Board.DrawBoard.components">
+            <summary> 
+            Required designer variable.
             </summary>
         </member>
-        <member name="M:Board.MakoEngine.__printx(System.String)">
-            <summary>
-            Callback where the output is thrown to, called by the parsed string
+        <member name="M:Board.DrawBoard.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
             </summary>
-            <param name="values"></param>
+        </member>
+        <member name="M:Board.DrawBoard.SetColors">
+            <summary>
+            Set default colors
+            </summary>
+        </member>
+        <member name="F:Board.DrawBoard.board">
+            <summary>
+            The drawing board
+            </summary>
+        </member>
+        <member name="F:Board.DrawBoard.surface">
+            <summary>
+            The drawing buffer
+            </summary>
+        </member>
+        <member name="M:Board.DrawBoard.Filter(System.String,Board.Section.IViewFilter)">
+            <summary>
+            Filter the view according to the query
+            </summary>
+            <param name="query">The query to filter</param>
+            <param name="filter">An instance to an implemented IViewFilter class for filter rules</param>
+        </member>
+        <member name="M:Board.DrawBoard.ElementClick(Board.Element,System.Int32,System.Int32)">
+            <summary>
+            Raises a click to the specified elemetn if the mouseX/Y is in bounds
+            </summary>
+            <param name="_Element"></param>
+            <param name="mouseX"></param>
+            <param name="mouseY"></param>
+        </member>
+        <member name="F:Board.DrawBoard.Columns">
+            <summary>
+            Column widths. They are used for the entries. -1 means until end of size
+            </summary>
+        </member>
+        <member name="M:Board.DrawBoard.UpdateView(Board.DrawBoard.View)">
+            <summary>
+            Force update of an certain instance of a view
+            </summary>
+            <param name="srcView">The view instance</param>
+        </member>
+        <member name="M:Board.DrawBoard.LoadViewAsync(System.Object)">
+            <summary>
+            Method to load an view asynchronisly
+            </summary>
+            <param name="address"></param>
+        </member>
+        <member name="F:Board.DrawBoard.CurrentQueue">
+            <summary>
+            Current play queue
+            </summary>
+        </member>
+        <member name="M:Board.DrawBoard.R_PlaybackStarted(System.Object,Board.Element,System.String)">
+            <summary>
+            Proxy event handler for playback
+            </summary>
+            <param name="sender"></param>
+            <param name="elm"></param>
+            <param name="uri"></param>
             <returns></returns>
         </member>
-        <member name="M:Board.MakoEngine.synchronize_data(System.String)">
+        <member name="M:Board.DrawBoard.Navigate(System.String,System.String,System.String)">
             <summary>
-            Synchronize data is called by the javascript preparser to get an ready to use JSON parsed data. If the dat can't be parsed as JSON
-            it will be returned as an common string
+            Public method to navigate.
             </summary>
-            <param name="uri">The address to the remote information to retrieve</param>
+            <param name="Uri">The name of the view</param>
+            <param name="nspace">Namespace for the uri (xx:)</param>
+            <param nme="BaseFolder">The base folder where the .xml view files reside</param>
+        </member>
+        <member name="M:Board.DrawBoard.DownloadImage(System.Object)">
+            <summary>
+            Method to asynchronisly download an image to an img element
+            </summary>
+            <param name="token">A element to use</param>
+        </member>
+        <member name="M:Board.DrawBoard.DrawImage(System.Drawing.Image,System.Drawing.Rectangle,System.Drawing.Graphics,System.Boolean)">
+            <date>2011-04-25 12:04</date>
+            <summary>
+            Draws an image
+            </summary>
+            <param name="image">The image to draw</param>
+            <param name="Bounds">The bounds of the image</param>
+            <param name="g">The graphics</param>
+            <param name="hasShadow">Decides whether image should have an shadow</param>
+        </member>
+        <member name="M:Board.DrawBoard.D_FinishedLoading">
+            <summary>
+            Executes when the loading of the page has been finished and downloading images
+            </summary>
+        </member>
+        <member name="M:Board.DrawBoard.GetElementById(System.String)">
+            <summary>
+            Function to get an specific element by ID.
+            </summary>
+            <param name="ID">the id of the element</param>
+            <returns>The element if found, null otherwise</returns>
+        </member>
+        <member name="M:Board.DrawBoard.GetItemAtPos(System.Drawing.Point)">
+            <date>2011-04-24 15:17 </date>
+            <summary>
+            Function to get an element underlying the position. Relative to scrollX/scrollY
+            </summary>
+            <param name="point"></param>
+            <returns>The element on the spot or NULL if not</returns>
+        </member>
+        <member name="M:Board.DrawBoard.GetItemAt(System.Int32)">
+            <summary>
+            Method to get an particular item of type entry at an certain index (only items of type entry included)
+            </summary>
+            <returns>An element by type entry at the specified position or NULL if no elements where found or an exception was thrown</returns>
+            <param name="pos">The index of the element</param>
+            <remarks>Only elements of type entries is accessible.</remarks>
+        </member>
+        <member name="M:Board.DrawBoard.NextSong">
+            <summary>
+            Play next song
+            </summary>
+        </member>
+        <member name="M:Board.DrawBoard.AddItem(System.String,System.String,System.String[],System.String[],System.Int32,System.Int32)">
+            <summary>
+            Method to add new items to the list at runtime. Only applies to item of type 'entry'
+            </summary>
+            <param name="Uri">The uri of the item</param>
+            <param name="Title">The title of the item</param>
+            <param name="Attributs">String array of attributes</param>
+            <param name="uris">String array of uris (hrefs) of attributes</param>
+        </member>
+        <member name="M:Board.DrawBoard.GetPlayingSection">
+            <summary>
+            Get the section which has the current playing item
+            </summary>
             <returns></returns>
         </member>
-        <member name="M:Board.MakoEngine.HandleToTokens(System.String,System.Char)">
+        <member name="M:Board.DrawBoard.IsInputKey(System.Windows.Forms.Keys)">
             <summary>
-            Function to convert variable signatures to variable concations for the parser
+            Method to handle keys in list
             </summary>
-            <param name="Line"></param>
-            <param name="signature"></param>
+            <param name="keyData"></param>
             <returns></returns>
         </member>
-        <member name="M:Board.MakoEngine.GetVariables(System.String,System.Char)">
+        <member name="M:Board.DrawBoard.ParseTag(System.String,System.Int32@)">
             <summary>
-            This function returns variable from the parser embedded in an output field, asserted with an custom sign {VARNAME}
+            Parses an tag and result it as an element
             </summary>
-            <param name="Line">The code line to execute</param>
-            <param name="signature">The char signature</param>
-            <returns>An list of processed variables</returns>
+            <param name="src">The source string</param>
+            <param name="i">Current position of the string</param>
+            <returns>An element</returns>
         </member>
-        <member name="M:Board.MakoEngine.ExecuteScalarVariable(System.String,System.Char,System.Char,System.Boolean)">
+        <member name="M:Board.DrawBoard.DrawText(System.String,Board.Element,System.Drawing.SolidBrush,System.Drawing.Font,System.Drawing.Graphics,System.Drawing.Rectangle,System.Int32@,System.Int32@,System.Int32@)">
             <summary>
-            This function executes the scalar variable, works together with GetVariable. It will also parse the inherited 
-            codebase.
+            Method to dynamically draw text and include subsets of elements inside the markup of the text
             </summary>
-            <param name="Variable"></param>
-            <param name="reflector">Reflector divides which is the conditinoal statement and the boolean output</param>
-            <param name="divider">Boolean divider</param>
-            <param name="vetero">Which variable beside the reflector divider should be present in fallback</param>
-            <value>Returns an 2 field String array where {InitialVariableName,Output}</value>
+            <param name="elm"></param>
+            <param name="font">The font to use (measuring scale)</param>
+            <param name="g">The graphics to use</param>
+            <param name="position">Rectangle of position</param>
+            <param name="left">Left position of character start</param>
+            <param name="row">row on character start</param>
+        </member>
+        <member name="M:Board.DrawBoard.DrawElement(Board.Element,System.Drawing.Graphics,System.Int32@,System.Drawing.Rectangle,System.Int32,System.Int32@,System.Int32@)">
+            <param name="entryship">The number of entry placed</param>
+        </member>
+        <member name="F:Board.DrawBoard.tab_distance">
+            <summary>
+            Distance between tabs
+            </summary>
+        </member>
+        <member name="F:Board.DrawBoard.inactive_section_tab">
+            <summary>
+            Bitmap for the inactive section tab
+            </summary>
+        </member>
+        <member name="F:Board.DrawBoard.sectionTab">
+            <summary>
+            Bitmap for the section tab
+            </summary>
+        </member>
+        <member name="F:Board.DrawBoard.tabbar_start">
+            <summary>
+             the horizontal position where the tab starts
+            </summary>
+        </member>
+        <member name="F:Board.DrawBoard.tabbar_height">
+            <summary>
+             height of the bounding_box
+            </summary>
+        </member>
+        <member name="F:Board.DrawBoard.tab_width">
+            <summary>
+            Width for active section tab
+            </summary>
+        </member>
+        <member name="F:Board.DrawBoard.scrollbar_size">
+            <summary>
+            Primary size for the scrollbar 
+            </summary>
+        </member>
+        <member name="F:Board.DrawBoard.columnheader_height">
+            <summary>
+            Height of columnheader
+            </summary>
+        </member>
+        <member name="M:Board.DrawBoard.DrawHeaders(System.Drawing.Graphics,System.Drawing.Point)">
+            <summary>
+            Method t odraw the ColumnHeaders
+            </summary>
+            <param name="p">The graphic engine to use</param>
+            <param name="point"> The point to draw the columnheader on</param>
+        </member>
+        <member name="F:Board.DrawBoard.reoredering">
+            <summary>
+            Determines if an reordering progress is ongoing.
+            </summary>
+        </member>
+        <member name="F:Board.DrawBoard.hovered_tab">
+            <summary>
+            Draw inside an certain view. Mouse events are measured here instead of mousemove
+            </summary>
+            <param name="p">The graphics buffer</param>
+            <param name="CurrentView"> The view to base from</param>
+        </member>
+        <member name="M:Board.DrawBoard.Draw(System.Drawing.Graphics)">
+            <summary>
+            Draws the view
+            </summary>
+            <param name="p">The graphics to draw with</param>
+        </member>
+        <member name="M:Board.DrawBoard.ViewExist">
+            <summary>
+            Returns if an active view exists
+            </summary>
             <returns></returns>
         </member>
-        <member name="M:Board.MakoEngine.Execute(System.String)">
+        <member name="F:Board.DrawBoard.scrolling">
             <summary>
-            This function executes string in the js mako engine
+            Gets or sets whether the cursor is attached (is scrolling) on the scrollbar thumb if the returned offset is more than -1.
             </summary>
+        </member>
+        <member name="F:Board.DrawBoard.rawSource">
+            <summary>
+            The raw data before mako preprocess
+            </summary>
+        </member>
+        <member name="F:Board.DrawBoard.output">
+            <summary>
+            The output of Mako
+            </summary>
+        </member>
+        <member name="F:Board.DrawBoard.ME">
+            <summary>
+            The mako engine
+            </summary>
+        </member>
+        <member name="M:Board.DrawBoard.Diff(System.Int32,System.Int32)">
+            <summary>
+            Method to load an page, preprocess it with mako and show it.
+            </summary>
+            <param name="file"></param>
+        </member>
+        <member name="M:Board.DrawBoard.UriToStrings(System.Collections.Generic.List{Board.Element})">
+            <summary>
+            Convert the list of elements to an csv list of uris
+            </summary>
+            <param name="elements"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Board.DrawBoard.IsHigher(System.Int32,System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Returns an new int the value has no any higher value in the specified collection
+            </summary>
+            <param name="e">the number to look for</param>
+            <param name="collection">the collection to look in</param>
+            <returns></returns>
+        </member>
+        <member name="M:Board.DrawBoard.RemoveEntryAt(System.Int32)">
+            <date>2011-04-24 16:18</date>
+            <summary>
+            Remove an entry at specified point. (index only applies to entries)
+            </summary>
+            <param name="pos">The index of the entry</param>
+        </member>
+        <member name="M:Board.DrawBoard.EntryIndexToRealIndex(System.Int32)">
+            <summary>
+            Converts the real index into an index for the entry
+            </summary>
+            <param name="index"></param>
+            <returns> the real index of the entry, -1 if failed</returns>
+        </member>
+        <member name="M:Board.DrawBoard.RealIndexToEntryIndex(System.Int32)">
+            <summary>
+            Convert the physical index to real index
+            </summary>
+            <param name="index">the real index</param>
+            <returns>The virtual entry index, -1 if failed or the index points to an item of not an entry</returns>
+        </member>
+        <member name="M:Board.DrawBoard.InsertEntryAt(System.Collections.Generic.List{Board.Element},System.Int32)">
+            <date>2011-04-24 16:18</date>
+            <summary>
+            Insert item at position which is synchronised with the range of items only by entries
+            </summary>
+            <param name="elements"></param>
+        </member>
+        <member name="M:Board.DrawBoard.InsertEntryAt(Board.Element,System.Int32)">
+            <date>2011-04-24 16:18</date>
+            <summary>
+            Insert item at position which is synchronised with the range of items only by entries
+            </summary>
+            <param name="elements"></param>
+        </member>
+        <member name="M:Board.DrawBoard.timrDownloadCheck_Tick(System.Object,System.EventArgs)">
+            <summary>
+            Check all ready receivers, run and delete them those are completed
+            </summary>
+            <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="M:Board.MakoEngine.Preprocess(System.String,System.String,System.Boolean,System.Boolean)">
+        <member name="M:Board.DrawBoard.tmrViewUpdate_Tick(System.Object,System.EventArgs)">
             <summary>
-            This function preprosses the mako layer
+            Update the view
             </summary>
-            <param name="input">The input string to parse</param>
-            <param name="argument">The argument sent to the parser</param>
+            <param name="sender"></param>
+            <param name="e"></param>
         </member>
-        <member name="P:Board.MakoEngine.OldOutput">
+        <member name="M:Board.DrawBoard.AssertScroll">
             <summary>
-            Returns the old output
-            </summary>
-        </member>
-        <member name="P:Board.MakoEngine.JSPython">
-            <summary>
-            The javascript will be like as python
+            Updates the scrollbar
             </summary>
         </member>
-        <member name="P:Board.MakoEngine.RuntimeMachine">
+        <member name="E:Board.DrawBoard.AfterNavigating">
             <summary>
-            Instance of the Jint engine running at runtime
+            Occurs when the board is navigating to an new uri. 
             </summary>
         </member>
-        <member name="T:Board.MakoEngine.CreateEventHandler">
+        <member name="E:Board.DrawBoard.BeginNavigating">
             <summary>
-            Raises the create event handler. Useful to add features to the engine before running
+            Occurs when the navigation has been finished. The first parameteer sender wwill provide an instance of MakoEngine
             </summary>
-            <param name="sender">The current instance of MakoEngine</param>
-            <param name="e">EventArg</param>
+        </member>
+        <member name="P:Board.DrawBoard.Alternate">
+            <summary>
+            Gets or sets if the rows should aternate or have dividers
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.Views">
+            <summary>
+            The view hiearchy. All views called has their address attached to it, before reloading checking the list for possible
+            view already exist
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.History">
+            <summary>
+            History of view for stack
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.Post">
+            <summary>
+            Forward history
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.currentSection">
+            <summary>
+            Current section on the specific view
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.CurSection">
+            <summary>
+            Returns the instance to the current active section
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ViewBuffer">
+            <summary>
+            Get the list of elements for the current view
+            </summary>
+        </member>
+        <member name="E:Board.DrawBoard.Loaded">
+            <summary>
+            Should do an action on the javascript handler
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="E:Board.DrawBoard.ItemClicked">
+            <summary>
+            Even raised when an user clicks an object
+            </summary>
+        </member>
+        <member name="E:Board.DrawBoard.LinkClick">
+            <summary>
+            Raises when an user clicks an link
+            </summary>
+        </member>
+        <member name="E:Board.DrawBoard.MakoGeneration">
+            <summary>
+            Occurs when the mako template engine has been init
+            </summary>
+        </member>
+        <member name="E:Board.DrawBoard.BeginDownloadImage">
+            <summary>
+            Occurs when an image is begin to be downloaded. Runs on another thread
+            </summary>
+        </member>
+        <member name="E:Board.DrawBoard.BeginReorder">
+            <summary>
+            Occurs when items are begin to be reordered.
+            </summary>
+        </member>
+        <member name="E:Board.DrawBoard.FinishedReorder">
+            <summary>
+            Occura when items has finished reordering
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.CurrentCollection">
+            <summary>
+            An shortcut to the current collection of elements
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.SelectedIndex">
+            <summary>
+            Gets and sets the selected index . Returns -1 if no entries was found. Applies only with elements of type "entry".
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.Focus">
+            <summary>
+            Decides if control has focus
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ScrollX">
+            <summary>
+            Scroll X (Not in use yeat)
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ScrollY">
+            <summary>
+            The vertical scroll range
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.FontFace">
+            <summary>
+            The default typeface to use for the view
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.HoveredElement">
+            <summary>
+            The element the mouse cursor is hovering on
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.scroll_space">
+            <summary>
+            Gets the space of the scrollY
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.free_height">
+            <summary>
+             Gets the free space of the thumb.
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ThumbSize">
+            <summary>
+            Gets the size of the thumb
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ScrollOffset">
+            <summary>
+            Gets the scroll offset
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ScrollStep">
+            <summary>
+            The step of the scrollY in the offset
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.MaxScrollY">
+            <summary>
+            Returns the maximum scrollY
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ThumbScrollY">
+            <summary>
+            Sets the scroll Y
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ScrollBarY">
+            <summary>
+            Scrollbar belonging to the view
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.GrabbedElements">
+            <summary>
+            Element grabbed for drag'n drop
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.TotalHeight">
+            <summary>
+            This function calculates the scrol offset of items. Returns -1 if there is an problem
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ItemOffset">
+            <summary>
+            Gets the difference between the total height of 
+            the elements and the height of the visible boundary
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Board.DrawBoard.Entries" -->
+        <member name="T:Board.DrawBoard.PlaybackStartEvent">
+            <summary>
+            Delegate for playback start event handlers
+            </summary>
+            <param name="sender">the board where the event is haping on</param>
+            <param name="Url">An url to the object which request playback</param>
+            <returns>should return true if the playback can be started, if not return FALSE</returns>
+        </member>
+        <member name="T:Board.DrawBoard.NavigateEventHandler">
+            <summary>
+            Delegate for events relating to navigation
+            </summary>
+            <param name="sender">the Spofity instance resposible for the new view</param>
+            <param name="uri">the uri for navigation</param>
+        </member>
+        <member name="T:Board.DrawBoard.ToolMenuItem">
+            <summary>
+            Shortcut menuitem class, for instansiating shortcut menus from scripts
+            </summary>
+        </member>
+        <member name="T:Board.DrawBoard.LinkClicked">
+            <summary>
+            Raises when an object with an href clicked
+            </summary>
+            <param name="sender"></param>
+            <param name="link"></param>
+        </member>
+        <member name="T:Board.DrawBoard.ItemClick">
+            <summary>
+            Delegate for handling object click
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Board.DrawBoard.ItemDoubleClick">
+            <summary>
+            Delegate for handling object double click
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Board.DrawBoard.View">
+            <summary>
+            Class of an view instance
+            </summary>
+        </member>
+        <member name="F:Board.DrawBoard.View.Name">
+            <summary>
+            The name of the view, for measure
+            </summary>
+        </member>
+        <member name="F:Board.DrawBoard.View.Address">
+            <summary>
+            The adress to the view
+            </summary>
+        </member>
+        <member name="F:Board.DrawBoard.View.Argument">
+            <summary>
+            The argument provided to the view
+            </summary>
+        </member>
+        <member name="F:Board.DrawBoard.View.Content">
+            <summary>
+            The Spofity class instance of the content
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.View.Section">
+            <summary>
+            The section of the view
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.View.Loaded">
+            <summary>
+            Gets if the View has been loaded, eg. the Content is not null
+            </summary>
+        </member>
+        <member name="T:Board.DrawBoard.MakoCreateEventHandler">
+            <summary>
+            Delegate which manage events for mako creation
+            </summary>
+            <param name="sender">the current instance to mako</param>
+            <param name="e">eventargs</param>
+        </member>
+        <member name="T:Board.DrawBoard.PlayQueue">
+            <summary>
+            Class for play queue
+            </summary>
+        </member>
+        <member name="T:Board.DrawBoard.ImageDownloadEventHandler">
+            <summary>
+            Delegate for event relating to image downlods
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Board.DrawBoard.ElementMoveEventArgs">
+            <summary>
+            Event args for element move event handler
+            </summary>
+        </member>
+        <member name="T:Board.DrawBoard.ElementMoveEventHandler">
+            <summary>
+            Delegate for element move event handler
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Board.DrawBoard.ItemReorderEventArgs">
+            <date>2011-04-24 15:21</date>
+            <summary>
+            Event args for item reordering
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ItemReorderEventArgs.Cancel">
+            <summary>
+            If in begin mode, Gets and sets whether the operation should be cancelled or not
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ItemReorderEventArgs.OldPos">
+            <summary>
+            Old position
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ItemReorderEventArgs.NewPosition">
+            <summary>
+            New Position
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ItemReorderEventArgs.Collection">
+            <summary>
+            The collection of elements to reorder
+            </summary>
+        </member>
+        <member name="T:Board.DrawBoard.ItemReorderEvenHandler">
+            <date>2011-04-24 15:21</date>
+            <summary>
+            Delegate for item reordering
+            </summary>
+        </member>
+        <member name="T:Board.DrawBoard.ElementDragEventArgs">
+            <summary>
+            Event args for elementDragEvent
+            </summary>
+        </member>
+        <member name="F:Board.DrawBoard.ElementDragEventArgs.AllowedEffects">
+            <summary>
+            The allowed effect for the operation
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ElementDragEventArgs.Destination">
+            <summary>
+            The element currently hovering
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ElementDragEventArgs.Position">
+            <summary>
+            The position of the mouse cursor, in client coordinates
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ElementDragEventArgs.Index">
+            <summary>
+            The index of the item
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ElementDragEventArgs.View">
+            <summary>
+            The view the element belongs to
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ElementDragEventArgs.Section">
+            <summary>
+            The section the event is raising on
+            </summary>
+        </member>
+        <member name="T:Board.DrawBoard.ElementDragEventHandler">
+            <summary>
+            Event handler for dragging over child elements
+            </summary>
+            <param name="sender">the sender board</param>
+            <param name="e"></param>
         </member>
         <member name="T:Board.MyClass">
             <summary>
@@ -1600,22 +1724,6 @@
             </summary>
             <param name="functionName">The desired alias for the function at script level</param>
             <param name="functionPointer">The delegate for the function to use at script</param>
-        </member>
-        <member name="T:Board.Resource1">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:Board.Resource1.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:Board.Resource1.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
         </member>
     </members>
 </doc>

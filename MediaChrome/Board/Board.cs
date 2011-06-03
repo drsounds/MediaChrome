@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 
+
 namespace Board
 {
     
@@ -44,7 +45,7 @@ namespace Board
         /// <summary>
         /// Delegate for playback start event handlers
         /// </summary>
-        /// <param name="sender">the board where the event is happening on</param>
+        /// <param name="sender">the board where the event is haping on</param>
         /// <param name="Url">An url to the object which request playback</param>
         /// <returns>should return true if the playback can be started, if not return FALSE</returns>
         public delegate bool PlaybackStartEvent(object sender, String Url);
@@ -238,9 +239,23 @@ namespace Board
             }
         }
 
+        /// <summary>
+        /// The drawing board
+        /// </summary>
+        SdlDotNet.Windows.SurfaceControl board;
+        /// <summary>
+        /// The drawing buffer
+        /// </summary>
+        private IBoardRender surface;
         public View CurrentView { get { return currentView; } set { currentView = value; } }
         public DrawBoard()
         {
+            /**
+             * Create Surface
+             * */
+            surface = new Rendering.SDL();
+            
+
         	Views = new Dictionary<string, View>();
             Post = new Stack<View>(); 
             History = new Stack<View>();
@@ -875,7 +890,7 @@ namespace Board
 
                 View newView = new View(Uri, BaseFolder + "\\" + App + ".xml", Uri);
                
-                // Add the pending view to the view list
+                // Add the ding view to the view list
                 this.Views.Add(Uri,newView);
 
                 // Create the thread and load the view
@@ -948,7 +963,7 @@ namespace Board
                         // Create an webclient and download the image from the internet and read it into an bitmap stream
                         WebClient X = new WebClient();
 
-                        Image  cf= Bitmap.FromStream(X.OpenRead((string)token));
+                        Bitmap  cf= (Bitmap)Bitmap.FromStream(X.OpenRead((string)token));
                     
                         // Add the bitmap to the list
                         elm.Bitmap = cf;
@@ -1050,7 +1065,7 @@ namespace Board
 
         }
 
-        public void DrawString(String str, Font font, bool shadow,Graphics g)
+        public void DrawString(String str, System.Drawing.Font font, bool shadow,Graphics g)
         {
         }
 
@@ -1083,7 +1098,7 @@ namespace Board
         
         private void Artist_Load(object sender, EventArgs e)
         {
-            this.SuspendLayout();
+           this.SuspendLayout();
         }
         public event ScrollEventHandler Scrolling;
         int LEFT = 140;
@@ -1146,7 +1161,7 @@ namespace Board
         {
             public String Adress {get;set;}
             public bool Cancel { get; set; }
-            public Image Bitmap { get; set; }
+            public Bitmap Bitmap { get; set; }
         }
 
         /// <summary>
@@ -1522,7 +1537,8 @@ namespace Board
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            Draw(this.CreateGraphics());
+            this.Draw(this.CreateGraphics());
+
 
 
            
@@ -1610,7 +1626,7 @@ namespace Board
                             i += elementName.Length + 2;
                             return Result;
                         }
-                        // Append the token
+                        // Apd the token
                         InsideBuffer.Append(token);
                     }
                     // If the current position is on an /> return
@@ -1689,14 +1705,14 @@ namespace Board
                                 currentState = ParseMode.Attribute;
                                 continue;
                             }
-                            // Append the char to the element name
+                            // Apd the char to the element name
                             elementBuffer.Append(token);
                             break;
                        
 
                     }
 
-                    // Otherwise append the char to the current buffer
+                    // Otherwise apd the char to the current buffer
                     
 
 
@@ -1715,7 +1731,7 @@ namespace Board
         /// <param name="position">Rectangle of position</param>
         /// <param name="left">Left position of character start</param>
         /// <param name="row">row on character start</param>
-        public void DrawText(String xml,Element elm,Font font,Graphics g,Brush fontBrush,Rectangle position,ref int entryship,ref int left,ref int row)
+        public void DrawText(String xml, Element elm, SolidBrush fontBrush, Font font, Graphics g, Rectangle position, ref int entryship, ref int left, ref int row)
         {
             List<Element> elementsToShow = new List<Element>();
             foreach (Element d in elm.Elements)
@@ -1772,8 +1788,8 @@ namespace Board
                      * set the element as hovered */
                     if (_elm.Data != null)
                     {
-                        elementBounds.Width = (int)GetTextWidth(_elm.Data, _elm.Font, g);
-                        elementBounds.Height = (int)GetTextHeight(_elm.Data, _elm.Font, g);
+                        elementBounds.Width = (int)left + (int)g.MeasureString(_elm.Data,_elm.Font,0).Width;
+                        elementBounds.Height = (int)g.MeasureString(_elm.Data, _elm.Font,0).Height;
                     }
                     if (mouseX >= elementBounds.Left +left && mouseX <= elementBounds.Right+left &&
                         mouseY >= elementBounds.Top +row && mouseY <= elementBounds.Bottom +top+ row)
@@ -1794,9 +1810,9 @@ namespace Board
                         continue;
                     if (d == ' ')
                         left += 5;
-                    g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-                    g.DrawString(d.ToString(), font, fontBrush, position.Left + left, position.Top + row);
-                    left += (int)Math.Floor(GetTextWidth(d.ToString(), font,g));
+                //    g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+                    g.DrawString(d.ToString(), font, fontBrush,new Point( position.Left + left, position.Top + row));
+                    left += (int)Math.Floor(g.MeasureString(d.ToString(),font,0).Width);
                 }
                
                 // if the character exceeds the width separate it to new row
@@ -1811,15 +1827,17 @@ namespace Board
         
         }
 
-        private float GetTextWidth(string p, System.Drawing.Font font,Graphics d)
+        private int GetTextHeight(string p, Font font, IBoardRender g)
+        {
+            throw new NotImplementedException();
+        }
+
+        private float GetTextWidth(string p, System.Drawing.Font font,IBoardRender d)
         {
             return d.MeasureString(p, font).Width - 3;
         }
 
-        private float GetTextHeight(string p, System.Drawing.Font font, Graphics d)
-        {
-            return d.MeasureString(p, font).Height;
-        }
+       
         /// <summary>
         /// The vertical scroll range
         /// </summary>
@@ -1861,7 +1879,7 @@ namespace Board
         /// <param name="padding">The padding to use when nesting child elements</param>
    
         /// <param name="entryship">The number of entry placed</param>
-        public void DrawElement(Element _Element, Graphics d,ref int entryship,Rectangle Bounds,int padding,ref int t_left,ref int t_row)
+        public void DrawElement(Element _Element,Graphics d,ref int entryship,Rectangle Bounds,int padding,ref int t_left,ref int t_row)
         {
             
           
@@ -1947,7 +1965,7 @@ namespace Board
 
             // draw selection background but currently only for entry
             
-           //     d.FillRectangle(new SolidBrush(EnTry), new Rectangle(left, top, width, height));
+           //     d.FillRectangle((EnTry), new Rectangle(left, top, width, height));
             /**
             * For all types of element
             * */
@@ -1970,12 +1988,12 @@ namespace Board
                               int _width = int.Parse(_Element.GetAttribute("width"));
                               int _height = int.Parse(_Element.GetAttribute("height"));
 
-                              d.FillRectangle(new SolidBrush(EnTry), new Rectangle(_left - scrollX, _top - scrollY, _width, _height));
-                              d.DrawString(_Element.GetAttribute("no"), new Font(FontFace, 8), new SolidBrush(Spirit.MainForm.FadeColor(-0.4f, ForeGround)), new Point(_left + 1 - scrollX, _top + 2 - scrollY));
+                              d.FillRectangle((EnTry), new Rectangle(_left - scrollX, _top - scrollY, _width, _height));
+                              d.DrawString(_Element.GetAttribute("no"), new Font(FontFace, 8), (Spirit.MainForm.FadeColor(-0.4f, ForeGround)), new Point(_left + 1 - scrollX, _top + 2 - scrollY));
 
-                              d.DrawString(_Element.GetAttribute("title"), new Font(FontFace, 8), new SolidBrush(ForeGround), new Point(_left + 20 - scrollX, _top + 2 - scrollY));
-                              d.DrawString(_Element.GetAttribute("author"), new Font(FontFace, 8), new SolidBrush(ForeGround), new Point(_left + 320 - scrollX, _top + 2 - scrollY));
-                              d.DrawString(_Element.GetAttribute("collection"), new Font(FontFace, 8 ), new SolidBrush(ForeGround), new Point(_left + 435 - scrollX, _top + 2 - scrollY));
+                              d.DrawString(_Element.GetAttribute("title"), new Font(FontFace, 8), (ForeGround), new Point(_left + 20 - scrollX, _top + 2 - scrollY));
+                              d.DrawString(_Element.GetAttribute("author"), new Font(FontFace, 8), (ForeGround), new Point(_left + 320 - scrollX, _top + 2 - scrollY));
+                              d.DrawString(_Element.GetAttribute("collection"), new Font(FontFace, 8 ), (ForeGround), new Point(_left + 435 - scrollX, _top + 2 - scrollY));
                               top += ROWHEIGHT;
                               entryship++;
                               break;
@@ -1989,14 +2007,14 @@ namespace Board
                     }
                   /*  else
                     {
-                        d.DrawLine(new Pen(Color.FromArgb(15,Divider)), new Point(left, top + height), new Point(width, top + height));
+                        d.DrawLine((Color.FromArgb(15,Divider)), new Point(left, top + height), new Point(width, top + height));
                     }
                     */
-                /* d.DrawString(_Element.GetAttribute("no"), labelFont, new SolidBrush(MainForm.FadeColor(-0.4f, ForeGround)), new Point(LEFT + 1, top));
+                /* d.DrawString(_Element.GetAttribute("no"), labelFont, (MainForm.FadeColor(-0.4f, ForeGround)), new Point(LEFT + 1, top));
 
-                          d.DrawString(_Element.GetAttribute("title"), labelFont, new SolidBrush(ForeGround), new Point(left + 20, top + 2));
-                          d.DrawString(_Element.GetAttribute("author"), labelFont, new SolidBrush(ForeGround), new Point(left + ARTISTLEFT, top + 2));
-                          d.DrawString(_Element.GetAttribute("collection"), labelFont, new SolidBrush(ForeGround), new Point(left + 435, top + 2));
+                          d.DrawString(_Element.GetAttribute("title"), labelFont, (ForeGround), new Point(left + 20, top + 2));
+                          d.DrawString(_Element.GetAttribute("author"), labelFont, (ForeGround), new Point(left + ARTISTLEFT, top + 2));
+                          d.DrawString(_Element.GetAttribute("collection"), labelFont, (ForeGround), new Point(left + 435, top + 2));
                           */
                     // draw all attributes specified by the column handlers:
 
@@ -2116,21 +2134,21 @@ namespace Board
                     if (_Element.GetAttribute("position") == "absolute")
                     {
 
-                        d.DrawString(_Element.Data, labelFont, new SolidBrush(Foreground), new RectangleF(left, top, width, height));
+                        d.DrawString(_Element.Data, labelFont, (Foreground), new RectangleF(left, top, width, height));
                         break;
                     }
                     if(_Element.GetAttribute("shadow")=="true")
                     {
-                     d.DrawString(_Element.GetAttribute("text"), labelFont, new SolidBrush(Color.Black), new Point(left, top+2));
+                     d.DrawString(_Element.GetAttribute("text"), labelFont, (Color.Black), new Point(left, top+2));
                     }
-                    d.DrawString(_Element.GetAttribute("text"), labelFont, new SolidBrush(Foreground), new Point(left, top));
+                    d.DrawString(_Element.GetAttribute("text"), labelFont, (Foreground), new Point(left, top));
 
                     /**
                      * Get hyperlinks
                      * */
                     int row=0;
                     if(_Element.Data!=null)
-                        DrawText((_Element.Data),_Element,labelFont,d, new SolidBrush(ForeGround), new Rectangle(new Point(left, top + 2),new Size(width,height)),ref entryship,ref  t_left,ref t_row);
+                        DrawText((_Element.Data), _Element, new SolidBrush(ForeGround), labelFont, d, new Rectangle(new Point(left, top + 2), new Size(width, height)), ref entryship, ref  t_left, ref t_row);
 
                        
                    
@@ -2139,15 +2157,15 @@ namespace Board
                     break;
                 case "section":
                    
-                  //  d.FillRectangle(new SolidBrush(Section), new Rectangle(0, top, width, height));
+                  //  d.FillRectangle((Section), new Rectangle(0, top, width, height));
                     d.DrawImage(Resource1.sectionbar, 0, top, width, height);  
-                  d.DrawString(_Element.Data, new Font(labelFont.FontFamily, 15.0f, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(SectionTextShadow), new Point(left + 30, top + 1));
-                    d.DrawString(_Element.Data, new Font(labelFont.FontFamily, 15.0f,FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(SectionText), new Point(left + 30, top));
+                  d.DrawString(_Element.Data, new Font(labelFont.FontFamily, 15.0f, FontStyle.Bold, GraphicsUnit.Pixel),new SolidBrush (SectionTextShadow), new Point(left + 30, top + 1));
+                  d.DrawString(_Element.Data, new Font(labelFont.FontFamily, 15.0f, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(SectionText), new Point(left + 30, top));
                    
                     break;
                 case "divider":
-           
-                    d.DrawLine(new Pen(Divider), left, top-height/2, left + width, top-height/2);
+
+                    d.DrawLine(new Pen(Divider), new Point(left, top - height / 2), new Point(left + width, top - height / 2));
                  
                     break;
                 case "space":
@@ -2182,6 +2200,11 @@ namespace Board
             }
             // increase ptop
             
+        }
+
+        private void DrawImage(Bitmap bitmap, Rectangle rectangle, IBoardRender d, bool hasShadow)
+        {
+            throw new NotImplementedException();
         }
         /// <summary>
         /// Distance between tabs
@@ -2270,7 +2293,7 @@ namespace Board
             p.FillRectangle(new LinearGradientBrush(new Point(point.X,point.Y),new Point(point.X,point.Y+columnheader_height),Color.FromArgb(210,210,210),Color.FromArgb(180,180,180)),new Rectangle(point,new Size(this.Width-scrollOffset,columnheader_height)));
             // draw border line
             p.DrawLine(new Pen(Color.Black), new Point(0, point.Y + columnheader_height - 1), new Point(this.Width - scrollOffset, point.Y + columnheader_height - 1));
-            p.DrawLine(new Pen(Color.White), new Point(0,point.Y ), new Point(this.Width-scrollOffset, point.Y ));
+            p.DrawLine(new Pen(Color.White), new Point(0, point.Y), new Point(this.Width - scrollOffset, point.Y));
 
             //draw all columns
 
@@ -2281,9 +2304,9 @@ namespace Board
             // Draw headers
             foreach (KeyValuePair<String, int> column in Columns)
             {
-                
-                p.DrawString(column.Key, new Font(FontFace, 8, FontStyle.Bold), new SolidBrush(Color.White), new Point(current_position, text_top+point.Y+1));
-                p.DrawString(column.Key, new Font(FontFace, 8, FontStyle.Bold), new SolidBrush(Color.Black), new Point(current_position, text_top+point.Y));
+
+                p.DrawString(column.Key, new Font(FontFace, 8, FontStyle.Bold), new SolidBrush(Color.White), new Point(current_position, text_top + point.Y + 1));
+                p.DrawString(column.Key, new Font(FontFace, 8, FontStyle.Bold), new SolidBrush(Color.Black), new Point(current_position, text_top + point.Y));
                 current_position += column.Value;
             }
 
@@ -2417,6 +2440,11 @@ namespace Board
         /// <param name="p">The graphics to draw with</param>
         public void Draw(Graphics p)
         {
+            /**
+             * Init graphics engine
+             * */
+           
+          //  DateTime start = DateTime.Now;
             
       //      try
             {
@@ -2432,17 +2460,18 @@ namespace Board
                         if (CurrentView.Content.View == null)
                             CurrentView.Content.Serialize();
                 }
-
+                /**
+                 * Configure graphics buffer
+                 * */
+                BufferedGraphicsContext C = new BufferedGraphicsContext();
+                BufferedGraphics b = C.Allocate(p, new Rectangle(0, 0, this.Bounds.Width, this.Bounds.Height));
+                Graphics d = b.Graphics;
                 int entryship = 0;
 
                 // Top increases after all elements to get a page feeling 
                 // (next element below the previous, when elements has an @TOP value as top paramater (-1))
                 int ptop = 20;
 
-                if (D == null)
-                    D = new BufferedGraphicsContext();
-                BufferedGraphics R = D.Allocate(p, new Rectangle(0, 0, this.Bounds.Width, this.Bounds.Height));
-                Graphics d = R.Graphics;
                 d.FillRectangle(new SolidBrush(Bg), new Rectangle(0, 0, this.Bounds.Width, this.Bounds.Height));
                 
                 // Draw background image
@@ -2489,11 +2518,11 @@ namespace Board
                 /***
                  * Draw the tab header on top
                  * */
-
+               
 
                 // draw an bounding rectangle
                 d.DrawImage(Resource1.toolbar, new Rectangle(0, 0, (int)Math.Round(this.Width * 1.1f), 22));
-                //d.DrawLine(new Pen(Color.FromArgb(128, 128, 128)), new Point(0, tabbar_height), new Point(this.Bounds.Width, tabbar_height));
+                //d.DrawLine((Color.FromArgb(128, 128, 128)), new Point(0, tabbar_height), new Point(this.Bounds.Width, tabbar_height));
 
                 // Position counter for tabbar. Useful for meausing toolitems
                 int position_counter = tabbar_start;
@@ -2651,13 +2680,13 @@ namespace Board
                         int string_width = (int)d.MeasureString(_elm.GetAttribute("title"), new Font(FontFace, 9)).Width ;
 
                         int width = string_width + menupadding * 2;
-                        d.FillRectangle(new SolidBrush(Color.FromArgb(43, 43, 43)), new Rectangle(preposition, 0, width, tabbar_height-2));
+                        d.FillRectangle((Color.FromArgb(43, 43, 43)), new Rectangle(preposition, 0, width, tabbar_height-2));
 
                         // If mouse is over, draw bounding box
 
                         if (mouseX >= preposition && mouseX <= preposition + width && mouseY <= tabbar_height)
                         {
-                            d.FillRectangle(new SolidBrush(Color.FromArgb(87,87,87)), new Rectangle(preposition, 3, (preposition+width) - preposition, tabbar_height -2));
+                            d.FillRectangle((Color.FromArgb(87,87,87)), new Rectangle(preposition, 3, (preposition+width) - preposition, tabbar_height -2));
                         }
 
                         // If the element is an menu draw menu
@@ -2665,7 +2694,7 @@ namespace Board
                         {
                             d.DrawImage(Resource1.dropdown, new Point(position + 3, 2));
                         }
-                        d.DrawString(_elm.GetAttribute("title"), new Font(FontFace, 9), new SolidBrush(Color.White), new Point(position + menupadding, 2));
+                        d.DrawString(_elm.GetAttribute("title"), new Font(FontFace, 9), (Color.White), new Point(position + menupadding, 2));
                         position += menupadding +string_width+ menupadding;
                        
                         
@@ -2680,7 +2709,7 @@ namespace Board
 
                        // The item is an menu, draw the menu image
 
-                       d.DrawString(_elm.GetAttribute("text"), new Font(FontFace, 9), new SolidBrush(Color.White), new Point(position, 2));
+                       d.DrawString(_elm.GetAttribute("text"), new Font(FontFace, 9), (Color.White), new Point(position, 2));
                        position += menupadding + (int)d.MeasureString(_elm.GetAttribute("text"), new Font(FontFace, 9)).Width + menupadding;
                        if (_elm.Type == "menu")
                        {
@@ -2689,7 +2718,7 @@ namespace Board
                        // If mouseover mark the item
                        if (mouseX >= prePosition && mouseX <= position && mouseY < tabbar_height)
                        {
-                           d.DrawRectangle(new Pen(Color.FromArgb(255, 255, 211)), new Rectangle(prePosition, -1, position - prePosition, tabbar_height + 3));
+                           d.DrawRectangle((Color.FromArgb(255, 255, 211)), new Rectangle(prePosition, -1, position - prePosition, tabbar_height + 3));
                        }
                    }
                     */
@@ -2711,8 +2740,8 @@ namespace Board
                          
 
                        // The item is an menu, draw the menu image
-                        
-                       d.DrawString(_elm.GetAttribute("title"), new Font(FontFace, 9), new SolidBrush(Color.White), new Point(position+menupadding, 2));
+
+                       d.DrawString(_elm.GetAttribute("title"), new Font(FontFace, 9), new SolidBrush(Color.White), new Point(position + menupadding, 2));
                        position += menupadding+ (int)d.MeasureString(_elm.GetAttribute("title"), new Font(FontFace, 9)).Width+menupadding;
                        if (_elm.Type == "menu")
                        {
@@ -2723,8 +2752,8 @@ namespace Board
                        {
                            Rectangle bounds = new Rectangle(prePosition, 2, position - prePosition, tabbar_height-4);
                            d.FillRectangle(new SolidBrush(Color.FromArgb(50, 50, 50)), bounds);
-                           d.DrawRectangle(new Pen(Color.FromArgb(155,155,155)),bounds);
-                           d.DrawString(_elm.GetAttribute("title"), new Font(FontFace, 9),new SolidBrush(Color.White), new Point(menupadding + prePosition, 2));
+                           d.DrawRectangle(new Pen(Color.FromArgb(155, 155, 155)), bounds);
+                           d.DrawString(_elm.GetAttribute("title"), new Font(FontFace, 9), new SolidBrush(Color.White), new Point(menupadding + prePosition, 2));
                        }
                    }
 
@@ -2732,7 +2761,10 @@ namespace Board
                 /***
                  * Render the image
                  * */
-                R.Render();
+                b.Render();
+               // DateTime End = DateTime.Now;
+               // int cf = DateTime.Compare(start, End);
+    //            System.Diagnostics.Debugger.Log(0,"Time",string.Format("{0}", cf));
             }
       //      catch
             {
@@ -2807,7 +2839,7 @@ namespace Board
         {
             Focus = true;
             // If mouse pointer is inside the scrollbar begin handle it
-            if (e.X >= Width - this.scrollbar_size)
+        /*    if (e.X >= Width - this.scrollbar_size)
             {
                 // If the pointer points on the thumb start scrolling mode
                 if (e.Y >= scrollTop - scrollbar_size && e.Y <= scrollTop + thumbHeight + scrollbar_size)
@@ -2818,7 +2850,7 @@ namespace Board
             
 
                 return;
-            }
+            }*/
 
             masX = e.X;
             masY = e.Y;
@@ -2962,28 +2994,32 @@ namespace Board
                 
 
 
+           
+        }
+        public void StartDragging()
+        {
             /**
-           * Get element for dragging (only those with attribute 'draggable')
-           * */
+          * Get element for dragging (only those with attribute 'draggable')
+          * */
             Element ct = HoveredElement;
             if (ct != null)
             {
-               /* if (ct.GetAttribute("href") != "")
-                {
-                    DataObject D = new DataObject(DataFormats.StringFormat, ct.GetAttribute("href"));
-                    DoDragDrop(D, DragDropEffects.Copy);
-                    return;
-                }*/
+                /* if (ct.GetAttribute("href") != "")
+                 {
+                     DataObject D = new DataObject(DataFormats.StringFormat, ct.GetAttribute("href"));
+                     DoDragDrop(D, DragDropEffects.Copy);
+                     return;
+                 }*/
                 // If the element has an dragUri set attach it
-                if (ct.GetAttribute("draguri") !="")
+                if (ct.GetAttribute("draguri") != "")
                 {
 
 
-                    DataObject D = new DataObject(DataFormats.StringFormat, ct.GetAttribute("draguri")) ;
+                    DataObject D = new DataObject(DataFormats.StringFormat, ct.GetAttribute("draguri"));
                     DoDragDrop(D, DragDropEffects.Copy);
                     return;
                 }
-                   
+
 
                 /**
                     * DRAGGING RULES:
@@ -2991,13 +3027,13 @@ namespace Board
                     * Outside the control a list of the uris to the elements will be passed
                     * */
 
-                   // If the item is an entry and the list is marked as reordable, begin the process
-                if ( ct.Entry)
+                // If the item is an entry and the list is marked as reordable, begin the process
+                if (ct.Entry)
                 {
-                    
-                    
+
+
                     // Raise the begin drag handle
-                    if (this.BeginReorder != null && this.CurSection.Reorder )
+                    if (this.BeginReorder != null && this.CurSection.Reorder)
                     {
                         ItemReorderEventArgs args = new ItemReorderEventArgs();
                         args.Collection = GrabbedElements;
@@ -3008,27 +3044,26 @@ namespace Board
 
                         if (args.Cancel)
                             return;
-                        
-                       
+
+
 
 
                     }
-                    
-                   
+
+
 
                     GrabbedElements = new List<Element>();
                     GrabbedElements.AddRange(this.SelectedItems);
-                    
-                    
+
+
                     // Compile a string with all uris for external handling
-                    
-                
-                    DataObject D = new DataObject(DataFormats.StringFormat,UriToStrings(GrabbedElements));
+
+
+                    DataObject D = new DataObject(DataFormats.StringFormat, UriToStrings(GrabbedElements));
                     DoDragDrop(D, DragDropEffects.Copy);
                 }
             }
         }
-
         /// <summary>
         /// The raw data before mako preprocess
         /// </summary>
@@ -3077,7 +3112,7 @@ namespace Board
         private void Artist_MouseMove(object sender, MouseEventArgs e)
         {
             // If in scrolling mode, eg the scroll offset is more than -1
-            if (scrolling > -1)
+            /*if (scrolling > -1)
             {
                 // If cursor inside the scrollhandle
                 if (e.Y > scrollbar_size && e.Y <= Height - scrollbar_size)
@@ -3100,28 +3135,27 @@ namespace Board
         	if(dragging)
         		return;
             mouseX = e.X;
-            mouseY = e.Y;
+            mouseY = e.Y;*/
           
                 /**
                  * Drag and drop handling
                  * */
 
             // If grabbed element is not null begin prepare a drag'n drop operation
-            if (GrabbedElements != null)
-            {
+            
                 diffX = Diff(e.X,masX);
                 diffY = Diff(e.Y, masY);
-            }
-            if (diffX > 10 || diffY > 10)
+            
+            if ((diffX > 10 || diffX < -10 ) ||( diffY < -10 ||diffY > 10))
             {
             	if(!dragging)
             	{
-                    
-            		
+                    // start dragging
+                    StartDragging();
             	}
             	diffX = 0;
                 diffY = 0;
-               // dragging=true;
+                dragging=true;
             }
             int entryship = 0;
             int top = 20;
@@ -3281,6 +3315,7 @@ namespace Board
         private void Artist_Leave(object sender, EventArgs e)
         {
             this.Focus = false;
+            dragging = false;
          //   timer1.Stop();
         }
 
@@ -3291,7 +3326,8 @@ namespace Board
 
         private void Artist_Paint(object sender, PaintEventArgs e)
         {
-            this.Draw(e.Graphics);
+
+        
         }
 
         private void Artist_MouseLeave(object sender, EventArgs e)
@@ -3347,18 +3383,18 @@ namespace Board
                         case "img":
                             break;
                         case "label":
-                            //    d.DrawString(_Element.GetAttribute("text"), new Font(FontFace, 8), new SolidBrush(Fg), new Point(int.Parse(_Element.GetAttribute("x")) - scrollX, int.Parse(_Element.GetAttribute("y")) - scrollY));
+                            //    d.DrawString(_Element.GetAttribute("text"), new Font(FontFace, 8), (Fg), new Point(int.Parse(_Element.GetAttribute("x")) - scrollX, int.Parse(_Element.GetAttribute("y")) - scrollY));
                             break;
                         case "button":
                             break;
                         case "section":
-                            // d.FillRectangle(new SolidBrush(Section), new Rectangle(0, top - scrollY, this.Width, ROWHEIGHT));
-                            // d.DrawString(_Element.GetAttribute("text"), new Font(FontFace, 8), new SolidBrush(Fg), new Point(LEFT - scrollX, top + 4 - scrollY));
+                            // d.FillRectangle((Section), new Rectangle(0, top - scrollY, this.Width, ROWHEIGHT));
+                            // d.DrawString(_Element.GetAttribute("text"), new Font(FontFace, 8), (Fg), new Point(LEFT - scrollX, top + 4 - scrollY));
                             top += 40;
                             break;
                         case "divider":
                             top += 30;
-                            //  d.DrawLine(new Pen(Color.Black), 0, top - scrollY, this.Width, top - scrollY);
+                            //  d.DrawLine((Color.Black), 0, top - scrollY, this.Width, top - scrollY);
                             top += 30;
                             break;
                         case "space":
@@ -3390,6 +3426,8 @@ namespace Board
         
         void DrawBoardMouseUp(object sender, MouseEventArgs e)
         {
+            // set dragging mode to false
+            dragging = false;
             if (reoredering)
             {
                 // If the dragged element is an grabbed element and moved inside
@@ -3715,7 +3753,7 @@ namespace Board
             /*if (CurrentView != null)
                 if (CurrentView.Content != null)
                 {
-                    Thread r = new Thread(CurrentView.Content.CheckPendingChanges);
+                    Thread r = new Thread(CurrentView.Content.CheckdingChanges);
                     r.Start();
                 }*/
         }
@@ -3824,7 +3862,7 @@ namespace Board
                     Rectangle o_bounds = df.GetCoordinates(scrollX, scrollY, new Rectangle(0, 0, this.Width, this.Height), 0);
 
                     // Draw the line
-                    this.CreateGraphics().DrawLine(new Pen(Color.White), new Point(0, o_bounds.Top + o_bounds.Height), new Point(this.Width - scrollbar_size, o_bounds.Top + o_bounds.Height));
+                    this.surface.DrawLine((Color.White), new Point(0, o_bounds.Top + o_bounds.Height), new Point(this.Width - scrollbar_size, o_bounds.Top + o_bounds.Height));
 
                 }
                 

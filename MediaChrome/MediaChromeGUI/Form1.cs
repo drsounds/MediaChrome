@@ -950,6 +950,36 @@ namespace MediaChrome
             }
             return searchResult;
         }
+
+        /// <summary>
+        /// This function checks all media engines for music
+        /// </summary>
+        /// <param name="service">The service to search on</param>
+        /// <param name="query">The search query</param>
+        /// <returns></returns>
+        public List<MediaChrome.Song> FindMusic(string service,string query)
+        {
+            // Create new list for all songs
+            List<MediaChrome.Song> searchResult = new List<MediaChrome.Song>();
+
+            /**
+             * If the current player has not been set, search on all service
+             * */
+            
+                // Search if the service is available
+            if (Program.MediaEngines.ContainsKey(service))
+            {
+                MediaChrome.IPlayEngine Engine = Program.MediaEngines[service];
+
+                List<MediaChrome.Song> songs = Engine.Find(query);
+                searchResult.AddRange(songs);
+
+
+            }
+            
+            
+            return searchResult;
+        }
         /// <summary>
         /// Returns  an artist profile from the script
         /// </summary>
@@ -987,9 +1017,27 @@ namespace MediaChrome
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public object __findMusic(string query)
+        public object __findMusic( string query)
         {
             return FindMusic(query);
+        }
+
+        /// <summary>
+        /// Script wrapper for the function
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public object __findMusic(string service, string query)
+        {
+            /**
+             * IF service is defined with * 
+             * find on all service
+             * */
+            if (service == "*")
+            {
+                FindMusic(query);
+            }
+            return FindMusic(service,query);
         }
 
         /// <summary>
@@ -1016,6 +1064,7 @@ namespace MediaChrome
               d.RuntimeMachine.SetFunction("getAlbum", new Func<string, object>(__getAlbum));
               d.RuntimeMachine.SetFunction("getAlbum", new Func<string,string, object>(__getAlbum));
               d.RuntimeMachine.SetFunction("getArtist", new Func<string, string, object>(__getArtist));
+              d.RuntimeMachine.SetFunction("findMusic", new Func<string,string, object>(__findMusic));
                 
               d.RuntimeMachine.SetFunction("findMusic", new Func<string, object>(__findMusic));
               d.RuntimeMachine.SetFunction("getPlaylist", new Func<string, object>(__getPlaylist));

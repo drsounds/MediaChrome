@@ -7,8 +7,10 @@ using System.Net;
 using System.IO;
 using System.Threading;
 using System.Xml;
-using System.Drawing;
+using SdlDotNet.Core;
+using SdlDotNet;
 using System.Collections;
+using System.Drawing;
 namespace Board
 {
     
@@ -2043,7 +2045,7 @@ namespace Board
         /// <summary>
         /// Bitmap contents of the element
         /// </summary>
-        public Image Bitmap { get; set; }
+        public Bitmap  Bitmap { get; set; }
         
         /// <summary>
         /// Asserts font of the object by their attributes

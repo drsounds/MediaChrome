@@ -8,6 +8,8 @@
 ?>
 <view>
 	<section name="component">
+	<label left="150"  height="23" top="@top" width="320" size="10"  href="@{uri}">@{arg_uri}</label>
+		
 		<label left="150"  height="23" top="@top" width="320" size="10"  href="@{uri}">@{album.Name} </label>
 		
 		<img  left="10" width="128" height="128" top="@TOP" href="@{uri}" src="@{uri}" persistent="true"/>
@@ -19,8 +21,8 @@ function zeroNumber(no){
 var album_name="name";
 var trackNo = 0;
 for(var i=0; i < album.Songs.Length; i++){ 
-	?><label left="150"  height="23" top="@top" width="320" size="10"  href="@{uri}">@{album.Name} </label>
-		<?
+	var song = album.Songs[i]; 	
+	
 	/* Set an tracknumber*/
 	
 	

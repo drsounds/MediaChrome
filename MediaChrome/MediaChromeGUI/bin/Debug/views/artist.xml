@@ -46,10 +46,12 @@ var bio = "Nice artist who loves music";
 for(var i=0; i < artist.Albums.Length ; i++){ 		
 	var release = artist.Albums[i];
 	var artist = artist.Name;
-	var href =  artist.Albums[i].Link; 
+	var href =  artist.Albums[i].Link;
+	var query = href.split(':')[2];
+	
 	
 ?>
-		<inflate src="components/album.xml" name="@{name}" artist="@{artist}" service="@{service}"/>
+		<inflate src="components/album.xml" name="@{name}" id="@{query}" artist="@{parameter}" service="@{service}" uri="@{href}"/>
  
 % }
 	
