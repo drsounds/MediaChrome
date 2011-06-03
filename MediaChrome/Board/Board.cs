@@ -862,6 +862,10 @@ namespace Board
         /// <param nme="BaseFolder">The base folder where the .xml view files reside</param>
         public void Navigate(String Uri,String nspace,String BaseFolder)
         {
+            // Defines if the update should be forced with an preceeding $
+            bool force = (Uri.EndsWith("$"));
+            // remove the trailing $
+            Uri = Uri.Replace("$","");
             if (Navigating != null)
             {
                 // If the navigating event returns false dismiss
@@ -872,7 +876,7 @@ namespace Board
             History.Push(currentView);
             Post.Clear();
             // Check if the view is already inside the stack
-            if(Views.ContainsKey(Uri))
+            if(Views.ContainsKey(Uri) && !force)
             {
                 this.CurrentView = Views[Uri];
             }
@@ -887,8 +891,14 @@ namespace Board
                 View newView = new View(Uri, BaseFolder + "\\" + App + ".xml", Uri);
                
                 // Add the ding view to the view list
-                this.Views.Add(Uri,newView);
-
+                try
+                {
+                    this.Views.Add(Uri, newView);
+                }
+                catch
+                {
+                    this.Views[Uri] = newView;
+                }
                 // Create the thread and load the view
                 Thread viewLoader = new Thread(LoadViewAsync);
                 viewLoader.Start((object)newView);

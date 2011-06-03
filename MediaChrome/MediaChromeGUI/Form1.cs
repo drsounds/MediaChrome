@@ -623,6 +623,8 @@ namespace MediaChrome
       
         bool splitting1 = false;
         public Board.DrawBoard playlistView;
+        bool splitting2 = false;
+        Panel splitter2;
         private void Form1_Load(object sender, EventArgs e)
         {
             Lock();
@@ -634,6 +636,11 @@ namespace MediaChrome
             scrollBar2.Dock = DockStyle.Right;
             scrollBar1.Dock = DockStyle.Left;
             splitter1 = new Panel();
+            splitter2 = new Panel();
+            splitter2.Width = 2;
+            splitter2.BackColor = Color.Black;
+            splitter2.MouseMove += new MouseEventHandler(splitter2_MouseMove);
+            splitter2.MouseDown += new MouseEventHandler(splitter2_MouseDown);
             // Width of sidebar
             int treeViewWidth = 220;
             // Create treeview
@@ -647,11 +654,13 @@ namespace MediaChrome
             this.board.ScrollBarY = scrollBar2;
             playlistView = new Board.DrawBoard();
             playlistView.Dock = DockStyle.Right;
+            this.panel3.Controls.Add(splitter2);
+            splitter2.Dock = DockStyle.Right;
             this.panel3.Controls.Add(playlistView);
             playlistView.Width = 500;
             playlistView.Navigate("mediachrome:playlists:d", "mediachrome", "views");
             playlistView.ItemClicked += new Board.DrawBoard.ItemClick(playlistView_ItemClicked);
-
+            playlistView.MouseMove += new MouseEventHandler(playlistView_MouseMove);
             
          board.Click += new EventHandler(board_Click);
             board.LinkClick += new Board.DrawBoard.LinkClicked(board_LinkClick);
@@ -725,6 +734,34 @@ namespace MediaChrome
            
            
            
+        }
+
+        void playlistView_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (splitting2)
+            {
+                board.Width = (e.X + playlistView.ClientRectangle.Left) - board.ClientRectangle.Left;
+                playlistView.Width = (this.Width - board.ClientRectangle.Right) - board.Width - splitter2.Width;
+            }
+        }
+
+        void splitter2_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (splitting2)
+            {
+                board.Width = (e.X + splitter2.ClientRectangle.Left) - board.ClientRectangle.Left;
+                playlistView.Width = (this.Width - board.ClientRectangle.Right) - board.Width - splitter2.Width;
+            }
+        }
+
+        void splitter2_MouseDown(object sender, MouseEventArgs e)
+        {
+            splitting2 = true;
+        }
+
+        void splitter1_mousedown(object sender, MouseEventArgs e)
+        {
+         
         }
 
         void playlistView_ItemClicked(object sender, string uri)
@@ -1173,23 +1210,32 @@ namespace MediaChrome
 
         void treeview_MouseUp(object sender, MouseEventArgs e)
         {
-            splitting1 = false; 
+            splitting1 = false;
+            splitting2 = false;
         }
 
         void board_MouseUp(object sender, MouseEventArgs e)
         {
-            splitting1 = false; 
+            splitting1 = false;
+            splitting2 = false;
         }
 
         void splitter1_MouseUp(object sender, MouseEventArgs e)
         {
             splitting1 = false;
+            splitting2 = false;
         }
 
         void board_MouseMove(object sender, MouseEventArgs e)
         {
             if (splitting1)
+            {
                 treeview.Width = e.X + treeview.Width;
+            } if (splitting2)
+            {
+                board.Width = e.X - board.ClientRectangle.Left;
+                playlistView.Width = (this.Width - board.ClientRectangle.Right) - board.Width - splitter2.Width;
+            }
         }
 
         void treeview_MouseMove(object sender, MouseEventArgs e)
@@ -1393,6 +1439,10 @@ namespace MediaChrome
             if (splitting1)
             {
                 treeview.Width = e.X;
+            }
+            if (splitting2)
+            {
+                board.Width = e.X - board.ClientRectangle.Left;
             }
 
 	    	treeX=e.X;
