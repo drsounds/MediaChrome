@@ -65,4 +65,7 @@ of ws.spotify.com as it ease the mediachrome target.
 2011-05-31 (2011-06-00)
  * Fixed scrollbar behaviour, changed the code identity to 'MediaChrome'.
 
+2011-06-02/03
+ * Fixed many issues, added Last.FM view and a base for social networking interaction, first with Facebook!
 
+12:18 2011-06-04
