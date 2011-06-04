@@ -1,0 +1,130 @@
+<?
+/* Get user from parameter */
+var user = parameter;
+
+var user_library = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=library.gettracks&api_key=b25b959554ed76058ac220b7b2e0a026&user="+parameter+"");
+var user_recent = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&limit=200&user="+parameter+"&api_key=b25b959554ed76058ac220b7b2e0a026");
+var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.getinfo&user="+parameter+"&api_key=b25b959554ed76058ac220b7b2e0a026");
+?>
+<view>
+	<section  name="Overview">
+			<columnheader noelm="true" name=" " size="20" />
+			<columnheader noelm="true" name="Date" size="120" />
+			<columnheader noelm="true" name="Title" size="320" />
+			<columnheader noelm="true" name="Artist" size="320" />
+			<columnheader noelm="true" name="User" size="320" />
+		<!-- Header image -->
+		<?
+		var img = user_info.GetElementsByTagName("image").Item(0).InnerText;
+		var real_name=user_info.GetElementsByTagName("realname").Item(0).InnerText;
+		?>
+		<space height="20" />
+		<image top="@TOP" width="120" persistent="true" height="120" left="10" src="@{img}" shadow="true" />
+		<label left="320" size="12" color="#FFFFFF" top="30" width="640" height="20">@{real_name}</label>
+		<!-- spacer -->
+		
+		<space height="220" />
+		<divider height="30" />
+		<label left="150" size="12" color="#FFFFFF" top="@TOP" width="640" height="20">Recent scrobbles</label>
+		<space height="20" />
+		<?
+		var d = user_recent;
+		
+		var tracks = d.GetElementsByTagName("track");
+		for(var i=0; i < tracks.Count && i < 10; i++){ 
+			var _track = tracks.Item(i);
+			var name = _track.GetElementsByTagName("name").Item(0).InnerText;
+			var artist = _track.GetElementsByTagName("artist").Item(0).InnerText;
+			var time = _track.GetElementsByTagName("date").Item(0).InnerText;
+			var user = parameter;
+		?>
+		<entry top="@TOP" width="-1" height="16" left="150">
+			<date noelm="true"><![CDATA[@{time}]]></date>
+			<title noelm="true"><![CDATA[@{name}]]></title>
+			<artist noelm="true"><![CDATA[@{artist}]]></artist> 
+			<uri noelm="true"><![CDATA[music://@{artist}/%20/@{name}]]></uri>
+		</entry>
+		<? 
+			if(i == 0){
+		?>
+		<space height="20" />
+		<?
+			}
+		} ?>
+		<space height="40" />
+		<divider height="30" />
+	</section>
+	<section list="true" name="Recent">
+		<columnheader noelm="true" name=" " size="20" />
+		<columnheader noelm="true" name="Date" size="320" />
+		<columnheader noelm="true" name="Title" size="320" />
+		<columnheader noelm="true" name="Artist" size="320" />
+		<columnheader noelm="true" name="User" size="320" />
+		<?
+		var d = user_recent;
+		
+		var tracks = d.GetElementsByTagName("track");
+		for(var i=0; i < tracks.Count; i++){ 
+			var _track = tracks.Item(i);
+			var name = _track.GetElementsByTagName("name").Item(0).InnerText;
+			var artist = _track.GetElementsByTagName("artist").Item(0).InnerText;
+			var time = _track.GetElementsByTagName("date").Item(0).InnerText;
+			var user = parameter;
+		?>
+		<entry top="@TOP" width="-1" height="16" left="0">
+			<date noelm="true"><![CDATA[@{time}]]></date>
+			<title noelm="true"><![CDATA[@{name}]]></title>
+			<artist noelm="true"><![CDATA[@{artist}]]></artist> 
+			<uri noelm="true"><![CDATA[music://@{artist}/%20/@{name}]]></uri>
+		</entry>
+		<? } ?>
+	</section>
+	<section list="true" name="Library">
+		<columnheader noelm="true" name=" " size="20" />
+		<columnheader noelm="true" name="Title" size="320" />
+		<columnheader noelm="true" name="Artist" size="320" />
+		<columnheader noelm="true" name="PlayCount" size="320" />
+		<columnheader noelm="true" name="User" size="320" />
+		<?
+		var d = user_library;
+		
+		var tracks = d.GetElementsByTagName("track");
+		for(var i=0; i < tracks.Count; i++){ 
+			var _track = tracks.Item(i);
+			var name = _track.GetElementsByTagName("name").Item(0).InnerText;
+			var artist = _track.GetElementsByTagName("artist").Item(0).GetElementsByTagName("name").Item(0).InnerText;
+			var play_count = _track.GetElementsByTagName("play_count").Item(0).InnerText;
+			var user = parameter;
+		?>
+		<entry top="@TOP" width="-1" height="16" left="0">
+			<title noelm="true"><![CDATA[@{name}]]></title>
+			<artist noelm="true"><![CDATA[@{artist}]]></artist> 
+			<playcount noelm="true"><![CDATA[@{play_count}]]></playcount>
+			<user noelm="true"><![CDATA[@{user}]]></user>
+			<uri noelm="true"><![CDATA[music://@{artist}/%20/@{name}]]></uri>
+		</entry>
+		<? } ?>
+	</section>
+	<section list="true" name="Friends">
+		<columnheader noelm="true" name=" " size="20" />
+		<columnheader noelm="true" name="Name" size="320" />
+	
+		<?
+		var d = user_library;
+		
+		var tracks = d.GetElementsByTagName("user");
+		for(var i=0; i < tracks.Count; i++){ 
+			var _track = tracks.Item(i);
+			var name = _track.GetElementsByTagName("name").Item(0).InnerText;
+			
+		?>
+		<entry top="@TOP" width="-1" height="16" left="0">
+			<name noelm="true"><![CDATA[@{name}]]></name>
+			
+			<uri noelm="true"><![CDATA[@{service}:lastfm_user:@{name}]]></uri>
+		</entry>
+		<? } ?>
+	</section>
+	
+	
+</view>
