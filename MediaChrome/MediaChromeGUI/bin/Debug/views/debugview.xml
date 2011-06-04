@@ -1,0 +1,10 @@
+<view>
+	<section name="Overview">
+		<space height="30" />
+		<columnheader name=" " size="30" />
+		<columnheader name="Title" size="130" />
+		<columnheader name="Artist" size="130" />
+		<columnheader name="Album" size="130" />
+		<entry uri="music://Lady Gaga/Born This Way/Born This Way/" left="50" title="Born this Way" artist="Lady Gaga" album="Born this Way" height="18" />
+	</section>
+</view>

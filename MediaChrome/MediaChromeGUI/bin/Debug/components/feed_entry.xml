@@ -1,0 +1,29 @@
+<?
+var img = arg_img;
+var header = arg_header;
+var text = arg_text;
+var link = arg_link;
+var uri = arg_uri;
+?>
+<view>
+	<section name="entry">
+		<columnheader noelm="true" name=" " size="10" />
+		<columnheader noelm="true" name="Title" size="30" />
+		
+		<divider height="10" />
+		<label top="@TOP" width="-1" height="20" size="10" bold="true" left="110"><a href="@{link}">@{header}</a></label>
+		<img shadow="true" top="@TOP" width="60" height="60" left="10" src="@{img}" persistent="true" />
+		<label top="@TOP" width="-1" height="30" size="8" left="110" >@{text}</label>
+		<?
+		if(isValidMedia(link)){
+		?>
+		<entry top="@TOP" width="-1" height="18" left="110" uri="@{uri}">
+			<title noelm="true"><![CDATA[Lyssna]]></title>
+			<uri noelm="true"><![CDATA[@{uri}]]></uri>
+		</entry>
+		<? } ?>
+		<space height="60" />
+	</section>
+</view>
+		
+		

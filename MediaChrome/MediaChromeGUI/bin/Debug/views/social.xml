@@ -1,0 +1,74 @@
+<?
+/*****
+ * Home view for Segurify
+ */
+	
+			var d = getUserFeed(parameter);			
+	
+	
+?>	
+<view>
+	<toolbar>
+		<item title="Create playlist" onclick="scopeToPlaylist()" />
+	</toolbar>
+	<section name="Overview">
+		<space height="30"/>
+		<label height="50" color="#aaeeaa" left="10" top="@TOP" size="20" width="500">What's new</label>
+		<label height="20" color="#aaeeaa" left="10" top="@TOP" size="8" width="-1" persistent="true">The latest shared music on facebook</label>
+		<!-- <button left="360" text="Make playlist" top="@TOP"  width="100" height="20" onclick="scopeToPlaylist()"/>
+		<space height="30"/> -->
+
+		<?
+		
+			if(d!=false){
+				var feed = d.Feed;
+				for(var i=0; i < d.Count && i < 3; i++){ var Entry = d[i];
+					var link = Entry.Link.Replace("http://open.spotify.com/","spotify:").Replace("/",":");
+					var image = Entry.User.ImageUrl;
+					if(isValidMedia(link)){
+			?>
+			<inflate src="components/feed_entry.xml" img="@{image}" header="test">
+				<text noelm="true"><![CDATA[  @{Entry.Message}]]></text>
+				<uri noelm="true"><![CDATA[@{link}]]></uri>
+			</inflate>
+			<?
+						}
+				}
+				
+			}else{
+			?>
+			<label height="20" color="#aaeeaa" left="10" top="@TOP" size="8" width="-1">Please allow the application to use facebook to get a overview</label>
+			<?
+			}
+		?>
+	</section>
+% if(false){
+	<section name="debug">
+			
+		
+	</section>
+	
+% }
+	<section name="Feed">
+	<?
+		
+			if(d!=false){
+				var feed = d.Feed;
+				for(var i=0; i < d.Count && i < 13; i++){ var Entry = d[i];
+					var link = Entry.Link.Replace("http://open.spotify.com/","spotify:").Replace("/",":");
+					if(isValidMedia(link)){
+			?>
+			<inflate src="components/feed_entry.xml" img="@{Entry.User.ImageUrl}" header="test">
+				<text noelm="true"><![CDATA[@{Entry.Message}]]></text>
+				<uri noelm="true"><![CDATA[@{link}]]></uri>
+			</inflate>
+			<?
+						}
+				}
+				
+			}
+		?>
+	</section>
+
+</view>
+		
