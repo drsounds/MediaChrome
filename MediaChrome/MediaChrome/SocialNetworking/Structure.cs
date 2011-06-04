@@ -43,6 +43,11 @@ namespace MediaChrome.SocialNetworking
         public string UserName { get; set; }
 
         /// <summary>
+        /// Image url
+        /// </summary>
+        public String ImageUrl { get; set; }
+
+        /// <summary>
         /// First name of the user
         /// </summary>
         public string FirstName { get; set; }
@@ -60,7 +65,7 @@ namespace MediaChrome.SocialNetworking
         /// <summary>
         /// The link to the user's page
         /// </summary>
-        public Uri Link { get; set; }
+        public String Link { get; set; }
     }
 
     /// <summary>
@@ -154,7 +159,7 @@ namespace MediaChrome.SocialNetworking
             return feed.GetEnumerator();
         }
         #endregion
-
+        
 
         /// <summary>
         /// Gets the engine resembling the social network.
@@ -269,18 +274,23 @@ namespace MediaChrome.SocialNetworking
         {
             get
             {
-                return Link != null;
+                return !String.IsNullOrEmpty(Link);
             }
         }
         /// <summary>
         /// The link to provide by the status message. Null if the post
         /// does not attach an link
         /// </summary>
-        public Uri Link { get; set; }
+        public String Link { get; set; }
 
         /// <summary>
         /// The time for the post
         /// </summary>
         public DateTime Time { get; set; }
+
+        /// <summary>
+        /// User behind the status messsage
+        /// </summary>
+        public User User { get; set; }
     }
 }

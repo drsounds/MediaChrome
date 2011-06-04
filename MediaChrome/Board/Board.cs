@@ -960,18 +960,18 @@ namespace Board
                     // Check for changed address
                
                     elm.Bitmap=args.Bitmap;
-                    return;
+                   
                 }
 
                 // if the address points to an local file (not starting with http:) start an local file process instead
-                if (address.StartsWith("http:"))
+                if (address.StartsWith("http"))
                 {
                     try
                     {
                         // Create an webclient and download the image from the internet and read it into an bitmap stream
                         WebClient X = new WebClient();
 
-                        Bitmap  cf= (Bitmap)Bitmap.FromStream(X.OpenRead((string)token));
+                        Bitmap  cf= (Bitmap)Bitmap.FromStream(X.OpenRead(address));
                     
                         // Add the bitmap to the list
                         elm.Bitmap = cf;
@@ -1820,7 +1820,7 @@ namespace Board
                         left += 5;
                 //    g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
                     g.DrawString(d.ToString(), font, fontBrush,new Point( position.Left + left, position.Top + row));
-                    left += (int)Math.Floor(g.MeasureString(d.ToString(),font,0).Width);
+                    left += (int)(g.MeasureString(d.ToString(),font,(int)font.Size).Width);
                 }
                
                 // if the character exceeds the width separate it to new row
@@ -1878,6 +1878,16 @@ namespace Board
             }
         }
 
+        public void DrawButton(Image skin, Rectangle Bounds, Graphics d)
+        {
+            int offset = 16;
+             // Draw the left button skin
+            d.DrawImage(skin, new Rectangle(Bounds.Left, Bounds.Top, offset, 32), new Rectangle(0, 0, offset, 32), GraphicsUnit.Pixel);
+            // Draw the middle button skin
+            d.DrawImage(skin, new Rectangle(Bounds.Left+offset, Bounds.Top, Bounds.Width-offset*2, 32), new Rectangle(offset, 0, 3, 32), GraphicsUnit.Pixel);
+            // Draw the right button skin
+            d.DrawImage(skin, new Rectangle(Bounds.Left+Bounds.Width - offset, Bounds.Top,offset,32), new Rectangle(skin.Width-offset,0,offset,32), GraphicsUnit.Pixel);
+        }
         /// <summary>
         /// Function to draw an element on an view view
         /// </summary>
@@ -1979,6 +1989,12 @@ namespace Board
             * */
             switch (_Element.Type)
             {
+                case "button":
+                    DrawButton(Resource1.button, Bounds, d);
+                    d.DrawString(_Element.GetAttribute("text"), Font, new SolidBrush(Color.White), new Point(Bounds.Left + 10, Bounds.Top + 2));
+                    d.DrawString(_Element.GetAttribute("text"), Font, new SolidBrush(Color.Black), new Point(Bounds.Left + 9, Bounds.Top + 2));
+
+                    break;
                 case "br":
                     t_row += (int)d.MeasureString("ABCD", _Element.Font).Height;
                     t_left = 0;
@@ -2165,8 +2181,7 @@ namespace Board
                        
                    
                     break;
-                case "button":
-                    break;
+           
                 case "section":
                    
                   //  d.FillRectangle((Section), new Rectangle(0, top, width, height));

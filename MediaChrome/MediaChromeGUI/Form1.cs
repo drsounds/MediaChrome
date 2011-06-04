@@ -320,7 +320,7 @@ namespace MediaChrome
                 /// <summary>
                 /// Remove the engine specification of the Query URI
                 /// </summary>
-                String Path = Query.Replace(engine + ":", "");
+                String Path = Query;
                 /// <summary>
                 /// Send it to the media player
                 /// </summary>
@@ -1174,6 +1174,26 @@ namespace MediaChrome
         }
 
         /// <summary>
+        /// Checks against the media sources if the link has an media
+        /// </summary>
+        /// <param name="link"></param>
+        /// <returns></returns>
+        public object __isValidMedia(string link)
+        {
+            // if the link is empty return
+            if (String.IsNullOrEmpty(link))
+                return false;
+            foreach (IPlayEngine engine in Program.MediaEngines.Values)
+            {
+                if (link.StartsWith(engine.AudioSignature))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
         /// Script wrapper for the function
         /// </summary>
         /// <param name="query"></param>
@@ -1216,7 +1236,9 @@ namespace MediaChrome
               d.RuntimeMachine.SetFunction("getAlbum", new Func<string,string, object>(__getAlbum));
               d.RuntimeMachine.SetFunction("getArtist", new Func<string, string, object>(__getArtist));
               d.RuntimeMachine.SetFunction("findMusic", new Func<string,string, object>(__findMusic));
-                
+              d.RuntimeMachine.SetFunction("getFeed", new Func<object>(__getFeed));
+              d.RuntimeMachine.SetFunction("getUserFeed", new Func<string,object>(__getUserFeed));
+              d.RuntimeMachine.SetFunction("isValidMedia", new Func<string, object>(__isValidMedia)); 
               d.RuntimeMachine.SetFunction("findMusic", new Func<string, object>(__findMusic));
               d.RuntimeMachine.SetFunction("getPlaylist", new Func<string,string, object>(__getPlaylist));
               d.RuntimeMachine.SetFunction("importMusic", new Func<object>(__import_music));

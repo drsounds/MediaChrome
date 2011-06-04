@@ -130,6 +130,11 @@
             The user alias
             </summary>
         </member>
+        <member name="P:MediaChrome.SocialNetworking.User.ImageUrl">
+            <summary>
+            Image url
+            </summary>
+        </member>
         <member name="P:MediaChrome.SocialNetworking.User.FirstName">
             <summary>
             First name of the user
@@ -262,6 +267,11 @@
         <member name="P:MediaChrome.SocialNetworking.StatusMessage.Time">
             <summary>
             The time for the post
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.StatusMessage.User">
+            <summary>
+            User behind the status messsage
             </summary>
         </member>
         <member name="F:MediaChrome.SocialNetworking.Facebook.api">
@@ -703,6 +713,11 @@
             <param name="p"></param>
             <param name="playlist"></param>
             <returns></returns>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.AudioSignature">
+            <summary>
+            Returns the base for the song urls (eg. spotify:track:*)
+            </summary>
         </member>
         <member name="P:MediaChrome.IPlayEngine.Copyright">
             <summary>

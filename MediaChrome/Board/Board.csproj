@@ -222,6 +222,7 @@
     <None Include="Resources\scrollbar_up.png" />
     <None Include="Resources\view_bg.png" />
     <None Include="Resources\toolbar.png" />
+    <None Include="Resources\button.png" />
     <Content Include="TextFile1.txt" />
   </ItemGroup>
 </Project>

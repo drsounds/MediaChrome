@@ -181,32 +181,31 @@ namespace MediaChrome
         {
             Song P = new Song();
 
-
+            D = D.Replace("music://", "http://music.resource/");
 
             P.Version = findVersion(D);
             P.Contributing = findCommit(D);
-            D = D.Replace(" ","-_").Replace("music://","song://").Replace("song://", "http://").Replace("music://","http://");
-            Uri Url = new System.Uri(D.Replace("(" + P.Version + ")", "").Replace("[" + P.Contributing + "]", "").Replace("{", "").Replace("}", ""));
+             Uri Url = new System.Uri(D.Replace("(" + P.Version + ")", "").Replace("[" + P.Contributing + "]", "").Replace("{", "").Replace("}", ""));
 
-            P.Artist = Url.Host.Replace("-_"," ");
-            P.Title = Url.Segments[2].Replace("-_", " ").Replace("/", "").Replace("%20", " ");
-
+             P.Artist = Url.Segments[1].Replace("%20", " ").Replace("/","");
+             P.Title = Url.Segments[3].Replace("%20", " ").Replace("/", "");
 
 
-            P.AlbumName = Url.Segments[1].Replace("-_", " ").Replace("/", "").Replace("%20", " ");
-            P.Link = D.Replace("-_", " ");
+
+             P.AlbumName = Url.Segments[2].Replace("%20", " ").Replace("/", "");
+             P.Link = D;
             try
             {
-                P.ProposedEngine = UriHelper.Querystrings(Url)["service"].Replace("-_", " ");
+                P.ProposedEngine = UriHelper.Querystrings(Url)["service"];
             }
             catch
             {
 
             }
-            P.Path = D.Replace("-_", " ");
+          
             try
             {
-                P.ID = UriHelper.Querystrings(Url)["id"].Replace("-_", " ");
+                P.ID = UriHelper.Querystrings(Url)["id"];
             }
             catch
             {
@@ -416,8 +415,10 @@ namespace MediaChrome
   
 	public interface IPlayEngine
 	{
-        
-
+        /// <summary>
+        /// Returns the base for the song urls (eg. spotify:track:*)
+        /// </summary>
+        string AudioSignature { get;  }
         /// <summary>
         /// Shows options dialogue.
         /// </summary>

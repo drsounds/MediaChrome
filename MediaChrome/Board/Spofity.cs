@@ -686,7 +686,13 @@ namespace Board
                     ME.RuntimeMachine.SetVariable("arg_" + attr.Name, attr.Value);
                 }
 
-                   
+                // Add all text child elements of the element as arg_{attribute} to the child layer
+                foreach (XmlElement attr in CT.ChildNodes)
+                {
+                    ME.RuntimeMachine.SetVariable("arg_" + attr.Name, attr.InnerText);
+                }
+
+                     
                 // Otherwise preprocess the layer.
                     String Result = ME.Preprocess(ViewMako,"",true);
 

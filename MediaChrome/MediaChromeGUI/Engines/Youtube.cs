@@ -26,6 +26,13 @@ namespace MediaChrome
 	/// </summary>
 	public class Youtube : MediaChrome.IPlayEngine
     {
+        public String AudioSignature
+        {
+            get
+            {
+                return "youtube:";
+            }
+        }
         public List<Song> Import(String query)
         {
             return new List<Song>();

@@ -55,7 +55,7 @@ namespace MediaChrome.SocialNetworking
                 /**
                  * Get the updates 
                  * */
-                   JSONObject jobject = api.Get("https://graph.facebook.com/me/home?access_token="+token+"");
+                   JSONObject jobject = api.Get("/me/home");
 
                 // Create an socialfeed object
                    SocialFeed a = new SocialFeed(this);
@@ -65,10 +65,32 @@ namespace MediaChrome.SocialNetworking
                     * */
                    foreach (JSONObject post in jobject.Dictionary["data"].Array)
                    {
-                        String msg = post.Dictionary["message"].ToDisplayableString(); // The message
-                        String time = post.Dictionary["time"].ToDisplayableString(); // The time
-                        StatusMessage message = new StatusMessage(msg, a, DateTime.Parse(time), Visibility.All);
-                        a.Add(message);
+                       try
+                       {
+                           String msg = post.Dictionary["message"].ToDisplayableString(); // The message
+                           String time = post.Dictionary["created_time"].ToDisplayableString(); // The time
+                           StatusMessage message = new StatusMessage(msg, a, DateTime.Parse(time), Visibility.All);
+                           try
+                           {
+
+                               message.Link = post.Dictionary["link"].ToDisplayableString();
+                           }
+                           catch
+                           {
+                               message.Link = " ";
+                           } User d = new User();
+                           d.ID = post.Dictionary["from"].Dictionary["id"].ToDisplayableString();
+                           d.FirstName = post.Dictionary["from"].Dictionary["name"].ToDisplayableString();
+                           d.ImageUrl = (String.Format("https://graph.facebook.com/{0}/picture?access_token={1}", d.ID, this.token));
+                           message.User = d;
+
+
+                           
+                           a.Add(message);
+                       }
+                       catch
+                       {
+                       }
                    }
                    return a;
             }
@@ -89,11 +111,11 @@ namespace MediaChrome.SocialNetworking
             // If the API is not initialized, return an empty feed.
             if (api == null)
                 return new SocialFeed(this);
-            return new SocialFeed(this);
+        
             /**
              * Get the updates 
              * */
-            JSONObject jobject = api.Get("https://graph.facebook.com/me/home?access_token="+token+"");
+            JSONObject jobject = api.Get("/"+userName+"/feed");
 
             // Create an socialfeed object
             SocialFeed a = new SocialFeed(this);
@@ -101,12 +123,33 @@ namespace MediaChrome.SocialNetworking
             /**
              * Add all messages from the feed
              * */
-            foreach (JSONObject post in jobject.Dictionary["data"].Array)
+            try
             {
-                String msg = post.Dictionary["message"].ToDisplayableString(); // The message
-                String time = post.Dictionary["time"].ToDisplayableString(); // The time
-                StatusMessage message = new StatusMessage(msg, a, DateTime.Parse(time), Visibility.All);
-                a.Add(message);
+                foreach (JSONObject post in jobject.Dictionary["data"].Array)
+                {
+                    String msg = post.Dictionary["message"].ToDisplayableString(); // The message
+                    String time = post.Dictionary["created_time"].ToDisplayableString(); // The time
+                    StatusMessage message = new StatusMessage(msg, a, DateTime.Parse(time), Visibility.All);
+                    try
+                    {
+
+                        message.Link = post.Dictionary["link"].ToDisplayableString();
+                    }
+                    catch
+                    {
+                        message.Link = " ";
+                    } User d = new User();
+                    d.ID = post.Dictionary["from"].Dictionary["id"].ToDisplayableString();
+                    d.ImageUrl = (String.Format("https://graph.facebook.com/{0}/picture?access_token={1}", d.ID, this.token));
+                    message.User = d;
+
+
+
+                    a.Add(message);
+                }
+            }
+            catch
+            {
             }
             return a;
         }
@@ -123,7 +166,7 @@ namespace MediaChrome.SocialNetworking
                 /**
                  * Return an friend list from the facebook.
                  * */
-                JSONObject jobject = api.Get("https://graph.facebook.com/me/friends?access_token=" + token + "");
+                JSONObject jobject = api.Get("/me/friends");
                 foreach (JSONObject _friend in jobject.Dictionary["data"].Array)
                 {
                     string name = _friend.Dictionary["name"].ToDisplayableString();

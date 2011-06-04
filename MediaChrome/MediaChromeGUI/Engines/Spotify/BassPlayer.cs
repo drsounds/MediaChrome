@@ -20,6 +20,13 @@ namespace MediaChrome
 {
 	public class SpotifyPlayer : MediaChrome.IPlayEngine
     {
+        public String AudioSignature
+        {
+            get
+            {
+                return "spotify:track:";
+            }
+        }
         public List<Song> Import(String query)
         {
             return new List<Song>();

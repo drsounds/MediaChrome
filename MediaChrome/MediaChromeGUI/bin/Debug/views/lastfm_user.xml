@@ -18,15 +18,15 @@ var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.
 		var img = user_info.GetElementsByTagName("image").Item(0).InnerText;
 		var real_name=user_info.GetElementsByTagName("realname").Item(0).InnerText;
 		?>
-		<space height="20" />
-		<image top="@TOP" width="120" persistent="true" height="120" left="10" src="@{img}" shadow="true" />
-		<label left="320" size="12" color="#FFFFFF" top="30" width="640" height="20">@{real_name}</label>
+		<space height="30" />
+		<image top="@TOP" width="60"  height="60" left="10" src="@{img}" shadow="true" />
+		<label bold="true" left="80" size="12" color="#FFFFFF" top="30" width="1440" height="20">@{real_name}</label>
 		<!-- spacer -->
 		
-		<space height="220" />
+		<space height="50" />
 		<divider height="30" />
-		<label left="150" size="12" color="#FFFFFF" top="@TOP" width="640" height="20">Recent scrobbles</label>
-		<space height="20" />
+		<label left="150" bold="true" size="8" color="#FFFFFF" top="@TOP" width="640" height="20">Recent scrobbles</label>
+		<space height="10" />
 		<?
 		var d = user_recent;
 		
@@ -38,7 +38,7 @@ var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.
 			var time = _track.GetElementsByTagName("date").Item(0).InnerText;
 			var user = parameter;
 		?>
-		<entry top="@TOP" width="-1" height="16" left="150">
+		<entry top="@TOP" width="-1" color_date="#ddddff" height="16" left="150">
 			<date noelm="true"><![CDATA[@{time}]]></date>
 			<title noelm="true"><![CDATA[@{name}]]></title>
 			<artist noelm="true"><![CDATA[@{artist}]]></artist> 
