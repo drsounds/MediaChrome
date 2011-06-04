@@ -1,4 +1,6 @@
 <view>
 	<section name="Playlists" list="true">
+		<columnheader size="10" name=" " />
+		<columnheader name="Title" size="50" />
 	</section>
 </view>

@@ -47,7 +47,7 @@ namespace MediaChrome.SocialNetworking
                 this.Close();
                 // Pass the code to the server
                 WebClient client = new WebClient();
-                String request = String.Format("https://graph.facebook.com/oauth/access_token?redirect_uri={3}&client_id={0}&client_secret={1}&code={2}", clientID, "", code,"http://apps.facebook.com/mediachrome/"); // The request
+                String request = String.Format("https://graph.facebook.com/oauth/access_token?redirect_uri={3}&client_id={0}&client_secret={1}&code={2}", clientID, "", code, "http://apps.facebook.com/mediachrome/"); // The request
                 String res = client.DownloadString(request);
                 // Set the secret code here
                 this.Result = res.Split('=')[1].Split('&')[0];

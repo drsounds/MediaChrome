@@ -20,6 +20,20 @@ namespace MediaChrome
 {
 	public class SpotifyPlayer : MediaChrome.IPlayEngine
     {
+        public Song ConvertSongFromLink(String URI)
+        {
+            Track track = Track.CreateFromLink(Link.Create("spotify:track:" + URI.Replace("spotify:track:", "")));
+            
+            // wait until the track is ready
+            while (track == null) { }
+            Song d = new Song();
+            d.Artist = track.Artists[0].Name;
+            d.AlbumName = track.Album.Name;
+            d.Title = track.Name;
+            return d;
+
+        }
+        public Song CurrentSong { get; set; }
         public String AudioSignature
         {
             get
@@ -235,7 +249,9 @@ namespace MediaChrome
         }
         public MediaChrome.Views.Playlist CreatePlaylist( String Name)
         {
-            throw new NotImplementedException();
+            Spotify.Playlist R = SpotifySession.PlaylistContainer.AddNewPlaylist(Name);
+            MediaChrome.Views.Playlist plst = new Views.Playlist(this, Name, R.LinkString, Host);
+            return plst;
         }
         public String Status
         { get; set; }
@@ -691,6 +707,16 @@ namespace MediaChrome
              
              currentTrack = Track.CreateFromLink(Link.Create("spotify:track:"+URI.Replace("spotify:track:","")));
              Thread.Sleep(100);
+             
+             // wait until the song has been loaded
+             while (currentTrack.Error == sp_error.IS_LOADING) { }
+
+             CurrentSong = new Song();
+             CurrentSong.Name = currentTrack.Name;
+             CurrentSong.Title = currentTrack.Name;
+             CurrentSong.Artist = currentTrack.Artists[0].Name;
+             CurrentSong.AlbumName = currentTrack.Album.Name;
+
          	SpotifySession.PlayerLoad(currentTrack);
             try
             {
@@ -729,7 +755,7 @@ namespace MediaChrome
           
 			List<Song> Songs = new List<Song>();
             MediaChrome.Views.Playlist PList = new MediaChrome.Views.Playlist(this, "", PlsID, this.Host);
-            Spotify.Playlist List = Spotify.Playlist.Create(SpotifySession,Link.Create("spotify:user:"+PlsID.Replace("playlist:sp:","").Trim()));
+            Spotify.Playlist List = Spotify.Playlist.Create(SpotifySession,Link.Create(PlsID.Replace("playlist:sp:","").Trim()));
             while(List==null){}
             while (!List.IsLoaded) { }
 
@@ -754,15 +780,29 @@ namespace MediaChrome
 			return PList;
 	
 		}
-		
+        private void AddSongToPlaylist(Song _Song, Spotify.Playlist List,int pos)
+        {
+            Spotify.Search Search = SpotifySession.SearchSync(String.Format("artist:\"{0}\" {1} {2}", _Song.Artist, _Song.AlbumName, _Song.Title), 0, 4, 0, 4, 0, 6, new TimeSpan(5000000));
+
+            // Wait until search is null
+            while (Search == null) { }
+
+            // Add the song
+            if (Search.TotalTracks > 0)
+            {
+                List.AddTracks(new Track[] { Search.Tracks[0] }, pos);
+            }
+        }
 		public void AddToPlaylist(string playlistID, Song _Song, int pos)
 		{
 			Spotify.Playlist List = Spotify.Playlist.Create(SpotifySession,Link.Create(playlistID));
-			if(List.Owner.CanonicalName  == SpotifySession.User.CanonicalName)
-			{
-				Spotify.Track D = Track.CreateFromLink(Link.Create(_Song.Path.Replace("sp:","")));
-				List.AddTracks(new Track[]{D},pos);
-			}
+            if (List.Owner.CanonicalName == SpotifySession.User.CanonicalName)
+            {
+                /***
+                 * Find Song. It can handle querys from other media sources
+                 * */
+                AddSongToPlaylist(_Song, List, pos);
+            }
 		}
 
         public void AddToPlaylist(MediaChrome.Views.Playlist plst, Song _Song, int pos)
@@ -770,8 +810,7 @@ namespace MediaChrome
             Spotify.Playlist List = Spotify.Playlist.Create(SpotifySession, Link.Create(plst.ID));
             if (List.Owner.CanonicalName == SpotifySession.User.CanonicalName)
             {
-                Spotify.Track D = Track.CreateFromLink(Link.Create(_Song.Path.Replace("sp:", "")));
-                List.AddTracks(new Track[] { D }, pos);
+                AddSongToPlaylist(_Song, List, pos);
             }
         }
 		public void RemoveFromPlaylist(string playlistID, int pos)

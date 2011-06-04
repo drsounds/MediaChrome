@@ -177,8 +177,45 @@ namespace MediaChrome
             }
             return ver;
         }
+
+       
+        /// <summary>
+        /// Gets an song from the specific uri. Also checks about 
+        /// matching song from the specific list of engines.
+        /// </summary>
+        /// <param name="D">The URI to match to</param>
+        /// <param name="Engines">List of IPlayEngine to search in</param>
+        /// <remarks>This function may lock the current thread, as it may search on remote sources. This should
+        /// be run in an separate thread.</remarks>
+        /// <returns>An song instance</returns>
+        public static Song GetSongFromURI(String D, List<IPlayEngine> Engines)
+        {
+            /***
+           * Check if the URI can be managed by an extension!
+           * */
+            foreach (IPlayEngine engine in Engines)
+            {
+                if (D.StartsWith(engine.AudioSignature))
+                {
+                   
+                    Song d = engine.ConvertSongFromLink(D);
+                    return d;
+                }
+            }
+            
+            // Otherwise do as usual
+            return GetSongFromURI(D);
+
+        }
+        /// <summary>
+        /// Convert an mediachrome URI to an Song instance
+        /// </summary>
+        /// <param name="D">The input URI</param>
+        /// <returns>A song instance</returns>
         public static Song GetSongFromURI(String D)
         {
+          
+       
             Song P = new Song();
 
             D = D.Replace("music://", "http://music.resource/");
@@ -415,6 +452,20 @@ namespace MediaChrome
   
 	public interface IPlayEngine
 	{
+        /// <summary>
+        /// Convert an URI to an instance of Song Object. Used in conjunction with AudioSignature
+        /// </summary>
+        /// <param name="URI">The resource URI</param>
+        /// <returns>A Song with properties beloning to the resource behind the URI</returns>
+        Song ConvertSongFromLink(String URI);
+        /// <summary>
+        /// Current song
+        /// </summary>
+        Song CurrentSong
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// Returns the base for the song urls (eg. spotify:track:*)
         /// </summary>

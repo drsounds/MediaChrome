@@ -10,7 +10,7 @@ namespace MediaChrome
     {
         public class Playlist
         {
-            public Playlist()
+            public Playlist() 
             {
             }
 
@@ -27,9 +27,13 @@ namespace MediaChrome
             }
             public void Add(Song _Song, int pos)
             {
-                Engine.AddToPlaylist(ID, _Song, pos);
-                this.Songs.Insert(pos, _Song);
-                RetrieveData();
+                try
+                {
+                    Engine.AddToPlaylist(ID, _Song, pos);
+                    this.Songs.Insert(pos, _Song);
+                    RetrieveData();
+                }
+                catch { }
             }
             public void Rorder(Song _Song, int spos, int epos)
             {

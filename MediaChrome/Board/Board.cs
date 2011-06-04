@@ -3075,6 +3075,7 @@ namespace Board
                 }
 
 #endif
+                
             }
             catch
             {
@@ -3200,6 +3201,7 @@ namespace Board
         }
         private void Artist_MouseMove(object sender, MouseEventArgs e)
         {
+            
             // If in scrolling mode, eg the scroll offset is more than -1
             /*if (scrolling > -1)
             {
@@ -3231,20 +3233,23 @@ namespace Board
                  * */
 
             // If grabbed element is not null begin prepare a drag'n drop operation
-            
-                diffX = Diff(e.X,masX);
-                diffY = Diff(e.Y, masY);
-            
-            if ((diffX > 10 || diffX < -10 ) ||( diffY < -10 ||diffY > 10))
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-            	if(!dragging)
-            	{
-                    // start dragging
-         //           StartDragging();
-            	}
-            	diffX = 0;
-                diffY = 0;
-                dragging=true;
+           
+                diffX = Diff(mouseX,masX);
+                diffY = Diff(mouseY, masY);
+            
+                if ((diffX > 10 || diffX < -10 ) ||( diffY < -10 ||diffY > 10))
+                {
+            	    if(!dragging)
+            	    {
+                        // start dragging
+                        StartDragging();
+            	    }
+            	    diffX = 0;
+                    diffY = 0;
+                    dragging=true;
+                }
             }
             int entryship = 0;
             int top = 20;
@@ -3679,6 +3684,9 @@ namespace Board
             
              if (GrabbedElements != null)
              {
+                
+             
+
                  // Old index of songs (if reordering)
                  int oldIndex = -1;
                  // Denotates if moving element or handling outside data (uris)
@@ -3919,7 +3927,7 @@ namespace Board
         private void DrawBoard_DragOver(object sender, DragEventArgs e)
         {
             // If grabbed elements is not null and beginreorder event handler is set, do the tasks
-            if (GrabbedElements != null && this.CurSection.Reorder)
+            if (GrabbedElements != null || !String.IsNullOrEmpty((String)e.Data.GetData(DataFormats.StringFormat)))
             {
                 // Get the element for the position
                 Element df = GetItemAtPos(this.PointToClient(new Point(e.X, e.Y)));

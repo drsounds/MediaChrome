@@ -438,6 +438,24 @@
             </summary>
             
         </member>
+        <member name="M:MediaChrome.Song.GetSongFromURI(System.String,System.Collections.Generic.List{MediaChrome.IPlayEngine})">
+            <summary>
+            Gets an song from the specific uri. Also checks about 
+            matching song from the specific list of engines.
+            </summary>
+            <param name="D">The URI to match to</param>
+            <param name="Engines">List of IPlayEngine to search in</param>
+            <remarks>This function may lock the current thread, as it may search on remote sources. This should
+            be run in an separate thread.</remarks>
+            <returns>An song instance</returns>
+        </member>
+        <member name="M:MediaChrome.Song.GetSongFromURI(System.String)">
+            <summary>
+            Convert an mediachrome URI to an Song instance
+            </summary>
+            <param name="D">The input URI</param>
+            <returns>A song instance</returns>
+        </member>
         <member name="F:MediaChrome.Song.subSongs">
             <summary>
             Sub-songs. Not used
@@ -538,6 +556,13 @@
             A media service plug in for media chrome. Each music service who want to be integrated
             with the mediachrome framework must implement this class.
             </summary>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.ConvertSongFromLink(System.String)">
+            <summary>
+            Convert an URI to an instance of Song Object. Used in conjunction with AudioSignature
+            </summary>
+            <param name="URI">The resource URI</param>
+            <returns>A Song with properties beloning to the resource behind the URI</returns>
         </member>
         <member name="M:MediaChrome.IPlayEngine.ShowOptions">
             <summary>
@@ -713,6 +738,11 @@
             <param name="p"></param>
             <param name="playlist"></param>
             <returns></returns>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.CurrentSong">
+            <summary>
+            Current song
+            </summary>
         </member>
         <member name="P:MediaChrome.IPlayEngine.AudioSignature">
             <summary>

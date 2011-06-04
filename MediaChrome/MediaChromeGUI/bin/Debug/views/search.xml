@@ -30,17 +30,17 @@ for(var i=0; i < local_content.Count; i++){ var local_song=local_content[i];
 <?
 }
 
-for(var i=0; i < result.Length; i++){
-var title = result[i].Name;
+for(var i=0; i < result.Count; i++){
+var Title = result[i].Name;
 var Artist = result[i].Artist;
 var Album = result[i].Album;
-	
+	var uri = result[i].Link;
 ?>
 
 		<entry dragUri="@{uri}" left="0" width="-1" top="@TOP" height="18"  href_artist="@{artist_uri}" href_album="@{album_uri}" uri="@{uri}">
-			<title noelm="true"><![CDATA[@{title}]]></title>
-			<artist noelm="true"><![CDATA[@{artist}]]></artist>
-			<album noelm="true"><![CDATA[@{Album.Title}]]></album>
+			<title noelm="true"><![CDATA[@{Title}]]></title>
+			<artist noelm="true"><![CDATA[@{Artist}]]></artist>
+			<album noelm="true"><![CDATA[@{Album.Name}]]></album>
 		</entry>
 <? } ?>
 	</section>

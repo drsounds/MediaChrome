@@ -24,6 +24,12 @@ namespace MediaChrome
 	/// </summary>
 	public class MP3Player : IPlayEngine
     {
+        public Song ConvertSongFromLink(String URI)
+        {
+            // TODO: add code here
+            throw new NotImplementedException();
+        }
+        public Song CurrentSong { get; set; }
         public String AudioSignature
         {
             get
@@ -395,6 +401,13 @@ namespace MediaChrome
 		public void Load(String URL)
 		{
 			player.URL = ("file:///"+URL.ToString());
+
+            CurrentSong = new Song();
+            CurrentSong.Artist = player.currentMedia.getItemInfo("artist");
+            CurrentSong.AlbumName = player.currentMedia.getItemInfo("album");
+            CurrentSong.Title = player.currentMedia.getItemInfo("title");
+            CurrentSong.Name = player.currentMedia.getItemInfo("title");
+
             Status = "Connecting to Media";
 		}
 		public double Duration 

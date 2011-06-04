@@ -17,6 +17,7 @@ using MediaChrome.SocialNetworking;
 using GlassForms;
 
 using MediaChrome;
+using MediaChrome.Views;
 
 namespace MediaChrome
 {
@@ -371,27 +372,31 @@ namespace MediaChrome
                 Board.Section section = this.playlistView.CurrentView.Content.View.Sections[0];
                 section.Elements.Clear();
                 section.ptop = 0;
-
-                // Append playlists to the section view
-                foreach (MediaChrome.Views.Playlist d in currentPlayer.Playlists)
+                try
                 {
-                    Board.Element elm = new Board.Element(section, playlistView);
-                    elm.SetAttribute("type", "entry");
-                    elm.Height = 16;
-                    elm.SetAttribute("title", d.Title);
-                    elm.SetAttribute("href",d.ID);
-                    section.AddElement(elm, section.Parent);
-
-                    /**
-                     * Add the playlist to the public cache
-                     * */
-                    if (!PlaylistBuffer.ContainsKey(d.ID))
+                    // Append playlists to the section view
+                    foreach (MediaChrome.Views.Playlist d in currentPlayer.Playlists)
                     {
+                        Board.Element elm = new Board.Element(section, playlistView);
+                        elm.SetAttribute("type", "entry");
+                        elm.Height = 16;
+                        elm.SetAttribute("height", "16");
+                        elm.SetAttribute("title", d.Title);
+                        elm.SetAttribute("href", d.ID);
+                        elm.Tag = (object)d;
+                        section.AddElement(elm, section.Parent);
 
-                        PlaylistBuffer.Add(d.ID, d);
+                        /**
+                         * Add the playlist to the public cache
+                         * */
+                        if (!PlaylistBuffer.ContainsKey(d.ID))
+                        {
+
+                            PlaylistBuffer.Add(d.ID, d);
+                        }
                     }
                 }
-
+                catch { }
 
             }
         }
@@ -682,6 +687,7 @@ namespace MediaChrome
             playlistView.Navigate("mediachrome:playlists:d", "mediachrome", "views");
             playlistView.ItemClicked += new Board.DrawBoard.ItemClick(playlistView_ItemClicked);
             playlistView.MouseMove += new MouseEventHandler(playlistView_MouseMove);
+            playlistView.DropElement += new Board.DrawBoard.ElementDragEventHandler(playlistView_DropElement);
             
          board.Click += new EventHandler(board_Click);
             board.LinkClick += new Board.DrawBoard.LinkClicked(board_LinkClick);
@@ -734,7 +740,7 @@ namespace MediaChrome
             this.board.Navigating += new Board.DrawBoard.NavigateEventHandler(board_Navigating);
             // assign makogeneration initialization code
             this.board.MakoGeneration += new Board.DrawBoard.MakoCreateEventHandler(board_MakoGeneration);
-           
+            playlistView.DragOverElement += new Board.DrawBoard.ElementDragEventHandler(playlistView_DragOverElement);
 
             // Set image download event handler
             board.BeginDownloadImage += new Board.DrawBoard.ImageDownloadEventHandler(board_BeginDownloadImage);
@@ -755,6 +761,98 @@ namespace MediaChrome
            
            
            
+        }
+
+        void playlistView_DragOverElement(object sender, Board.DrawBoard.ElementDragEventArgs e)
+        {
+            e.AllowedEffects = DragDropEffects.Copy;
+        }
+
+        /// <summary>
+        /// Helper class for adding an song
+        /// </summary>
+        public class AddSong
+        {
+            /// <summary>
+            /// Lists of Uris
+            /// </summary>
+            public string Uris { get; set; }
+            /// <summary>
+            /// Playlist
+            /// </summary>
+            public Playlist Playlist { get; set; }
+        }
+        /// <summary>
+        /// Add songs to playlist by thread. If the Playlist object
+        /// from AddSong object is NULL, it will create an new playlist for add on.
+        /// </summary>
+        /// <param name="param"></param>
+        public void AddSongs(object param)
+        {
+            if (CurrentPlayer == null)
+            {
+                ShowMessage("An media engine must be active in order to create playlist");
+                return;
+            }
+            AddSong p = (AddSong)param;
+            String Uris = p.Uris;
+            Playlist plsss = p.Playlist;
+
+            // If plsss is null, create new playlists instead
+            if (plsss == null)
+            {
+                /*
+                // Ask for the name of the playlist
+                AddPlaylist ap = new AddPlaylist();
+                if (ap.ShowDialog() == DialogResult.OK && !String.IsNullOrEmpty(ap.PlaylistName))
+                {
+
+                    plsss = CurrentPlayer.CreatePlaylist(ap.PlaylistName);
+                }
+                else
+                {
+                    return;
+                }*/
+                plsss = CurrentPlayer.CreatePlaylist(String.Format("New Playlist {0}{1}{2}{3}{4}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second));
+
+            }
+            
+            if (Uris.Contains("\n"))
+            {
+                String[] uris = Uris.Split('\n');
+                foreach (String uri in uris)
+                {
+                    if (String.IsNullOrEmpty(uri))
+                        continue;
+                    plsss.Add(Song.GetSongFromURI(uri, Program.MediaEngines.Values.ToList()), plsss.Songs.Count - 1);
+                }
+            }
+            else
+            {
+                if (String.IsNullOrEmpty(Uris))
+                    return;
+                plsss.Add(Song.GetSongFromURI(Uris, Program.MediaEngines.Values.ToList()), plsss.Songs.Count - 1);
+            }
+        }
+        void playlistView_DropElement(object sender, Board.DrawBoard.ElementDragEventArgs e)
+        {
+            // If the type of element is an playlist, add the song
+            if (e.Destination.Tag.GetType() == typeof(Playlist))
+            {
+                Playlist plsss = (Playlist)e.Destination.Tag;
+                /**
+                 * Convert the URI list to songs
+                 * */
+                String Uris = (string)e.DragArgs.Data.GetData(DataFormats.StringFormat);
+                
+                /**
+                 * Add it to an playlist on an separate thread
+                 * */
+                AddSong ads = new AddSong() { Playlist=plsss,Uris=Uris};
+                Thread d = new Thread(AddSongs);
+                d.Start(ads);
+
+            }
         }
 
         void playlistView_MouseMove(object sender, MouseEventArgs e)
@@ -2655,6 +2753,43 @@ namespace MediaChrome
             this.MaximumSize = new Size(this.Width, this.Height - nTaskBarHeight);
             this.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
 
+        }
+
+        private void cBtn5_DragDrop(object sender, DragEventArgs e)
+        {
+            // Create new playlist by default
+            try
+            {
+                // Ttry to extract uris from the string
+                String str = (String)e.Data.GetData(DataFormats.StringFormat);
+                if (!String.IsNullOrEmpty(str))
+                {
+                    // Start the operation on an new thread
+                    AddSong asv = new AddSong();
+                    asv.Uris = str;
+                    Thread d = new Thread(AddSongs);
+                    d.Start(asv);
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        private void cBtn5_DragOver(object sender, DragEventArgs e)
+        {
+            try
+            {
+                // Ttry to extract uris from the string
+                String str = (String)e.Data.GetData(DataFormats.StringFormat);
+                if (!String.IsNullOrEmpty(str))
+                {
+                    e.Effect = DragDropEffects.Copy;
+                }
+            }
+            catch
+            {
+            }
         }
 
     }

@@ -25,6 +25,10 @@
 		<item title="Edit description" onclick="extern('http://spotiapps.krakelin.com/playlists/upload.php?uri=@{uri}')"/>-
 	</toolbar>
 	<section name="Playlist" list="true" dragable="true" reorder="true"  >
+		<columnheader noelm="true" name=" " size="10" />
+		<columnheader noelm="true" name="Title" size="150" />
+		<columnheader noelm="true" name="Artist" size="150" />
+		<columnheader noelm="true" name="Album" size="150" />
 		<img src="http://spotiapps.krakelin.com/playlists/@{suri}.png" left="10" width="120" height="120" persistent="true" top="@TOP"/>
 		<label left="120" top="@TOP" width="-1" size="12" color="#888888" height="64">Love playlist for love days. Check out our <a href="http://www.dn.se/">website</a>! Also check our facebook</label>
 		<space height="18"/>

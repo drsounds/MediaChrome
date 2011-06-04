@@ -67,6 +67,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label4 = new System.Windows.Forms.Label();
             this.listViewX1 = new MediaChrome.XListView();
             this.ucPosBar1 = new webclassprototype.ucPosBar();
             this.cBtn2 = new MediaChrome.cBtn();
@@ -74,6 +75,7 @@
             this.cBtn8 = new MediaChrome.cBtn();
             this.ucSearch2 = new MediaChrome.ucSearch();
             this.cBtn4 = new MediaChrome.cBtn();
+            this.cBtn5 = new MediaChrome.cBtn();
             this.cBtn3 = new MediaChrome.cBtn();
             this.textBox1 = new MediaChrome.ucSearch();
             this.contextMenuStrip1.SuspendLayout();
@@ -232,7 +234,7 @@
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(701, 19);
+            this.button1.Location = new System.Drawing.Point(591, 16);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 18;
@@ -310,12 +312,14 @@
             this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel2.BackgroundImage = global::MediaChrome.Properties.Resources.top_wall;
             this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.ucSearch2);
             this.panel2.Controls.Add(this.cBtn4);
+            this.panel2.Controls.Add(this.cBtn5);
             this.panel2.Controls.Add(this.cBtn3);
             this.panel2.Controls.Add(this.textBox1);
             this.panel2.Controls.Add(this.menuStrip1);
@@ -392,6 +396,17 @@
             this.filterToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.filterToolStripMenuItem.Text = "Filter";
             this.filterToolStripMenuItem.Click += new System.EventHandler(this.filterToolStripMenuItem_Click);
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Location = new System.Drawing.Point(774, 14);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(64, 13);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "New Playlist";
             // 
             // listViewX1
             // 
@@ -486,6 +501,24 @@
             this.cBtn4.TabIndex = 11;
             this.cBtn4.Load += new System.EventHandler(this.cBtn4_Load);
             this.cBtn4.Click += new System.EventHandler(this.CBtn4Click);
+            // 
+            // cBtn5
+            // 
+            this.cBtn5.AllowDrop = true;
+            this.cBtn5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cBtn5.BackColor = System.Drawing.Color.Transparent;
+            this.cBtn5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn5.BackgroundImage")));
+            this.cBtn5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cBtn5.Img = null;
+            this.cBtn5.Location = new System.Drawing.Point(742, 7);
+            this.cBtn5.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cBtn5.Name = "cBtn5";
+            this.cBtn5.Size = new System.Drawing.Size(27, 28);
+            this.cBtn5.TabIndex = 10;
+            this.cBtn5.Load += new System.EventHandler(this.cBtn3_Load);
+            this.cBtn5.Click += new System.EventHandler(this.CBtn3Click);
+            this.cBtn5.DragDrop += new System.Windows.Forms.DragEventHandler(this.cBtn5_DragDrop);
+            this.cBtn5.DragOver += new System.Windows.Forms.DragEventHandler(this.cBtn5_DragOver);
             // 
             // cBtn3
             // 
@@ -611,6 +644,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private XListView listViewX1;
+        private System.Windows.Forms.Label label4;
+        private cBtn cBtn5;
 
     }
 }
