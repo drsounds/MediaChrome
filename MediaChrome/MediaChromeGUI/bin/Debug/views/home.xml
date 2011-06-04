@@ -14,8 +14,9 @@
 	<section name="Overview">
 		<space height="30"/>
 		<label height="50" color="#aaeeaa" left="10" top="@TOP" size="20" width="500">What's new</label>
+		<label height="50" color="#aaeeaa" left="10" top="@TOP" size="8" width="-1">Show the authors Last.FM <a href="@{service}:lastfm_user:drsounds">profile</a></label>
+		<divider height="30" />
 		
-
 	</section>
 % if(false){
 	<section name="debug">
@@ -24,9 +25,16 @@
 	</section>
 	
 % }
+% if(false){
 	<section name="Top List">
+	<? 
+	/** Get Top list from the service */
+	var topList = getTopList();
+	?>
 	</section>
+% }
 	<section name="Feed">
 	</section>
+
 </view>
 		

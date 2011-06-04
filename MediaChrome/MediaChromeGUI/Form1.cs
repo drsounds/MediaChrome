@@ -645,6 +645,9 @@ namespace MediaChrome
         Panel splitter2;
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.SocialNetwork = new SocialNetworking.Facebook();
+            this.SocialNetwork.Login();
+
             Lock();
             this.Invalidate();
             // Initalize scrollbars

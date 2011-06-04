@@ -53,13 +53,8 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.panel3 = new System.Windows.Forms.Panel();
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
-            this.listViewX1 = new MediaChrome.XListView();
             this.button1 = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.ucPosBar1 = new webclassprototype.ucPosBar();
-            this.cBtn2 = new MediaChrome.cBtn();
-            this.cBtn1 = new MediaChrome.cBtn();
-            this.cBtn8 = new MediaChrome.cBtn();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,13 +64,18 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listViewX1 = new MediaChrome.XListView();
+            this.ucPosBar1 = new webclassprototype.ucPosBar();
+            this.cBtn2 = new MediaChrome.cBtn();
+            this.cBtn1 = new MediaChrome.cBtn();
+            this.cBtn8 = new MediaChrome.cBtn();
             this.ucSearch2 = new MediaChrome.ucSearch();
             this.cBtn4 = new MediaChrome.cBtn();
             this.cBtn3 = new MediaChrome.cBtn();
             this.textBox1 = new MediaChrome.ucSearch();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -105,37 +105,37 @@
             this.shareToolStripMenuItem,
             this.toolStripMenuItem3});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(164, 110);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(158, 110);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // playToolStripMenuItem
             // 
             this.playToolStripMenuItem.Name = "playToolStripMenuItem";
-            this.playToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.playToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.playToolStripMenuItem.Text = "Play / Browse";
             this.playToolStripMenuItem.Click += new System.EventHandler(this.playToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(160, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(154, 6);
             // 
             // copySpotifyURIToolStripMenuItem
             // 
             this.copySpotifyURIToolStripMenuItem.Name = "copySpotifyURIToolStripMenuItem";
-            this.copySpotifyURIToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.copySpotifyURIToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.copySpotifyURIToolStripMenuItem.Text = "Copy Spotify URI";
             // 
             // copyHTTPLinkToolStripMenuItem
             // 
             this.copyHTTPLinkToolStripMenuItem.Name = "copyHTTPLinkToolStripMenuItem";
-            this.copyHTTPLinkToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.copyHTTPLinkToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.copyHTTPLinkToolStripMenuItem.Text = "Copy HTTP Link";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(160, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(154, 6);
             // 
             // shareToolStripMenuItem
             // 
@@ -143,25 +143,25 @@
             this.facebookToolStripMenuItem,
             this.twitterToolStripMenuItem});
             this.shareToolStripMenuItem.Name = "shareToolStripMenuItem";
-            this.shareToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.shareToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.shareToolStripMenuItem.Text = "Share";
             // 
             // facebookToolStripMenuItem
             // 
             this.facebookToolStripMenuItem.Name = "facebookToolStripMenuItem";
-            this.facebookToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.facebookToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.facebookToolStripMenuItem.Text = "Facebook";
             // 
             // twitterToolStripMenuItem
             // 
             this.twitterToolStripMenuItem.Name = "twitterToolStripMenuItem";
-            this.twitterToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.twitterToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.twitterToolStripMenuItem.Text = "Twitter";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(160, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(154, 6);
             // 
             // columnHeader3
             // 
@@ -229,24 +229,10 @@
             this.axWindowsMediaPlayer1.TabIndex = 23;
             this.axWindowsMediaPlayer1.Visible = false;
             // 
-            // listViewX1
-            // 
-            this.listViewX1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.listViewX1.CanDrag = false;
-            this.listViewX1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.listViewX1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-            this.listViewX1.Location = new System.Drawing.Point(0, 0);
-            this.listViewX1.Name = "listViewX1";
-            this.listViewX1.Size = new System.Drawing.Size(211, 261);
-            this.listViewX1.TabIndex = 22;
-            this.listViewX1.UseCompatibleStateImageBehavior = false;
-            this.listViewX1.View = System.Windows.Forms.View.Details;
-            this.listViewX1.Visible = false;
-            // 
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(328, 12);
+            this.button1.Location = new System.Drawing.Point(701, 19);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 18;
@@ -270,59 +256,6 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1076, 53);
             this.panel4.TabIndex = 23;
-            // 
-            // ucPosBar1
-            // 
-            this.ucPosBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ucPosBar1.BackColor = System.Drawing.Color.Black;
-            this.ucPosBar1.BorderColor = System.Drawing.Color.Black;
-            this.ucPosBar1.FillColor = System.Drawing.Color.White;
-            this.ucPosBar1.Location = new System.Drawing.Point(141, 23);
-            this.ucPosBar1.Maximum = 100F;
-            this.ucPosBar1.Name = "ucPosBar1";
-            this.ucPosBar1.Size = new System.Drawing.Size(872, 12);
-            this.ucPosBar1.TabIndex = 14;
-            this.ucPosBar1.Value = 0F;
-            // 
-            // cBtn2
-            // 
-            this.cBtn2.BackColor = System.Drawing.Color.Transparent;
-            this.cBtn2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn2.BackgroundImage")));
-            this.cBtn2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.cBtn2.Img = null;
-            this.cBtn2.Location = new System.Drawing.Point(18, 10);
-            this.cBtn2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.cBtn2.Name = "cBtn2";
-            this.cBtn2.Size = new System.Drawing.Size(26, 25);
-            this.cBtn2.TabIndex = 10;
-            this.cBtn2.Load += new System.EventHandler(this.cBtn8_Load_1);
-            // 
-            // cBtn1
-            // 
-            this.cBtn1.BackColor = System.Drawing.Color.Transparent;
-            this.cBtn1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn1.BackgroundImage")));
-            this.cBtn1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.cBtn1.Img = null;
-            this.cBtn1.Location = new System.Drawing.Point(92, 10);
-            this.cBtn1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.cBtn1.Name = "cBtn1";
-            this.cBtn1.Size = new System.Drawing.Size(26, 25);
-            this.cBtn1.TabIndex = 10;
-            this.cBtn1.Load += new System.EventHandler(this.cBtn8_Load_1);
-            // 
-            // cBtn8
-            // 
-            this.cBtn8.BackColor = System.Drawing.Color.Transparent;
-            this.cBtn8.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn8.BackgroundImage")));
-            this.cBtn8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.cBtn8.Img = global::MediaChrome.Properties.Resources.play;
-            this.cBtn8.Location = new System.Drawing.Point(48, 4);
-            this.cBtn8.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.cBtn8.Name = "cBtn8";
-            this.cBtn8.Size = new System.Drawing.Size(37, 37);
-            this.cBtn8.TabIndex = 10;
-            this.cBtn8.Load += new System.EventHandler(this.cBtn8_Load_1);
             // 
             // menuStrip2
             // 
@@ -348,7 +281,7 @@
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
             this.toolStripMenuItem5.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(140, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(136, 22);
             this.toolStripMenuItem5.Text = "Filter";
             // 
             // pane5
@@ -375,7 +308,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panel2.BackgroundImage = global::MediaChrome.Properties.Resources.header1;
+            this.panel2.BackgroundImage = global::MediaChrome.Properties.Resources.top_wall;
             this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.button1);
@@ -432,6 +365,101 @@
             this.label1.TabIndex = 15;
             this.label1.Text = "Filter";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.testToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(898, 24);
+            this.menuStrip1.TabIndex = 13;
+            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.Visible = false;
+            // 
+            // testToolStripMenuItem
+            // 
+            this.testToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.filterToolStripMenuItem});
+            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
+            this.testToolStripMenuItem.Text = "test";
+            this.testToolStripMenuItem.Visible = false;
+            // 
+            // filterToolStripMenuItem
+            // 
+            this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
+            this.filterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.filterToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.filterToolStripMenuItem.Text = "Filter";
+            this.filterToolStripMenuItem.Click += new System.EventHandler(this.filterToolStripMenuItem_Click);
+            // 
+            // listViewX1
+            // 
+            this.listViewX1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.listViewX1.CanDrag = false;
+            this.listViewX1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.listViewX1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
+            this.listViewX1.Location = new System.Drawing.Point(0, 0);
+            this.listViewX1.Name = "listViewX1";
+            this.listViewX1.Size = new System.Drawing.Size(211, 261);
+            this.listViewX1.TabIndex = 22;
+            this.listViewX1.UseCompatibleStateImageBehavior = false;
+            this.listViewX1.View = System.Windows.Forms.View.Details;
+            this.listViewX1.Visible = false;
+            // 
+            // ucPosBar1
+            // 
+            this.ucPosBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ucPosBar1.BackColor = System.Drawing.Color.Black;
+            this.ucPosBar1.BorderColor = System.Drawing.Color.Black;
+            this.ucPosBar1.FillColor = System.Drawing.Color.White;
+            this.ucPosBar1.Location = new System.Drawing.Point(141, 23);
+            this.ucPosBar1.Maximum = 100F;
+            this.ucPosBar1.Name = "ucPosBar1";
+            this.ucPosBar1.Size = new System.Drawing.Size(872, 12);
+            this.ucPosBar1.TabIndex = 14;
+            this.ucPosBar1.Value = 0F;
+            // 
+            // cBtn2
+            // 
+            this.cBtn2.BackColor = System.Drawing.Color.Transparent;
+            this.cBtn2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn2.BackgroundImage")));
+            this.cBtn2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cBtn2.Img = null;
+            this.cBtn2.Location = new System.Drawing.Point(18, 10);
+            this.cBtn2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cBtn2.Name = "cBtn2";
+            this.cBtn2.Size = new System.Drawing.Size(26, 25);
+            this.cBtn2.TabIndex = 10;
+            this.cBtn2.Load += new System.EventHandler(this.cBtn8_Load_1);
+            // 
+            // cBtn1
+            // 
+            this.cBtn1.BackColor = System.Drawing.Color.Transparent;
+            this.cBtn1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn1.BackgroundImage")));
+            this.cBtn1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cBtn1.Img = null;
+            this.cBtn1.Location = new System.Drawing.Point(92, 10);
+            this.cBtn1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cBtn1.Name = "cBtn1";
+            this.cBtn1.Size = new System.Drawing.Size(26, 25);
+            this.cBtn1.TabIndex = 10;
+            this.cBtn1.Load += new System.EventHandler(this.cBtn8_Load_1);
+            // 
+            // cBtn8
+            // 
+            this.cBtn8.BackColor = System.Drawing.Color.Transparent;
+            this.cBtn8.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn8.BackgroundImage")));
+            this.cBtn8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cBtn8.Img = global::MediaChrome.Properties.Resources.play;
+            this.cBtn8.Location = new System.Drawing.Point(48, 4);
+            this.cBtn8.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cBtn8.Name = "cBtn8";
+            this.cBtn8.Size = new System.Drawing.Size(37, 37);
+            this.cBtn8.TabIndex = 10;
+            this.cBtn8.Load += new System.EventHandler(this.cBtn8_Load_1);
+            // 
             // ucSearch2
             // 
             this.ucSearch2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -484,34 +512,6 @@
             this.textBox1.Size = new System.Drawing.Size(180, 33);
             this.textBox1.TabIndex = 9;
             this.textBox1.SearchClicked += new System.EventHandler(this.textBox1_SearchClicked);
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.testToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(898, 24);
-            this.menuStrip1.TabIndex = 13;
-            this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.Visible = false;
-            // 
-            // testToolStripMenuItem
-            // 
-            this.testToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.filterToolStripMenuItem});
-            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
-            this.testToolStripMenuItem.Text = "test";
-            this.testToolStripMenuItem.Visible = false;
-            // 
-            // filterToolStripMenuItem
-            // 
-            this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
-            this.filterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.filterToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
-            this.filterToolStripMenuItem.Text = "Filter";
-            this.filterToolStripMenuItem.Click += new System.EventHandler(this.filterToolStripMenuItem_Click);
             // 
             // Form1
             // 
