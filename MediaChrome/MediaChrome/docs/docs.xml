@@ -510,5 +510,158 @@
             <param name="host">The host of the playlist (the media provider)</param>
             <param name="cache">The cache to use instead of loading an new one</param>
         </member>
+        <member name="T:MediaChrome.SocialNetworking.User">
+            <summary>
+            Resembling an wall of feeds
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.User.Engine">
+            <summary>
+            Returns the network the user is residing on
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.User.Feed">
+            <summary>
+            Returns the user's feed
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.User.UserName">
+            <summary>
+            The user alias
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.User.FirstName">
+            <summary>
+            First name of the user
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.User.LastName">
+            <summary>
+            Last name of the user
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.User.ID">
+            <summary>
+            The ID of the user
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.User.Link">
+            <summary>
+            The link to the user's page
+            </summary>
+        </member>
+        <member name="T:MediaChrome.SocialNetworking.SocialFeed">
+            <summary>
+            Class for social feeds
+            </summary>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.SocialFeed.#ctor(MediaChrome.SocialNetworking.ISocialNetwork)">
+            <summary>
+            Creates an new instance of Social Feed
+            </summary>
+            <param name="Service">The service used for the feed</param>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.SocialFeed.Engine">
+            <summary>
+            Gets the engine resembling the social network.
+            </summary>
+        </member>
+        <member name="T:MediaChrome.SocialNetworking.ISocialNetwork">
+            <summary>
+            Interface for social networks. Assembles an social network.
+            </summary>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.ISocialNetwork.Login">
+            <summary>
+            Login to an social network
+            </summary>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.ISocialNetwork.Logout">
+            <summary>
+            Logout from the network
+            </summary>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.ISocialNetwork.PostStatusMessage(System.String,MediaChrome.SocialNetworking.Visibility)">
+            <summary>
+            Post an status message
+            </summary>
+            <param name="str">The string for status</param>
+            <returns>TRUE if sucess, FALSE if failed</returns>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.ISocialNetwork.PostLink(System.String,System.Uri,MediaChrome.SocialNetworking.Visibility)">
+            <summary>
+            Share an link to the wall
+            </summary>
+            <param name="msg">The message attached to the link</param>
+            <param name="link">The link to share</param>
+            <param name="security">How the visibility for the announcement should be configured</param>
+            <returns>TRUE if sucess, FALSE if failed</returns>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.ISocialNetwork.GetFeedFromUser(System.String)">
+            <summary>
+            Returns an feed for an particular user
+            </summary>
+            <param name="userName">The user name to locate</param>
+            <returns>an instance to an SocialFeed encapsulating the user's feed data, or NULL if failed</returns>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.ISocialNetwork.LastUpdates">
+            <summary>
+            Gets the last updates
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.ISocialNetwork.Friends">
+            <summary>
+            Returns an list of your friends on the particular network
+            </summary>
+        </member>
+        <member name="T:MediaChrome.SocialNetworking.StatusMessage">
+            <summary>
+            An status message
+            </summary>
+        </member>
+        <member name="F:MediaChrome.SocialNetworking.StatusMessage.Security">
+            <summary>
+            Security for the message. 
+            </summary>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.StatusMessage.#ctor(System.String,MediaChrome.SocialNetworking.SocialFeed,System.DateTime,MediaChrome.SocialNetworking.Visibility)">
+            <summary>
+            Creates an new status message
+            </summary>
+            <param name="msg">The message</param>
+            <param name="parent">The parent</param>
+            <param name="time">The time</param>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.StatusMessage.Message">
+            <summary>
+            The message
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.StatusMessage.Parent">
+            <summary>
+            Gets or sets the parent feed
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.StatusMessage.Engine">
+            <summary>
+            Returns the engine providing the feed (shortcut to the parent one)
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.StatusMessage.HasLink">
+            <summary>
+            Returns if the message has an link
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.StatusMessage.Link">
+            <summary>
+            The link to provide by the status message. Null if the post
+            does not attach an link
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.StatusMessage.Time">
+            <summary>
+            The time for the post
+            </summary>
+        </member>
     </members>
 </doc>

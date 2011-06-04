@@ -403,6 +403,13 @@ namespace MediaChrome.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap spotify_logo {
+            get {
+                object obj = ResourceManager.GetObject("spotify_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap stop {
             get {
                 object obj = ResourceManager.GetObject("stop", resourceCulture);

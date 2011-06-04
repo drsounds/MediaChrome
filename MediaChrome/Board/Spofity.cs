@@ -1426,7 +1426,7 @@ namespace Board
                          * Set column headers by the column element is defined, define all columnheaders
                          * */
 
-                        XmlNodeList Columns = d.GetElementsByTagName("columnheader");
+                        XmlNodeList Columns = iSection.GetElementsByTagName("columnheader");
 
                         // If the column count is above zero, clear the default set of column headers
                         // and use from the new list
@@ -1642,6 +1642,15 @@ namespace Board
     /// </summary>
 	public class Section
 	{
+
+        /// <summary>
+        /// Defines an horizontal stream of elements.
+        /// </summary>
+        public bool Flow { get; set; }
+
+
+
+
         /// <summary>
         /// Columnheeaders for use in list mode
         /// </summary>

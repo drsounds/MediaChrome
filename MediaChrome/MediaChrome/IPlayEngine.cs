@@ -726,5 +726,9 @@ namespace MediaChrome
         /// <returns></returns>
         List<Song> LoadPlaylist(string p,ref  Playlist playlist);
     }
+
+  
+
+
 	
 }

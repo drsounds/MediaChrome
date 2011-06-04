@@ -20,6 +20,7 @@ namespace Board
     
     public partial class DrawBoard : UserControl
     {
+        public Color SelectionBg { get; set; }
         /// <summary>
         /// Set default colors
         /// </summary>
@@ -37,6 +38,7 @@ namespace Board
             Fg = Color.FromArgb(221, 221, 221);
             Divider = Color.FromArgb(0,0,0);
             Alt = Color.FromArgb(3, 3, 3);
+            SelectionBg = Color.FromArgb(169,217,254);
             //this.Background = Resource1.view_bg;
         }
         #region Delegates and events
@@ -1920,7 +1922,7 @@ namespace Board
             if(_Element.Entry)
             if (_Element.Selected == true)
             {
-                EnTry = Color.FromArgb(169, 217, 254);
+                EnTry = SelectionBg;
                 // If the control is inactive draw it gray
                 if (!this.Focused)
                 {
@@ -1935,7 +1937,7 @@ namespace Board
                 ForeGround = Color.DarkBlue;
                 if (!this.Focused)
                 {
-                    ForeGround = Color.DarkGray;
+                    ForeGround = Color.White;
                 }
                
             }
@@ -2168,7 +2170,7 @@ namespace Board
                 case "section":
                    
                   //  d.FillRectangle((Section), new Rectangle(0, top, width, height));
-                    d.DrawImage(Resource1.sectionbar, 0, top, width, height);  
+                  DrawImage(Resource1.sectionbar,new Rectangle( 0, top, width, height),d,true);  
                   d.DrawString(_Element.Data, new Font(labelFont.FontFamily, 15.0f, FontStyle.Bold, GraphicsUnit.Pixel),new SolidBrush (SectionTextShadow), new Point(left + 30, top + 1));
                   d.DrawString(_Element.Data, new Font(labelFont.FontFamily, 15.0f, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(SectionText), new Point(left + 30, top));
                    
@@ -2212,10 +2214,7 @@ namespace Board
             
         }
 
-        private void DrawImage(Bitmap bitmap, Rectangle rectangle, IBoardRender d, bool hasShadow)
-        {
-            throw new NotImplementedException();
-        }
+        
         /// <summary>
         /// Distance between tabs
         /// </summary>
@@ -2768,6 +2767,71 @@ namespace Board
                    }
 
                 }
+
+
+
+                #region MediaFlow 2011-06-04 10:14
+                /******************************************************
+                 * 2011-06-04 10:14
+                 * Flow drawing. 
+                 * WORK IN PROGRESS!
+                 * Draws an flow of elements. If the sections attribute Flow is set to TRUE,
+                 * all entries will be shown as an flow at the bottom. The flow will
+                 * iterate around the elements until the collection of entries has been
+                 * replaced. This is used for radio views.
+                 * 
+                 * The visible position of the flow is defined by an variable called 'delta', raning
+                 * from 0.5 to 1.5. 0.5 means beginning of an chunk, and 1.5 is the end, then 
+                 * it will start from beginning.
+                 * */
+                if (ViewExist())
+                {
+
+                    if (CurSection.Flow)
+                    {
+                        int flowHeight = 120;
+                        int padding = 20;
+
+                        int elmTop = this.Height - flowHeight; // Top of element (without padding)
+                        // draw background flow bar
+                        d.FillRectangle(new SolidBrush(MainForm.FadeColor(1.2f, BackColor)), new Rectangle(0, flowHeight, this.Width, flowHeight));
+
+                        // draw an flow
+                        int delta = 1; // delta in the flow. Dynamics are fixed later
+                        if (delta < 0.5 || delta > 1.5)
+                            throw new Exception();
+
+
+
+                        // Current entry is ALWAYS in the middle
+
+
+
+                        int startPos = (int)Math.Round((double)(Entries.Count / 2) * delta); // Get the middle element
+
+                        int Position = this.Width * (delta * startPos);
+
+                        int i = 0;
+                        foreach (Element _Element in Entries)
+                        {
+                            int left = (this.Width / 2) - Position;
+
+                            // draw entry
+                            d.FillRectangle(new SolidBrush(MainForm.FadeColor(0.8f, BackColor)), new Rectangle(new Point(left + padding, flowHeight + padding), new Size(flowHeight - padding, flowHeight - padding * 2)));
+
+                            // increase padding 
+                            padding *= 2;
+                            DrawImage(_Element.Bitmap, new Rectangle(new Point(left + padding, flowHeight + padding), new Size(flowHeight - padding, flowHeight - padding * 2)), d, true);
+                            d.DrawString(_Element.GetAttribute("title"), Font, new SolidBrush(Color.Black), new Point(left + padding, this.Height - padding), StringFormat.GenericDefault);
+
+                            i++;
+                        }
+                    }
+                }
+                #endregion
+
+
+
                 /***
                  * Render the image
                  * */

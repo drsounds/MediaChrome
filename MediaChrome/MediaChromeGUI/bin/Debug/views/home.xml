@@ -2,9 +2,7 @@
 /*****
  * Home view for Segurify
  */
-	var banner = synchronize_data("http://spotiapps.krakelin.com/ad.txt");
-	var ads =  banner.split("\n");
-	var count =ads.Length;
+	
 						
 	
 	
@@ -18,61 +16,11 @@
 		<label height="50" color="#aaeeaa" left="10" top="@TOP" size="20" width="500">What's new</label>
 		
 
-	
-		<label height="50" color="#eeeeee" left="10" top="@TOP" width="500">Welcome to Spotify Ultra, the <a color="#FFFFFF" href="http://en.wikipedia.org/wiki/Open_Source">open source</a> Spotify client <br/>bc<br/>bc<br/>bc<br/>bc<br/>bc<br/>bc<br/>bc<br/>bc<br/>bc<br/>bc<br/>bc</label>
-		<?
-	
-			var advertisement = ads[0];
-			
-			var ad = advertisement.split(";");
-		var left = 10;
-		?>
-		
-		<?
-		
-		?>
-		<!-- <entry top="@TOP" width="-1" left="150" height="20" title="Feel the Beat" uri="spotify:track:6Sy9BUbgFse0n0LPA5lwy5" artist="Darude" href_artist="spotify:artist:0LhHRmSd1EYM5QdNeNnCoQ" href_album="spotify:album:0Xks5v0dve8Gh2tRHIekjo"  album="Before the Storm"/>
-		<entry top="@TOP" width="-1" left="150" height="20" d title="Touch Me Feel Me" uri="spotify:track:3FVr40YVX1xwJgi4o2FfJ3" artist="Darude" href_artist="spotify:artist:0LhHRmSd1EYM5QdNeNnCoQ" href_album="spotify:album:0Xks5v0dve8Gh2tRHIekjo"  album="Before the Storm"/>
-		<entry top="@TOP" width="-1" left="150" height="20" title="Precious" uri="spotify:track:1nipUSojbh9r8NxscRd1Ui" artist="Deepest Mode" href_artist="spotify:artist:762310PdDnwsDxAQxzQkfX" href_album="spotify:album:5YGnygLN1mVSJQkvP04OJi"  album="Before the Storm"/> -->
-	
 	</section>
 % if(false){
 	<section name="debug">
 			
-		<?
-		var data = synchronize_data("http://ws.spotify.com/search/1/album?q=tag:new");
 		
-		var albums = data.GetElementsByTagName("album");
-		var row = 1;
-		var x = 0;
-		for(var i=0; i < 12; i++){
-			if(x==6)
-			{
-				x=0;
-				row++;
-			}
-			var cover = albums.Item(i).GetAttribute("href");
-			var left = (120 + 10)*(x)+30;
-			var top = row*(120+10)+10;
-			
-		?>
-		
-		<?
-			
-				
-			x++;
-		}
-		?>
-		
-		<space height="30"/>
-		
-		<space height="30"/>
-			
-		
-		<space height="30"/>
-		
-		
-		<space height="30"/>
 	</section>
 	
 % }

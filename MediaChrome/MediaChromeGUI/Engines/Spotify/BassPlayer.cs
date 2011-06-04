@@ -74,7 +74,7 @@ namespace MediaChrome
         {
             get
             {
-                return Properties.Resources.icon;
+                return Properties.Resources.spotify_logo;
             }
         }
         /// <summary>
@@ -490,10 +490,12 @@ namespace MediaChrome
              SpotifySession.OnAlbumBrowseComplete += new AlbumBrowseEventHandler(SpotifySession_OnAlbumBrowseComplete);
              SpotifySession.OnImageLoaded += new ImageEventHandler(SpotifySession_OnImageLoaded);
              SpotifySession.PlaylistContainer.OnContainerLoaded += new PlaylistContainerEventHandler(PlaylistContainer_OnContainerLoaded);
-             while (!playlistLoaded)
+#if (nobug) 
+            while (!playlistLoaded)
              {
                  Thread.Sleep(100);
              }
+#endif
              LoggedIn = true;
        
         }

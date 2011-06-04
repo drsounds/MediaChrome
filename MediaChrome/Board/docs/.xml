@@ -707,6 +707,11 @@
             <param name="d"></param>
             <param name="X"></param>
         </member>
+        <member name="P:Board.Section.Flow">
+            <summary>
+            Defines an horizontal stream of elements.
+            </summary>
+        </member>
         <member name="P:Board.Section.ColumnHeaders">
             <summary>
             Columnheeaders for use in list mode

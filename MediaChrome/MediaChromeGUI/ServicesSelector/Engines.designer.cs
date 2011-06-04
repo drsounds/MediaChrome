@@ -43,6 +43,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Engines";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Engines";
             this.TopMost = true;
             this.Deactivate += new System.EventHandler(this.Engines_Deactivate);

@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
-
+using MediaChrome.SocialNetworking;
 using GlassForms;
 
 using MediaChrome;
@@ -49,7 +49,12 @@ namespace MediaChrome
         bool resolvingSong = false;
 
         /// <summary>
-        /// 
+        /// The social network used for the software. Currently NULL
+        /// </summary>
+        ISocialNetwork SocialNetwork { get; set; }
+
+        /// <summary>
+        /// Underfined.
         /// </summary>
         Dictionary<String,String> Querys { get; set; }
         /// <summary>
@@ -71,6 +76,7 @@ namespace MediaChrome
                         CurrentPlayer = Engine;
                         watchSong = Engine.RawFind(_Song);
                         resolvingSong = false;
+                        NotifyNewSong(_Song);
                         return;
                         /* */
                     }
@@ -94,6 +100,7 @@ namespace MediaChrome
                     Engine.Load((f.Path));
 
                     Engine.Play();
+                    NotifyNewSong(_Song);
                     return;
                 }
 
@@ -233,8 +240,10 @@ namespace MediaChrome
 
                     if (r != null)
                     {
+                        
                         currentPlayer.Load(r.Path);
                         currentPlayer.Play();
+                        NotifyNewSong(r);
 
                         // Exit, we are ready now
                         return true;
@@ -254,6 +263,7 @@ namespace MediaChrome
                         IPlayEngine Df = Program.MediaEngines[_Song.ProposedEngine];
                         CurrentPlayer = Df;
                         CurrentPlayer.Load(Df.Namespace + ":" + _Song.ID);
+                        NotifyNewSong(_Song);
                         // crrentTrack = _Song;
                         return true;
                     }
@@ -320,6 +330,7 @@ namespace MediaChrome
                 /// </summary>
                 D.Play();
                 CurrentPlayer = D;
+                NotifyNewSong(new Song() { Title=Path,Artist=Path  });
 
 
             }
@@ -331,8 +342,15 @@ namespace MediaChrome
         }
         #endregion
 
-      
-
+        /// <summary>
+        /// Notifies the user that an new song are playing
+        /// </summary>
+        /// <param name="song">The song to tell out</param>
+        public void NotifyNewSong(Song song)
+        {
+            PlaybackNotifier R = new PlaybackNotifier(currentPlayer, song);
+            R.Show();
+        }
         private MediaChrome.IPlayEngine currentPlayer;
         /// <summary>
         /// The current engine which plays an song.
@@ -1059,6 +1077,57 @@ namespace MediaChrome
             
             return searchResult;
         }
+
+        #region Mako Wrapper functions
+        /// <summary>
+        /// Gets your friends on the network
+        /// </summary>
+        /// <returns>An List of User objects resembling your friends, FALSE if failed</returns>
+        public object __getFriends()
+        {
+            try
+            {
+                return SocialNetwork.Friends;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Gets an object for your social feed usable in the client scripts.
+        /// </summary>
+        /// <returns>FALSE if failed, an SocialFeed object if success</returns>
+        public object __getFeed()
+        {
+            try
+            {
+                return SocialNetwork.LastUpdates;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Return an feed for the particular user.
+        /// </summary>
+        /// <returns>an SocialFeed instance with the user's feed data or FALSE if fails</returns>
+        public object __getUserFeed(string userName)
+        {
+            try
+            {
+                return SocialNetwork.GetFeedFromUser(userName);
+            }
+            catch
+            {
+                return false;
+            }
+     
+        }
+
         /// <summary>
         /// Returns  an artist profile from the script
         /// </summary>
@@ -1181,6 +1250,8 @@ namespace MediaChrome
 
             return CurrentPlaylist;
         }
+        #endregion
+
         /// <summary>
         /// Current spotify playlist
         /// </summary>

@@ -15,8 +15,19 @@ namespace MediaChrome
         public Engines()
         {
             InitializeComponent();
-        }
+        }  
+        // Define the CS_DROPSHADOW constant
+        private const int CS_DROPSHADOW = 0x00020000;
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle |= CS_DROPSHADOW;
+                return cp;
+            }
+        }
         private void Engines_Load(object sender, EventArgs e)
         {
             int left = 10;

@@ -44,7 +44,16 @@ namespace MediaChrome
         public bool Streaming { get; set; }
         public string Link;
         #endregion
-        public System.Drawing.Image Icon { get; set; }
+        public System.Drawing.Image Icon
+        {
+            get
+            {
+                return Properties.Resources.icon;
+            }
+            set
+            {
+            }
+        }
         public MediaChrome.Album[] FindAlbum(string ID)
         {
             return new Album[] { };

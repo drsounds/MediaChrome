@@ -39,3 +39,4 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\MediaChr
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\MediaChromeGUI.pdb
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChromeGUI.exe
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChromeGUI.pdb
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.PlaybackNotifier.resources
