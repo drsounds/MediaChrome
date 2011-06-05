@@ -9,7 +9,7 @@
     public static void readMP3Tag (ref MP3 paramMP3) {
       // Read the 128 byte ID3 tag into a byte array
 
-      oFileStream = new FileStream(paramMP3.fileComplete , FileMode.Open);
+      oFileStream = new FileStream(paramMP3.fileComplete.Replace(".mp3\\",".mp3") , FileMode.Open);
       byte[] bBuffer = new byte[128];
       oFileStream.Seek(-128, SeekOrigin.End);
       oFileStream.Read(bBuffer,0, 128);

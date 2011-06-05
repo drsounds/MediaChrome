@@ -782,7 +782,7 @@ namespace MediaChrome
 		}
         private void AddSongToPlaylist(Song _Song, Spotify.Playlist List,int pos)
         {
-            Spotify.Search Search = SpotifySession.SearchSync(String.Format("artist:\"{0}\" {1} {2}", _Song.Artist, _Song.AlbumName, _Song.Title), 0, 4, 0, 4, 0, 6, new TimeSpan(5000000));
+            Spotify.Search Search = SpotifySession.SearchSync(String.Format("artist:\"{0}\"  {2}", _Song.Artist, _Song.AlbumName, _Song.Title), 0, 4, 0, 4, 0, 6, new TimeSpan(5000000));
 
             // Wait until search is null
             while (Search == null) { }

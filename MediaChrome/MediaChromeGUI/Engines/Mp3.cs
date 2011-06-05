@@ -26,15 +26,26 @@ namespace MediaChrome
     {
         public Song ConvertSongFromLink(String URI)
         {
-            // TODO: add code here
-            throw new NotImplementedException();
+            // TODO: Read IDV3 Tags
+            id3.MP3 Dw = new id3.MP3(URI.Replace("mp3:", ""), "");
+            id3.FileCommands.readMP3Tag(ref Dw);
+
+
+            // return a new song
+            Song d = new Song();
+            d.Title = Dw.id3Title;
+            d.Artist = Dw.id3Artist;
+            d.AlbumName = Dw.id3Album;
+            return d;
+
+           
         }
         public Song CurrentSong { get; set; }
         public String AudioSignature
         {
             get
             {
-                return "spotify:track:";
+                return "mp3:";
             }
         }
         public List<Song> Import(String query)
