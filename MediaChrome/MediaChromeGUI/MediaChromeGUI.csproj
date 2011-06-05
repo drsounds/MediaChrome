@@ -159,6 +159,12 @@
     <Compile Include="PlaybackNotifier.Designer.cs">
       <DependentUpon>PlaybackNotifier.cs</DependentUpon>
     </Compile>
+    <Compile Include="Preferences.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Preferences.Designer.cs">
+      <DependentUpon>Preferences.cs</DependentUpon>
+    </Compile>
     <Compile Include="ServicesSelector\Engines.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -273,6 +279,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PlaybackNotifier.resx">
       <DependentUpon>PlaybackNotifier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Preferences.resx">
+      <DependentUpon>Preferences.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ServicesSelector\Engines.resx">
       <DependentUpon>Engines.cs</DependentUpon>
@@ -389,6 +398,8 @@
     <None Include="Resources\top_toolbar.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\position_bar.png" />
+    <None Include="Resources\playthumb.png" />
     <None Include="Resources\spotify_logo.png" />
     <None Include="Resources\YouTube_logo.png" />
     <None Include="Resources\header.png" />

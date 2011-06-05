@@ -639,6 +639,28 @@ namespace MediaChrome
         {
 
         }
+
+        private Board.Skin skin;
+        public Board.Skin Skin
+        {
+            get
+            {
+                return skin;
+            }
+            set
+            {
+                skin = value;
+            
+                // Set skin attributes
+                Panel header = panel2;
+                Panel footer = panel4;
+                skin.SkinControl((Control)header, "Header");
+                skin.SkinControl((Control)footer, "Footer");
+                board.Skin = skin;
+                treeview.Skin = skin;
+                playlistView.Skin = skin;
+            }
+        }
         /// <summary>
         /// Will split the window when mouse move if true
         /// </summary>
@@ -650,6 +672,8 @@ namespace MediaChrome
         Panel splitter2;
         private void Form1_Load(object sender, EventArgs e)
         {
+           
+          
             this.SocialNetwork = new SocialNetworking.Facebook();
             this.SocialNetwork.Login();
 
@@ -672,7 +696,7 @@ namespace MediaChrome
             // Create treeview
             treeview =  new Board.DrawBoard();
             board = new Board.DrawBoard();
-
+           
             // add right scrollbar
             this.panel3.Controls.Add(scrollBar2);
             this.panel3.Controls.Add(board);
@@ -758,7 +782,10 @@ namespace MediaChrome
             // Add standard list items
            
            
-           
+           /***
+            * Assign the Spotify skin to this application
+            * */
+            this.Skin = new Board.Skin(Settings.Default.Skin);
            
            
         }
@@ -908,9 +935,12 @@ namespace MediaChrome
         /// <param name="uri"></param>
         public void Browse(string uri)
         {
-            
 
 
+            if (!uri.Contains(":"))
+            {
+                this.board.Navigate(String.Format("spotify:search:{0}", uri), "spotify", "views");
+            }
             if (uri.StartsWith("mc:") || uri.StartsWith("mediachrome:"))
             {
                 uri = uri.Replace("mc:", "").Replace("mediachrome:", "");
@@ -1211,7 +1241,22 @@ namespace MediaChrome
                 return false;
             }
         }
-
+        /// <summary>
+        /// Gets an object for your social feed usable in the client scripts.
+        /// </summary>
+        /// <param name="query">Search query to use</param>
+        /// <returns>FALSE if failed, an SocialFeed object if success</returns>
+        public object __getFeed(string query)
+        {
+            try
+            {
+                return SocialNetwork.GetLastestUpdateFromQuery(query);
+            }
+            catch
+            {
+                return false;
+            }
+        }
         /// <summary>
         /// Return an feed for the particular user.
         /// </summary>
@@ -1228,7 +1273,24 @@ namespace MediaChrome
             }
      
         }
+        /// <summary>
+        /// Return an feed for the particular user.
+        /// </summary>
+        /// <param name="query">The query to match</param>
+        /// <param name="userName">The user to match</param>
+        /// <returns>an SocialFeed instance with the user's feed data or FALSE if fails</returns>
+        public object __getUserFeed(string userName,string query)
+        {
+            try
+            {
+                return SocialNetwork.GetFeedFromUser(userName);
+            }
+            catch
+            {
+                return false;
+            }
 
+        }
         /// <summary>
         /// Returns  an artist profile from the script
         /// </summary>
@@ -1336,7 +1398,9 @@ namespace MediaChrome
               d.RuntimeMachine.SetFunction("findMusic", new Func<string,string, object>(__findMusic));
               d.RuntimeMachine.SetFunction("getFeed", new Func<object>(__getFeed));
               d.RuntimeMachine.SetFunction("getUserFeed", new Func<string,object>(__getUserFeed));
-              d.RuntimeMachine.SetFunction("isValidMedia", new Func<string, object>(__isValidMedia)); 
+              d.RuntimeMachine.SetFunction("isValidMedia", new Func<string, object>(__isValidMedia));
+              d.RuntimeMachine.SetFunction("getFeed", new Func< string, object>(__getFeed));
+              d.RuntimeMachine.SetFunction("getUserFeed", new Func<string, string, object>(__getUserFeed));
               d.RuntimeMachine.SetFunction("findMusic", new Func<string, object>(__findMusic));
               d.RuntimeMachine.SetFunction("getPlaylist", new Func<string,string, object>(__getPlaylist));
               d.RuntimeMachine.SetFunction("importMusic", new Func<object>(__import_music));
@@ -2792,6 +2856,15 @@ namespace MediaChrome
             }
         }
 
+        private void timer3_Tick_1(object sender, EventArgs e)
+        {
+            try
+            {
+                this.ucPosBar1.Value = (float)currentPlayer.Position / (float)currentPlayer.Duration;
+            }
+            catch { }
+        }
+
     }
      public class Pane : System.Windows.Forms.Panel
     {
@@ -2802,11 +2875,23 @@ namespace MediaChrome
      {
          protected override void NotifyInvalidate(Rectangle invalidatedArea)
          {
-             invalidatedArea = new Rectangle(0, 0, 0, 0);
+      //       invalidatedArea = new Rectangle(0, 0, 0, 0);
+             base.NotifyInvalidate(invalidatedArea);
          }
          protected override void OnInvalidated(InvalidateEventArgs e)
          {
-             
+          ///   e = new InvalidateEventArgs(new Rectangle(0, 0, 0, 0));
+          ///   
+             base.OnInvalidated(e);
+         }
+         protected override void OnPaintBackground(PaintEventArgs e)
+         {
+           /*  foreach (Control c in this.Controls)
+             {
+                 Bitmap d = new Bitmap(c.Width, c.Height);
+                 e.Graphics.DrawImage(d, c.ClientRectangle);
+             }*/
+             base.OnPaintBackground(e);
          }
      }
 }

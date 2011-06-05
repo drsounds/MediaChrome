@@ -301,4 +301,10 @@
   <data name="spotify_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\spotify_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="playthumb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\playthumb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="position_bar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\position_bar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

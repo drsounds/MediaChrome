@@ -210,6 +210,21 @@
             <param name="userName">The user name to locate</param>
             <returns>an instance to an SocialFeed encapsulating the user's feed data, or NULL if failed</returns>
         </member>
+        <member name="M:MediaChrome.SocialNetworking.ISocialNetwork.QueryFeedFromUser(System.String,System.String)">
+            <summary>
+            Returns an feed for an particular user with the specific textual query
+            </summary>
+            <param name="userName">The user name to locate</param>
+            <param name="query">The query to use</param>
+            <returns>an instance to an SocialFeed encapsulating the user's feed data, or NULL if failed</returns>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.ISocialNetwork.GetLastestUpdateFromQuery(System.String)">
+            <summary>
+            Gets the last updates by the specific textual query
+            </summary>
+            <param name="query">The query to use</param>
+            <returns>an instance to an SocialFeed encapsulating the user's feed data, or NULL if failed</returns>
+        </member>
         <member name="P:MediaChrome.SocialNetworking.ISocialNetwork.LastUpdates">
             <summary>
             Gets the last updates

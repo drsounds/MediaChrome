@@ -63,18 +63,52 @@ namespace webclassprototype
             get;
             set;
         }
+        public Image Thumb
+        {
+            get
+            {
+                return MediaChrome.Properties.Resources.playthumb;
+            }
+        }
+        public Image Bar
+        {
+            get
+            {
+                return MediaChrome.Properties.Resources.position_bar;
+            }
+        }
         public Color BorderColor
         {
             get;
             set;
         }
+        public void Draw(Graphics p)
+        {
+#if(nobug)
+            e.DrawRectangle(new Pen(BorderColor), 0, 0, this.Width - 1, this.Height - 1);
+            e.FillEllipse(new SolidBrush(FillColor), Value * XPart, 0, this.Height, this.Height);
+#endif
+            BufferedGraphicsContext Cont = new BufferedGraphicsContext();
+            BufferedGraphics r = Cont.Allocate(p, new Rectangle(0, 0, this.Width, this.Height));
+            Graphics e = r.Graphics;
+            // Draw background
+            e.DrawImage(Bar,new Rectangle(0,0,this.Height,this.Height),new Rectangle(0,0,16,16),GraphicsUnit.Pixel);
+            e.DrawImage(Bar, new Rectangle(this.Height, 0, this.Width-this.Height, this.Height), new Rectangle(16, 0, 16, 16), GraphicsUnit.Pixel);
+            e.DrawImage(Bar, new Rectangle(this.Width - this.Height, 0,this.Height , this.Height), new Rectangle(32, 0, 16, 16), GraphicsUnit.Pixel);
+            float val = value > 0 ? value : 1;
+            // Draw position bar
+            e.DrawImage(Thumb, val * XPart, 0, this.Height, this.Height);
+            r.Render();
+        }
         private void ucPosBar_Paint(object sender, PaintEventArgs e)
         {
-            
-            e.Graphics.DrawRectangle(new Pen(BorderColor), 0, 0, this.Width-1, this.Height-1);
-            e.Graphics.FillEllipse(new SolidBrush(FillColor), Value * XPart, 0, this.Height, this.Height);
+            Draw(e.Graphics);
+           
         }
-
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            Draw(e.Graphics);
+        }
         private void ucPosBar_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)

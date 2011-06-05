@@ -15,6 +15,7 @@ namespace MediaChrome
         public Engines()
         {
             InitializeComponent();
+            this.SetStyle((ControlStyles)CS_DROPSHADOW,true);
         }  
         // Define the CS_DROPSHADOW constant
         private const int CS_DROPSHADOW = 0x00020000;
@@ -131,12 +132,18 @@ namespace MediaChrome
 
         private void Engines_Leave(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
         }
 
         private void Engines_Deactivate(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Preferences prefs = new Preferences(this.Host);
+            prefs.ShowDialog();
         }
     }
 }

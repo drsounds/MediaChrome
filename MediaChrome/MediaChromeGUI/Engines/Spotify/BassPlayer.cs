@@ -26,6 +26,7 @@ namespace MediaChrome
             
             // wait until the track is ready
             while (track == null) { }
+            while (track.Error == sp_error.IS_LOADING) { }
             Song d = new Song();
             d.Artist = track.Artists[0].Name;
             d.AlbumName = track.Album.Name;
@@ -286,22 +287,28 @@ namespace MediaChrome
         {
             // TODO: Add handler later
             Spotify.Search result = SpotifySession.SearchSync("\""+_Song.Title + "\" artist:\"" + _Song.Artist + "\"", 0, 4, 0, 4, 0, 4, new TimeSpan(4000000));
+            
             // wait until the result has been generated
             while (result == null) { }
+            while (result.Error == sp_error.IS_LOADING) { }
+
             // if song was found deliver the first match
-            if (result.TotalTracks > 0)
+            foreach(Track i in result.Tracks)
             {
-                // Convert the track to an mc instance
-                Song c = new Song();
-                Track _track = result.Tracks[0];
-                c.Name = c.Name;
-                c.Artist = _track.Artists[0].Name;
-                c.AlbumName = _track.Album.Name;
-                c.Path = _track.LinkString;
-                c.Link = _track.LinkString;
-                c.Engine = this;
-                c.ProposedEngine = "spotify";
-                return c;
+                if (i.Name.Contains(_Song.Title) && i.Artists[0].Name.Contains(_Song.Artist))
+                {
+                    // Convert the track to an mc instance
+                    Song c = new Song();
+                    Track _track = result.Tracks[0];
+                    c.Name = c.Name;
+                    c.Artist = _track.Artists[0].Name;
+                    c.AlbumName = _track.Album.Name;
+                    c.Path = _track.LinkString;
+                    c.Link = _track.LinkString;
+                    c.Engine = this;
+                    c.ProposedEngine = "spotify";
+                    return c;
+                }
             }
 
             // Otherwise return null
@@ -786,11 +793,15 @@ namespace MediaChrome
 
             // Wait until search is null
             while (Search == null) { }
-
+            while (Search.Error == sp_error.IS_LOADING) { }
             // Add the song
-            if (Search.TotalTracks > 0)
+            foreach (Track t in Search.Tracks)
             {
-                List.AddTracks(new Track[] { Search.Tracks[0] }, pos);
+                if (t.Name.Contains(_Song.Name) && t.Artists[0].Name.Contains(_Song.Artist))
+                {
+                    List.AddTracks(new Track[] { t }, pos);
+                
+                }
             }
         }
 		public void AddToPlaylist(string playlistID, Song _Song, int pos)

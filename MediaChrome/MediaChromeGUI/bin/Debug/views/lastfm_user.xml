@@ -19,14 +19,37 @@ var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.
 		var real_name=user_info.GetElementsByTagName("realname").Item(0).InnerText;
 		?>
 		<space height="30" />
-		<image top="@TOP" width="60"  height="60" left="10" src="@{img}" shadow="true" />
+		<image top="@TOP" width="120"  height="120" left="10" src="@{img}" shadow="true" />
 		<label bold="true" left="80" size="12" color="#FFFFFF" top="30" width="1440" height="20">@{real_name}</label>
+		<label bold="true" left="320" size="12" color="#FFFFFF" top="30" width="1440" height="20">Friends</label>
+		
+		<?
+		var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.getfriends&user="+parameter+"&api_key=b25b959554ed76058ac220b7b2e0a026");
+		var users = user_info.GetElementsByTagName("user");
+		for(var i = 0; i < users.Count && i < 5; i++){ var user = users.Item(i);
+			var link = user.GetElementsByTagName("name").Item(0).InnerText;
+			var picture = user.GetElementsByTagName("image").Item(0).InnerText;
+			var name = user.GetElementsByTagName("name").Item(0).InnerText;
+			var left = 320;
+			var top = 80 + 10 * i;
+		?>
+		<label top="@{top}" align="tr" left="@{left}" width="300" href="@{service}:lastfm_user:@{name}" >@{name}</label>
+	<!--	<img top="60" width="60" height="60" left="@{left}" href="@{link}" src="@{picture}" shadow="true" /> -->
+		<?
+		}
+		?>
 		<!-- spacer -->
 		
+		
+		
+		
 		<space height="50" />
-		<divider height="30" />
+	<!--	<divider height="30" />
 		<label left="150" bold="true" size="8" color="#FFFFFF" top="@TOP" width="640" height="20">Recent scrobbles</label>
-		<space height="10" />
+		-->
+			<section name="Recent Scrobbles" height="24">Recent Scrobbles</section>
+		
+		<space height="30" />
 		<?
 		var d = user_recent;
 		
@@ -38,7 +61,7 @@ var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.
 			var time = _track.GetElementsByTagName("date").Item(0).InnerText;
 			var user = parameter;
 		?>
-		<entry top="@TOP" width="-1" color_date="#ddddff" height="16" left="150">
+		<entry top="@TOP" width="-1"  artist_href="@{service}:artist:@{artist}" color_date="#ddddff" height="16" left="150">
 			<date noelm="true"><![CDATA[@{time}]]></date>
 			<title noelm="true"><![CDATA[@{name}]]></title>
 			<artist noelm="true"><![CDATA[@{artist}]]></artist> 
@@ -56,7 +79,7 @@ var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.
 	</section>
 	<section list="true" name="Recent">
 		<columnheader noelm="true" name=" " size="20" />
-		<columnheader noelm="true" name="Date" size="320" />
+		<columnheader noelm="true" name="Date" size="120" />
 		<columnheader noelm="true" name="Title" size="320" />
 		<columnheader noelm="true" name="Artist" size="320" />
 		<columnheader noelm="true" name="User" size="320" />
@@ -71,7 +94,7 @@ var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.
 			var time = _track.GetElementsByTagName("date").Item(0).InnerText;
 			var user = parameter;
 		?>
-		<entry top="@TOP" width="-1" height="16" left="0">
+		<entry color_date="#aabbaa" top="@TOP" width="-1" height="16" left="0">
 			<date noelm="true"><![CDATA[@{time}]]></date>
 			<title noelm="true"><![CDATA[@{name}]]></title>
 			<artist noelm="true"><![CDATA[@{artist}]]></artist> 
@@ -106,24 +129,24 @@ var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.
 		<? } ?>
 	</section>
 	<section list="true" name="Friends">
-		<columnheader noelm="true" name=" " size="20" />
-		<columnheader noelm="true" name="Name" size="320" />
-	
 		<?
-		var d = user_library;
-		
-		var tracks = d.GetElementsByTagName("user");
-		for(var i=0; i < tracks.Count; i++){ 
-			var _track = tracks.Item(i);
-			var name = _track.GetElementsByTagName("name").Item(0).InnerText;
-			
+		var y = 0;
+		for(var i = 0; i < users.Count ; i++){ var user = users.Item(i);
+			var link = user.GetElementsByTagName("name").Item(0).InnerText;
+			var picture = user.GetElementsByTagName("image").Item(0).InnerText;
+			var name = user.GetElementsByTagName("name").Item(0).InnerText;
+			var left = 50 + 80 * i;
+			var top =60 + y*90;
+			var ctop = top + 90;
+			if(i == 15 ){
+				y++;
+			}
 		?>
-		<entry top="@TOP" width="-1" height="16" left="0">
-			<name noelm="true"><![CDATA[@{name}]]></name>
-			
-			<uri noelm="true"><![CDATA[@{service}:lastfm_user:@{name}]]></uri>
-		</entry>
-		<? } ?>
+		<label top="@{ctop}" align="tr" left="@{left}" width="300" href="@{service}:lastfm_user:@{name}" >@{name}</label>
+	<!--	<img top="@{top}" width="60" height="60" left="@{left}" href="@{service}:lastfm_user:@{name}" src="@{link}" shadow="true" /> -->
+		<?
+		}
+		?>
 	</section>
 	
 	

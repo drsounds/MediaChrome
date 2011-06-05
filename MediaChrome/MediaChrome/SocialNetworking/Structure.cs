@@ -216,6 +216,21 @@ namespace MediaChrome.SocialNetworking
         SocialFeed GetFeedFromUser(string userName);
 
         /// <summary>
+        /// Returns an feed for an particular user with the specific textual query
+        /// </summary>
+        /// <param name="userName">The user name to locate</param>
+        /// <param name="query">The query to use</param>
+        /// <returns>an instance to an SocialFeed encapsulating the user's feed data, or NULL if failed</returns>
+        SocialFeed QueryFeedFromUser(string userName, string query);
+
+        /// <summary>
+        /// Gets the last updates by the specific textual query
+        /// </summary>
+        /// <param name="query">The query to use</param>
+        /// <returns>an instance to an SocialFeed encapsulating the user's feed data, or NULL if failed</returns>
+        SocialFeed GetLastestUpdateFromQuery(string query);
+
+        /// <summary>
         /// Returns an list of your friends on the particular network
         /// </summary>
         List<User> Friends { get; }

@@ -22,5 +22,17 @@ namespace MediaChrome {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("skins\\spotify\\spotify.xml")]
+        public string Skin {
+            get {
+                return ((string)(this["Skin"]));
+            }
+            set {
+                this["Skin"] = value;
+            }
+        }
     }
 }

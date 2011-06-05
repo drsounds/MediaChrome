@@ -20,7 +20,26 @@ namespace Board
     
     public partial class DrawBoard : UserControl
     {
+        /// <summary>
+        /// Selection background color
+        /// </summary>
         public Color SelectionBg { get; set; }
+
+        /// <summary>
+        /// Selection foreground color
+        /// </summary>
+        public Color SelectionFg { get; set; }
+
+        /// <summary>
+        /// Background color of active element
+        /// </summary>
+        public Color ActiveBg { get; set; }
+
+        /// <summary>
+        /// Foreground color of active element
+        /// </summary>
+        public Color ActiveFG { get; set; }
+
         /// <summary>
         /// Set default colors
         /// </summary>
@@ -35,12 +54,61 @@ namespace Board
             Section = Color.FromArgb(97, 97, 97);
             SectionTextShadow = Color.FromArgb(119, 119, 119);
             TextFade = Color.Gray;
+            SelectionFg = Color.FromArgb(21, 21, 25);
             Fg = Color.FromArgb(221, 221, 221);
             Divider = Color.FromArgb(0,0,0);
             Alt = Color.FromArgb(3, 3, 3);
             SelectionBg = Color.FromArgb(169,217,254);
+            Toolbar = Resource1.toolbar;
+            ActiveSection = Resource1.tab;
+            ActiveBg = Color.Black;
+            ActiveFG = Color.LightGreen;
             //this.Background = Resource1.view_bg;
         }
+
+        /// <summary>
+        /// Background image for the toolbar
+        /// </summary>
+        public Image Toolbar { get; set; }
+        /// <summary>
+        /// Background image for the active tab
+        /// </summary>
+        public Image ActiveSection { get; set; }
+        
+        private Skin skin;
+        
+        /// <summary>
+        /// Gets or sets the active skin. Skin are applied immediately on assignment
+        /// </summary>
+        public Skin Skin
+        {
+            get
+            {
+                return skin;
+            }
+            set
+            {
+                this.skin = value;
+                // Set skin
+                this.BackColor = skin.Components["Board"].BackColor;
+                this.ForeColor = skin.Components["Board"].ForeColor;
+                this.ActiveBg = skin.Components["Board#Active"].BackColor;
+                this.ActiveFG = skin.Components["Board#Active"].ForeColor;
+
+                this.Alt = skin.Components["Board#Alternative"].BackColor;
+                this.Alt = skin.Components["Board#Alternative"].BackColor;
+                this.TextFade = skin.Components["Board#TextFade"].BackColor;
+                this.Section = skin.Components["Board#Section"].BackColor;
+                this.SelectionBg = skin.Components["Board#Selection"].BackColor;
+               this.BackgroundImage = skin.Components["Board"].BackgroundImage;
+                Toolbar = skin.Components["Toolbar"].BackgroundImage;
+                ActiveSection = skin.Components["ActiveSection"].BackgroundImage;
+                this.SelectionFg = Skin.Components["Board#Selection"].ForeColor;
+            
+            }
+
+        }
+
         #region Delegates and events
 
 
@@ -1103,7 +1171,21 @@ namespace Board
             this.Loaded(this, new EventArgs());
             
         }
-        
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            Draw(e.Graphics);
+        }
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            
+            
+
+        }
+        protected override void OnInvalidated(InvalidateEventArgs e)
+        {
+            e = new InvalidateEventArgs(new Rectangle(0, 0, 0, 0));
+
+        }
         private void Artist_Load(object sender, EventArgs e)
         {
            this.SuspendLayout();
@@ -1728,8 +1810,32 @@ namespace Board
             return Result;
             }
 
+        /// <summary>
+        /// From CodeProject.org
+        /// http://www.codeproject.com/KB/GDI-plus/measurestring.aspx
+        /// </summary>
+        /// <param name="graphics"></param>
+        /// <param name="text"></param>
+        /// <param name="font"></param>
+        /// <returns></returns>
+        static public int MeasureDisplayStringWidth(Graphics graphics, string text,
+                                            Font font)
+        {
+            System.Drawing.StringFormat format = new System.Drawing.StringFormat();
+            System.Drawing.RectangleF rect = new System.Drawing.RectangleF(0, 0,
+                                                                          1000, 1000);
+            System.Drawing.CharacterRange[] ranges = 
+                                       { new System.Drawing.CharacterRange(0, 
+                                                               text.Length) };
+            System.Drawing.Region[] regions = new System.Drawing.Region[1];
 
-        
+            format.SetMeasurableCharacterRanges(ranges);
+
+            regions = graphics.MeasureCharacterRanges(text, font, rect, format);
+            rect = regions[0].GetBounds(graphics);
+
+            return (int)(rect.Width);
+        }
         /// <summary>
         /// Method to dynamically draw text and include subsets of elements inside the markup of the text
         /// </summary>
@@ -1820,7 +1926,7 @@ namespace Board
                         left += 5;
                 //    g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
                     g.DrawString(d.ToString(), font, fontBrush,new Point( position.Left + left, position.Top + row));
-                    left += (int)(g.MeasureString(d.ToString(),font,(int)font.Size).Width);
+                    left += (int)(MeasureDisplayStringWidth(g,d.ToString(),font));
                 }
                
                 // if the character exceeds the width separate it to new row
@@ -1943,14 +2049,23 @@ namespace Board
             if(_Element.Entry)
             if (_Element.Selected == true)
             {
-                
-                ForeGround = Color.DarkBlue;
+
+                ForeGround = SelectionFg;
                 if (!this.Focused)
                 {
-                    ForeGround = Color.White;
+                    ForeGround = this.ForeColor;
                 }
                
             }
+            /**
+             * If element is active draw with it's active colors
+             * */
+            if (_Element.GetAttribute("__playing") == "true" && !_Element.Selected)
+            {
+                EnTry = ActiveBg;
+                ForeGround = ActiveFG;
+            }
+                
             
          /*   // Font size for the font
             // Try to find text size otherwise apply default
@@ -2031,7 +2146,7 @@ namespace Board
                    // top -= height / 2;
                   //  if (Alternate)
                     {
-                        d.FillRectangle(new SolidBrush(Color.FromArgb(65,EnTry)), new Rectangle(left, top, width, height));
+                        d.FillRectangle(new SolidBrush(Color.FromArgb(255,EnTry)), new Rectangle(left, top, width, height));
                     }
                   /*  else
                     {
@@ -2496,7 +2611,7 @@ namespace Board
                 // (next element below the previous, when elements has an @TOP value as top paramater (-1))
                 int ptop = 20;
 
-                d.FillRectangle(new SolidBrush(Bg), new Rectangle(0, 0, this.Bounds.Width, this.Bounds.Height));
+                d.FillRectangle(new SolidBrush(BackColor), new Rectangle(0, 0, this.Bounds.Width, this.Bounds.Height));
                 
                 // Draw background image
 
@@ -2901,11 +3016,11 @@ namespace Board
             {
                 if (se.NewValue - se.OldValue > 0)
                 {
-                    scrollY += 10;
+                    scrollY += 3;
                 }
                 if (se.NewValue - se.OldValue < 0)
                 {
-                    scrollY -= 10;
+                    scrollY -= 3;
                 }
             }
         }

@@ -174,7 +174,10 @@ namespace Board
             // Result
             CT.Render();
         }
-        
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            Draw(e.Graphics);
+        }
         private void Scrollbar_Paint(object sender, PaintEventArgs e)
         {
             Draw(e.Graphics);

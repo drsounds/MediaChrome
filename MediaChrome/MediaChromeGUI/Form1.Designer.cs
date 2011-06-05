@@ -46,38 +46,39 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1 = new MediaChrome.ExPanel();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.eToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel3 = new MediaChrome.ExPanel();
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
-            this.button1 = new System.Windows.Forms.Button();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.menuStrip2 = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.pane5 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label4 = new System.Windows.Forms.Label();
             this.listViewX1 = new MediaChrome.XListView();
+            this.button1 = new System.Windows.Forms.Button();
+            this.panel4 = new MediaChrome.ExPanel();
             this.ucPosBar1 = new webclassprototype.ucPosBar();
             this.cBtn2 = new MediaChrome.cBtn();
             this.cBtn1 = new MediaChrome.cBtn();
             this.cBtn8 = new MediaChrome.cBtn();
+            this.menuStrip2 = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.pane5 = new MediaChrome.ExPanel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel2 = new MediaChrome.ExPanel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.ucSearch2 = new MediaChrome.ucSearch();
             this.cBtn4 = new MediaChrome.cBtn();
             this.cBtn5 = new MediaChrome.cBtn();
             this.cBtn3 = new MediaChrome.cBtn();
             this.textBox1 = new MediaChrome.ucSearch();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -231,6 +232,20 @@
             this.axWindowsMediaPlayer1.TabIndex = 23;
             this.axWindowsMediaPlayer1.Visible = false;
             // 
+            // listViewX1
+            // 
+            this.listViewX1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.listViewX1.CanDrag = false;
+            this.listViewX1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.listViewX1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
+            this.listViewX1.Location = new System.Drawing.Point(0, 0);
+            this.listViewX1.Name = "listViewX1";
+            this.listViewX1.Size = new System.Drawing.Size(211, 261);
+            this.listViewX1.TabIndex = 22;
+            this.listViewX1.UseCompatibleStateImageBehavior = false;
+            this.listViewX1.View = System.Windows.Forms.View.Details;
+            this.listViewX1.Visible = false;
+            // 
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -258,6 +273,59 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1076, 53);
             this.panel4.TabIndex = 23;
+            // 
+            // ucPosBar1
+            // 
+            this.ucPosBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ucPosBar1.BackColor = System.Drawing.Color.Black;
+            this.ucPosBar1.BorderColor = System.Drawing.Color.Black;
+            this.ucPosBar1.FillColor = System.Drawing.Color.White;
+            this.ucPosBar1.Location = new System.Drawing.Point(141, 23);
+            this.ucPosBar1.Maximum = 100F;
+            this.ucPosBar1.Name = "ucPosBar1";
+            this.ucPosBar1.Size = new System.Drawing.Size(872, 12);
+            this.ucPosBar1.TabIndex = 14;
+            this.ucPosBar1.Value = 0F;
+            // 
+            // cBtn2
+            // 
+            this.cBtn2.BackColor = System.Drawing.Color.Transparent;
+            this.cBtn2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn2.BackgroundImage")));
+            this.cBtn2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cBtn2.Img = null;
+            this.cBtn2.Location = new System.Drawing.Point(18, 10);
+            this.cBtn2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cBtn2.Name = "cBtn2";
+            this.cBtn2.Size = new System.Drawing.Size(26, 25);
+            this.cBtn2.TabIndex = 10;
+            this.cBtn2.Load += new System.EventHandler(this.cBtn8_Load_1);
+            // 
+            // cBtn1
+            // 
+            this.cBtn1.BackColor = System.Drawing.Color.Transparent;
+            this.cBtn1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn1.BackgroundImage")));
+            this.cBtn1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cBtn1.Img = null;
+            this.cBtn1.Location = new System.Drawing.Point(92, 10);
+            this.cBtn1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cBtn1.Name = "cBtn1";
+            this.cBtn1.Size = new System.Drawing.Size(26, 25);
+            this.cBtn1.TabIndex = 10;
+            this.cBtn1.Load += new System.EventHandler(this.cBtn8_Load_1);
+            // 
+            // cBtn8
+            // 
+            this.cBtn8.BackColor = System.Drawing.Color.Transparent;
+            this.cBtn8.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn8.BackgroundImage")));
+            this.cBtn8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cBtn8.Img = global::MediaChrome.Properties.Resources.play;
+            this.cBtn8.Location = new System.Drawing.Point(48, 4);
+            this.cBtn8.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cBtn8.Name = "cBtn8";
+            this.cBtn8.Size = new System.Drawing.Size(37, 37);
+            this.cBtn8.TabIndex = 10;
+            this.cBtn8.Load += new System.EventHandler(this.cBtn8_Load_1);
             // 
             // menuStrip2
             // 
@@ -333,6 +401,17 @@
             this.panel2.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseDoubleClick);
             this.panel2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Location = new System.Drawing.Point(774, 14);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(64, 13);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "New Playlist";
+            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
@@ -368,112 +447,6 @@
             this.label1.Size = new System.Drawing.Size(31, 13);
             this.label1.TabIndex = 15;
             this.label1.Text = "Filter";
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.testToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(898, 24);
-            this.menuStrip1.TabIndex = 13;
-            this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.Visible = false;
-            // 
-            // testToolStripMenuItem
-            // 
-            this.testToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.filterToolStripMenuItem});
-            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
-            this.testToolStripMenuItem.Text = "test";
-            this.testToolStripMenuItem.Visible = false;
-            // 
-            // filterToolStripMenuItem
-            // 
-            this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
-            this.filterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.filterToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.filterToolStripMenuItem.Text = "Filter";
-            this.filterToolStripMenuItem.Click += new System.EventHandler(this.filterToolStripMenuItem_Click);
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Location = new System.Drawing.Point(774, 14);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(64, 13);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "New Playlist";
-            // 
-            // listViewX1
-            // 
-            this.listViewX1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.listViewX1.CanDrag = false;
-            this.listViewX1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.listViewX1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-            this.listViewX1.Location = new System.Drawing.Point(0, 0);
-            this.listViewX1.Name = "listViewX1";
-            this.listViewX1.Size = new System.Drawing.Size(211, 261);
-            this.listViewX1.TabIndex = 22;
-            this.listViewX1.UseCompatibleStateImageBehavior = false;
-            this.listViewX1.View = System.Windows.Forms.View.Details;
-            this.listViewX1.Visible = false;
-            // 
-            // ucPosBar1
-            // 
-            this.ucPosBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ucPosBar1.BackColor = System.Drawing.Color.Black;
-            this.ucPosBar1.BorderColor = System.Drawing.Color.Black;
-            this.ucPosBar1.FillColor = System.Drawing.Color.White;
-            this.ucPosBar1.Location = new System.Drawing.Point(141, 23);
-            this.ucPosBar1.Maximum = 100F;
-            this.ucPosBar1.Name = "ucPosBar1";
-            this.ucPosBar1.Size = new System.Drawing.Size(872, 12);
-            this.ucPosBar1.TabIndex = 14;
-            this.ucPosBar1.Value = 0F;
-            // 
-            // cBtn2
-            // 
-            this.cBtn2.BackColor = System.Drawing.Color.Transparent;
-            this.cBtn2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn2.BackgroundImage")));
-            this.cBtn2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.cBtn2.Img = null;
-            this.cBtn2.Location = new System.Drawing.Point(18, 10);
-            this.cBtn2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.cBtn2.Name = "cBtn2";
-            this.cBtn2.Size = new System.Drawing.Size(26, 25);
-            this.cBtn2.TabIndex = 10;
-            this.cBtn2.Load += new System.EventHandler(this.cBtn8_Load_1);
-            // 
-            // cBtn1
-            // 
-            this.cBtn1.BackColor = System.Drawing.Color.Transparent;
-            this.cBtn1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn1.BackgroundImage")));
-            this.cBtn1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.cBtn1.Img = null;
-            this.cBtn1.Location = new System.Drawing.Point(92, 10);
-            this.cBtn1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.cBtn1.Name = "cBtn1";
-            this.cBtn1.Size = new System.Drawing.Size(26, 25);
-            this.cBtn1.TabIndex = 10;
-            this.cBtn1.Load += new System.EventHandler(this.cBtn8_Load_1);
-            // 
-            // cBtn8
-            // 
-            this.cBtn8.BackColor = System.Drawing.Color.Transparent;
-            this.cBtn8.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn8.BackgroundImage")));
-            this.cBtn8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.cBtn8.Img = global::MediaChrome.Properties.Resources.play;
-            this.cBtn8.Location = new System.Drawing.Point(48, 4);
-            this.cBtn8.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.cBtn8.Name = "cBtn8";
-            this.cBtn8.Size = new System.Drawing.Size(37, 37);
-            this.cBtn8.TabIndex = 10;
-            this.cBtn8.Load += new System.EventHandler(this.cBtn8_Load_1);
             // 
             // ucSearch2
             // 
@@ -545,6 +518,39 @@
             this.textBox1.Size = new System.Drawing.Size(180, 33);
             this.textBox1.TabIndex = 9;
             this.textBox1.SearchClicked += new System.EventHandler(this.textBox1_SearchClicked);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.testToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(898, 24);
+            this.menuStrip1.TabIndex = 13;
+            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.Visible = false;
+            // 
+            // testToolStripMenuItem
+            // 
+            this.testToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.filterToolStripMenuItem});
+            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
+            this.testToolStripMenuItem.Text = "test";
+            this.testToolStripMenuItem.Visible = false;
+            // 
+            // filterToolStripMenuItem
+            // 
+            this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
+            this.filterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.filterToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.filterToolStripMenuItem.Text = "Filter";
+            this.filterToolStripMenuItem.Click += new System.EventHandler(this.filterToolStripMenuItem_Click);
+            // 
+            // timer3
+            // 
+            this.timer3.Enabled = true;
+            this.timer3.Tick += new System.EventHandler(this.timer3_Tick_1);
             // 
             // Form1
             // 
@@ -620,22 +626,22 @@
         private ucSearch textBox1;
         private cBtn cBtn3;
         private cBtn cBtn4;
-        private System.Windows.Forms.Panel panel2;
+        private ExPanel panel2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Panel pane5;
-        private System.Windows.Forms.Panel panel1;
+        private ExPanel pane5;
+        private ExPanel panel1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
         private System.Windows.Forms.ToolStripMenuItem eToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private ucSearch ucSearch2;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
-        private System.Windows.Forms.Panel panel4;
+        private ExPanel panel4;
         private cBtn cBtn8;
         private System.Windows.Forms.MenuStrip menuStrip2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
-        private System.Windows.Forms.Panel panel3;
+        private ExPanel panel3;
         private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
         private cBtn cBtn2;
         private cBtn cBtn1;
@@ -646,6 +652,7 @@
         private XListView listViewX1;
         private System.Windows.Forms.Label label4;
         private cBtn cBtn5;
+        private System.Windows.Forms.Timer timer3;
 
     }
 }

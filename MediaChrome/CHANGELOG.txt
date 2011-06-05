@@ -73,3 +73,7 @@ of ws.spotify.com as it ease the mediachrome target.
 00:14 2011-06-05
 Fixed so playlists now works in MediaChrome, dragging adds a new playlist, add to playlist cross service. Taken a song from another service, or with
 an abstract media pointer (media:// url) and drop it on another service, and it will be added as a song matching on the service!
+16:00 2011-06-05
+Added skin support to MediaChrome.
+19:02 2011-06-05
+Now I've fixed the flickering of the interface by an override at OnBackgroundPaint(e) by calling the core drawing function! PARTY!

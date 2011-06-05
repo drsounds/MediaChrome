@@ -291,6 +291,20 @@ namespace MediaChrome.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap playthumb {
+            get {
+                object obj = ResourceManager.GetObject("playthumb", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap position_bar {
+            get {
+                object obj = ResourceManager.GetObject("position_bar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap progresmeter {
             get {
                 object obj = ResourceManager.GetObject("progresmeter", resourceCulture);

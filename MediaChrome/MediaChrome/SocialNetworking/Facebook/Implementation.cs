@@ -67,25 +67,10 @@ namespace MediaChrome.SocialNetworking
                    {
                        try
                        {
-                           String msg = post.Dictionary["message"].ToDisplayableString(); // The message
-                           String time = post.Dictionary["created_time"].ToDisplayableString(); // The time
-                           StatusMessage message = new StatusMessage(msg, a, DateTime.Parse(time), Visibility.All);
-                           try
-                           {
-
-                               message.Link = post.Dictionary["link"].ToDisplayableString();
-                           }
-                           catch
-                           {
-                               message.Link = " ";
-                           } User d = new User();
-                           d.ID = post.Dictionary["from"].Dictionary["id"].ToDisplayableString();
-                           d.FirstName = post.Dictionary["from"].Dictionary["name"].ToDisplayableString();
-                           d.ImageUrl = (String.Format("https://graph.facebook.com/{0}/picture?access_token={1}", d.ID, this.token));
-                           message.User = d;
 
 
-                           
+
+                           StatusMessage message = JSONToMessage(post,a);
                            a.Add(message);
                        }
                        catch
@@ -94,6 +79,31 @@ namespace MediaChrome.SocialNetworking
                    }
                    return a;
             }
+        }
+        private StatusMessage JSONToMessage(JSONObject post,SocialFeed a)
+        {
+            try
+            {
+                String msg = post.Dictionary["message"].ToDisplayableString(); // The message
+                String time = post.Dictionary["created_time"].ToDisplayableString(); // The time
+                StatusMessage message = new StatusMessage(msg, a, DateTime.Parse(time), Visibility.All);
+                try
+                {
+
+                    message.Link = post.Dictionary["link"].ToDisplayableString();
+                }
+                catch
+                {
+                    message.Link = " ";
+                } User d = new User();
+                d.ID = post.Dictionary["from"].Dictionary["id"].ToDisplayableString();
+                d.FirstName = post.Dictionary["from"].Dictionary["name"].ToDisplayableString();
+                d.ImageUrl = (String.Format("https://graph.facebook.com/{0}/picture?access_token={1}", d.ID, this.token));
+                message.User = d;
+                return message;
+            }
+            catch { }
+            return null;
         }
 
         public bool PostStatusMessage(string str, Visibility security)
@@ -127,7 +137,7 @@ namespace MediaChrome.SocialNetworking
             {
                 foreach (JSONObject post in jobject.Dictionary["data"].Array)
                 {
-                    String msg = post.Dictionary["message"].ToDisplayableString(); // The message
+               /*     String msg = post.Dictionary["message"].ToDisplayableString(); // The message
                     String time = post.Dictionary["created_time"].ToDisplayableString(); // The time
                     StatusMessage message = new StatusMessage(msg, a, DateTime.Parse(time), Visibility.All);
                     try
@@ -142,10 +152,11 @@ namespace MediaChrome.SocialNetworking
                     d.ID = post.Dictionary["from"].Dictionary["id"].ToDisplayableString();
                     d.ImageUrl = (String.Format("https://graph.facebook.com/{0}/picture?access_token={1}", d.ID, this.token));
                     message.User = d;
+                    */
+                    StatusMessage message = JSONToMessage(post,a);
 
-
-
-                    a.Add(message);
+                    if(message!=null)
+                        a.Add(message);
                 }
             }
             catch
@@ -183,6 +194,55 @@ namespace MediaChrome.SocialNetworking
 
 
             }
+        }
+
+
+        public SocialFeed QueryFeedFromUser(string userName, string query)
+        {
+            // If the API is not initialized, return an empty feed.
+            if (api == null)
+                return new SocialFeed(this);
+
+            /**
+             * Get the updates 
+             * */
+
+            Dictionary<string,string> args = new Dictionary<string,string>();
+            args.Add("q",query);
+            JSONObject jobject = api.Get("/"+userName,args);
+
+            // Create an socialfeed object
+            SocialFeed a = new SocialFeed(this);
+       
+            foreach (JSONObject post in jobject.Dictionary["data"].Array)
+            {
+                StatusMessage message = JSONToMessage(post, a);
+                 if(message!=null) a.Add(message);
+            }
+            return a;
+        }
+
+        public SocialFeed GetLastestUpdateFromQuery(string query)
+        {
+            // If the API is not initialized, return an empty feed.
+            if (api == null)
+                return new SocialFeed(this);
+
+            /**
+             * Get the updates 
+             * */
+            Dictionary<string, string> args = new Dictionary<string, string>();
+            args.Add("q", query);
+            JSONObject jobject = api.Get(String.Format("/me/home"),args);
+
+            // Create an socialfeed object
+            SocialFeed a = new SocialFeed(this);
+            foreach (JSONObject post in jobject.Dictionary["data"].Array)
+            {
+                StatusMessage message = JSONToMessage(post, a);
+                if (message != null) a.Add(message);
+            }
+            return a;
         }
     }
 }

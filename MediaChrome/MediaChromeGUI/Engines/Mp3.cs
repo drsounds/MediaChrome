@@ -33,9 +33,9 @@ namespace MediaChrome
 
             // return a new song
             Song d = new Song();
-            d.Title = Dw.id3Title;
-            d.Artist = Dw.id3Artist;
-            d.AlbumName = Dw.id3Album;
+            d.Title = Dw.id3Title.Replace("\0","");
+            d.Artist = Dw.id3Artist.Replace("\0", "");
+            d.AlbumName = Dw.id3Album.Replace("\0","");
             return d;
 
            

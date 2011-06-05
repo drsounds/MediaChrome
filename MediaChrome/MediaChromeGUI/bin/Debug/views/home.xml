@@ -3,7 +3,7 @@
  * Home view for Segurify
  */
 	
-			var d = getFeed();			
+			var d = getFeed("spotify");			
 	
 	
 ?>	

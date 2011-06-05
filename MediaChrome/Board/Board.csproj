@@ -144,6 +144,7 @@
     <Compile Include="Scrollbar.Designer.cs">
       <DependentUpon>Scrollbar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Skin.cs" />
     <Compile Include="Spofity.cs" />
     <Compile Include="ViewError.cs">
       <SubType>Form</SubType>

@@ -21,13 +21,14 @@ var bio = "Nice artist who loves music";
 			<menuitem onclick="test1()" title="A"/>
 		</menu> -->
 	</toolbar>
+
 	<section name="Overview">
-		
 		<label size="20" left="110" top="@TOP" width="500" height="10"></label> 
 		<img src="http://krakelin.com/artist.png" top="@TOP" left="10" width="120" height="120" persistent="true" />
 <label size="10" left="150" top="@TOP" width="500" height="10" href="@{parameter}">@{title} <br/> @{bio}</label> 	
 	
 		<space height="130"/>
+		
 		<?
 		if(localAlbums.Count > 0){
 		?>
@@ -57,6 +58,7 @@ for(var i=0; i < artist.Albums.Length ; i++){
 	
 	
 	</section>
-	
+	<section name="Biography">
+	</section>
 </view>
 		
