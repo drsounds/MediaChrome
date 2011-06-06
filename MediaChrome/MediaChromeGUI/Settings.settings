@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="Skin" Type="System.String" Scope="User">
-      <Value Profile="(Default)">skins\spotify\spotify.xml</Value>
+      <Value Profile="(Default)">skins\spotify_light\spotify_light.xml</Value>
     </Setting>
   </Settings>
 </SettingsFile>

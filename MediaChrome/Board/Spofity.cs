@@ -17,8 +17,69 @@ namespace Board
 [Serializable]
   	public class Spofity
 	{
+    private Stack<int> historySections;
+    private Stack<int> forwardSections;
+    /// <summary>
+    /// History of section
+    /// </summary>
+    public Stack<int> HistorySections
+    {
+        get
+        {
+            if (historySections == null) historySections = new Stack<int>();
+            return historySections;
+        }
 
-       
+    }
+
+    /// <summary>
+    /// History of forward sections
+    /// </summary>
+    public Stack<int> ForwardSections
+    {
+        get
+        {
+            if (forwardSections == null) forwardSections = new Stack<int>();
+            return forwardSections;
+        }
+
+    }
+
+    /// <summary>
+    /// Goback an section
+    /// </summary>
+    /// <returns></returns>
+    public int GoBack()
+    {
+        if (HistorySections.Count > 0)
+        {
+            ForwardSections.Push(this.currentSection);
+            int d = HistorySections.Pop();
+
+            return d;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    /// <summary>
+    /// Go forward an sectionn
+    /// </summary>
+    /// <returns></returns>
+    public int GoForward()
+    {
+        if (ForwardSections.Count > 0)
+        {
+            HistorySections.Push(this.currentSection);
+            int d = ForwardSections.Pop();
+            return d;
+        }
+        else
+        {
+            return -1;
+        }
+    }
         /// <summary>
         /// Delegate which manage events for mako creation
         /// </summary>
@@ -244,8 +305,8 @@ namespace Board
             set
             {
                 currentSection = value;
-                this.ScrollY = 0;
-                this.ScrollX = 0;
+                
+             
             }
         }
         /// <summary>
@@ -291,8 +352,7 @@ namespace Board
         /// </summary>
         public Element NowPlaying { get; set; }
             
-  	 	public int ScrollY =0;
-  	 	public int ScrollX =0;
+  	 
 	    public delegate void ActionEvent();
 	    public event ActionEvent BeginLoading;
 	    public event ActionEvent FinishedLoading;
@@ -1648,6 +1708,101 @@ namespace Board
     /// </summary>
 	public class Section
 	{
+        /// <summary>
+        /// Gets the difference between the total height of 
+        /// the elements and the height of the visible boundary
+        /// </summary>
+
+        public int ItemOffset
+        {
+            get
+            {
+                try
+                {
+                    return TotalHeight - this.Parent.ParentBoard.Height;
+                }
+                catch
+                {
+                    return -1;
+                }
+            }
+        }
+        /// <summary>
+        /// This function calculates the scrol offset of items. Returns -1 if there is an problem
+        /// </summary>
+        public int TotalHeight
+        {
+            get
+            {
+                try
+                {
+                    // The height of the visible board 
+                    int viewHeight = this.Parent.ParentBoard.Bounds.Height;
+
+                    // The integer which will add all element heights
+                    int elementTotalHeight = 0;
+
+                    // The outside height
+                    int outsideHeight = 0;
+                    /**
+                     * Position of last object
+                     * */
+                    int lastPosition = 0;
+                    // calculate the total height of all items
+                    foreach (Element c in this.elements)
+                    {
+                        // Check if this position is higher than any previous one and add it if so
+
+                        int newpos = (c.Top + c.Height) - lastPosition;
+                        // Add the item's top if the item's top is not equal to -1 (@TOP)
+                        lastPosition = c.Top + c.Height;
+
+                        elementTotalHeight += newpos;
+
+                    }
+                    // If the total elements filling is higher than the view's visible space.
+                    if (elementTotalHeight < viewHeight)
+                    {
+                        elementTotalHeight = viewHeight;
+                    }
+                    // Return the offset
+                    return elementTotalHeight;
+
+                }
+                catch
+                {
+                    return -1;
+                }
+            }
+        }
+        /// <summary>
+        /// Updates the scrollbar
+        /// </summary>
+        public void AssertScroll()
+        {
+            Scrollbar ScrollBarY = this.Parent.ParentBoard.ScrollBarY;
+            if (this.Parent.ParentBoard.ScrollBarY != null)
+            {
+                if (this.TotalHeight - this.Parent.ParentBoard.Height == 0)
+                {
+                    ScrollBarY.Position = 0;
+                    ScrollBarY.ThumbHeight = 0;
+                    ScrollBarY.Hide();
+                    return;
+                }
+                else
+                {
+                    ScrollBarY.Show();
+                    ScrollBarY.Position = ((float)this.ScrollY / ((float)this.TotalHeight - (float)this.Parent.ParentBoard.Height));
+                    ScrollBarY.ThumbHeight = ((float)this.Parent.ParentBoard.Height / (float)this.TotalHeight);
+                }
+            }
+        }
+        /// <summary>
+        /// ScrollY
+        /// </summary>
+        public int ScrollY { get; set; }
+        public int ScrollX { get; set; }
 
         /// <summary>
         /// Defines an horizontal stream of elements.

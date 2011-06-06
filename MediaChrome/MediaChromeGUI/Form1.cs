@@ -674,8 +674,7 @@ namespace MediaChrome
         {
            
           
-            this.SocialNetwork = new SocialNetworking.Facebook();
-            this.SocialNetwork.Login();
+         
 
             Lock();
             this.Invalidate();

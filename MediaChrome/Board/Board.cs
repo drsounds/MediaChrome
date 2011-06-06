@@ -63,6 +63,7 @@ namespace Board
             ActiveSection = Resource1.tab;
             ActiveBg = Color.Black;
             ActiveFG = Color.LightGreen;
+            
             //this.Background = Resource1.view_bg;
         }
 
@@ -76,7 +77,9 @@ namespace Board
         public Image ActiveSection { get; set; }
         
         private Skin skin;
-        
+        public Image SeparatorImage { get; set; }
+
+        public Color ActiveSectionFG { get; set; }
         /// <summary>
         /// Gets or sets the active skin. Skin are applied immediately on assignment
         /// </summary>
@@ -104,7 +107,8 @@ namespace Board
                 Toolbar = skin.Components["Toolbar"].BackgroundImage;
                 ActiveSection = skin.Components["ActiveSection"].BackgroundImage;
                 this.SelectionFg = Skin.Components["Board#Selection"].ForeColor;
-            
+                this.SeparatorImage = Skin.Components["Toolbar"].SeparatorImage;
+                this.ActiveSectionFG = Skin.Components["ActiveSection"].ForeColor;
             }
 
         }
@@ -280,9 +284,8 @@ namespace Board
         /// Forward history
         /// </summary>
         public Stack<View> Post {get;set;}
-
         /// <summary>
-        /// Current section on the specific view
+        /// Current section on the specific view without interfering with history
         /// </summary>
         public int currentSection
         {
@@ -301,7 +304,39 @@ namespace Board
             {
                 try
                 {
+                 
                     this.currentView.Section = value;
+
+                }
+                catch
+                {
+                }
+            }
+        }
+
+        /// <summary>
+        /// Current section on the specific view
+        /// </summary>
+        public int CurrentSection
+        {
+            get
+            {
+                try
+                {
+                    return this.currentView.Section;
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+            set
+            {
+                try
+                {
+                  
+                    this.currentView.Section = value;
+                    
                 }
                 catch
                 {
@@ -350,7 +385,7 @@ namespace Board
                 if (CurrentView != null)
                     if (CurrentView.Content != null)
                         if (CurrentView.Content.View != null)
-                            return CurrentView.Content.View.Sections[currentSection];
+                            return CurrentView.Content.View.Sections[CurrentSection];
                 return null;
             }
         }
@@ -369,10 +404,10 @@ namespace Board
                     if (CurrentView.Content != null)
                         if (CurrentView.Content.View != null)
                         {
-                            List<Element> viewBuffer = CurrentView.Content.View.Sections[currentSection].Elements;
+                            List<Element> viewBuffer = CurrentView.Content.View.Sections[CurrentSection].Elements;
                             // if filter view is defined show it
-                            if (this.CurrentView.Content.View.Sections[currentSection].FilterView != null)
-                                viewBuffer = this.CurrentView.Content.View.Sections[currentSection].FilterView;
+                            if (this.CurrentView.Content.View.Sections[CurrentSection].FilterView != null)
+                                viewBuffer = this.CurrentView.Content.View.Sections[CurrentSection].FilterView;
                             return viewBuffer;
                         }
                         return null;
@@ -598,24 +633,50 @@ namespace Board
         View currentView;
         public void GoForward()
         {
+            if (!ViewExist())
+                return;
+            // If there is sections in history, go to them instead of goback
+            int prevSection = this.currentView.Content.GoForward();
+            if (prevSection > -1)
+            {
+                currentSection = prevSection;
+                this.AssertScroll();
+                return;
+            }
+
             // If there is views at post
             if (Post.Count > 0)
             {
+                
                 // push the current view to the history
                 History.Push(this.CurrentView);
                 // Get the next view at post
                 this.currentView = Post.Pop();
+                this.AssertScroll();
             }
         }
         public void GoBack()
         {
+            if (!ViewExist())
+                return;
+            // If there is sections in history, go to them instead of goback
+            int prevSection = this.currentView.Content.GoBack();
+            if (prevSection > -1)
+            {
+                currentSection = prevSection;
+                this.AssertScroll();
+                return;
+            }
+
             // If there is any history
             if (History.Count > 0)
             {
+               
                 // Put the current view to the post stack
                 Post.Push(this.CurrentView);
                 // set current view to the forward stack
                 this.currentView = History.Pop();
+                this.AssertScroll();
             }
             if(ItemClicked != null)
         	this.ItemClicked(this,"@back");
@@ -1200,13 +1261,13 @@ namespace Board
         	{
                 try
                 {
-                    return this.CurrentView.Content.ScrollX;
+                    return this.CurSection.ScrollX;
                 }
                 catch { return 0; }
         	}
         	set
         	{
-                this.CurrentView.Content.ScrollX = value;
+                this.CurSection.ScrollX = value;
         	} 
         	
         }
@@ -1218,7 +1279,7 @@ namespace Board
                 {
                     if (CurrentView == null)
                         return 0;
-                    return this.CurrentView.Content.ScrollY;
+                    return this.CurSection.ScrollY;
                 }
                 catch
                 {
@@ -1232,7 +1293,7 @@ namespace Board
         			return;
                 try
                 {
-                    this.CurrentView.Content.ScrollY = value;
+                    this.CurSection.ScrollY = value;
                     
                 }
                 catch { }
@@ -1959,11 +2020,12 @@ namespace Board
         {
             get
             {
-                return scrollY;
+                return this.CurSection.ScrollY;
             }
             set
             {
-                scrollY = value;
+                this.CurSection.ScrollY = value;
+                AssertScroll();
             }
         }
 
@@ -2045,7 +2107,7 @@ namespace Board
                     EnTry = Color.Gray;
                 }
             }
-            Color ForeGround = Fg;
+            Color ForeGround = ForeColor;
             if(_Element.Entry)
             if (_Element.Selected == true)
             {
@@ -2363,7 +2425,7 @@ namespace Board
          /// <summary>
          ///  the horizontal position where the tab starts
          /// </summary>
-        int tabbar_start = 10;
+        int tabbar_start = 0;
 
         /// <summary>
         ///  height of the bounding_box
@@ -2389,6 +2451,32 @@ namespace Board
         int bar_offset = 8;
         int bar_height = 10;
 
+
+        public int TotalHeight
+        {
+            get
+            {
+                if (!ViewExist())
+                    return 0;
+                return this.CurSection.TotalHeight;
+            }
+        }
+        public int ItemOffset
+        {
+            get
+            {
+                if (!ViewExist())
+                    return 0;
+                return CurSection.ItemOffset;
+            }
+        }
+        public void AssertScroll()
+        {
+            if (!ViewExist())
+                return;
+            
+            this.CurSection.AssertScroll();
+        }
         // The height of the scrollbar space
         int spaceHeight
         {
@@ -2593,6 +2681,9 @@ namespace Board
                 this.pictureBox1.Visible = this.CurrentView.Content == null;*/
              // Color.FromArgb(50, 50, 50);
 
+                // Scrollbary is only visible when it are needed
+                if(ScrollBarY != null)
+                    ScrollBarY.Visible = (ItemOffset > 0);
                 if (CurrentView != null)
                 {
                     if (CurrentView.Content != null)
@@ -2660,7 +2751,7 @@ namespace Board
                
 
                 // draw an bounding rectangle
-                d.DrawImage(Resource1.toolbar, new Rectangle(0, 0, (int)Math.Round(this.Width * 1.1f), 22));
+                d.DrawImage(Toolbar, new Rectangle(0, 0, (int)Math.Round(this.Width * 1.1f), 22));
                 //d.DrawLine((Color.FromArgb(128, 128, 128)), new Point(0, tabbar_height), new Point(this.Bounds.Width, tabbar_height));
 
                 // Position counter for tabbar. Useful for meausing toolitems
@@ -2694,7 +2785,7 @@ namespace Board
                                 // if you are at the current section draw the panes
 
 
-                                if (currentSection == i)
+                                if (CurrentSection == i)
                                 {
 
                                     // Draw section tab, load if nulll
@@ -2703,21 +2794,22 @@ namespace Board
                                         sectionTab = Resource1.tab;
                                     }
                                     // draw the tab bar
-                                    d.DrawImage(sectionTab, new Rectangle(position_counter, 1, tab_width + tab_distance * 2, tabbar_height));
+                                    d.DrawImage(ActiveSection, new Rectangle(position_counter, 0, tab_width + tab_distance * 2, tabbar_height+1));
 
                                     // draw the tab background
-                                    d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(Color.FromArgb(255, 255, 211)), new Point(position_counter + tab_distance, tab_text_margin / 5));
+                                    d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(ActiveSectionFG), new Point(position_counter + tab_distance, tab_text_margin / 5));
                                 }
                                 else
                                 {
 
-
+                                    
                                     // draw the tab bar
-                                    d.DrawImage(Resource1.tab_separator, new Rectangle(position_counter + tab_width + tab_distance * 2, 0, 2, tabbar_height - 1));
+                                    if (SeparatorImage != null)
+                                       d.DrawImage(SeparatorImage, new Rectangle(position_counter + tab_width + tab_distance * 2,  + 1, 2, tabbar_height - 1));
 
 
-                                    d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(Color.White), new Point(position_counter + tab_distance, tab_text_margin / 5));
-                                    d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(Color.Black), new Point(position_counter + tab_distance, +tab_text_margin / 5 - 1));
+                                    d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(Color.White), new Point(position_counter + tab_distance, tab_text_margin / 5+1));
+                                    d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(Color.Black), new Point(position_counter + tab_distance, +tab_text_margin / 5 ));
                                 }
                                 position_counter += tab_width + tab_distance * 2;
                             }
@@ -2769,7 +2861,7 @@ namespace Board
                 if(CurrentView!=null)
                 if (CurrentView.Content != null)
                     if (CurrentView.Content.View != null)
-                        if (CurrentView.Content.View.Sections[currentSection].List)
+                        if (CurrentView.Content.View.Sections[CurrentSection].List)
                         {
                             // Get the first entry element
                             Element firstEntry = null;
@@ -2996,17 +3088,17 @@ namespace Board
             base.OnMouseWheel(e);
             if (e.Delta <= -120)
             {
-            	scrollY += -(e.Delta);
+            	ScrollY +=(int)(-(e.Delta)*0.1f);
             }
             if (e.Delta >= 120)
             {
-            	scrollY -= (e.Delta);
+            	ScrollY -= (int)((e.Delta)*0.1f);
             }
             if (scrollY < 0)
-                scrollY = 0;
+                ScrollY = 0;
             if (scrollY > ItemOffset)
             {
-                scrollY = TotalHeight - this.Height ;
+                ScrollY = TotalHeight - this.Height ;
             }
         }
         protected override void OnScroll(ScrollEventArgs se)
@@ -3164,9 +3256,12 @@ namespace Board
                 /***
                  * Handle tab click
                  * */
-                if (hovered_tab > -1)
+                if (hovered_tab > -1 && hovered_tab != currentSection)
                 {
-                    this.currentSection = hovered_tab;
+                    this.currentView.Content.HistorySections.Push(CurrentSection);
+                    this.CurrentSection = hovered_tab;
+                    this.CurSection.ScrollY = 0;
+                
                 }
 #if (nbug)
                 /**
@@ -3451,74 +3546,8 @@ namespace Board
             }
             return e > counter;
         }
-        /// <summary>
-        /// This function calculates the scrol offset of items. Returns -1 if there is an problem
-        /// </summary>
-        public int TotalHeight
-        {
-            get
-            {
-                try
-                {
-                    // The height of the visible board 
-                    int viewHeight = this.Bounds.Height;
-                    
-                    // The integer which will add all element heights
-                    int elementTotalHeight = 0;
-
-                    // The outside height
-                    int outsideHeight = 0;
-                    /**
-                     * Position of last object
-                     * */
-                    int lastPosition = 0;
-                    // calculate the total height of all items
-                    foreach (Element c in this.ViewBuffer)
-                    {
-                        // Check if this position is higher than any previous one and add it if so
-
-                        int newpos = ( c.Top + c.Height ) - lastPosition;
-                        // Add the item's top if the item's top is not equal to -1 (@TOP)
-                        lastPosition = c.Top + c.Height;
-
-                        elementTotalHeight += newpos;
-
-                    }
-                    // If the total elements filling is higher than the view's visible space.
-                    if(elementTotalHeight < viewHeight)
-                     
-                    {
-                       elementTotalHeight = viewHeight;
-                    }
-                    // Return the offset
-                    return elementTotalHeight;
-
-                }
-                catch
-                {
-                    return -1;
-                }
-            }
-        }
-        /// <summary>
-        /// Gets the difference between the total height of 
-        /// the elements and the height of the visible boundary
-        /// </summary>
-
-        public int ItemOffset
-        {
-            get
-            {
-                try
-                {
-                    return TotalHeight-this.Bounds.Height;
-                }
-                catch
-                {
-                    return -1;
-                }
-            }
-        }
+        
+        
         int mouseX = 0;
         int mouseY = 0;
         private void Artist_Leave(object sender, EventArgs e)
@@ -3579,7 +3608,7 @@ namespace Board
                             if (mouseX >= Bounds.Left && mouseX <= Bounds.Width + Bounds.Left && mouseY >= Bounds.Top && mouseY <= Bounds.Top + Bounds.Height)
                             {
 
-                                CurrentView.Content.PlayItem(_Element, i, currentSection);
+                                CurrentView.Content.PlayItem(_Element, i, CurrentSection);
                                    
                                
                             }
@@ -4096,26 +4125,7 @@ namespace Board
            
         }
 
-        /// <summary>
-        /// Updates the scrollbar
-        /// </summary>
-        private void AssertScroll()
-        {
-            if (this.ScrollBarY != null)
-            {
-                if (this.TotalHeight - this.Height == 0)
-                {
-                    ScrollBarY.Position = 0;
-                    ScrollBarY.ThumbHeight = 0;
-                    ScrollBarY.Hide();
-                    return;
-                }
-                ScrollBarY.Show();
-                ScrollBarY.Position = ((float)this.scrollY / ((float)this.TotalHeight - (float)this.Height));
-                ScrollBarY.ThumbHeight = ((float)this.Height / (float)this.TotalHeight);
-
-            }
-        }
+        
         private void DrawBoard_SizeChanged(object sender, EventArgs e)
         {
             AssertScroll();

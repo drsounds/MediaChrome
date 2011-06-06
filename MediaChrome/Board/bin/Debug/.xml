@@ -4,6 +4,67 @@
         <name>Board</name>
     </assembly>
     <members>
+        <member name="T:Board.Skin">
+            <summary>
+            Skin architecture.
+            </summary>
+        </member>
+        <member name="M:Board.Skin.#ctor(System.String)">
+            <summary>
+            Loads an skin from the defined file
+            </summary>
+            <param name="File">file name of the xml skin</param>
+        </member>
+        <member name="F:Board.Skin.components">
+            <summary>
+            List of components
+            </summary>
+        </member>
+        <member name="T:Board.ComponentCollection">
+            <summary>
+            Defines an collection of components
+            </summary>
+        </member>
+        <member name="T:Board.Component">
+            <summary>
+            An component to skin
+            </summary>
+        </member>
+        <member name="F:Board.Component.Rel">
+            <summary>
+            The component to skin (an control or element)
+            </summary>
+        </member>
+        <member name="P:Board.Component.Parent">
+            <summary>
+            Gets or sets the parent skin
+            </summary>
+        </member>
+        <member name="P:Board.Component.Enabled">
+            <summary>
+            Gets or sets whether the part of the skin is enabled
+            </summary>
+        </member>
+        <member name="P:Board.Component.fontFamily">
+            <summary>
+            Family of font
+            </summary>
+        </member>
+        <member name="P:Board.Component.fontSize">
+            <summary>
+            Font size
+            </summary>
+        </member>
+        <member name="P:Board.Component.Font">
+            <summary>
+            Gets the font
+            </summary>
+        </member>
+        <member name="P:Board.Component.Skin">
+            <summary>
+            Skin component
+            </summary>
+        </member>
         <member name="T:Board.CListView">
             <summary>
             Description of CListView.
@@ -384,6 +445,18 @@
             Description of MainForm.
             </summary>
         </member>
+        <member name="M:Board.Spofity.GoBack">
+            <summary>
+            Goback an section
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Board.Spofity.GoForward">
+            <summary>
+            Go forward an sectionn
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Board.Spofity.PlayItem(Board.Element,System.Int32,System.Int32)">
             <summary>
             Play an item
@@ -566,6 +639,16 @@
             <param name="engine"></param>
             <param name="pretemplate">The mako syntaxed template. Used for recurring updates</param>
         </member>
+        <member name="P:Board.Spofity.HistorySections">
+            <summary>
+            History of section
+            </summary>
+        </member>
+        <member name="P:Board.Spofity.ForwardSections">
+            <summary>
+            History of forward sections
+            </summary>
+        </member>
         <member name="E:Board.Spofity.MakoGeneration">
             <summary>
             Occurs when the mako template engine has been init
@@ -681,6 +764,11 @@
             Element class.
             </summary>
         </member>
+        <member name="M:Board.Section.AssertScroll">
+            <summary>
+            Updates the scrollbar
+            </summary>
+        </member>
         <member name="M:Board.Section.RebuildList">
             <summary>
             Rebuilds the collection
@@ -706,6 +794,22 @@
             </summary>
             <param name="d"></param>
             <param name="X"></param>
+        </member>
+        <member name="P:Board.Section.ItemOffset">
+            <summary>
+            Gets the difference between the total height of 
+            the elements and the height of the visible boundary
+            </summary>
+        </member>
+        <member name="P:Board.Section.TotalHeight">
+            <summary>
+            This function calculates the scrol offset of items. Returns -1 if there is an problem
+            </summary>
+        </member>
+        <member name="P:Board.Section.ScrollY">
+            <summary>
+            ScrollY
+            </summary>
         </member>
         <member name="P:Board.Section.Flow">
             <summary>
@@ -1332,11 +1436,6 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="M:Board.DrawBoard.AssertScroll">
-            <summary>
-            Updates the scrollbar
-            </summary>
-        </member>
         <member name="P:Board.DrawBoard.SelectionBg">
             <summary>
             Selection background color
@@ -1404,6 +1503,11 @@
             </summary>
         </member>
         <member name="P:Board.DrawBoard.currentSection">
+            <summary>
+            Current section on the specific view without interfering with history
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.CurrentSection">
             <summary>
             Current section on the specific view
             </summary>
@@ -1533,17 +1637,6 @@
         <member name="P:Board.DrawBoard.GrabbedElements">
             <summary>
             Element grabbed for drag'n drop
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.TotalHeight">
-            <summary>
-            This function calculates the scrol offset of items. Returns -1 if there is an problem
-            </summary>
-        </member>
-        <member name="P:Board.DrawBoard.ItemOffset">
-            <summary>
-            Gets the difference between the total height of 
-            the elements and the height of the visible boundary
             </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "P:Board.DrawBoard.Entries" -->
@@ -1784,67 +1877,6 @@
             </summary>
             <param name="functionName">The desired alias for the function at script level</param>
             <param name="functionPointer">The delegate for the function to use at script</param>
-        </member>
-        <member name="T:Board.Skin">
-            <summary>
-            Skin architecture.
-            </summary>
-        </member>
-        <member name="M:Board.Skin.#ctor(System.String)">
-            <summary>
-            Loads an skin from the defined file
-            </summary>
-            <param name="File">file name of the xml skin</param>
-        </member>
-        <member name="F:Board.Skin.components">
-            <summary>
-            List of components
-            </summary>
-        </member>
-        <member name="T:Board.ComponentCollection">
-            <summary>
-            Defines an collection of components
-            </summary>
-        </member>
-        <member name="T:Board.Component">
-            <summary>
-            An component to skin
-            </summary>
-        </member>
-        <member name="F:Board.Component.Rel">
-            <summary>
-            The component to skin (an control or element)
-            </summary>
-        </member>
-        <member name="P:Board.Component.Parent">
-            <summary>
-            Gets or sets the parent skin
-            </summary>
-        </member>
-        <member name="P:Board.Component.Enabled">
-            <summary>
-            Gets or sets whether the part of the skin is enabled
-            </summary>
-        </member>
-        <member name="P:Board.Component.fontFamily">
-            <summary>
-            Family of font
-            </summary>
-        </member>
-        <member name="P:Board.Component.fontSize">
-            <summary>
-            Font size
-            </summary>
-        </member>
-        <member name="P:Board.Component.Font">
-            <summary>
-            Gets the font
-            </summary>
-        </member>
-        <member name="P:Board.Component.Skin">
-            <summary>
-            Skin component
-            </summary>
         </member>
     </members>
 </doc>

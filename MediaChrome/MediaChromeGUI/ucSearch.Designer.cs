@@ -50,7 +50,7 @@
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.BackgroundImage = global::MediaChrome.Properties.Resources.searchbtn;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel1.Location = new System.Drawing.Point(143, 3);
+            this.panel1.Location = new System.Drawing.Point(143, 7);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(21, 19);
             this.panel1.TabIndex = 3;
