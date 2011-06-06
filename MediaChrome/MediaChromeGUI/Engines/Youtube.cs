@@ -26,6 +26,7 @@ namespace MediaChrome
 	/// </summary>
 	public class Youtube : MediaChrome.IPlayEngine
     {
+        public bool Paused { get; set; }
         public Song ConvertSongFromLink(String URI)
         {
             throw new NotImplementedException();

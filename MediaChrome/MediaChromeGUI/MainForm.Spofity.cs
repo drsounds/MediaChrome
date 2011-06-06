@@ -77,7 +77,7 @@ namespace MediaChrome
             while (DR.Read())
             {
                 MediaChrome.Song LF = new MediaChrome.Song();
-                LF.Title = (String)DR["title"];
+                LF.Title = (String)DR["name"];
                 LF.Artist = (String)DR["artist"];
                 LF.AlbumName = (String)DR["album"];
                 LF.Path = (String)DR["path"];

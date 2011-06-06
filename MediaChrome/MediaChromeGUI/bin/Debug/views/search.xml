@@ -26,7 +26,7 @@ var local_content = queryLocalFiles("SELECT * FROM song WHERE artist LIKE '%"+pa
 
 for(var i=0; i < local_content.Count; i++){ var local_song=local_content[i];
 ?> 
-	<entry left="0" width="-1" top="@TOP" height="18" color_artist="#dddddd" color_album="#dddddd" title="@{local_song.Title}"   artist="@{local_song.Artist}" album="@{local_song.Album.Name}" uri="@{local_song.Path}"/>
+	<entry left="0" width="-1" top="@TOP" height="18" title="@{local_song.Title}"   artist="@{local_song.Artist}" album="@{local_song.Album.Name}" uri="@{local_song.Path}"/>
 <?
 }
 

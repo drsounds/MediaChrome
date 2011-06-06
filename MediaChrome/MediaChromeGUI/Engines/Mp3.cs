@@ -24,6 +24,7 @@ namespace MediaChrome
 	/// </summary>
 	public class MP3Player : IPlayEngine
     {
+        public bool Paused { get; set; }
         public Song ConvertSongFromLink(String URI)
         {
             // TODO: Read IDV3 Tags
@@ -378,6 +379,7 @@ namespace MediaChrome
 		void player_PositionChange(double oldPosition, double newPosition)
 		{
             position = (int)newPosition;
+    
             if(newPosition >= player.currentMedia.duration-3)
 			{
 				player.stop();
@@ -393,17 +395,19 @@ namespace MediaChrome
 		}
 		public void Play()
 		{
-
+            this.Paused = false;
 			player.play();
             Status = "Playing... '" + player.currentItem.getItemInfo("title")+"'";
 		}
 		public void Pause()
 		{
 			player.pause();
+            this.Paused = true;
 		}
 		public void Stop()
 		{
 			player.stop();
+            this.Paused = false;
 		}
 		public void Seek()
 		{

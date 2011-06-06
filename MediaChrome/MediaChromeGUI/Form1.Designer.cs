@@ -46,15 +46,16 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.panel1 = new MediaChrome.ExPanel();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.eToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.timer3 = new System.Windows.Forms.Timer(this.components);
+            this.timer4 = new System.Windows.Forms.Timer(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.panel3 = new MediaChrome.ExPanel();
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
             this.listViewX1 = new MediaChrome.XListView();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel4 = new MediaChrome.ExPanel();
             this.ucPosBar1 = new webclassprototype.ucPosBar();
             this.cBtn2 = new MediaChrome.cBtn();
@@ -63,7 +64,9 @@
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new MediaChrome.ExPanel();
             this.pane5 = new MediaChrome.ExPanel();
+            this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new MediaChrome.ExPanel();
             this.label4 = new System.Windows.Forms.Label();
@@ -78,7 +81,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -178,15 +180,6 @@
             // 
             this.columnHeader5.Text = "Album";
             // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 86);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(2, 314);
-            this.panel1.TabIndex = 20;
-            // 
             // contextMenuStrip2
             // 
             this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -210,6 +203,28 @@
             this.timer2.Enabled = true;
             this.timer2.Interval = 1000;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // timer3
+            // 
+            this.timer3.Enabled = true;
+            this.timer3.Tick += new System.EventHandler(this.timer3_Tick_1);
+            // 
+            // timer4
+            // 
+            this.timer4.Enabled = true;
+            this.timer4.Tick += new System.EventHandler(this.timer4_Tick_1);
+            // 
+            // button1
+            // 
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.button1.Location = new System.Drawing.Point(591, 16);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click_3);
             // 
             // panel3
             // 
@@ -245,18 +260,6 @@
             this.listViewX1.UseCompatibleStateImageBehavior = false;
             this.listViewX1.View = System.Windows.Forms.View.Details;
             this.listViewX1.Visible = false;
-            // 
-            // button1
-            // 
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(591, 16);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click_3);
             // 
             // panel4
             // 
@@ -326,6 +329,7 @@
             this.cBtn8.Size = new System.Drawing.Size(37, 37);
             this.cBtn8.TabIndex = 10;
             this.cBtn8.Load += new System.EventHandler(this.cBtn8_Load_1);
+            this.cBtn8.Click += new System.EventHandler(this.cBtn8_Click_2);
             // 
             // menuStrip2
             // 
@@ -354,10 +358,20 @@
             this.toolStripMenuItem5.Size = new System.Drawing.Size(136, 22);
             this.toolStripMenuItem5.Text = "Filter";
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel1.Location = new System.Drawing.Point(0, 86);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(2, 314);
+            this.panel1.TabIndex = 20;
+            // 
             // pane5
             // 
             this.pane5.BackColor = System.Drawing.Color.LightGray;
-            this.pane5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pane5.BackgroundImage")));
+            this.pane5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pane5.Controls.Add(this.label5);
             this.pane5.Controls.Add(this.label2);
             this.pane5.Dock = System.Windows.Forms.DockStyle.Top;
             this.pane5.Location = new System.Drawing.Point(0, 53);
@@ -366,12 +380,26 @@
             this.pane5.TabIndex = 14;
             this.pane5.Visible = false;
             // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Location = new System.Drawing.Point(1045, 2);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(30, 30);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "X";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(36, 9);
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(43, 6);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(31, 13);
+            this.label2.Size = new System.Drawing.Size(41, 20);
             this.label2.TabIndex = 0;
             this.label2.Text = "Error";
             // 
@@ -547,11 +575,6 @@
             this.filterToolStripMenuItem.Text = "Filter";
             this.filterToolStripMenuItem.Click += new System.EventHandler(this.filterToolStripMenuItem_Click);
             // 
-            // timer3
-            // 
-            this.timer3.Enabled = true;
-            this.timer3.Tick += new System.EventHandler(this.timer3_Tick_1);
-            // 
             // Form1
             // 
             this.AcceptButton = this.button1;
@@ -653,6 +676,8 @@
         private System.Windows.Forms.Label label4;
         private cBtn cBtn5;
         private System.Windows.Forms.Timer timer3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Timer timer4;
 
     }
 }

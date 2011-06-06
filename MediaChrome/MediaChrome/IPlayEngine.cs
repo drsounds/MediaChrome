@@ -453,6 +453,10 @@ namespace MediaChrome
 	public interface IPlayEngine
 	{
         /// <summary>
+        /// Gets or sets if the player has paused the current media
+        /// </summary>
+        bool Paused { get; set; }
+        /// <summary>
         /// Convert an URI to an instance of Song Object. Used in conjunction with AudioSignature
         /// </summary>
         /// <param name="URI">The resource URI</param>

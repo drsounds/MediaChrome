@@ -11,6 +11,7 @@ using SdlDotNet.Core;
 using SdlDotNet;
 using System.Collections;
 using System.Drawing;
+using System.ComponentModel;
 namespace Board
 {
     
@@ -1484,10 +1485,11 @@ namespace Board
 
                         // set section as an list (show listheaders) if list attribute exists
                         _Section.List = iSection.HasAttribute("list");
-
+                        _Section.Flow = iSection.HasAttribute("flow");
+                        _Section.Alternating = !iSection.HasAttribute("noalt");
                         // Render element sections
                         _Section = RenderSection(_Section, iSection);
-                        
+                        _Section.Header = !iSection.HasAttribute("noheader");
                         /**
                          * Set column headers by the column element is defined, define all columnheaders
                          * */
@@ -1708,6 +1710,39 @@ namespace Board
     /// </summary>
 	public class Section
 	{
+        private int flowHeight = 120;
+        public int FlowHeight
+        {
+            get
+            {
+                return flowHeight;
+            }
+            set
+            {
+                flowHeight = value;
+            }
+        }
+        private bool header = true;
+        public bool Header
+        {
+            get
+            {
+                return header;
+            }
+            set
+            {
+                header = value;
+            }
+        }
+        private bool alternating = true;
+        public bool Alternating
+        {
+            get
+            {
+                return alternating;
+            }
+            set { alternating = value; }
+        }
         /// <summary>
         /// Gets the difference between the total height of 
         /// the elements and the height of the visible boundary
@@ -1835,6 +1870,21 @@ namespace Board
         /// Gets or sets whether the entries in the view can be reordered.
         /// </summary>
         public bool Reorder { get; set; }
+
+        private bool locked = true;
+     
+        /// <summary>
+        /// Gets or sets if the view are locked for edit.
+        /// </summary>
+        [DefaultValue(true)]
+        public bool Locked
+        {
+            get
+            {
+                return locked;
+            }
+            set{locked=value; }
+        }
         /// <summary>
         /// In order to be able to use filter, an instance of an inherited class will assert the filtered query
         /// </summary>
@@ -2417,6 +2467,12 @@ namespace Board
         /// </summary>
         public void AssertBounds(bool copy)
         {
+            /**
+        * If the current section is an flow, do 
+        * not show the entry
+        * */
+            if (this.ParentSection.Flow && this.Entry)
+                return;
             if (this.GetAttribute("noelm") != "")
                 return;
                 

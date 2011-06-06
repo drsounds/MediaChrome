@@ -120,7 +120,10 @@ namespace MediaChrome
 
         private void ShowMessage(string p)
         {
-            MessageBox.Show("None of your music service could play this song");
+           // MessageBox.Show("None of your music service could play this song");
+        //    pane5.Show();
+          //  textBox1.Text = p;
+            ErrorMessage = p;
         }
 
         /// <summary>
@@ -337,12 +340,14 @@ namespace MediaChrome
             }
             else
             {
-                MessageBox.Show("There is no media handler for the media");
+                ShowMessage("There is no media handler for the media");
             }
             return true;
         }
         #endregion
 
+
+        
         /// <summary>
         /// Notifies the user that an new song are playing
         /// </summary>
@@ -369,21 +374,25 @@ namespace MediaChrome
                     this.pictureBox1.BackgroundImage = currentPlayer.Icon;
                 
                 // Get current section
-                Board.Section section = this.playlistView.CurrentView.Content.View.Sections[0];
-                section.Elements.Clear();
-                section.ptop = 0;
+                Board.Section section = this.treeview.CurrentView.Content.View.Sections[0];
+               
+                this.treeview.Navigate("spotify:menu:1", "spotify", "views");
+                section.ptop = 120; 
+              
                 try
                 {
                     // Append playlists to the section view
                     foreach (MediaChrome.Views.Playlist d in currentPlayer.Playlists)
                     {
-                        Board.Element elm = new Board.Element(section, playlistView);
+                        Board.Element elm = new Board.Element(section, treeview);
                         elm.SetAttribute("type", "entry");
-                        elm.Height = 16;
+                    
                         elm.SetAttribute("height", "16");
+                        elm.SetAttribute("top", "@TOP");
                         elm.SetAttribute("title", d.Title);
                         elm.SetAttribute("href", d.ID);
                         elm.Tag = (object)d;
+                    
                         section.AddElement(elm, section.Parent);
 
                         /**
@@ -654,11 +663,13 @@ namespace MediaChrome
                 // Set skin attributes
                 Panel header = panel2;
                 Panel footer = panel4;
+                Panel panelt = pane5;
                 skin.SkinControl((Control)header, "Header");
                 skin.SkinControl((Control)footer, "Footer");
+                skin.SkinControl((Control)panelt, "ErrorBar");
                 board.Skin = skin;
                 treeview.Skin = skin;
-                playlistView.Skin = skin;
+            
             }
         }
         /// <summary>
@@ -667,12 +678,11 @@ namespace MediaChrome
         /// 
       
         bool splitting1 = false;
-        public Board.DrawBoard playlistView;
         bool splitting2 = false;
-        Panel splitter2;
+       
         private void Form1_Load(object sender, EventArgs e)
         {
-           
+          
           
          
 
@@ -685,11 +695,11 @@ namespace MediaChrome
             scrollBar2.Dock = DockStyle.Right;
             scrollBar1.Dock = DockStyle.Left;
             splitter1 = new Panel();
-            splitter2 = new Panel();
+     /*       splitter2 = new Panel();
             splitter2.Width = 2;
             splitter2.BackColor = Color.Black;
             splitter2.MouseMove += new MouseEventHandler(splitter2_MouseMove);
-            splitter2.MouseDown += new MouseEventHandler(splitter2_MouseDown);
+            splitter2.MouseDown += new MouseEventHandler(splitter2_MouseDown);*/
             // Width of sidebar
             int treeViewWidth = 220;
             // Create treeview
@@ -701,16 +711,16 @@ namespace MediaChrome
             this.panel3.Controls.Add(board);
             scrollBar2.Host = board;
             this.board.ScrollBarY = scrollBar2;
-            playlistView = new Board.DrawBoard();
-            playlistView.Dock = DockStyle.Right;
-            this.panel3.Controls.Add(splitter2);
-            splitter2.Dock = DockStyle.Right;
-            this.panel3.Controls.Add(playlistView);
-            playlistView.Width = 500;
-            playlistView.Navigate("mediachrome:playlists:d", "mediachrome", "views");
-            playlistView.ItemClicked += new Board.DrawBoard.ItemClick(playlistView_ItemClicked);
-            playlistView.MouseMove += new MouseEventHandler(playlistView_MouseMove);
-            playlistView.DropElement += new Board.DrawBoard.ElementDragEventHandler(playlistView_DropElement);
+   //         playlistView = new Board.DrawBoard();
+     //       playlistView.Dock = DockStyle.Right;
+      //      this.panel3.Controls.Add(splitter2);
+        //    splitter2.Dock = DockStyle.Right;
+          //  this.panel3.Controls.Add(playlistView);
+       //     playlistView.Width = 500;
+         //   playlistView.Navigate("mediachrome:playlists:d", "mediachrome", "views");
+          //  playlistView.ItemClicked += new Board.DrawBoard.ItemClick(playlistView_ItemClicked);
+           // playlistView.MouseMove += new MouseEventHandler(playlistView_MouseMove);
+           // playlistView.DropElement += new Board.DrawBoard.ElementDragEventHandler(playlistView_DropElement);
             
          board.Click += new EventHandler(board_Click);
             board.LinkClick += new Board.DrawBoard.LinkClicked(board_LinkClick);
@@ -763,7 +773,7 @@ namespace MediaChrome
             this.board.Navigating += new Board.DrawBoard.NavigateEventHandler(board_Navigating);
             // assign makogeneration initialization code
             this.board.MakoGeneration += new Board.DrawBoard.MakoCreateEventHandler(board_MakoGeneration);
-            playlistView.DragOverElement += new Board.DrawBoard.ElementDragEventHandler(playlistView_DragOverElement);
+     //       playlistView.DragOverElement += new Board.DrawBoard.ElementDragEventHandler(playlistView_DragOverElement);
 
             // Set image download event handler
             board.BeginDownloadImage += new Board.DrawBoard.ImageDownloadEventHandler(board_BeginDownloadImage);
@@ -784,9 +794,20 @@ namespace MediaChrome
            /***
             * Assign the Spotify skin to this application
             * */
-            this.Skin = new Board.Skin(Settings.Default.Skin);
+            this.Skin = new Board.Skin(String.Format("skins\\{0}\\{0}.xml", Settings.Default.Skin));
+            board.InvalidView += new Board.DrawBoard.ViewErrorEventHandler(board_InvalidView);
            
            
+        }
+        private string errorMessage;
+        public String ErrorMessage
+        {
+            get;
+            set;
+        }
+        void board_InvalidView(object sender, Board.DrawBoard.ViewErrorArgs e)
+        {
+            ErrorMessage = e.Message;
         }
 
         void playlistView_DragOverElement(object sender, Board.DrawBoard.ElementDragEventArgs e)
@@ -883,20 +904,12 @@ namespace MediaChrome
 
         void playlistView_MouseMove(object sender, MouseEventArgs e)
         {
-            if (splitting2)
-            {
-                board.Width = (e.X + playlistView.ClientRectangle.Left) - board.ClientRectangle.Left;
-                playlistView.Width = (this.Width - board.ClientRectangle.Right) - board.Width - splitter2.Width;
-            }
+          
         }
 
         void splitter2_MouseMove(object sender, MouseEventArgs e)
         {
-            if (splitting2)
-            {
-                board.Width = (e.X + splitter2.ClientRectangle.Left) - board.ClientRectangle.Left;
-                playlistView.Width = (this.Width - board.ClientRectangle.Right) - board.Width - splitter2.Width;
-            }
+           
         }
 
         void splitter2_MouseDown(object sender, MouseEventArgs e)
@@ -1488,17 +1501,21 @@ namespace MediaChrome
             if (splitting1)
             {
                 treeview.Width = e.X + treeview.Width;
+            
+              
             } if (splitting2)
             {
                 board.Width = e.X - board.ClientRectangle.Left;
-                playlistView.Width = (this.Width - board.ClientRectangle.Right) - board.Width - splitter2.Width;
             }
         }
 
         void treeview_MouseMove(object sender, MouseEventArgs e)
         {
-            if(splitting1)
-            treeview.Width = e.X ;
+            if (splitting1)
+            {
+                treeview.Width = e.X;
+                board.Dock = DockStyle.Fill;
+            }
         }
 
         void splitter1_MouseMove(object sender, MouseEventArgs e)
@@ -2857,11 +2874,45 @@ namespace MediaChrome
 
         private void timer3_Tick_1(object sender, EventArgs e)
         {
+           
             try
             {
-                this.ucPosBar1.Value = (float)currentPlayer.Position / (float)currentPlayer.Duration;
+                this.ucPosBar1.Maximum = (float)(float)currentPlayer.Duration;
+                this.ucPosBar1.Value = (float)currentPlayer.Position;
+                
             }
             catch { }
+        }
+
+        private void cBtn8_Click_2(object sender, EventArgs e)
+        {
+            if (currentPlayer.Paused)
+            {
+                currentPlayer.Play();
+            }
+            else
+            {
+                currentPlayer.Pause();
+            }
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+            ErrorMessage = "";
+        }
+
+        private void timer4_Tick_1(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(ErrorMessage))
+            {
+                pane5.Show();
+                label2.Text= ErrorMessage;
+            }
+            else
+            {
+                pane5.Hide();
+            }
+            
         }
 
     }

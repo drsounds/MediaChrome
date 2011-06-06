@@ -1,4 +1,13 @@
 <view>
 	<section name="Overview" flow="true">
+		<columnheader title="Title" size="10" noelm="true" />
+		<columnheader title="Artist" size="10" noelm="true" />
+		
+		<entry title="Feel the Beat" uri="music://Darude/%20/Feel the Beat" />
+		<entry title="Touch Me Feel Me" uri="music://Darude/%20/Touch Me Feel Me" />
+		<entry title="Touch Me Feel Me" uri="music://Darude/%20/Touch Me Feel Me" />
+		<entry title="Touch Me Feel Me" uri="music://Darude/%20/Touch Me Feel Me" />
+		<entry title="Touch Me Feel Me" uri="music://Darude/%20/Touch Me Feel Me" />
+		<entry title="Touch Me Feel Me" uri="music://Darude/%20/Touch Me Feel Me" />
 	</section>
 </view>

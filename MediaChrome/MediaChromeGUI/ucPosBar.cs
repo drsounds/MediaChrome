@@ -97,7 +97,10 @@ namespace webclassprototype
             e.DrawImage(Bar, new Rectangle(this.Width - this.Height, 0,this.Height , this.Height), new Rectangle(32, 0, 16, 16), GraphicsUnit.Pixel);
             float val = value > 0 ? value : 1;
             // Draw position bar
-            e.DrawImage(Thumb, val * XPart, 0, this.Height, this.Height);
+            if (!float.IsInfinity(XPart))
+            {
+                e.DrawImage(Thumb, val * XPart, 0, this.Height, this.Height);
+            }
             r.Render();
         }
         private void ucPosBar_Paint(object sender, PaintEventArgs e)
