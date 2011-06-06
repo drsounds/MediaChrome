@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<skin xmlns="http://skin.mediachrome.net/2011/skin-definition">
+	<title>Spotify skin</title>
+	<component rel="Board" BackColor="#383838" ForeColor="#EEEEEE" />
+	<component rel="Board#Alternative" BackColor="#2c2c2c" ForeColor="#aaaaaa" />
+	<component rel="Board#Selection" BackColor="#aaeeaa" ForeColor="#003300" />
+	<component rel="Board#Active" BackColor="#111111" ForeColor="#AAFFAA" />
+	<component rel="Board#Section" BackColor="#EEEEEE" ForeColor="#444444"  />
+	<component rel="Board#TextFade" BackColor="#eeeeff" ForeColor="#333388" />
+	<component rel="Header" BackColor="#aaaaaa" BackgroundImage="~\top_wall1.png" />
+	<component rel="Footer" BackColor="#aaaaaa" ForeColor="#000000" BackgroundImage="~\top_wall1.png" />
+	<component rel="Toolbar" SeparatorImage="~\tab_separator.png" BackColor="#aaaaaa" ForeCOlor="#FFFFFF" BackgroundImage="~\toolbar.png" />
+	<component rel="ActiveSection" BackColor="#aaaaaa" ForeColor="#FFFFFF" BackgroundImage="~\section.png" />
+	<component rel="ErrorBar" BackColor="#FFFFAA" ForeColor="#000000" BackgroundImage="~\top_bar_blue.png" />
+	<component rel="Toolbar#Item" BackgroundImage="~\toolbutton.png" />
+	
+	
+</skin>
