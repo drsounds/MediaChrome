@@ -572,6 +572,13 @@
             with the mediachrome framework must implement this class.
             </summary>
         </member>
+        <member name="M:MediaChrome.IPlayEngine.QueryRadio(System.String)">
+            <summary>
+            Query a radio stream.
+            </summary>
+            <param name="Query">Query specific for the service</param>
+            <returns></returns>
+        </member>
         <member name="M:MediaChrome.IPlayEngine.ConvertSongFromLink(System.String)">
             <summary>
             Convert an URI to an instance of Song Object. Used in conjunction with AudioSignature
@@ -917,6 +924,34 @@
             <param name="ID">The system id of the playlist (specific for the extension)</param>
             <param name="host">The host of the playlist (the media provider)</param>
             <param name="cache">The cache to use instead of loading an new one</param>
+        </member>
+        <member name="M:MediaChrome.WebConnection.OpenWebConnection(System.Uri)">
+            <summary>
+            Opens an web connection
+            </summary>
+            <param name="Url"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MediaChrome.SocialNetworking.IScrobbler">
+            <summary>
+            Scrobble to an network
+            </summary>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.IScrobbler.Initialize">
+            <summary>
+            Called on initialization
+            </summary>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.IScrobbler.Scrobble(MediaChrome.Song,System.String,System.String)">
+            <summary>
+            Scrobble the current song
+            </summary>
+            <param name="song"></param>
+        </member>
+        <member name="T:MediaChrome.SocialNetworking.LastFM">
+            <summary>
+            LastFM scrobbler
+            </summary>
         </member>
     </members>
 </doc>

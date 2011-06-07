@@ -249,9 +249,23 @@ namespace MediaChrome.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap kan11 {
+            get {
+                object obj = ResourceManager.GetObject("kan11", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap kan2 {
             get {
                 object obj = ResourceManager.GetObject("kan2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap kan21 {
+            get {
+                object obj = ResourceManager.GetObject("kan21", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

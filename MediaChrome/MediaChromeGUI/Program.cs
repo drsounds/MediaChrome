@@ -20,7 +20,7 @@ namespace MediaChrome
         /// The main entry point for the application.
         /// </summary>
 		public static Spotify.Session SpotifySession ;
-		 public static BassPlayer player;
+		// public static BassPlayer player;
 		 	public static AutoResetEvent playbackDone = new AutoResetEvent(false);
 		private static AutoResetEvent loggedOut = new AutoResetEvent(false);
 		public static Track currentTrack = null;
@@ -45,7 +45,7 @@ namespace MediaChrome
             /**
              * Add media engines
              * */
-            MediaEngines.Add("spotify", new MediaChrome.SpotifyPlayer());
+       //     MediaEngines.Add("spotify", new MediaChrome.SpotifyPlayer());
          //   MediaEngines.Add("mp3", new MediaChrome.MP3Player());
         //   MediaEngines.Add("youtube", new MediaChrome.Youtube());
             MediaEngines.Add("mp3", new MediaChrome.MP3Player());

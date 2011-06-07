@@ -480,6 +480,13 @@ namespace Board
                     LinkClick(_Element, _Element.GetAttribute("href"));
 
             }
+            if (_Element.GetAttribute("shref") != "")
+            {
+                // If the itemclicked event are not null, raise it
+                if (LinkClick != null)
+                    LinkClick(_Element, _Element.GetAttribute("shref"));
+
+            }
             if(ItemClicked!=null)
             ItemClicked(this, !String.IsNullOrEmpty(_Element.GetAttribute("uri")) ? _Element.GetAttribute("uri") : _Element.GetAttribute("href"));
         }
@@ -1489,7 +1496,13 @@ namespace Board
             }
 
         }
-
+        /// <summary>
+        /// Play previous song
+        /// </summary>
+        public void PreviousSong()
+        {
+            GetPlayingSection().Parent.PreviousSong();
+        }
         /// <summary>
         /// Play next song
         /// </summary>
@@ -2534,7 +2547,7 @@ namespace Board
         /// <summary>
         /// Height of columnheader
         /// </summary>
-        int columnheader_height = 16;
+        int columnheader_height = 18;
         /// <summary>
         /// Method t odraw the ColumnHeaders
         /// </summary>
@@ -2559,11 +2572,15 @@ namespace Board
             // Draw headers
             foreach (KeyValuePair<String, int> column in CurSection.ColumnHeaders)
             {
-
-                p.DrawString(column.Key, new Font(FontFace, 8, FontStyle.Bold), new SolidBrush(Color.White), new Point(current_position, text_top + point.Y + 1));
-                p.DrawString(column.Key, new Font(FontFace, 8, FontStyle.Bold), new SolidBrush(Color.Black), new Point(current_position, text_top + point.Y));
+               
+                p.DrawString(column.Key, new Font(FontFace, 8, FontStyle.Bold), new SolidBrush(Color.White), new Point(current_position+10, text_top + point.Y + 1));
+                p.DrawString(column.Key, new Font(FontFace, 8, FontStyle.Bold), new SolidBrush(Color.Black), new Point(current_position+10, text_top + point.Y));
                 current_position += column.Value;
+                p.DrawLine(new Pen(Color.FromArgb(100, 100, 100)), new Point(current_position, point.Y+1), new Point(current_position, point.Y + columnheader_height-2));
+                p.DrawLine(new Pen(Color.FromArgb(240,250, 240)), new Point(current_position+1, point.Y+1), new Point(current_position+1, point.Y + columnheader_height-2));
+
             }
+            
 
         }
 
@@ -2580,6 +2597,7 @@ namespace Board
             set
             {
                 hoveredElement = value;
+                if (hoveredElement == null) return;
                 if (dragging)
                     return;
                 if (hoveredElement.GetAttribute("href") != "" )
@@ -2699,6 +2717,7 @@ namespace Board
         /// <param name="p">The graphics to draw with</param>
         public void Draw(Graphics p)
         {
+            HoveredElement = null;
             /**
              * Init graphics engine
              * */
@@ -2735,37 +2754,60 @@ namespace Board
                 int ptop = 20;
 
                 d.FillRectangle(new SolidBrush(BackColor), new Rectangle(0, 0, this.Bounds.Width, this.Bounds.Height));
-                
+
+                // found first entry
+                bool foundFirstEntry = false;
                 // Draw background image
 
                 if (this.Background != null)
                     d.DrawImage(this.Background, new Rectangle(0, 0, this.Width, this.Height));
-                /**
-                 * If the currentView isn't null begin draw all elements on the board
-                 * */
-                if (CurrentView != null)
-                    if (CurrentView.Content != null)
-                        if (CurrentView.Content.View != null)
-                            for (int i = 0; i < ViewBuffer.Count; i++)
-                            {
-                                // Calculate the view coordinates of the element
+               
+                    /**
+                     * If the currentView isn't null begin draw all elements on the board
+                     * */
+                    if (CurrentView != null)
+                        if (CurrentView.Content != null)
+                            if (CurrentView.Content.View != null)
+                                if(ViewBuffer!=null)
+                                for (int i = 0; i < ViewBuffer.Count; i++)
+                                {
+                                    // Calculate the view coordinates of the element
 
-                                Element _Element = ViewBuffer[i];
-                                Rectangle ScreenCoordinates = _Element.GetCoordinates(scrollX, scrollY, this.Bounds, 0);
-                                // Draw the element and it's children
-                                if (ScreenCoordinates.Bottom < 0 || ScreenCoordinates.Top > this.Height)
-                                    continue;
-                                int t_left = 0, t_row =  0;
-                                DrawElement(_Element, d, ref entryship, ScreenCoordinates, 3,ref t_left,ref t_row);
-
-
-
+                                    Element _Element = ViewBuffer[i];
+                                    Rectangle ScreenCoordinates = _Element.GetCoordinates(scrollX, scrollY, this.Bounds, 0);
+                                    // Draw the element and it's children
+                                    if (ScreenCoordinates.Bottom < 0 || ScreenCoordinates.Top > this.Height)
+                                        continue;
+                                    int t_left = 0, t_row = 0;
 
 
+                                    /***
+                                     * Draw zebras if in list mode and found first entry
+                                     * */
+                                    if (_Element.Entry && !foundFirstEntry && this.CurSection.List)
+                                    {
+                                        // Draw zebras
+                                        for (var x = 0; x < this.Height / columnheader_height; x++)
+                                        {
+                                            int top = ScreenCoordinates.Top + (x * columnheader_height);
+                                            if (x % 2 == 0)
+                                            {
+                                                d.FillRectangle(new SolidBrush(Alt), new Rectangle(0, top, this.Width, columnheader_height));
+                                            }
+                                        }
+                                        foundFirstEntry = true;
+                                    }
+                                    DrawElement(_Element, d, ref entryship, ScreenCoordinates, 3, ref t_left, ref t_row);
 
 
-                            }
 
+
+
+
+
+                                }
+
+               
 
 
 
@@ -2833,7 +2875,7 @@ namespace Board
                                             sectionTab = Resource1.tab;
                                         }
                                         // draw the tab bar
-                                        d.DrawImage(ActiveSection, new Rectangle(position_counter, 0, tab_width + tab_distance * 2, tabbar_height + 1));
+                                        d.DrawImage(ActiveSection, new Rectangle(position_counter, 0, tab_width + tab_distance * 2, tabbar_height + 2));
 
                                         // draw the tab background
                                         d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(ActiveSectionFG), new Point(position_counter + tab_distance, tab_text_margin / 5));
@@ -2921,11 +2963,11 @@ namespace Board
                                 // if the first entry top were above the visible coordinates draw it on the top
                                 if (bounds.Top < tabbar_height + bounds.Height)
                                 {
-                                    DrawHeaders(d, new Point(0, +tabbar_height+1));
+                                    DrawHeaders(d, new Point(0, +tabbar_height+2));
                                 }
                                 else
                                 {
-                                    DrawHeaders(d, new Point(0, bounds.Top - bounds.Height));
+                                    DrawHeaders(d, new Point(0, bounds.Top - bounds.Height+2));
                                 }
                             }
                         }
@@ -3066,11 +3108,15 @@ namespace Board
                       
                         int flowHeight = this.CurSection.FlowHeight;
                         int elmTop = this.Height - flowHeight; // Top of element (without padding)
-                        
+
                         if (mouseY >= elmTop - 1 && mouseY <= elmTop + 1)
                         {
                             this.Cursor = Cursors.HSplit;
                             this.hovered_tab = -5; // -5 is resizeflow
+                        }
+                        else
+                        {
+                            this.Cursor = Cursors.Default;
                         }
                         int padding = 20;
                         // draw background flow bar
@@ -3168,23 +3214,29 @@ namespace Board
             {
                 this.HoveredElement = _Element;
             }
-
+            if (_Element == null)
+                return;
             // Memorise the flow position
             _Element.SetAttribute("flow_pos", i.ToString());
             Color elmBg = MainForm.FadeColor(0.6f, BackColor);
             Color TextFG = ForeColor;
-            if (_Element.GetAttribute("__playing")=="true")
+            Color Fg = this.Fg;
+            if (_Element.GetAttribute("__playing") == "true")
             {
                 elmBg = SelectionBg;
                 Fg = SelectionFg;
-            
+
                 // draw entry
                 d.FillRectangle(new SolidBrush(elmBg), new Rectangle(new Point(left + padding, elmTop + padding), new Size(flowHeight - padding, flowHeight - padding * 2)));
             }
+            else
+            {
+                Fg = this.Fg;
+            }
             if (_Element.Bitmap == null)
                 _Element.Bitmap = Resource1.release;
-            DrawImage(_Element.Bitmap, new Rectangle(new Point(left + padding*2,  elmTop + padding*2), new Size(flowHeight - padding*4, flowHeight - padding * 4)), d, true);
-            d.DrawString(_Element.GetAttribute("title"), new Font("MS Sans Serif",12,FontStyle.Bold,GraphicsUnit.Pixel), new SolidBrush(Fg), new Point(left + padding, elmTop + flowHeight - padding - 10), StringFormat.GenericDefault);
+        //    DrawImage(_Element.Bitmap, new Rectangle(new Point(left + padding*2,  elmTop + padding*2), new Size(flowHeight - padding*4, flowHeight - padding * 4)), d, true);
+            d.DrawString(_Element.GetAttribute("title"), new Font("MS Sans Serif",12,FontStyle.Bold,GraphicsUnit.Pixel), new SolidBrush(Fg), new Point(left + padding, elmTop + flowHeight - padding - 50), StringFormat.GenericDefault);
 
         }
 
@@ -3198,6 +3250,8 @@ namespace Board
         
         public T GetElementFlow<T>(List<T> t, int index, int startIndex)
         {
+            if (t.Count < 1)
+                return default(T);
             
                 double count = t.Count;
                 double art = index % count;
@@ -3297,8 +3351,7 @@ namespace Board
                 return;
             }*/
 
-            masX = e.X;
-            masY = e.Y;
+           
 
           
 
@@ -3560,7 +3613,13 @@ namespace Board
         }
         private void Artist_MouseMove(object sender, MouseEventArgs e)
         {
-            
+            mouseX = e.X;
+            mouseY = e.Y;
+            if (e.Button != System.Windows.Forms.MouseButtons.Left)
+            {
+                masX = mouseX;
+                masY = mouseY;
+            }
             // If in scrolling mode, eg the scroll offset is more than -1
             /*if (scrolling > -1)
             {
@@ -3584,8 +3643,7 @@ namespace Board
                 return;
         	if(dragging)
         		return;*/
-            mouseX = e.X;
-            mouseY = e.Y;
+          
           
                 /**
                  * Drag and drop handling
@@ -3595,20 +3653,20 @@ namespace Board
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
            
-                diffX = Diff(mouseX,masX);
+                diffX = Diff(mouseX, masX);
                 diffY = Diff(mouseY, masY);
-            
-                if ((diffX > 10 || diffX < -10 ) ||( diffY < -10 ||diffY > 10))
+
+                if ((diffX > 10 || diffX < -10) || (diffY < -10 || diffY > 10))
                 {
-            	    if(!dragging)
-            	    {
+                
+                    {
                         // start dragging
                         StartDragging();
-            	    }
-            	    diffX = 0;
-                    diffY = 0;
-                    dragging=true;
+                    }
+
+                    dragging = true;
                 }
+                
             }
             int entryship = 0;
             int top = 20;
@@ -3911,12 +3969,7 @@ namespace Board
         {
             try
             {
-                // Get the element from the entries
-                Element entry = ViewBuffer[index];
-                if (entry.Type != "entry")
-                    return -1;
-                int virtualIndex = Entries.IndexOf(entry);
-                return virtualIndex;
+                return CurSection.RealIndexToEntryIndex(index);
             }
             catch
             {
@@ -3931,26 +3984,7 @@ namespace Board
         /// <param name="elements"></param>
         public void InsertEntryAt(List<Element> elements, int pos)
         {
-            // define starting index
-            int index = 0;
-            foreach (Element ct in ViewBuffer)
-            {
-                // only enumerate if the element is an type of entry
-                if (ct.Entry)
-                {
-                    // if index is as the index, insert the item
-                    if (index == pos)
-                    {
-                        // Get physical index of the item
-                        int realIndex = ViewBuffer.IndexOf(ct);
-                        // insert the collection here
-                        ViewBuffer.InsertRange(realIndex,elements);
-                        // break and return
-                        return;
-                    }
-                    index++;
-                }
-            }
+            CurSection.InsertEntryAt(elements, pos);
         }
         /// <date>2011-04-24 16:18</date>
         /// <summary>
@@ -3959,8 +3993,7 @@ namespace Board
         /// <param name="elements"></param>
         public void InsertEntryAt(Element elm, int pos)
         {
-            List<Element> elements = new List<Element>() { elm };
-            InsertEntryAt(elements, pos);
+            CurSection.InsertEntryAt(elm, pos);
         }
         void DrawBoardDragDrop(object sender, DragEventArgs e)
         {
@@ -4128,18 +4161,19 @@ namespace Board
             /***
              * Re-render the layout elements
              * */
-         /*   if(this.currentView!=null)
+            if(this.currentView!=null)
                 
                 if (this.CurrentView.Content != null)
                 {
                     Thread c = new Thread(currentView.Content.UpdateAsync);
                     c.Start();
                     
-                }*/
+                }
         }
 
         private void timer2_Tick(object sender, EventArgs e)
         {
+           
             /*if (CurrentView != null)
                 if (CurrentView.Content != null)
                 {

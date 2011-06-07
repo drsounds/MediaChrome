@@ -6,14 +6,14 @@ var user_library = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=li
 var user_recent = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&limit=200&user="+parameter+"&api_key=b25b959554ed76058ac220b7b2e0a026");
 var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.getinfo&user="+parameter+"&api_key=b25b959554ed76058ac220b7b2e0a026");
 ?>
-<view>
-	<section  name="Overview">
-			<columnheader noelm="true" name=" " size="20" />
-			<columnheader noelm="true" name="Date" size="120" />
-			<columnheader noelm="true" name="Title" size="320" />
-			<columnheader noelm="true" name="Artist" size="320" />
-			<columnheader noelm="true" name="User" size="320" />
-		<!-- Header image -->
+<view xmlns="http://mediachrome/2011/view"> 
+	<section name="Overview">
+		<columnheader noelm="true" name=" " size="20" />
+		<columnheader noelm="true" name="Date" size="120" />
+		<columnheader noelm="true" name="Title" size="320" />
+		<columnheader noelm="true" name="Artist" size="320" />
+		<columnheader noelm="true" name="User" size="320" />
+	<!-- Header image -->
 		<?
 		var img = user_info.GetElementsByTagName("image").Item(0).InnerText;
 		var real_name=user_info.GetElementsByTagName("realname").Item(0).InnerText;
@@ -61,7 +61,7 @@ var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.
 			var time = _track.GetElementsByTagName("date").Item(0).InnerText;
 			var user = parameter;
 		?>
-		<entry top="@TOP" width="-1"  artist_href="@{service}:artist:@{artist}" color_date="#ddddff" height="16" left="150">
+		<entry top="@TOP" width="-1"  artist_href="@{service}:artist:@{artist}" color_date="#ddddff" height="18" left="150">
 			<date noelm="true"><![CDATA[@{time}]]></date>
 			<title noelm="true"><![CDATA[@{name}]]></title>
 			<artist noelm="true"><![CDATA[@{artist}]]></artist> 
@@ -94,7 +94,7 @@ var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.
 			var time = _track.GetElementsByTagName("date").Item(0).InnerText;
 			var user = parameter;
 		?>
-		<entry color_date="#aabbaa" top="@TOP" width="-1" height="16" left="0">
+		<entry color_date="#aabbaa" top="@TOP" width="-1" height="18" left="0">
 			<date noelm="true"><![CDATA[@{time}]]></date>
 			<title noelm="true"><![CDATA[@{name}]]></title>
 			<artist noelm="true"><![CDATA[@{artist}]]></artist> 
@@ -119,7 +119,7 @@ var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.
 			var play_count = _track.GetElementsByTagName("play_count").Item(0).InnerText;
 			var user = parameter;
 		?>
-		<entry top="@TOP" width="-1" height="16" left="0">
+		<entry top="@TOP" width="-1" height="19" left="0">
 			<title noelm="true"><![CDATA[@{name}]]></title>
 			<artist noelm="true"><![CDATA[@{artist}]]></artist> 
 			<playcount noelm="true"><![CDATA[@{play_count}]]></playcount>

@@ -21,8 +21,6 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\AxIntero
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChromeGUI.csproj.ResolveComReference.cache
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.cBtn.resources
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.Engines.resources
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.Login.resources
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\Spotify.SpotifyView.resources
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.Form1.resources
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.frmVoid.resources
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.ImportLibrary.resources
@@ -42,3 +40,5 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChr
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.PlaybackNotifier.resources
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.AddPlaylist.resources
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.Preferences.resources
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\WebKitBrowser.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\WebKit.Interop.dll

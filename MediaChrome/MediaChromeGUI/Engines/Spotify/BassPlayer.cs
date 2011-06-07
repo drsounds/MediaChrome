@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using System.Xml;
 using MediaChrome.Views;
 using MediaChrome;
-using MediaChrome;
 using Spotify;
 using Un4seen.Bass;
 
@@ -20,6 +19,30 @@ namespace MediaChrome
 {
 	public class SpotifyPlayer : MediaChrome.IPlayEngine
     {
+
+        public List<Song> QueryRadio(String Query)
+        {
+            List<Song> Output = new List<Song>();
+            // Define a radio query by following:
+            // artist:{radio}
+            try
+            {
+             Spotify.Search result =  SpotifySession.SearchSync(Query, new Random().Next(0, 20), new Random().Next(0, 20), new Random().Next(0, 20), new Random().Next(0, 20), new Random().Next(0, 20), new Random().Next(0, 20), new TimeSpan(500));
+            
+                foreach(Track d in result.Tracks)
+                {
+                    Song r = TrackToSong(d);
+                    Output.Add(r);
+                }
+
+            }
+            catch
+            {
+                
+            }
+            return Output;
+        }
+
         public Song ConvertSongFromLink(String URI)
         {
             Track track = Track.CreateFromLink(Link.Create("spotify:track:" + URI.Replace("spotify:track:", "")));
@@ -596,9 +619,8 @@ namespace MediaChrome
                 while (!_Playlist.IsLoaded) { }
                 MediaChrome.Views.Playlist D = new MediaChrome.Views.Playlist(this, _Playlist.Name, _Playlist.LinkString, Host);
 
-                D.ID = _Playlist.LinkString;
+                D.ID = String.Format("spotify:playlist:{0}_{1}",_Playlist.LinkString.Split(':')[2],_Playlist.LinkString.Split(':')[4]);
                 D.Title = _Playlist.Name;
-
                 playlists.Add(D);
             }
                 playlistLoaded = true;
@@ -759,10 +781,11 @@ namespace MediaChrome
             {
                 return new MediaChrome.Views.Playlist(this, "",PlsID, this.Host);
             }
-          
+            string user = PlsID.Split('_')[0];
+            string id = PlsID.Split('_')[1];
 			List<Song> Songs = new List<Song>();
             MediaChrome.Views.Playlist PList = new MediaChrome.Views.Playlist(this, "", PlsID, this.Host);
-            Spotify.Playlist List = Spotify.Playlist.Create(SpotifySession,Link.Create(PlsID.Replace("playlist:sp:","").Trim()));
+            Spotify.Playlist List = Spotify.Playlist.Create(SpotifySession,Link.Create(String.Format("spotify:user:{0}:playlist:{1}",user,id)));
             while(List==null){}
             while (!List.IsLoaded) { }
 

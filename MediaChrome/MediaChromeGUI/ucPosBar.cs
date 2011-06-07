@@ -44,7 +44,7 @@ namespace webclassprototype
             set
             {
                 this.value = value;
-               // this.Refresh();
+               this.Refresh();
             }
         }
         public ucPosBar()

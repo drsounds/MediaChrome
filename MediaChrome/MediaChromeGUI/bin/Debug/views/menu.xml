@@ -1,12 +1,12 @@
  <view>
-	<section name="Menu"  noalt="true" noheader="true">
+	<section name="Menu"  noalt="true" noheader="true" editable="false">
 		<columnheader noelm="true" name=" " size="20" />
 		<columnheader noelm="true" name="Title" size="120" />
 	
-		<entry title="Home" width="-1" height="16" top="@TOP" href="@{service}:home:a"/>
-		<entry title="Radio" width="-1" height="16" top="@TOP" href="@{service}:radio:a"/>
-		<entry title="Local Music" width="-1" height="16" top="@TOP" href="@{service}:local:c"/>
-		<entry title="Store" width="-1" height="16" top="@TOP" href="@{service}:store:a"/>
+		<entry title="Home" width="-1" height="16" top="@TOP" shref="@{service}:home:a"/>
+		<entry title="Radio" width="-1" height="16" top="@TOP" shref="@{service}:radio:a"/>
+		<entry title="Local Music" width="-1" height="16" top="@TOP" shref="@{service}:local:c"/>
+		<entry title="Store" width="-1" height="16" top="@TOP" shref="@{service}:store:a"/>
 		<space height="30" top="@TOP"/>	
 		<divider height="30"  top="@TOP"/>
 	</section>

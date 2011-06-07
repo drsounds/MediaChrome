@@ -3,3 +3,8 @@ L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\xmlfick\bin\Debug\xmlfick.pdb
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\xmlfick\obj\x86\Debug\ResolveAssemblyReference.cache
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\xmlfick\obj\x86\Debug\xmlfick.exe
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\xmlfick\obj\x86\Debug\xmlfick.pdb
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\xmlfick\bin\Debug\xmlfick.exe
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\xmlfick\bin\Debug\xmlfick.pdb
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\xmlfick\obj\x86\Debug\ResolveAssemblyReference.cache
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\xmlfick\obj\x86\Debug\xmlfick.exe
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\xmlfick\obj\x86\Debug\xmlfick.pdb

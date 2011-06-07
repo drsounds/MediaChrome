@@ -3,18 +3,18 @@ var playlist = getPlaylist(service,parameter);
 ?>
 <view>
 	<section name="Playlist" list="true">
-		<columnheader noelm="true" name=" " size="10" />
+		<columnheader noelm="true" name=" " size="18" />
 		<columnheader noelm="true" name="Title" size="150" />
 		<columnheader noelm="true" name="Artist" size="150" />
 		<columnheader noelm="true" name="Album" size="150" />
 		<space height="18" />
-		<?
+		<?	
 		for(var i=0; i < playlist.Songs.Count; i++){ var song = playlist.Songs[i];
 		?>
 		<entry height="18" width="-1" left="0" top="@TOP">
 			<title noelm="true"><![CDATA[@{song.Title}]]></title>
 			<artist noelm="true"><![CDATA[@{song.Artist}]]></artist>
-			<album noelm="true"><![CDATA[@{song.Album}]]></album>
+			<album noelm="true"><![CDATA[@{song.Album.Name}]]></album>
 			<uri noelm="true"><![CDATA[@{song.Path}]]></uri>
 		</entry>
 		<? } ?>

@@ -453,6 +453,12 @@ namespace MediaChrome
 	public interface IPlayEngine
 	{
         /// <summary>
+        /// Query a radio stream.
+        /// </summary>
+        /// <param name="Query">Query specific for the service</param>
+        /// <returns></returns>
+        List<Song> QueryRadio(String Query);
+        /// <summary>
         /// Gets or sets if the player has paused the current media
         /// </summary>
         bool Paused { get; set; }

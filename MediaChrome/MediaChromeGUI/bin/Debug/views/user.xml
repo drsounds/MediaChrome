@@ -12,7 +12,7 @@
  suri=suri.replace(":playlist","__playlist");
  suri=suri.replace("playlist:","playlist__");
  var msglink = "http://spotiapps.krakelin.com/playlists/"+suri+".description";
- var description = synchronize_data("http://spotiapps.krakelin.com/playlists/"+suri+".description");
+ var description = synchronize_data("http://spotiapps.segorify.com/playlists/"+suri+".description");
  if(!description)
 	description=" ";
 ?>

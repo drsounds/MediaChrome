@@ -24,6 +24,10 @@ namespace MediaChrome
 	/// </summary>
 	public class MP3Player : IPlayEngine
     {
+        public List<Song> QueryRadio(String Query)
+        {
+            return new List<Song>();
+        }
         public bool Paused { get; set; }
         public Song ConvertSongFromLink(String URI)
         {
@@ -37,6 +41,7 @@ namespace MediaChrome
             d.Title = Dw.id3Title.Replace("\0","");
             d.Artist = Dw.id3Artist.Replace("\0", "");
             d.AlbumName = Dw.id3Album.Replace("\0","");
+            d.Path = String.Format("http://music/{0}/{1}/{2}", d.Artist, d.AlbumName, d.Title);
             return d;
 
            
@@ -415,7 +420,7 @@ namespace MediaChrome
 		}
 		public void Load(String URL)
 		{
-			player.URL = ("file:///"+URL.ToString());
+			player.URL = ("file:///"+URL.Replace("mp3:","").ToString());
 
             CurrentSong = new Song();
             CurrentSong.Artist = player.currentMedia.getItemInfo("artist");
@@ -592,11 +597,12 @@ namespace MediaChrome
 		{
             try
             {
-                String Path = MediaChrome.MainForm.GetURIFromSong(_Song);
-                if (File.Exists(MediaChrome.MainForm.DownloadDir + "\\" + playlistID))
+                String Path = _Song.Path;
+                string name =playlistID.Replace("mp3:playlist:","")+".pls";
+                if (File.Exists(MediaChrome.MainForm.DownloadDir + "\\" +name ))
                 {
                     List<String> Strings = new List<string>();
-                    using (StreamReader SR = new StreamReader(MediaChrome.MainForm.DownloadDir + "\\" + playlistID))
+                    using (StreamReader SR = new StreamReader(MediaChrome.MainForm.DownloadDir + "\\" + name))
                     {
                         String Line = "";
                         while ((Line = SR.ReadLine()) != null)
@@ -606,7 +612,7 @@ namespace MediaChrome
                         SR.Close();
                     }
                     Strings.Insert(pos, Path.Replace(" ","%20"));
-                    using (StreamWriter SW = new StreamWriter(MediaChrome.MainForm.DownloadDir + "\\" + playlistID))
+                    using (StreamWriter SW = new StreamWriter(MediaChrome.MainForm.DownloadDir + "\\" + name))
                     {
                         foreach (String d in Strings)
                         {

@@ -75,6 +75,41 @@
     <BaseAddress>4194304</BaseAddress>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'EXPERIMENTAL|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\EXPERIMENTAL\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <RegisterForComInterop>true</RegisterForComInterop>
+    <DebugType>Full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\debug\MediaChromeGUI.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'EXPERIMENTAL|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\EXPERIMENTAL\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <DebugType>Full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\debug\MediaChromeGUI.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bass.Net">
       <HintPath>C:\Users\Alexander\Downloads\SpotifyGUITest %281%29\SpotifyGUITest\bin\Debug\Bass.Net.dll</HintPath>
@@ -146,7 +181,6 @@
       <DependentUpon>AddPlaylist.cs</DependentUpon>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="BassPlayer.cs" />
     <Compile Include="cBtn.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -170,20 +204,6 @@
     </Compile>
     <Compile Include="ServicesSelector\Engines.designer.cs">
       <DependentUpon>Engines.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Engines\Spotify\AudioData.cs" />
-    <Compile Include="Engines\Spotify\BassPlayer.cs" />
-    <Compile Include="Engines\Spotify\Login.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Engines\Spotify\Login.designer.cs">
-      <DependentUpon>Login.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Engines\Spotify\SpotifyView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Engines\Spotify\SpotifyView.designer.cs">
-      <DependentUpon>SpotifyView.cs</DependentUpon>
     </Compile>
     <Compile Include="Engines\Youtube.cs" />
     <Compile Include="Form1.cs">
@@ -285,12 +305,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ServicesSelector\Engines.resx">
       <DependentUpon>Engines.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Engines\Spotify\Login.resx">
-      <DependentUpon>Login.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Engines\Spotify\SpotifyView.resx">
-      <DependentUpon>SpotifyView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -442,6 +456,8 @@
     <None Include="bin\Debug\imgs\separator.png" />
     <None Include="bin\Debug\imgs\stop.png" />
     <None Include="bin\Debug\imgs\update.png" />
+    <None Include="Backup\Resources\kan1.png" />
+    <None Include="Backup\Resources\kan2.png" />
     <Content Include="NAudio.dll" />
     <Content Include="Properties\NAudio.dll" />
   </ItemGroup>

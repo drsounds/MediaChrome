@@ -18,6 +18,10 @@ namespace Board
 [Serializable]
   	public class Spofity
 	{
+        /// <summary>
+        /// Gets or sets if the view is live
+        /// </summary>
+        public bool Live { get; set; }
     private Stack<int> historySections;
     private Stack<int> forwardSections;
     /// <summary>
@@ -126,7 +130,11 @@ namespace Board
                 return Engine.RuntimeMachine;
             }
         }
+        public void synchronizeContent(object section)
+        {
+            Engine.Execute("event_flow_update()");
 
+        }
         /// <summary>
         /// The instance of the makoEngine that rendered the view.
         /// </summary>
@@ -137,6 +145,15 @@ namespace Board
         /// <param name="item"></param>
         public void PlayItem(Element item,int Position,int section)
         {
+            /**
+             * If view is flow, begin sync new content
+             * */
+            if (View.Sections[CurrentSection].Flow)
+            {
+                // Request download of new elements
+                Thread d = new Thread(synchronizeContent);
+                d.Start();
+            }
             Playlist = new Queue<Element>();
             // Get the list of elements
             List<Element> elements = this.View.Sections[section].Elements;
@@ -334,6 +351,17 @@ namespace Board
             
             return null;
         }
+
+        /// <summary>
+        /// Set item after current playing as next song.
+        /// </summary>
+        public void PreviousSong()
+        {
+
+            // Raise the playback event again
+            GetPlayingSection().PlayIndex--;
+        }
+
         /// <summary>
         /// Set item after current playing as next song.
         /// </summary>
@@ -701,7 +729,7 @@ namespace Board
         /// </summary>
         public object __commit_changes()
         {
-            Render();
+            Render(this.LayoutElements);
             return null;
         }
         #endregion
@@ -1262,11 +1290,165 @@ namespace Board
         /// <summary>
         /// Render the layoutElements into real elements
         /// </summary>
-        public void Render()
+        public void Render(XmlDocument d)
         {
             try
             {
+           
+              
 
+                // Set the xmlHashCode to the xmldocument's instance so it won't be any collision
+                this.xmlHashCode = d.GetHashCode();
+                // Set this layoutelements to the xmldocument loaded
+                this.LayoutElements = d;
+
+                // Create new ghost view
+                View c = new View();
+                this.Live = d.DocumentElement.HasAttribute("live"); 
+                // iterate through all sections of the page
+                XmlNodeList Sections = d.GetElementsByTagName("section");
+                foreach (XmlElement iSection in Sections)
+                {
+
+                    // If the section element not has the root element as parent skip it
+                    if (iSection.ParentNode.Name != "view")
+                        continue;
+                    // Create new section
+                    Section _Section = new Section(this);
+
+                    // Set the section's reorder mode
+                    if (iSection.HasAttribute("reorder"))
+                        if (iSection.GetAttribute("reorder") == "true")
+                            _Section.Reorder = true;
+
+                    // Append nowplaying handler
+                    _Section.PlaybackItemChanged += new ElementPlaybackStarted(_Section_PlaybackItemChanged);
+
+                    // set section name
+                    _Section.Name = iSection.GetAttribute("name");
+
+                    // set section as an list (show listheaders) if list attribute exists
+                    _Section.List = iSection.HasAttribute("list");
+                    _Section.Flow = iSection.HasAttribute("flow");
+                    _Section.Alternating = !iSection.HasAttribute("noalt");
+                    _Section.Locked = !iSection.HasAttribute("editable");
+                    // Render element sections
+                    _Section = RenderSection(_Section, iSection);
+                    _Section.Header = !iSection.HasAttribute("noheader");
+
+                    
+                    /**
+                     * Set column headers by the column element is defined, define all columnheaders
+                     * */
+
+                    XmlNodeList Columns = iSection.GetElementsByTagName("columnheader");
+
+                    // If the column count is above zero, clear the default set of column headers
+                    // and use from the new list
+                    if (Columns.Count > 0)
+                        _Section.ColumnHeaders = new Dictionary<string, int>();
+
+
+                    foreach (XmlElement ColumnHeader in Columns)
+                    {
+                        try
+                        {
+                            _Section.ColumnHeaders.Add(ColumnHeader.GetAttribute("name"), int.Parse(ColumnHeader.GetAttribute("size")));
+                        }
+                        catch
+                        {
+                        }
+                    }
+
+                    c.Sections.Add(_Section);
+                    _Section.ptop = 20;
+                    if(this.View!=null)
+                        if(this.View.Sections!=null)
+                    // Merge properties of all entries from old view to the new
+                    foreach (Section _section1 in this.View.Sections)
+                    {
+                        foreach (Element er in _section1.Entries)
+                        {
+                            foreach (Section newSection in c.Sections)
+                            {
+                                
+                                foreach (Element newElement in newSection.Entries)
+                                {
+                                    /***
+                                     * Copy all attribute states on the old elements to the new one
+                                      **/
+                                    if (newElement.GetAttribute("uri") == er.GetAttribute("uri"))
+                                    {
+                                        if (er.GetAttribute("__playing") == "true")
+                                        {
+                                            newElement.SetAttribute("__playing", "true");
+                                        }
+                                        if (er.Selected)
+                                        {
+                                            newElement.SetAttribute("__selected", "true");
+                                            newElement.Selected = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    this.View = c;
+
+
+                }
+
+                /***
+                 * 2011-04-23 23:03
+                 * Load toolbar
+                 * */
+                XmlNodeList toolItems = d.GetElementsByTagName("toolbar");
+
+                // If the toolbar has elements inflate them
+                if (toolItems.Count > 0)
+                {
+                    XmlNodeList ToolItems = ((XmlElement)toolItems[0]).GetElementsByTagName("item");
+
+                    // Extract all items
+                    foreach (XmlElement item in ToolItems)
+                    {
+                        if (item.GetType() == typeof(XmlElement))
+                        {
+                            XmlElement Item = (XmlElement)item;
+
+                            // dummy toolsection
+                            Section toolSection = new Section(this);
+                            Element _Item = new Element(toolSection, this.ParentBoard);
+
+                            // set item type according to tag name
+                            _Item.Type = Item.Name;
+
+                            // Attach the element's attributes
+                            AppendElementAttributes(ref _Item, item);
+
+                            // if the item has the type menu inflate it's menuitems
+                            if (_Item.GetAttribute("type") == "menu")
+                            {
+                                XmlNodeList MenuItems = item.GetElementsByTagName("menuitem");
+                                foreach (XmlElement menuItem in MenuItems)
+                                {
+                                    Element _menuItem = new Element(toolSection, this.ParentBoard);
+                                    _menuItem.Type = "menuitem";
+                                    // Append xml attributes
+                                    AppendElementAttributes(ref _menuItem, menuItem);
+                                    _Item.Elements.Add(_menuItem);
+                                }
+
+                            }
+
+                            // add the item to the menubar
+                            this.view.Toolbar.Items.Add(_Item);
+
+
+                        }
+                    }
+                }
+#if(nobug)
                 // Reset the ptop
                
                 // Clear current buffer 
@@ -1275,6 +1457,7 @@ namespace Board
 
                 // Create xml document
                 XmlDocument d = this.LayoutElements;
+
                 if (d == null)
                     return;
                 this.View = new View();
@@ -1311,6 +1494,8 @@ namespace Board
 
                 SetScriptFunctionality();
                 LoadData();
+#endif
+           
             }
             catch
             {
@@ -1349,8 +1534,14 @@ namespace Board
         /// </summary>
         public void UpdateAsync()
         {
-           
-#if (EXPERIMENTAL)
+            /***
+             * If the view is not auto-updating disable it completely
+             * */
+            if (!this.Live)
+            {
+                return;
+            }
+
            
             /**
              * Preprocess the page again
@@ -1363,16 +1554,24 @@ namespace Board
              * */
             if(r != "NONCHANGE" && !r.StartsWith("ERROR:"))
             {
-           
-                XmlDocument XD = new XmlDocument();
-                XD.LoadXml(r);
+                try
+                {
 
-                // Render new time
-                this.LayoutElements = XD;
-                this.Render();
+                    XmlDocument XD = new XmlDocument();
+                    XD.LoadXml(r);
+
+                 
+
+                    // Render new time
+                    this.LayoutElements = XD;
+                    this.Render(XD);
+                }
+                catch
+                {
+                    
+                }
             }
-
-#endif
+     
         }
         /// <summary>
         /// Method to configure scripts dom manipulation functions on layout element
@@ -1441,134 +1640,16 @@ namespace Board
                      * 
                      * Associate instance data
                      * */
-
                     this.Parameter = parameter;
 
                     this.Engine = engine;
                     this.TemplateCode = pretemplate;
                     SetScriptFunctionality();
-
-                    // Create xml document
                     XmlDocument d = new XmlDocument();
-
-
-                    d.LoadXml(data.Replace(";", ""));
-
-                    // Set the xmlHashCode to the xmldocument's instance so it won't be any collision
-                    this.xmlHashCode = d.GetHashCode();
-                    // Set this layoutelements to the xmldocument loaded
-                    this.LayoutElements = d;
-
-
-                    this.View = new View();
-                    // iterate through all sections of the page
-                    XmlNodeList Sections = d.GetElementsByTagName("section");
-                    foreach (XmlElement iSection in Sections)
-                    {
-
-                        // If the section element not has the root element as parent skip it
-                        if (iSection.ParentNode.Name != "view")
-                            continue;
-                        // Create new section
-                        Section _Section = new Section(this);
-
-                        // Set the section's reorder mode
-                        if (iSection.HasAttribute("reorder"))
-                            if (iSection.GetAttribute("reorder") == "true")
-                                _Section.Reorder = true;
-
-                        // Append nowplaying handler
-                        _Section.PlaybackItemChanged += new ElementPlaybackStarted(_Section_PlaybackItemChanged);
-
-                        // set section name
-                        _Section.Name = iSection.GetAttribute("name");
-
-                        // set section as an list (show listheaders) if list attribute exists
-                        _Section.List = iSection.HasAttribute("list");
-                        _Section.Flow = iSection.HasAttribute("flow");
-                        _Section.Alternating = !iSection.HasAttribute("noalt");
-                        // Render element sections
-                        _Section = RenderSection(_Section, iSection);
-                        _Section.Header = !iSection.HasAttribute("noheader");
-                        /**
-                         * Set column headers by the column element is defined, define all columnheaders
-                         * */
-
-                        XmlNodeList Columns = iSection.GetElementsByTagName("columnheader");
-
-                        // If the column count is above zero, clear the default set of column headers
-                        // and use from the new list
-                        if (Columns.Count > 0)
-                            _Section.ColumnHeaders = new Dictionary<string, int>();
-
-                        
-                        foreach (XmlElement ColumnHeader in Columns)
-                        {
-                            try
-                            {
-                                _Section.ColumnHeaders.Add(ColumnHeader.GetAttribute("name"), int.Parse(ColumnHeader.GetAttribute("size")));
-                            }
-                            catch
-                            {
-                            }
-                        }
-
-                        this.view.Sections.Add(_Section);
-                        _Section.ptop = 20;
-
-
-                    }
-
-                    /***
-                     * 2011-04-23 23:03
-                     * Load toolbar
-                     * */
-                    XmlNodeList toolItems = d.GetElementsByTagName("toolbar");
-
-                    // If the toolbar has elements inflate them
-                    if (toolItems.Count > 0)
-                    {
-                        XmlNodeList ToolItems = ((XmlElement)toolItems[0]).GetElementsByTagName("item");
-
-                        // Extract all items
-                        foreach (XmlElement item in ToolItems)
-                        {
-                            if (item.GetType() == typeof(XmlElement))
-                            {
-                                XmlElement Item = (XmlElement)item;
-
-                                // dummy toolsection
-                                Section toolSection = new Section(this);
-                                Element _Item = new Element(toolSection, this.ParentBoard);
-
-                                // set item type according to tag name
-                                _Item.Type = Item.Name;
-
-                                // Attach the element's attributes
-                                AppendElementAttributes(ref _Item, item);
-
-                                // if the item has the type menu inflate it's menuitems
-                                if (_Item.GetAttribute("type") == "menu")
-                                {
-                                    XmlNodeList MenuItems = item.GetElementsByTagName("menuitem");
-                                    foreach (XmlElement menuItem in MenuItems)
-                                    {
-                                        Element _menuItem = new Element(toolSection, this.ParentBoard);
-                                        _menuItem.Type = "menuitem";
-                                        // Append xml attributes
-                                        AppendElementAttributes(ref _menuItem, menuItem);
-                                        _Item.Elements.Add(_menuItem);
-                                    }
-
-                                }
-
-                                // add the item to the menubar
-                                this.view.Toolbar.Items.Add(_Item);
-
-
-                            }
-                        }
-                    }
+                    d.LoadXml(data.Replace(";",""));
+                    // Render
+                    Render(d);
+                    
 
                     LoadData();
                 }
@@ -1657,6 +1738,7 @@ namespace Board
 	[Serializable]
 	public class View
 	{
+       
 	    public View()
 	    {
 	        sections = new List<Section>();
@@ -1710,6 +1792,83 @@ namespace Board
     /// </summary>
 	public class Section
 	{
+        /// <summary>
+        /// Convert the physical index to real index. Moved from Spofity.CS
+        /// </summary>
+        /// <param name="index">the real index</param>
+        /// <returns>The virtual entry index, -1 if failed or the index points to an item of not an entry</returns>
+        public int RealIndexToEntryIndex(int index)
+        {
+            try
+            {
+                // Get the element from the entries
+                Element entry = Entries[index];
+                if (entry.Type != "entry")
+                    return -1;
+                int virtualIndex = Entries.IndexOf(entry);
+                return virtualIndex;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+
+        /// <date>2011-04-24 16:18</date>
+        /// <summary>
+        /// Insert item at position which is synchronised with the range of items only by entries
+        /// </summary>
+        /// <param name="elements"></param>
+        public void InsertEntryAt(List<Element> elements, int pos)
+        {
+            // define starting index
+            int index = 0;
+            foreach (Element ct in this.elements)
+            {
+                // only enumerate if the element is an type of entry
+                if (ct.Entry)
+                {
+                    // if index is as the index, insert the item
+                    if (index == pos)
+                    {
+                        // Get physical index of the item
+                        int realIndex =this.elements.IndexOf(ct);
+                        // insert the collection here
+                        this.elements.InsertRange(realIndex,elements);
+                        // break and return
+                        return;
+                    }
+                    index++;
+                }
+            }
+        }
+        /// <date>2011-04-24 16:18</date>
+        /// <summary>
+        /// Insert item at position which is synchronised with the range of items only by entries
+        /// </summary>
+        /// <param name="elements"></param>
+        public void InsertEntryAt(Element elm, int pos)
+        {
+            List<Element> elements = new List<Element>() { elm };
+            InsertEntryAt(elements, pos);
+        }
+        public List<Element> Entries
+        {
+            get{
+                // <date>2011-04-24 16:24</date>
+          
+                // Allocate list for only entries
+                List<Element> entries = new List<Element>();
+                foreach (Element cf in this.Elements)
+                {
+                    if (cf.Entry)
+                        entries.Add(cf);
+                }
+                return entries;
+            }   
+        }
+        
+        public WebKit.WebKitBrowser Layout { get; set; }
         private int flowHeight = 120;
         public int FlowHeight
         {
@@ -2172,7 +2331,8 @@ namespace Board
 	    		
 	    }
 	    public Section(Spofity parent)
-	    { 
+	    {
+           
             Parent = parent;
 	        elements = new List<Element>();
             // Add standard columns (title,position)

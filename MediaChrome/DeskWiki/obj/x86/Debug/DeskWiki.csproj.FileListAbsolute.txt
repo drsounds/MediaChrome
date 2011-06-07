@@ -37,9 +37,7 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\xmlfick.exe
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\LibspotifySharp.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\Interop.WMPLib.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\System.Data.SQLite.dll
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\Bass.Net.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\AxInterop.WMPLib.dll
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\Spocky.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\Board.pdb
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\xmlfick.pdb
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\MediaChrome.pdb
@@ -54,3 +52,5 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\obj\x86\Debug\DeskWiki.p
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\MediaChromeGUI.exe
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\MediaChrome.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\MediaChromeGUI.pdb
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\WebKitBrowser.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\WebKit.Interop.dll

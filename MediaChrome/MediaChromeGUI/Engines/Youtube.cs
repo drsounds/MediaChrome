@@ -26,6 +26,10 @@ namespace MediaChrome
 	/// </summary>
 	public class Youtube : MediaChrome.IPlayEngine
     {
+        public List<Song> QueryRadio(String Query)
+        {
+            return new List<Song>();
+        }
         public bool Paused { get; set; }
         public Song ConvertSongFromLink(String URI)
         {

@@ -33,6 +33,21 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>docs\docs.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'EXPERIMENTAL|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\EXPERIMENTAL\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>docs\docs.xml</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\MediaChrome.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -73,7 +88,9 @@
     <Compile Include="SocialNetworking\Facebook\FacebookAPI.cs" />
     <Compile Include="SocialNetworking\Facebook\FacebookAPIException.cs" />
     <Compile Include="SocialNetworking\Facebook\JSONObject.cs" />
+    <Compile Include="SocialNetworking\IScrobbler.cs" />
     <Compile Include="SocialNetworking\Structure.cs" />
+    <Compile Include="WebConnection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SocialNetworking\Facebook\LICENSE" />

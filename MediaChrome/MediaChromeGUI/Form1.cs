@@ -346,7 +346,10 @@ namespace MediaChrome
         }
         #endregion
 
-
+        /// <summary>
+        /// Returns if you are connected to the internet
+        /// </summary>
+        public bool ConnectedToInternet { get; set; }
         
         /// <summary>
         /// Notifies the user that an new song are playing
@@ -371,8 +374,10 @@ namespace MediaChrome
             {
                 currentPlayer = value;
                 if (currentPlayer.Image != null)
+                {
                     this.pictureBox1.BackgroundImage = currentPlayer.Icon;
-                
+                    
+                }
                 // Get current section
                 Board.Section section = this.treeview.CurrentView.Content.View.Sections[0];
                
@@ -392,7 +397,7 @@ namespace MediaChrome
                         elm.SetAttribute("title", d.Title);
                         elm.SetAttribute("href", d.ID);
                         elm.Tag = (object)d;
-                    
+                   
                         section.AddElement(elm, section.Parent);
 
                         /**
@@ -583,7 +588,7 @@ namespace MediaChrome
                  * If the playlist is already in the buffer, load it
                  * */
                 String Key = String.Format("{0}:playlist:{1}",source,id); // The playlist ID
-                if (playlistBuffer.Keys.Contains(Key))
+                if (PlaylistBuffer.Keys.Contains(Key))
                 {
                     return playlistBuffer[Key];
                 }
@@ -672,6 +677,27 @@ namespace MediaChrome
             
             }
         }
+
+
+        /// <summary>
+        /// Query for radio
+        /// </summary>
+        /// <param name="engine">engine to us</param>
+        /// <param name="query">query for radio</param>
+        /// <returns></returns>
+        public object __radioQuery(string engine, string query)
+        {
+            if (currentPlayer != null)
+            {
+                return this.currentPlayer.QueryRadio(query);
+            }
+            else
+            {
+                return new List<Song>();
+            }
+        }
+
+
         /// <summary>
         /// Will split the window when mouse move if true
         /// </summary>
@@ -712,6 +738,7 @@ namespace MediaChrome
             scrollBar2.Host = board;
             this.board.ScrollBarY = scrollBar2;
    //         playlistView = new Board.DrawBoard();
+            
      //       playlistView.Dock = DockStyle.Right;
       //      this.panel3.Controls.Add(splitter2);
         //    splitter2.Dock = DockStyle.Right;
@@ -773,6 +800,9 @@ namespace MediaChrome
             this.board.Navigating += new Board.DrawBoard.NavigateEventHandler(board_Navigating);
             // assign makogeneration initialization code
             this.board.MakoGeneration += new Board.DrawBoard.MakoCreateEventHandler(board_MakoGeneration);
+            this.treeview.DragOverElement+=new Board.DrawBoard.ElementDragEventHandler(playlistView_DragOverElement);
+            this.treeview.DropElement+=new Board.DrawBoard.ElementDragEventHandler(playlistView_DropElement);
+            treeview.AllowDrop = true;
      //       playlistView.DragOverElement += new Board.DrawBoard.ElementDragEventHandler(playlistView_DragOverElement);
 
             // Set image download event handler
@@ -883,22 +913,28 @@ namespace MediaChrome
         }
         void playlistView_DropElement(object sender, Board.DrawBoard.ElementDragEventArgs e)
         {
-            // If the type of element is an playlist, add the song
-            if (e.Destination.Tag.GetType() == typeof(Playlist))
+            try
             {
-                Playlist plsss = (Playlist)e.Destination.Tag;
-                /**
-                 * Convert the URI list to songs
-                 * */
-                String Uris = (string)e.DragArgs.Data.GetData(DataFormats.StringFormat);
-                
-                /**
-                 * Add it to an playlist on an separate thread
-                 * */
-                AddSong ads = new AddSong() { Playlist=plsss,Uris=Uris};
-                Thread d = new Thread(AddSongs);
-                d.Start(ads);
+                // If the type of element is an playlist, add the song
+                if (e.Destination.Tag.GetType() == typeof(Playlist))
+                {
+                    Playlist plsss = (Playlist)e.Destination.Tag;
+                    /**
+                     * Convert the URI list to songs
+                     * */
+                    String Uris = (string)e.DragArgs.Data.GetData(DataFormats.StringFormat);
 
+                    /**
+                     * Add it to an playlist on an separate thread
+                     * */
+                    AddSong ads = new AddSong() { Playlist = plsss, Uris = Uris };
+                    Thread d = new Thread(AddSongs);
+                    d.Start(ads);
+
+                }
+            }
+            catch
+            {
             }
         }
 
@@ -1051,14 +1087,15 @@ namespace MediaChrome
                     String[] links = data.Split('\n');
                     foreach (String track in links)
                     {
-                        if (track.StartsWith("spotify:track:"))
+                        if(!String.IsNullOrEmpty(track))
+                     //    if (track.StartsWith("spotify:track:"))
                         {
-                            // Get mediachrome song of the track
-                            MediaChrome.Song song = MediaChrome.SpotifyPlayer.ConvertSpotifyTrackToMCSong(track);
+                            
 
                             // Get playlist attachment
-                            MediaChrome.Views.Playlist Playlist = (MediaChrome.Views.Playlist)e.Destination.Attachment;
-
+                            MediaChrome.Views.Playlist Playlist = (MediaChrome.Views.Playlist)e.Destination.Tag;
+                            // Get mediachrome song of the track
+                            MediaChrome.Song song = Playlist.Engine.ConvertSongFromLink(track);
                             // Add the song to the playlist
                             Playlist.Add(song, e.Index);
                         }
@@ -1068,17 +1105,13 @@ namespace MediaChrome
                 {
                     
                 
-                        if (data.StartsWith("spotify:track:"))
-                        {
-                            // Get mediachrome song of the track
-                            MediaChrome.Song song = MediaChrome.SpotifyPlayer.ConvertSpotifyTrackToMCSong(data);
-
                             // Get playlist attachment
-                            MediaChrome.Views.Playlist Playlist = (MediaChrome.Views.Playlist)e.Destination.Attachment;
-
+                            MediaChrome.Views.Playlist Playlist = (MediaChrome.Views.Playlist)e.Destination.Tag;
+                            // Get mediachrome song of the track
+                            MediaChrome.Song song = Playlist.Engine.ConvertSongFromLink(data);
                             // Add the song to the playlist
                             Playlist.Add(song, e.Index);
-                        }
+                       
                     
                 }
                 
@@ -1136,15 +1169,7 @@ namespace MediaChrome
         bool board_Navigating(object sender, string uri)
         {
             
-            // If the uri starts with spotify:user:xx:playlist: load the playlist
-            if (uri.StartsWith(CurrentNamespace+":user:") && uri.Contains("playlist:"))
-            {
-                MediaChrome.Views.Playlist plst = Program.MediaEngines[CurrentNamespace].ViewPlaylist("Name", uri);
-                CurrentPlaylist = plst;
-
-
-
-            }
+        
             // If the string starts with "spotify:" go to an specified adress, otherwise recall seearch intent
             if (uri.Split(':').Length < 2 )
             {
@@ -1395,6 +1420,19 @@ namespace MediaChrome
             // TODO: Add more handlers
             return null;
         }
+
+        /// <summary>
+        /// Set an active section
+        /// </summary>
+        /// <param name="section"></param>
+        /// <returns></returns>
+        public object __setActiveSection(string section)
+        {
+            this.board.currentSection = int.Parse(section);
+            return null;
+        }
+
+
         /// <summary>
         /// Method to initialize all features available for subscripts
         /// </summary>
@@ -1417,9 +1455,12 @@ namespace MediaChrome
               d.RuntimeMachine.SetFunction("getPlaylist", new Func<string,string, object>(__getPlaylist));
               d.RuntimeMachine.SetFunction("importMusic", new Func<object>(__import_music));
               d.RuntimeMachine.SetFunction("navigate", new Func<string,object>(__navigate));
+              d.RuntimeMachine.SetFunction("radioQuery", new Func<string, string, object>(__radioQuery));
               d.RuntimeMachine.SetFunction("getCurrentPlaylist", new Func< object>(__getCurrentPlaylist));
               d.RuntimeMachine.SetFunction("ownPlaylist", new Func<object>(__ownPlaylist));
               d.RuntimeMachine.SetFunction("extern", new Func<string, object>(__extern));
+              d.RuntimeMachine.SetFunction("section", new Func<string, object>(__setActiveSection));
+
         }   
 
         /// <summary>
@@ -1458,12 +1499,7 @@ namespace MediaChrome
         /// <summary>
         /// Returns the current Spotify Session
         /// </summary>
-        private Spotify.Session Session
-        {
-            get{
-                return ((MediaChrome.SpotifyPlayer)Program.MediaEngines["spotify"]).SpotifySession;
-            }
-        }
+      
         bool board_BeforeNavigating(object sender, string uri)
         {
            // If the uri starts with spotify:user:xx:playlist: load the playlist
@@ -1578,7 +1614,7 @@ namespace MediaChrome
         }
         void treeview_LinkClick(object sender, string hRef)
         {
-            board.Navigate(hRef, "spotify", "views");
+            board.Navigate(hRef, hRef.Split(':')[0], "views");
         }
 
         bool board_PlaybackRequested(object sender, string Url)
@@ -2687,7 +2723,7 @@ namespace MediaChrome
 
         private void ucSearch2_KeyUp(object sender, KeyEventArgs e)
         {
-            board.Filter(ucSearch2.Text, new ContentFilter());
+          //  board.Filter(ucSearch2.Text, new ContentFilter());
         }
 
         private void cBtn8_Load(object sender, EventArgs e)
@@ -2759,6 +2795,7 @@ namespace MediaChrome
 
         private void cBtn8_Load_1(object sender, EventArgs e)
         {
+            
 
         }
 
@@ -2794,10 +2831,19 @@ namespace MediaChrome
         {
          LockWindowUpdate(this.Handle);
         }
-
+        int WMSZ_BOTTOM = 6;
+        int WMSZ_BOTTOMLEFT =7;
+        int WMSZ_BOTTOMRIGHT =8;
+        int WMSZ_LEFT = 1;
+        int WMSZ_RIGHT = 2;
+        int WMSZ_TOP = 3;
+        int WMSZ_TOPLEFT = 4;
+        int WMSZ_TOPRIGHT = 5;
+        int WM_SIZING = 0x0214;
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
+            
             SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
         }
 
@@ -2807,7 +2853,7 @@ namespace MediaChrome
         }
       
         // Override the CreateParams property
-     /*   protected override CreateParams CreateParams
+      protected override CreateParams CreateParams
         {
             get
             {
@@ -2815,7 +2861,7 @@ namespace MediaChrome
                 cp.ClassStyle |= CS_DROPSHADOW;
                 return cp;
             }
-        }*/
+        }
 
         private void panel2_DoubleClick(object sender, EventArgs e)
         {
@@ -2913,6 +2959,78 @@ namespace MediaChrome
                 pane5.Hide();
             }
             
+        }
+
+        private void cBtn1_MouseClick(object sender, MouseEventArgs e)
+        {
+            
+        }
+
+        private void cBtn2_MouseClick(object sender, MouseEventArgs e)
+        {
+          
+        }
+
+        private void pictureBox2_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, WM_SIZING, WMSZ_TOPLEFT, 0);
+
+        }
+
+        private void pictureBox3_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, WM_SIZING, WMSZ_TOPRIGHT, 0);
+
+        }
+
+        private void panel5_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, WM_SIZING, WMSZ_TOP, 0);
+
+        }
+
+        private void panel6_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, WM_SIZING, WMSZ_BOTTOM, 0);
+
+        }
+
+        private void panel7_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, WM_SIZING, WMSZ_BOTTOMLEFT, 0);
+
+        }
+
+        private void panel8_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, WM_SIZING, WMSZ_BOTTOMRIGHT, 0);
+
+        }
+
+        private void panel2_MouseEnter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cBtn2_Click_1(object sender, EventArgs e)
+        {
+            this.board.PreviousSong();
+        }
+
+        private void cBtn1_Click_1(object sender, EventArgs e)
+        {
+            this.board.NextSong();
+        }
+
+        private void textBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            board.Filter(textBox1.Text, new ContentFilter());
         }
 
     }

@@ -2,8 +2,8 @@
 <skin xmlns="http://skin.mediachrome.net/2011/skin-definition">
 	<title>Spotify skin</title>
 	<component rel="Board" BackColor="#383838" ForeColor="#EEEEEE" />
-	<component rel="Board#Alternative" BackColor="#2c2c2c" ForeColor="#aaaaaa" />
-	<component rel="Board#Selection" BackColor="#aaeeaa" ForeColor="#003300" />
+	<component rel="Board#Alternative" BackColor="#303030" ForeColor="#aaaaaa" />
+	<component rel="Board#Selection" BackColor="#ccccff" ForeColor="#003300" />
 	<component rel="Board#Active" BackColor="#111111" ForeColor="#AAFFAA" />
 	<component rel="Board#Section" BackColor="#EEEEEE" ForeColor="#444444"  />
 	<component rel="Board#TextFade" BackColor="#eeeeff" ForeColor="#333388" />

@@ -19,3 +19,8 @@ L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\libspotify-sharp\bin\Debug\li
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\libspotify-sharp\obj\Debug\ResolveAssemblyReference.cache
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\libspotify-sharp\obj\Debug\libspotify-sharp.dll
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\libspotify-sharp\obj\Debug\libspotify-sharp.pdb
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\libspotify-sharp\bin\Debug\libspotify-sharp.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\libspotify-sharp\bin\Debug\libspotify-sharp.pdb
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\libspotify-sharp\obj\Debug\ResolveAssemblyReference.cache
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\libspotify-sharp\obj\Debug\libspotify-sharp.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\libspotify-sharp\obj\Debug\libspotify-sharp.pdb
