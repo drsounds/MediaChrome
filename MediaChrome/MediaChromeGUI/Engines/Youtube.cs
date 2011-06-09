@@ -43,7 +43,7 @@ namespace MediaChrome
                 return "youtube:";
             }
         }
-        public List<Song> Import(String query)
+        public List<Song> Import(String query,ref float progress)
         {
             return new List<Song>();
         }

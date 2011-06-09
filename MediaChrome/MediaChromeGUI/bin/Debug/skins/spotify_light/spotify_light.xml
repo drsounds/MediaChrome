@@ -13,4 +13,6 @@
 	<component rel="ActiveSection" BackColor="#aaaaaa" ForeColor="#000000" BackgroundImage="~\section.png" />
 	<component rel="ErrorBar" BackColor="#FFFFAA" ForeColor="#000000" BackgroundImage="~\top_bar_blue.png" />
 	<component rel="Toolbar#Item" BackgroundImage="~\toolbutton.png" />
+	
+	
 </skin>

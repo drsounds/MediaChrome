@@ -115,7 +115,10 @@ namespace MediaChrome
             }
             resolvingSong = false;
             ResolvingSongThread = null;
+
             ShowMessage("There was no service found for the song");
+            board.NotifyError(_Song.Path);
+            this.NextSong();
         }
 
         private void ShowMessage(string p)
@@ -340,6 +343,7 @@ namespace MediaChrome
             }
             else
             {
+                board.NotifyError(Query);
                 ShowMessage("There is no media handler for the media");
             }
             return true;
@@ -1079,7 +1083,7 @@ namespace MediaChrome
              * Check if the element dropping into is representing an playlist, if so add the track
              * to the playlist
              * */
-           if(data!=null)
+           if(data!=null&&e.Destination!=null)
             {
                // Parse the list of uris
                 if (data.Contains("\n"))
@@ -1090,14 +1094,15 @@ namespace MediaChrome
                         if(!String.IsNullOrEmpty(track))
                      //    if (track.StartsWith("spotify:track:"))
                         {
-                            
+                          
 
-                            // Get playlist attachment
-                            MediaChrome.Views.Playlist Playlist = (MediaChrome.Views.Playlist)e.Destination.Tag;
-                            // Get mediachrome song of the track
-                            MediaChrome.Song song = Playlist.Engine.ConvertSongFromLink(track);
-                            // Add the song to the playlist
-                            Playlist.Add(song, e.Index);
+                                // Get playlist attachment
+                                MediaChrome.Views.Playlist Playlist = (MediaChrome.Views.Playlist)e.Destination.Tag;
+                                // Get mediachrome song of the track
+                                MediaChrome.Song song = Playlist.Engine.ConvertSongFromLink(track);
+                                // Add the song to the playlist
+                                Playlist.Add(song, e.Index);
+                            
                         }
                     }
                 }
@@ -2920,7 +2925,7 @@ namespace MediaChrome
 
         private void timer3_Tick_1(object sender, EventArgs e)
         {
-           
+           if(CurrentPlayer!=null)
             try
             {
                 this.ucPosBar1.Maximum = (float)(float)currentPlayer.Duration;
@@ -3030,7 +3035,19 @@ namespace MediaChrome
 
         private void textBox1_KeyUp(object sender, KeyEventArgs e)
         {
-            board.Filter(textBox1.Text, new ContentFilter());
+       //     board.Filter(textBox1.Text, new ContentFilter());
+        }
+
+        private void ucPosBar1_MouseDown(object sender, MouseEventArgs e)
+        {
+            timer3.Stop();
+        }
+
+        private void ucPosBar1_MouseUp_1(object sender, MouseEventArgs e)
+        {
+            if (CurrentPlayer != null)
+                CurrentPlayer.Seek(ucPosBar1.Value);
+            timer3.Start();
         }
 
     }
@@ -3059,6 +3076,9 @@ namespace MediaChrome
                  Bitmap d = new Bitmap(c.Width, c.Height);
                  e.Graphics.DrawImage(d, c.ClientRectangle);
              }*/
+             if(BackgroundImage!=null)
+             e.Graphics.DrawImage(this.BackgroundImage, new Rectangle(0, 0, Width, Height));
+
              base.OnPaintBackground(e);
          }
      }

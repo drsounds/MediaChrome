@@ -551,63 +551,7 @@ namespace Board
                 }
             }
         }
-        /// <summary>
-        /// Function to parse an css clausul.
-        /// </summary>
-        /// <param name="expressions">Ann CSS inline expression { inside }</param>
-        /// <returns>An dictionary of expressions inside</returns>
-        public Dictionary<String, String> ParseCssString(String expressions)
-        {
-            // Dictionary for the output values
-            Dictionary<String, String> Output = new Dictionary<string, string>();
-
-            // Create an string builder for the expression to put data on
-            StringBuilder Attribute = new StringBuilder();
-            StringBuilder Value = new StringBuilder();
-
-            // boolean indicating you're on the expression side (after first : token)
-            bool inExpression = false;
-            for (int i = 0; i < expressions.Length; i++)
-            {
-                // Get current char
-                char c = expressions[i];
-
-                // If not in an expression create an attribute expression
-                if (!inExpression)
-                {
-                    // If c has reached an : switch over to expression mode
-                    if (c == ':')
-                    {
-                        inExpression = true;
-                        continue;
-                    }
-
-                    // else append an c
-                    Attribute.Append(c);
-                }
-                else
-                {
-                    // if c reached an ; end the expression create 
-                    // an entry to the dictionary with trimmed whitespaces
-                    if (c == ';')
-                    {
-                        Output.Add(Attribute.ToString().Trim(), Value.ToString().Trim());
-
-                        // Reset all variables
-
-                        inExpression = false;
-
-                        // flush all buffers
-                        Attribute = new StringBuilder();
-                        Value = new StringBuilder();
-                        continue;
-                    }
-                    Value.Append(c);
-                }
-            }
-            return Output;
-
-        }
+        
         /// <summary>
         /// Fetch data from either hard drive or remote web address
         /// </summary>
@@ -846,9 +790,11 @@ namespace Board
                     continue;
                 }
                      
-                Dictionary<String, String> Style = item.HasAttribute("style") ? 
-                    ParseCssString(item.GetAttribute("style")) : 
-                    new Dictionary<String,String>();
+                Dictionary<String, String> Style = new Dictionary<string,string>();
+                item.HasAttribute("style");
+                CssParser parser = new CssParser();
+                Dictionary<String,String> values = parser.ParseCssString(item.GetAttribute("style")) ;
+                CT.stylesheet = values;
 
                 // Append all custom attributes first
                 AppendElementAttributes(ref CT, item);
@@ -1214,9 +1160,10 @@ namespace Board
 
                 // Assert an style template if provided
 
-                Dictionary<String, String> Style = item.HasAttribute("style") ?
-                    ParseCssString(item.GetAttribute("style")) :
-                    new Dictionary<String, String>();
+                Dictionary<String, String> Style = new Dictionary<string, string>();
+                item.HasAttribute("style");
+                CssParser parser = new CssParser();
+                Dictionary<String,String> values = parser.ParseCssString(item.GetAttribute("style"));
 
                 // Append all custom attributes first
                 AppendElementAttributes(ref CT, item);
@@ -1268,7 +1215,7 @@ namespace Board
 
                         break;
                 }
-                C.Elements.Add(CT);
+                C.rawList.Add(CT);
                
 
                 // Do this for children
@@ -1392,10 +1339,15 @@ namespace Board
                                 }
                             }
                         }
+
+                        // Add the element to the buffer
+                        _section1.SortedBuffer.AddRange(_section1.Elements);
+
                     }
                     this.View = c;
 
-
+                    // Copy the elements to an secure buffer
+                    
                 }
 
                 /***
@@ -1792,6 +1744,98 @@ namespace Board
     /// </summary>
 	public class Section
 	{
+
+        /// <summary>
+        /// Resets the ptop and reorder the layout
+        /// </summary>
+        public void RenderLayout()
+        {
+            ptop=0;
+            foreach(Element elm in elements)
+            {
+                elm.AssertBounds(false);
+            }
+        }
+        /// <summary>
+        /// Buffer for sorted elements
+        /// </summary>
+        public List<Element> SortedBuffer { get; set; }
+
+        /// <summary>
+        /// Mode of sorting
+        /// </summary>
+        public enum SortMode {Default,Ascending,Descending};
+
+        /// <summary>
+        /// Sort elements
+        /// </summary>
+        /// <param name="column"></param>
+        /// <param name="mode"></param>
+        public void Sort(string column,SortMode mode)
+        {
+            switch (mode)
+            {
+                case SortMode.Default:
+                   // Return to common elements mode
+                    this.elements = null;
+                    break;
+                case SortMode.Ascending:
+                    /**
+                     * Preserve the default mode in the buffer
+                     * */
+                   
+                  
+                    /**
+                     * Sort
+                     * */
+                    
+                    // Save this elements in the sorted buffer
+                    this.elements = new List<Element>();
+                    this.elements.AddRange(this.rawList);
+                 
+                    for (int i=0; i < this.elements.Count;i++)
+                    {
+                        for (int j=0; j < this.elements.Count;j++)
+                        {
+                            if (Sorter != null)
+                            {
+                                Element src = elements[i];
+                                Element target = elements[j];
+                                switch(Sorter.CompareElement(target,src, column))
+                                {
+                                    case DrawBoard.CompareResult.None:
+                                        continue;
+                                    case  DrawBoard.CompareResult.After:
+                                        // Move the element where it should be
+                                        elements.Remove(src);
+                                        
+                                        elements.Insert(j,src);
+                                        src.SetAttribute("top", target.GetAttribute("top"));
+                                      
+                                    break;
+                                    default:
+                                        continue;
+                                }
+                            }
+                                    
+                        }
+                    }
+                    this.RenderLayout();
+                   
+                    
+
+                    break;
+                case SortMode.Descending:
+                   
+                    break;
+            }
+        }
+        /// <summary>
+        /// This class  defines an sorter
+        /// </summary>
+        public Board.DrawBoard.IListSorter Sorter { get; set; }
+
+        
         /// <summary>
         /// Convert the physical index to real index. Moved from Spofity.CS
         /// </summary>
@@ -1823,7 +1867,7 @@ namespace Board
         {
             // define starting index
             int index = 0;
-            foreach (Element ct in this.elements)
+            foreach (Element ct in elements)
             {
                 // only enumerate if the element is an type of entry
                 if (ct.Entry)
@@ -1832,7 +1876,7 @@ namespace Board
                     if (index == pos)
                     {
                         // Get physical index of the item
-                        int realIndex =this.elements.IndexOf(ct);
+                        int realIndex =this.Elements.IndexOf(ct);
                         // insert the collection here
                         this.elements.InsertRange(realIndex,elements);
                         // break and return
@@ -1943,7 +1987,7 @@ namespace Board
                      * */
                     int lastPosition = 0;
                     // calculate the total height of all items
-                    foreach (Element c in this.elements)
+                    foreach (Element c in this.Elements)
                     {
                         // Check if this position is higher than any previous one and add it if so
 
@@ -2185,7 +2229,7 @@ namespace Board
 
                 }
                 int counter =0;
-                foreach (Element elm in this.elements)
+                foreach (Element elm in Elements)
                 {
                     if (elm.Entry)
                     {
@@ -2334,7 +2378,7 @@ namespace Board
 	    {
            
             Parent = parent;
-	        elements = new List<Element>();
+	       
             // Add standard columns (title,position)
             Sets = new List<Set>();
             /**
@@ -2350,6 +2394,8 @@ namespace Board
             ColumnHeaders.Add("Media Provider", 200);
             ColumnHeaders.Add("User", 200);
             ColumnHeaders = new Dictionary<string, int>();
+            Sorter = new Board.DrawBoard.EntrySorter();
+            rawList = new List<Element>();
 	    }
 	    private string name;
 	    [XmlElement("set")]
@@ -2366,18 +2412,28 @@ namespace Board
 	            name = value;
 	        }
 	    }
+        /// <summary>
+        /// This is the unmodified list of elements in an section of an view.
+        /// </summary>
+         [XmlElement("element")]
+        public List<Element> rawList;
+
+        // This is an extra list of elements which are used for customized views, like sorting and filtering
 	    private List<Element> elements;
-	    [XmlElement("element")]
+	   
+        /// <summary>
+        /// The visible elements in an view
+        /// </summary>
 	    public List<Element> Elements
 	    {
 	        get
 	        {
-	            return elements;
+                if (elements != null)
+                    return elements;
+                else
+                    return rawList;
 	        }
-	        set
-	        {
-	            elements = value;
-	        }
+	        
 	    }
 	}
 	public class Attribute
@@ -2417,6 +2473,26 @@ namespace Board
     /// </summary>
 	public class Element 
 	{
+        public Dictionary<string, object> Styles;
+
+        private void ParseStyle(string str)
+        {
+
+        }
+
+        /// <summary>
+        /// Set an inline style for the element. WORK in progress
+        /// </summary>
+        /// <param name="Style"></param>
+        public void SetStyle(Dictionary<string, string> Style)
+        {
+            this.Styles = new Dictionary<string, object>();
+            foreach (KeyValuePair<String, string> str in Style)
+            {
+            }
+            // TODO: FIX STYLES HERE
+
+        }
         /// <summary>
         /// Store an boxed instance of any class in the element
         /// </summary>
@@ -2462,7 +2538,7 @@ namespace Board
         /// </summary>
         public Font Font { get; set; }
         /// <summary>
-        /// Gets the instance of the elements which it wa copied from or Null if it wasn't an copy. Used in the filter system
+        /// Gets the instance of the elements which it wa copied from or Null if it wasn't an copy. Used in the filter   system
         /// </summary>
         public Element Original { get; set; }
 

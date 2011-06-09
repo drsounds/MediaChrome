@@ -9,7 +9,19 @@
             Skin architecture.
             </summary>
         </member>
-        <member name="M:Board.Skin.#ctor(System.String)">
+        <member name="M:Board.Skin.SetCSSFunctions">
+            <summary>
+            Sets css wrapper functions
+            </summary>
+        </member>
+        <member name="M:Board.Skin.__css_url(System.String)">
+            <summary>
+            An wrapper for URL property
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Board.Skin.#ctor(System.String,System.Boolean)">
             <summary>
             Loads an skin from the defined file
             </summary>
@@ -29,6 +41,12 @@
             <summary>
             An component to skin
             </summary>
+        </member>
+        <member name="M:Board.Component.SetCSS(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Set CSS values
+            </summary>
+            <param name="values"></param>
         </member>
         <member name="F:Board.Component.Rel">
             <summary>
@@ -63,6 +81,30 @@
         <member name="P:Board.Component.Skin">
             <summary>
             Skin component
+            </summary>
+        </member>
+        <member name="T:Board.CssParser">
+            <summary>
+            Class for parsing CSS
+            </summary>
+        </member>
+        <member name="M:Board.CssParser.ParseCSSFile(System.String)">
+            <summary>
+            Parses an set of CSS expressions
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Board.CssParser.ParseCssString(System.String)">
+            <summary>
+            Function to parse an css clausul.
+            </summary>
+            <param name="expressions">Ann CSS inline expression { inside }</param>
+            <returns>An dictionary of expressions inside</returns>
+        </member>
+        <member name="P:Board.CssParser.Source">
+            <summary>
+            Source code
             </summary>
         </member>
         <member name="T:Board.CListView">
@@ -494,13 +536,6 @@
             <param name="elm">The target element to manage (reference)</param>
             <param name="node">The element to inherit the attributes from</param>
         </member>
-        <member name="M:Board.Spofity.ParseCssString(System.String)">
-            <summary>
-            Function to parse an css clausul.
-            </summary>
-            <param name="expressions">Ann CSS inline expression { inside }</param>
-            <returns>An dictionary of expressions inside</returns>
-        </member>
         <member name="M:Board.Spofity.SynchronizeData(System.String)">
             <summary>
             Fetch data from either hard drive or remote web address
@@ -774,6 +809,18 @@
             Element class.
             </summary>
         </member>
+        <member name="M:Board.Section.RenderLayout">
+            <summary>
+            Resets the ptop and reorder the layout
+            </summary>
+        </member>
+        <member name="M:Board.Section.Sort(System.String,Board.Section.SortMode)">
+            <summary>
+            Sort elements
+            </summary>
+            <param name="column"></param>
+            <param name="mode"></param>
+        </member>
         <member name="M:Board.Section.RealIndexToEntryIndex(System.Int32)">
             <summary>
             Convert the physical index to real index. Moved from Spofity.CS
@@ -825,6 +872,21 @@
             </summary>
             <param name="d"></param>
             <param name="X"></param>
+        </member>
+        <member name="F:Board.Section.rawList">
+            <summary>
+            This is the unmodified list of elements in an section of an view.
+            </summary>
+        </member>
+        <member name="P:Board.Section.SortedBuffer">
+            <summary>
+            Buffer for sorted elements
+            </summary>
+        </member>
+        <member name="P:Board.Section.Sorter">
+            <summary>
+            This class  defines an sorter
+            </summary>
         </member>
         <member name="P:Board.Section.ItemOffset">
             <summary>
@@ -913,6 +975,16 @@
             Definite count of items. Obsolute
             </summary>
         </member>
+        <member name="P:Board.Section.Elements">
+            <summary>
+            The visible elements in an view
+            </summary>
+        </member>
+        <member name="T:Board.Section.SortMode">
+            <summary>
+            Mode of sorting
+            </summary>
+        </member>
         <member name="T:Board.Section.IViewFilter">
             <summary>
             In order to be able to use filter, an instance of an inherited class will assert the filtered query
@@ -929,6 +1001,12 @@
             <summary>
             An element represents the object drawn on the Board class in an particular view
             </summary>
+        </member>
+        <member name="M:Board.Element.SetStyle(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Set an inline style for the element. WORK in progress
+            </summary>
+            <param name="Style"></param>
         </member>
         <member name="M:Board.Element.AssertFont">
             <summary>
@@ -1041,7 +1119,7 @@
         </member>
         <member name="P:Board.Element.Original">
             <summary>
-            Gets the instance of the elements which it wa copied from or Null if it wasn't an copy. Used in the filter system
+            Gets the instance of the elements which it wa copied from or Null if it wasn't an copy. Used in the filter   system
             </summary>
         </member>
         <member name="P:Board.Element.Bitmap">
@@ -1503,6 +1581,16 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
+        <member name="P:Board.DrawBoard.ColumnHoverImage">
+            <summary>
+            Image for hovered column
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ActiveColumn">
+            <summary>
+            Image for active column
+            </summary>
+        </member>
         <member name="P:Board.DrawBoard.SelectionBg">
             <summary>
             Selection background color
@@ -1531,6 +1619,11 @@
         <member name="P:Board.DrawBoard.ActiveSection">
             <summary>
             Background image for the active tab
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.SkinSelector">
+            <summary>
+            Defines an selector for an skin
             </summary>
         </member>
         <member name="P:Board.DrawBoard.Skin">
@@ -1707,6 +1800,33 @@
             </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "P:Board.DrawBoard.Entries" -->
+        <member name="T:Board.DrawBoard.EntrySorter">
+            <summary>
+            Basic sorting of entries
+            </summary>
+        </member>
+        <member name="T:Board.DrawBoard.IListSorter">
+            <summary>
+            Interface for sortering. 
+            </summary>
+        </member>
+        <member name="M:Board.DrawBoard.IListSorter.CompareElement(Board.Element,Board.Element,System.String)">
+            <summary>
+            Compare elements
+            </summary>
+            <param name="src">Element to compare</param>
+            <param name="target">Target element to compare</param>
+            <returns>if src is before target</returns>
+        </member>
+        <member name="M:Board.DrawBoard.EntrySorter.CompareElement(Board.Element,Board.Element,System.String)">
+            <summary>
+            Compares two elements of type entry only, otherwise left them untouched.
+            </summary>
+            <param name="src"></param>
+            <param name="target"></param>
+            <param name="columnName"></param>
+            <returns></returns>
+        </member>
         <member name="T:Board.DrawBoard.PlaybackStartEvent">
             <summary>
             Delegate for playback start event handlers
@@ -1916,6 +2036,14 @@
             <param name="scriptCode">The string with the javascript code</param>
             <returns>True if sucess, false if failed </returns>
         </member>
+        <member name="M:Board.IScriptEngine.Invoke(System.String,System.Object[])">
+            <summary>
+            Invoke an function in the client script from the executable code
+            </summary>
+            <param name="Function"></param>
+            <param name="arguments"></param>
+            <returns></returns>
+        </member>
         <member name="M:Board.IScriptEngine.SetVariable(System.String,System.Object)">
             <summary>
             Thus method is called to make an instance of an certain object accessible for the scripting object.
@@ -1934,6 +2062,14 @@
             <summary>
             The instance of the Jint parser
             </summary>
+        </member>
+        <member name="M:Board.JavaScriptEngine.Invoke(System.String,System.Object[])">
+            <summary>
+            Invokes an user function
+            </summary>
+            <param name="func"></param>
+            <param name="args"></param>
+            <returns></returns>
         </member>
         <member name="M:Board.JavaScriptEngine.Run(System.String)">
             <summary>

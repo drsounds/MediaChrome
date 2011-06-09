@@ -20,6 +20,73 @@ namespace Board
     
     public partial class DrawBoard : UserControl
     {
+        public enum CompareResult { Before, After, None };
+            
+        /// <summary>
+        /// Basic sorting of entries
+        /// </summary>
+        public class EntrySorter : IListSorter
+        {
+            /// <summary>
+            /// Compares two elements of type entry only, otherwise left them untouched.
+            /// </summary>
+            /// <param name="src"></param>
+            /// <param name="target"></param>
+            /// <param name="columnName"></param>
+            /// <returns></returns>
+            public CompareResult CompareElement(Element src, Element target, string columnName)
+            {
+                /**
+                 * If the element compared not an type of entry,
+                 * leave CompareResult.Now so we tell the comparer to not
+                 * modify the order of this element
+                 * */
+                if (src.Type!="entry")
+                    return CompareResult.None;
+                
+                /**
+                 * Otherwise tell the ordering
+                 * */
+
+                if (String.Compare(src.GetAttribute(columnName), target.GetAttribute(columnName), StringComparison.CurrentCulture) > 0)
+                {
+                    return CompareResult.Before;
+                }
+                else
+                {
+                    return CompareResult.After;
+                }
+            }
+        }
+        /// <summary>
+        /// Interface for sortering. 
+        /// </summary>
+        public interface IListSorter
+        {
+            /// <summary>
+            /// Compare elements
+            /// </summary>
+            /// <param name="src">Element to compare</param>
+            /// <param name="target">Target element to compare</param>
+            /// <returns>if src is before target</returns>
+            CompareResult CompareElement(Element src,Element target, string columnName);
+        }
+
+        /// <summary>
+        /// Image for hovered column
+        /// </summary>
+        public Image ColumnHoverImage { get; set; }
+
+        /// <summary>
+        /// Image for active column
+        /// </summary>
+        public Image ActiveColumn
+        {
+            get;
+            set;
+        }
+
+        public Image ListSection { get; set; }
         /// <summary>
         /// Selection background color
         /// </summary>
@@ -64,6 +131,7 @@ namespace Board
             ActiveBg = Color.Black;
             ActiveFG = Color.LightGreen;
             ToolItem = Resource1.dropdown;
+            ListSection = Resource1.sectionbar;
             //this.Background = Resource1.view_bg;
         }
 
@@ -80,6 +148,29 @@ namespace Board
         public Image SeparatorImage { get; set; }
 
         public Color ActiveSectionFG { get; set; }
+        public Image ListHeader { get; set; }
+        public Image ListHeaderSeparator { get; set; }
+        private string skinSelector = "Board";
+
+        /// <summary>
+        /// Defines an selector for an skin
+        /// </summary>
+        public string SkinSelector
+        {
+            get
+            {
+                return skinSelector;
+            }
+            set
+            {
+                skinSelector = value;
+            }
+        }
+        public Image SelectionBG
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// Gets or sets the active skin. Skin are applied immediately on assignment
         /// </summary>
@@ -92,24 +183,33 @@ namespace Board
             set
             {
                 this.skin = value;
+                string SkinSelector=this.SkinSelector;
+               
                 // Set skin
-                this.BackColor = skin.Components["Board"].BackColor;
-                this.ForeColor = skin.Components["Board"].ForeColor;
-                this.ActiveBg = skin.Components["Board#Active"].BackColor;
-                this.ActiveFG = skin.Components["Board#Active"].ForeColor;
+                this.BackColor = skin.Components[SkinSelector].BackColor;
+                this.ForeColor = skin.Components[SkinSelector].ForeColor;
+                this.ActiveBg = skin.Components[SkinSelector + "#Active"].BackColor;
+                this.ActiveFG = skin.Components[SkinSelector + "#Active"].ForeColor;
+                    
+                this.Alt = skin.Components[SkinSelector + "#Alternative"].BackColor;
+                this.Alt = skin.Components[SkinSelector + "#Alternative"].BackColor;
+                this.TextFade = skin.Components[SkinSelector + "#TextFade"].BackColor;
+                this.Section = skin.Components[SkinSelector + "#Section"].BackColor;
+                this.SelectionBg = skin.Components[SkinSelector + "#Selection"].BackColor;
+                // this.BackgroundImage = skin.Components[SkinSelector].BackgroundImage;
+                Toolbar = skin.Components[SkinSelector + "#Toolbar"].BackgroundImage;
+                ActiveSection = skin.Components[SkinSelector + "#ActiveSection"].BackgroundImage;
+                this.SelectionFg = Skin.Components[SkinSelector + "#Selection"].ForeColor;
+                this.SeparatorImage = Skin.Components[SkinSelector + "#Toolbar"].SeparatorImage;
+                this.ActiveSectionFG = Skin.Components[SkinSelector + "#ActiveSection"].ForeColor;
+                this.ToolItem = Skin.Components[SkinSelector + "#Toolbar#Item"].BackgroundImage;
+                this.SelectionBG = Skin.Components[SkinSelector + "#Selection"].BackgroundImage;
+                this.ListSection = Skin.Components[SkinSelector + "#ListSection"].BackgroundImage;
+                this.ListHeader = Skin.Components[SkinSelector + "#ListHeader"].BackgroundImage;
+                this.ListHeaderSeparator = Skin.Components[SkinSelector + "#ListHeader#Separator"].BackgroundImage;
+                this.SectionText = Skin.Components[SkinSelector + "#Section#Text"].ForeColor;
+                this.SectionTextShadow = Skin.Components[SkinSelector + "#Section#Text#Shadow"].ForeColor;
 
-                this.Alt = skin.Components["Board#Alternative"].BackColor;
-                this.Alt = skin.Components["Board#Alternative"].BackColor;
-                this.TextFade = skin.Components["Board#TextFade"].BackColor;
-                this.Section = skin.Components["Board#Section"].BackColor;
-                this.SelectionBg = skin.Components["Board#Selection"].BackColor;
-               this.BackgroundImage = skin.Components["Board"].BackgroundImage;
-                Toolbar = skin.Components["Toolbar"].BackgroundImage;
-                ActiveSection = skin.Components["ActiveSection"].BackgroundImage;
-                this.SelectionFg = Skin.Components["Board#Selection"].ForeColor;
-                this.SeparatorImage = Skin.Components["Toolbar"].SeparatorImage;
-                this.ActiveSectionFG = Skin.Components["ActiveSection"].ForeColor;
-                this.ToolItem = Skin.Components["Toolbar#Item"].BackgroundImage;
             }
 
         }
@@ -176,7 +276,8 @@ namespace Board
 
         public Color SectionText
         {
-            get { return Bg; }
+            get;
+            set;
         }
 
         public Color Bg
@@ -345,6 +446,11 @@ namespace Board
             }
         }
 
+        // Integer specifying which column is active
+        int activeColumn = -1;
+        // indicating which column with the specified index who has an mouse cursor in it's bounds
+        int hover_column = -1;
+
         /// <summary>
         /// The drawing board
         /// </summary>
@@ -496,6 +602,12 @@ namespace Board
         public Dictionary<String, int> Columns;
         void DrawBoard_Click(object sender, EventArgs e)
         {
+            // if active column is defined, assert it
+            if (activeColumn > -1)
+            {
+                // Sort
+                this.CurSection.Sort(CurSection.ColumnHeaders.Keys.ElementAt(activeColumn), Board.Section.SortMode.Ascending);
+            }
             if (HoveredElement != null)
             {
                 ElementClick(HoveredElement, mouseX, mouseY);
@@ -1170,6 +1282,8 @@ namespace Board
         /// <param name="hasShadow">Decides whether image should have an shadow</param>
         public void DrawImage(Image image,Rectangle Bounds,Graphics g,bool hasShadow)
         {
+            if (image == null)
+                return;
              /** If drop shadow is specified draw it
               * */
             int shadowOffset = 8;
@@ -1273,6 +1387,7 @@ namespace Board
         }
         private void Artist_Load(object sender, EventArgs e)
         {
+           
            this.SuspendLayout();
         }
         public event ScrollEventHandler Scrolling;
@@ -1633,6 +1748,7 @@ namespace Board
             {
                 if (d.Content != null)
                 {
+                    if(d.Content.View != null)
                     foreach (Section t in d.Content.View.Sections)
                     {
                         foreach (Element _elm in t.Elements)
@@ -2076,6 +2192,22 @@ namespace Board
                 Font = new Font(value, Font.Size, Font.Style);
             }
         }
+        public void NotifyError(string URI)
+        {
+            foreach (View t in Views.Values)
+            {
+                foreach (Section d in t.Content.View.Sections)
+                {
+                    foreach (Element elm in d.Elements)
+                    {
+                        if (elm.GetAttribute("uri") == URI)
+                        {
+                           elm.SetAttribute("__error", "true");
+                        }
+                    }
+                }
+            }
+        }
 
         public void DrawButton(Image skin, Rectangle Bounds, Graphics d)
         {
@@ -2249,7 +2381,10 @@ namespace Board
                    // top -= height / 2;
                   //  if (Alternate)
                     {
-                        d.FillRectangle(new SolidBrush(Color.FromArgb(255,EnTry)), new Rectangle(left, top, width, height));
+                        if(_Element.Selected && this.SelectionBG != null)
+                            d.DrawImage(SelectionBG,new Rectangle(left,top,width,height));
+                        else
+                            d.FillRectangle(new SolidBrush(Color.FromArgb(255,EnTry)), new Rectangle(left, top, width, height));
                     }
                   /*  else
                     {
@@ -2263,7 +2398,10 @@ namespace Board
                           d.DrawString(_Element.GetAttribute("collection"), labelFont, (ForeGround), new Point(left + 435, top + 2));
                           */
                     // draw all attributes specified by the column handlers:
-
+                    if (_Element.GetAttribute("__error")=="true")
+                    {
+                        ForeGround = Color.FromArgb(255, 50, 50);
+                    }
                         int column_position = left;
                         foreach (KeyValuePair<string, int> Column in CurSection.ColumnHeaders)
                         {
@@ -2403,7 +2541,7 @@ namespace Board
                 case "section":
                    
                   //  d.FillRectangle((Section), new Rectangle(0, top, width, height));
-                  DrawImage(Resource1.sectionbar,new Rectangle( 0, top, width, height),d,true);  
+                  DrawImage(ListSection,new Rectangle( 0, top, width, (int)((float)height*1.25f)),d,true);  
                   d.DrawString(_Element.Data, new Font(labelFont.FontFamily, 15.0f, FontStyle.Bold, GraphicsUnit.Pixel),new SolidBrush (SectionTextShadow), new Point(left + 30, top + 1));
                   d.DrawString(_Element.Data, new Font(labelFont.FontFamily, 15.0f, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(SectionText), new Point(left + 30, top));
                    
@@ -2555,30 +2693,59 @@ namespace Board
         /// <param name="point"> The point to draw the columnheader on</param>
         private void DrawHeaders(Graphics p, System.Drawing.Point point)
         {
-
+            activeColumn = -1;
             // fill the columnheader background
             int scrollOffset = 0;// (this.ItemOffset > 0 ? scrollbar_size : 0);
-            p.FillRectangle(new LinearGradientBrush(new Point(point.X,point.Y),new Point(point.X,point.Y+columnheader_height),Color.FromArgb(210,210,210),Color.FromArgb(180,180,180)),new Rectangle(point,new Size(this.Width-scrollOffset,columnheader_height)));
-            // draw border line
-            p.DrawLine(new Pen(Color.Black), new Point(0, point.Y + columnheader_height - 1), new Point(this.Width - scrollOffset, point.Y + columnheader_height - 1));
-            p.DrawLine(new Pen(Color.White), new Point(0, point.Y), new Point(this.Width - scrollOffset, point.Y));
+            if (ListHeader != null)
+            {
+                p.DrawImage(ListHeader, new Rectangle(point.X, point.Y, (int)((float)this.Width * 1.5f), columnheader_height));
+            }
+            else
+            {
+                p.FillRectangle(new LinearGradientBrush(new Point(point.X, point.Y), new Point(point.X, point.Y + columnheader_height), Color.FromArgb(210, 210, 210), Color.FromArgb(180, 180, 180)), new Rectangle(point, new Size(this.Width - scrollOffset, columnheader_height)));
+                p.DrawLine(new Pen(Color.Black), new Point(0, point.Y + columnheader_height - 1), new Point(this.Width - scrollOffset, point.Y + columnheader_height - 1));
+                p.DrawLine(new Pen(Color.White), new Point(0, point.Y), new Point(this.Width - scrollOffset, point.Y));
 
+            }
+            // draw border line
+            
             //draw all columns
 
             // current position of the column header
             int current_position = point.X;
             int text_top = 2;
-
+            int i=0;
             // Draw headers
             foreach (KeyValuePair<String, int> column in CurSection.ColumnHeaders)
             {
-               
+                /***
+                 * Check if the mouse is hovering the element
+                 * */
+               // int width = MeasureDisplayStringWidth(p,column.Key,FontFace);       // Meausre column width
+
+                // create bounds
+                Rectangle bounds = new Rectangle(current_position + point.X, point.Y, column.Value, columnheader_height);
+                bool columnHovered = bounds.Contains(mouseX, mouseY); // Column is hovered
+                // if mouse inside the bounds, deduct the active column
+                if (columnHovered)
+                {
+                    activeColumn = i;
+                }
+                /*
+                 * draw the hovered column
+                 * */
+                if (columnHovered && ActiveColumn != null)
+                    p.DrawImage(ActiveColumn, bounds);
+                /**
+                 * Draw the column data
+                 * */
                 p.DrawString(column.Key, new Font(FontFace, 8, FontStyle.Bold), new SolidBrush(Color.White), new Point(current_position+10, text_top + point.Y + 1));
                 p.DrawString(column.Key, new Font(FontFace, 8, FontStyle.Bold), new SolidBrush(Color.Black), new Point(current_position+10, text_top + point.Y));
                 current_position += column.Value;
                 p.DrawLine(new Pen(Color.FromArgb(100, 100, 100)), new Point(current_position, point.Y+1), new Point(current_position, point.Y + columnheader_height-2));
                 p.DrawLine(new Pen(Color.FromArgb(240,250, 240)), new Point(current_position+1, point.Y+1), new Point(current_position+1, point.Y + columnheader_height-2));
-
+                i++;
+                
             }
             
 
@@ -2889,8 +3056,8 @@ namespace Board
                                             d.DrawImage(SeparatorImage, new Rectangle(position_counter + tab_width + tab_distance * 2, +1, 2, tabbar_height - 1));
 
 
-                                        d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(Color.White), new Point(position_counter + tab_distance, tab_text_margin / 5 + 1));
-                                        d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(Color.Black), new Point(position_counter + tab_distance, +tab_text_margin / 5));
+                                        d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(SectionTextShadow), new Point(position_counter + tab_distance, tab_text_margin / 5 + 1));
+                                        d.DrawString(section.Name, new Font(FontFace, 10), new SolidBrush(SectionText), new Point(position_counter + tab_distance, +tab_text_margin / 5));
                                     }
                                     position_counter += tab_width + tab_distance * 2;
                                 }
@@ -2945,29 +3112,25 @@ namespace Board
                     if (CurrentView.Content.View != null)
                         if (CurrentView.Content.View.Sections[CurrentSection].List)
                         {
-                            // Get the first entry element
-                            Element firstEntry = null;
-                            foreach (Element elm in ViewBuffer)
+                            if (Entries.Count > 0)
                             {
-                                if (elm.Entry)
-                                {
-                                    firstEntry = elm;
-                                    break;
-                                }
-                            }
-                            // If an first entry was found draw the headers straight above it or on the top of the view
-                            if (firstEntry != null)
-                            {
-                                Rectangle bounds = firstEntry.GetCoordinates(scrollX, scrollY, new Rectangle(0, 0, this.Bounds.Width, this.Bounds.Height), 0);
+                                // Get the first entry element
+                                Element firstEntry = Entries[0];
 
-                                // if the first entry top were above the visible coordinates draw it on the top
-                                if (bounds.Top < tabbar_height + bounds.Height)
+                                // If an first entry was found draw the headers straight above it or on the top of the view
+                                if (firstEntry != null)
                                 {
-                                    DrawHeaders(d, new Point(0, +tabbar_height+2));
-                                }
-                                else
-                                {
-                                    DrawHeaders(d, new Point(0, bounds.Top - bounds.Height+2));
+                                    Rectangle bounds = firstEntry.GetCoordinates(scrollX, scrollY, new Rectangle(0, 0, this.Bounds.Width, this.Bounds.Height), 0);
+
+                                    // if the first entry top were above the visible coordinates draw it on the top
+                                    if (bounds.Top < tabbar_height + bounds.Height)
+                                    {
+                                        DrawHeaders(d, new Point(0, +tabbar_height + 2));
+                                    }
+                                    else
+                                    {
+                                        DrawHeaders(d, new Point(0, bounds.Top - bounds.Height + 2));
+                                    }
                                 }
                             }
                         }
@@ -3045,9 +3208,10 @@ namespace Board
                   int toolBarindent = scrollbar_size;
                   // Get start position of toolbar 
                   int position = this.Bounds.Width - toolBarindent - size;
+                  int prePosition = position;
                   foreach (Element _elm in this.currentView.Content.View.Toolbar.Items)
                   {
-                      int prePosition=position;
+                     
                         
                        // Draw text and measure the position for the next entry
                         
@@ -3060,20 +3224,21 @@ namespace Board
                       {
                         
                       }
+                      
+                      prePosition = position;
+                      position += menupadding + width;
                       Rectangle bounds = new Rectangle(prePosition, 2, position - prePosition, tabbar_height - 4);
                       // If mouseover mark the item
-                      if (bounds.Contains(mouseX,mouseY))
+                      if (bounds.Contains(mouseX, mouseY))
                       {
                           d.DrawImage(ToolItem, new Rectangle(position, 0, width, tabbar_height));
                           d.DrawString(_elm.GetAttribute("title"), new Font(FontFace, 9), new SolidBrush(Color.White), new Point(menupadding + prePosition, 2));
-              
-                     /*
-                          d.FillRectangle(new SolidBrush(Color.FromArgb(50, 50, 50)), bounds);
-                          d.DrawRectangle(new Pen(Color.FromArgb(155, 155, 155)), bounds);
-                                  */
+                          hoveredElement = _elm;
+                          /*
+                               d.FillRectangle(new SolidBrush(Color.FromArgb(50, 50, 50)), bounds);
+                               d.DrawRectangle(new Pen(Color.FromArgb(155, 155, 155)), bounds);
+                                       */
                       }
-                      position += menupadding + width;
-                    
                   }
                     
                 }
@@ -3329,6 +3494,11 @@ namespace Board
         public string dragURI = "";
         private void Artist_MouseDown(object sender, MouseEventArgs e)
         {
+            // if active column is defined, assert it
+            if (activeColumn > -1)
+            {
+                return;
+            }
             /**
              * If the hovered section is -5 start resizing the radio splitter
              * */
@@ -3902,8 +4072,9 @@ namespace Board
         {
             // define starting index
             int index = 0;
-            foreach (Element ct in ViewBuffer)
+            for (int i=0; i < ViewBuffer.Count; i++)
             {
+                Element ct = ViewBuffer[i];
                 // only enumerate if the element is an type of entry
                 if (ct.Entry)
                 {
@@ -3931,8 +4102,9 @@ namespace Board
             {
                 // Allocate list for only entries
                 List<Element> entries = new List<Element>();
-                foreach (Element cf in this.ViewBuffer)
+                for (int i = 0; i < this.ViewBuffer.Count; i++ )
                 {
+                    Element cf = ViewBuffer[i];
                     if (cf.Entry)
                         entries.Add(cf);
                 }

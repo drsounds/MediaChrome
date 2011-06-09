@@ -38,7 +38,9 @@ namespace MediaChrome
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
 			
-		}	
+		}
+        // Progess of the import
+        private float progress = 0.0f;
 		public int completed=0;
 		bool ready=true;
 		void ImportLibraryLoad(object sender, EventArgs e)
@@ -65,39 +67,40 @@ namespace MediaChrome
 		
 		public void Import(string RootDir)
         {
-            List<Song> songs =    Importer.Import( RootDir);
+            List<Song> songs =    Importer.Import( RootDir,ref progress);
         
-            SQLiteConnection Conn = new SQLiteConnection("Data Source=sqlite.db;");
+            SQLiteConnection Conn = new SQLiteConnection("Data Source=localFiles.sqlite;");
             try
             {
                 Conn.Open();
+                foreach (Song Ds in songs)
+                {
+                    SQLiteCommand C = new SQLiteCommand("SELECT count(*) FROM song WHERE path='" + Ds.Path + "'", (SQLiteConnection)Conn);
+                    SQLiteDataReader SQDR = C.ExecuteReader();
+
+                    if (SQDR.HasRows)
+                    {
+                        SQDR.Read();
+                        if (SQDR.GetInt32(0) == 0)
+                        {
+                            try
+                            {
+                                SQLiteCommand Df = new SQLiteCommand("INSERT INTO song (name,artist,album,engine,path,genre,store) VALUES(\"" + Ds.Name + "\",\"" + Ds.Artists[0].Name + "\",\"" + Ds.Album.Name + "\",\""+Ds.Engine.Namespace+"\",\"" + Ds.Path + "\",\"pop\",\""+Ds.Engine.Title+"\")", Conn);
+                                Df.ExecuteNonQuery();
+                            }
+                            catch
+                            {
+
+                            }
+                        }
+                    }
+                }
             }
             catch
             {
             
 			
-				foreach(Song Ds in songs)
-				{
-					SQLiteCommand C = new SQLiteCommand("SELECT count(*) FROM song WHERE path='"+Ds.Path+"'",(SQLiteConnection)Conn);
-					SQLiteDataReader SQDR = C.ExecuteReader();
-					
-					if(SQDR.HasRows)
-					{
-						SQDR.Read();
-						if(SQDR.GetInt32(0)==0)
-						{
-							try
-							{
-							SQLiteCommand Df = new SQLiteCommand("INSERT INTO song (name,artist,album,engine,path,genre,store) VALUES(\""+Ds.Name+"\",\""+Ds.Artists[0].Name+"\",\""+Ds.Album.Name+"\",\"sp\",\"sp:"+Ds.Path+"\",\"pop\",\"Spotify\")",Conn);
-							Df.ExecuteNonQuery();
-							}
-							catch
-							{
-								
-							}
-						}
-					}
-				}
+				
 			}
 			Conn.Close();
         
@@ -141,8 +144,8 @@ namespace MediaChrome
 			{
 				try
 				{
-					progressBar1.Maximum = Importer.TotalFiles;
-					progressBar1.Value= Importer.FilesCompleted;
+                    progressBar1.Maximum = 100;
+					progressBar1.Value= (int)(progress*100);
 				}catch{}
 			}
 		}

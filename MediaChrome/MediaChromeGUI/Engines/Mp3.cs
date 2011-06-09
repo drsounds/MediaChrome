@@ -54,9 +54,52 @@ namespace MediaChrome
                 return "mp3:";
             }
         }
-        public List<Song> Import(String query)
+        public void enumerateFiles(DirectoryInfo DI, ref float count)
         {
-            return new List<Song>();
+            foreach (FileInfo ct in DI.GetFiles("*.mp3"))
+                count++;
+            foreach (DirectoryInfo dir in DI.GetDirectories())
+                enumerateFiles(dir, ref count);
+        }
+        private void ImportEx(DirectoryInfo DI, ref float progress,ref List<Song> songs,ref float fileCount)
+        {
+            FileInfo[] D = DI.GetFiles("*.mp3");
+            int i = 0;
+            foreach (FileInfo X in D)
+            {
+
+                id3.MP3 Dw = new id3.MP3(X.DirectoryName, X.Name);
+                id3.FileCommands.readMP3Tag(ref Dw);
+                SQLiteConnection CP = MediaChrome.MainForm.MakeConnection();
+                Song song = new Song();
+                song.Name = Dw.id3Title.Replace("\"","'").Replace("\0","");
+                song.Artist = Dw.id3Artist.Replace("\"", "'").Replace("\0", "");
+                song.AlbumName = Dw.id3Album.Replace("\"", "'").Replace("\0", "");
+                song.Path = "mp3:" + X.FullName.Replace("\"", "'").Replace("\0", "");
+                song.Engine = this;
+
+                songs.Add(song);
+
+                // set progress to the files
+                progress = i / fileCount;
+              
+                
+            }
+            foreach (DirectoryInfo dir in DI.GetDirectories())
+            {
+                ImportEx(dir, ref progress, ref songs,ref fileCount);
+            }
+          
+        }
+        public List<Song> Import(String query, ref float progress)
+        {
+            List<Song> songs = new List<Song>();
+            DirectoryInfo DI = new DirectoryInfo(query);
+            float fileCount = 0;
+            enumerateFiles(DI, ref fileCount);
+            ImportEx(DI, ref progress,ref songs,ref fileCount);
+            return songs;
+           
         }
         #region DefaultValues
         public String Address { get; set; }
@@ -188,7 +231,7 @@ namespace MediaChrome
             {
                 try
                 {
-                    return (int)((player.controls.currentPosition / player.controls.currentItem.duration) * 100);
+                    return (int)(player.controls.currentPosition);
                 }
                 catch
                 {
@@ -222,6 +265,9 @@ namespace MediaChrome
         { get; set; }
         public void SongImport(Song[] query)
         {
+        
+
+            
         }
         public String Image
         {
@@ -310,45 +356,12 @@ namespace MediaChrome
 		
 		public void ImportEx(SQLiteConnection Conn,string RootDir){
 			
-			DirectoryInfo DI = new DirectoryInfo(RootDir);
-				
-			FileInfo[] D = DI.GetFiles("*.mp3");
-			foreach(FileInfo X in D){
-				TotalFiles++;
-			}
-			DirectoryInfo[] Directories = DI.GetDirectories();
-			foreach(DirectoryInfo R in Directories){
-				ImportEx(Conn,R.FullName);
-			}
 		}
 		public void ImportData(SQLiteConnection Conn,string RootDir){
-			DirectoryInfo DI = new DirectoryInfo(RootDir);
-				
-			FileInfo[] D = DI.GetFiles("*.mp3");
-			foreach(FileInfo X in D){
-				
-					id3.MP3 Dw = new id3.MP3(X.DirectoryName,X.Name);
-					id3.FileCommands.readMP3Tag(ref Dw);
-                    SQLiteConnection CP = MediaChrome.MainForm.MakeConnection();
-				
-					
-					String P = "INSERT INTO song(name,artist,album,path,no,composer,store,engine) VALUES (\""+Dw.id3Title.Replace("\0","").Replace("\"","'")+"\" ,\""+Dw.id3Artist.Replace("\0","").Replace("\"","'")+"\",\""+Dw.id3Album.Replace("\0","").Replace("\"","'")+"\",\"mp3:"+X.FullName+"\","+Dw.id3TrackNumber+",\"Other\",\"Local Files\",\"mp3\")";
-					SQLiteCommand C = new SQLiteCommand(P,CP);
-					C.ExecuteNonQuery();
-					FilesCompleted++;
-					CP.Close();
 			
-				
-			}
-			DirectoryInfo[] Directories = DI.GetDirectories();
-			foreach(DirectoryInfo R in Directories){
-				ImportData(Conn,R.FullName);
-			}
 		}
 		public void Import(object Conn,string RootDir){
-			Ready=false;
-			ImportData((SQLiteConnection)Conn,RootDir);
-			Ready=true;
+			
 			
 		}
 		

@@ -322,6 +322,8 @@
             this.ucPosBar1.Size = new System.Drawing.Size(739, 13);
             this.ucPosBar1.TabIndex = 14;
             this.ucPosBar1.Value = 0F;
+            this.ucPosBar1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ucPosBar1_MouseDown);
+            this.ucPosBar1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ucPosBar1_MouseUp_1);
             // 
             // cBtn2
             // 

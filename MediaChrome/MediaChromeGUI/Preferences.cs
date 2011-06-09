@@ -65,6 +65,7 @@ namespace MediaChrome
         {
             Host.Skin = new Board.Skin(String.Format(baseFolder + "{0}\\{0}.xml", (string)comboBox1.Items[comboBox1.SelectedIndex]));
             Settings.Default.Skin = (string)comboBox1.Items[comboBox1.SelectedIndex];
+            Settings.Default.Save();
         }
         private void button3_Click(object sender, EventArgs e)
         {

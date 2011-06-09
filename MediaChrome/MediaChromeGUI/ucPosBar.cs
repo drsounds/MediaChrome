@@ -99,7 +99,7 @@ namespace webclassprototype
             // Draw position bar
             if (!float.IsInfinity(XPart))
             {
-                e.DrawImage(Thumb, val * XPart, 0, this.Height, this.Height);
+                e.DrawImage(Thumb, (val / maximum)*Width, 0, this.Height, this.Height);
             }
             r.Render();
         }

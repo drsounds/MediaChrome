@@ -21,17 +21,61 @@ namespace Board
     [Serializable]
     public class Skin
     {
+        JavaScriptEngine engine;
+       
         public String Directory { get; set; }
+
+        public IScriptEngine ScriptEngine
+        {
+         get{return engine;}
+        }
+        /// <summary>
+        /// Sets css wrapper functions
+        /// </summary>
+        public void SetCSSFunctions()
+        {
+             engine.SetFunction("url",new Func<string,object>(__css_url));
+        }
+
+        /// <summary>
+        /// An wrapper for URL property
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public object __css_url(string url)
+        {
+            return url;
+        }
+
         /// <summary>
         /// Loads an skin from the defined file
         /// </summary>
         /// <param name="File">file name of the xml skin</param>
-        public Skin(String File)
+        public Skin(String File,bool css = false)
         {
-            
-            XmlSerializer r = new XmlSerializer(typeof(Skin));
+            engine = new JavaScriptEngine();
+
+          // If css mode load the components as CSS instead of files
+            if(css)
+            {
+                CssParser Parser = new CssParser();
+                using(StreamReader SR = new StreamReader(File))
+                {
+                    Dictionary<String,Dictionary<string,string>> result = Parser.ParseCSSFile(SR.ReadToEnd());
+                    foreach(KeyValuePair<String,Dictionary<string,string>> item in result)
+                    {
+                        Component d = new Component(this);
+                        d.Rel=item.Key;
+                        d.SetCSS( item.Value);
+                        this.components.Add(d);
+                    }
+                }
+            }else{
+                    
+                XmlSerializer r = new XmlSerializer(typeof(Skin));
             Skin a = (Skin)r.Deserialize(new StreamReader(File));
             this.components = a.components;
+            }
             // Set this as parent on all component definitions
             foreach (Component d in components)
             {
@@ -77,6 +121,7 @@ namespace Board
     /// </summary>
     public class ComponentCollection : IDictionary<string, Component>
     {
+        
        
         public Skin Parent { get; set; }
         public ComponentCollection(Skin skin, List<Component> lst)
@@ -223,6 +268,26 @@ namespace Board
     [Serializable]
     public class Component
     {
+        [NonSerialized]
+        private Dictionary<String,string> CssValues;
+
+        /// <summary>
+        /// Set CSS values
+        /// </summary>
+        /// <param name="values"></param>
+        public void SetCSS(Dictionary<string, string> values)
+        {
+            this.CssValues = values;
+        }
+        public Color GetCSSColor(string key)
+        {
+            return ColorTranslator.FromHtml(CssValues[key]);
+        }
+        public Image GetCSSImage(string key)
+        {
+            Parent.ScriptEngine.Run("return url('" + CssValues[key] + "')");
+            return Bitmap.FromFile((string)Parent.ScriptEngine.Invoke("url",CssValues[key]));
+        }
         /// <summary>
         /// Gets or sets the parent skin
         /// </summary>
@@ -230,10 +295,13 @@ namespace Board
         public Component(Skin Parent)
         {
             this.Parent = Parent;
+            CssValues = new Dictionary<string,string>();
             
         }
         public Component()
         {
+           CssValues = new Dictionary<string,string>();
+            
         }
        
         /// <summary>

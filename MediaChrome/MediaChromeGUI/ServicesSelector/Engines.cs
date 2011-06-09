@@ -31,6 +31,8 @@ namespace MediaChrome
         }
         private void Engines_Load(object sender, EventArgs e)
         {
+            this.BackgroundImage = Host.Skin.Components["Menu#BG"].BackgroundImage;
+            this.BackColor = Host.Skin.Components["Menu#BG"].BackColor;
             int left = 10;
             int top = 80;
             int increase=60;

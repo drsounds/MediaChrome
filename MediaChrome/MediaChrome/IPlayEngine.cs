@@ -654,11 +654,7 @@ namespace MediaChrome
         /// <returns></returns>
 		List<Song> Find(String Query);
 
-        /// <summary>
-        /// Import songs into the local library according to the specifications.
-        /// </summary>
-        /// <param name="songs"></param>
-        void SongImport(Song[] songs);
+     
 
         /// <summary>
         /// Starts playing the current song
@@ -696,7 +692,8 @@ namespace MediaChrome
         /// </summary>
         /// <param name="Conn">SQLiteConnection instance for accessing the internal database</param>
         /// <param name="RootDir">The file directory for the local files to recurse on</param>
-		List<Song> Import(string RootDir);
+        /// <param name="progress">An reference to an float for indicating an progress between 0.00f - 1.00f (0 = 0%, 1 = 100%)</param>
+		List<Song> Import(string RootDir,ref float progress);
         
         /// <summary>
         /// Host form. Used by the runtime

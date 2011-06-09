@@ -17,7 +17,15 @@ namespace Board
         /// </summary>
         /// <param name="scriptCode">The string with the javascript code</param>
         /// <returns>True if sucess, false if failed </returns>
-        bool Run(string scriptCode);
+        string Run(string scriptCode);
+
+        /// <summary>
+        /// Invoke an function in the client script from the executable code
+        /// </summary>
+        /// <param name="Function"></param>
+        /// <param name="arguments"></param>
+        /// <returns></returns>
+        object Invoke(string Function, params object[] arguments);
 
         /// <summary>
         /// Thus method is called to make an instance of an certain object accessible for the scripting object.
@@ -32,10 +40,13 @@ namespace Board
         /// <param name="functionName"></param>
         /// <param name="functionPointer"></param>
         void SetFunction(string functionName, Delegate functionPointer);
+
+       
     }
 
     public class JavaScriptEngine : IScriptEngine
     {
+        
         /// <summary>
         /// The instance of the Jint parser
         /// </summary>
@@ -50,29 +61,41 @@ namespace Board
         }
 
         /// <summary>
+        /// Invokes an user function
+        /// </summary>
+        /// <param name="func"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public object Invoke(string func, params object[] args)
+        {
+            return scriptEngine.CallFunction(func, args);
+
+        }
+        /// <summary>
         /// This function is called by the preprocesor after the code has been compiled from the preprocessing template
         /// </summary>
         /// <param name="scriptCode">The string with the javascript code</param>
         /// <returns>True if sucess, false if failed </returns>
-        public bool  Run(string scriptCode)
+        public string  Run(string scriptCode)
         {
             try
             {
-                scriptEngine.Run(scriptCode);
-                return true;
+                return (bool)scriptEngine.Run(scriptCode) ? "true" : "false";
+                
             }
                 
             catch(Exception e)
             {
+
                 // Load error page
                 using (System.IO.StreamReader SR = new System.IO.StreamReader("views\\error.xml"))
                 {
                     string errorView = new MakoEngine().Preprocess(SR.ReadToEnd(), "", false,true);
                     scriptEngine.SetParameter("error", e.Message + "\n "+ e.StackTrace);
 
-                    scriptEngine.Run(errorView);
+                    return (bool)scriptEngine.Run(errorView) ? "true" :"false";
                 }
-                return true;
+                
             }
         }
     

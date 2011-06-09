@@ -13,6 +13,26 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaChrome", "..\MediaChro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeskWiki", "..\DeskWiki\DeskWiki.csproj", "{73C5EBB2-4FFF-4479-9B56-B3B0EE4FEC40}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MediaChromeWebSite", "..\..\..\..\..\Dropbox\MediaChromeWebSite\", "{A49D1DEF-493E-4D2E-87A5-B90A4F71B753}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/MediaChromeWebSite"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\..\..\..\Dropbox\MediaChromeWebSite\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\MediaChromeWebSite\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/MediaChromeWebSite"
+		Release.AspNetCompiler.PhysicalPath = "..\..\..\..\..\Dropbox\MediaChromeWebSite\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\MediaChromeWebSite\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "49397"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -120,6 +140,21 @@ Global
 		{73C5EBB2-4FFF-4479-9B56-B3B0EE4FEC40}.Release|Mixed Platforms.Build.0 = Release|x86
 		{73C5EBB2-4FFF-4479-9B56-B3B0EE4FEC40}.Release|x86.ActiveCfg = Release|x86
 		{73C5EBB2-4FFF-4479-9B56-B3B0EE4FEC40}.Release|x86.Build.0 = Release|x86
+		{A49D1DEF-493E-4D2E-87A5-B90A4F71B753}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A49D1DEF-493E-4D2E-87A5-B90A4F71B753}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A49D1DEF-493E-4D2E-87A5-B90A4F71B753}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A49D1DEF-493E-4D2E-87A5-B90A4F71B753}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A49D1DEF-493E-4D2E-87A5-B90A4F71B753}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A49D1DEF-493E-4D2E-87A5-B90A4F71B753}.EXPERIMENTAL|Any CPU.ActiveCfg = Debug|Any CPU
+		{A49D1DEF-493E-4D2E-87A5-B90A4F71B753}.EXPERIMENTAL|Any CPU.Build.0 = Debug|Any CPU
+		{A49D1DEF-493E-4D2E-87A5-B90A4F71B753}.EXPERIMENTAL|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A49D1DEF-493E-4D2E-87A5-B90A4F71B753}.EXPERIMENTAL|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A49D1DEF-493E-4D2E-87A5-B90A4F71B753}.EXPERIMENTAL|x86.ActiveCfg = Debug|Any CPU
+		{A49D1DEF-493E-4D2E-87A5-B90A4F71B753}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{A49D1DEF-493E-4D2E-87A5-B90A4F71B753}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{A49D1DEF-493E-4D2E-87A5-B90A4F71B753}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A49D1DEF-493E-4D2E-87A5-B90A4F71B753}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A49D1DEF-493E-4D2E-87A5-B90A4F71B753}.Release|x86.ActiveCfg = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
