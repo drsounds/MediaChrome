@@ -2922,7 +2922,10 @@ namespace MediaChrome
             {
             }
         }
-
+        private string ZeroFill(int no)
+        {
+            return no > 9 ? no.ToString() : String.Format("0{0}", no);
+        }
         private void timer3_Tick_1(object sender, EventArgs e)
         {
            if(CurrentPlayer!=null)
@@ -2930,6 +2933,18 @@ namespace MediaChrome
             {
                 this.ucPosBar1.Maximum = (float)(float)currentPlayer.Duration;
                 this.ucPosBar1.Value = (float)currentPlayer.Position;
+
+
+                // Determine start and ending time in m:ss
+                TimeSpan StartTime = new TimeSpan(0, 0, 0, this.currentPlayer.Position);
+                TimeSpan EndTime = new TimeSpan(0, 0, 0, (int)this.currentPlayer.Duration);
+   
+                // Display current position in m:ss
+                this.label1.Text = String.Format("{0}:{1}", StartTime.Minutes, ZeroFill(StartTime.Seconds));
+                
+
+                // Display length in m:ss
+                this.label4.Text = String.Format("{0}:{1}", EndTime.Minutes, ZeroFill(EndTime.Seconds));
                 
             }
             catch { }
@@ -2937,14 +2952,21 @@ namespace MediaChrome
 
         private void cBtn8_Click_2(object sender, EventArgs e)
         {
-            if (currentPlayer.Paused)
+            try
             {
-                currentPlayer.Play();
+                if (currentPlayer.Paused)
+                {
+                    currentPlayer.Play();
+                    cBtn8.Img = Properties.Resources.pause;
+                    
+                }
+                else
+                {
+                    currentPlayer.Pause();
+                    cBtn8.Img = Properties.Resources.play2;
+                }
             }
-            else
-            {
-                currentPlayer.Pause();
-            }
+            catch { }
         }
 
         private void label5_Click(object sender, EventArgs e)
@@ -3048,6 +3070,11 @@ namespace MediaChrome
             if (CurrentPlayer != null)
                 CurrentPlayer.Seek(ucPosBar1.Value);
             timer3.Start();
+        }
+
+        private void panel4_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
     }

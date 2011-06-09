@@ -1239,7 +1239,7 @@ namespace Board
         /// </summary>
         public void Render(XmlDocument d)
         {
-            try
+        //    try
             {
            
               
@@ -1250,7 +1250,7 @@ namespace Board
                 this.LayoutElements = d;
 
                 // Create new ghost view
-                View c = new View();
+                this.View = new View();
                 this.Live = d.DocumentElement.HasAttribute("live"); 
                 // iterate through all sections of the page
                 XmlNodeList Sections = d.GetElementsByTagName("section");
@@ -1307,7 +1307,7 @@ namespace Board
                         }
                     }
 
-                    c.Sections.Add(_Section);
+                    this.View.Sections.Add(_Section);
                     _Section.ptop = 20;
                     if(this.View!=null)
                         if(this.View.Sections!=null)
@@ -1316,7 +1316,7 @@ namespace Board
                     {
                         foreach (Element er in _section1.Entries)
                         {
-                            foreach (Section newSection in c.Sections)
+                            foreach (Section newSection in this.View.Sections)
                             {
                                 
                                 foreach (Element newElement in newSection.Entries)
@@ -1341,11 +1341,10 @@ namespace Board
                         }
 
                         // Add the element to the buffer
-                        _section1.SortedBuffer.AddRange(_section1.Elements);
+                       // _section1.SortedBuffer.AddRange(_section1.Elements);
 
                     }
-                    this.View = c;
-
+                  
                     // Copy the elements to an secure buffer
                     
                 }
@@ -1449,7 +1448,7 @@ namespace Board
 #endif
            
             }
-            catch
+    //           catch
             {
 
             }

@@ -1623,7 +1623,13 @@ namespace Board
         /// </summary>
         public void NextSong()
         {
-            GetPlayingSection().Parent.NextSong();
+            try
+            {
+                GetPlayingSection().Parent.NextSong();
+            }
+            catch
+            {
+            }
         }
         int diffX = 0;
         int diffY = 0;

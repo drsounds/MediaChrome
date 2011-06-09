@@ -458,7 +458,10 @@
     <None Include="bin\Debug\imgs\update.png" />
     <None Include="Backup\Resources\kan1.png" />
     <None Include="Backup\Resources\kan2.png" />
+    <None Include="bin\Debug\skins\spotify\top_wall.png" />
     <Content Include="NAudio.dll" />
+    <None Include="Properties\button.png" />
+    <None Include="Properties\button_down.png" />
     <Content Include="Properties\NAudio.dll" />
   </ItemGroup>
   <ItemGroup>

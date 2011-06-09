@@ -293,8 +293,8 @@ namespace MediaChrome
 		public Song RawFind(Song D)
 		{
             SQLiteConnection Conn = MediaChrome.MainForm.MakeConnection();
-           
-			SQLiteCommand Command = new SQLiteCommand("SELECT * FROM song WHERE name LIKE '%"+D.Title+"%' AND artist LIKE '%"+D.Artist+"%' AND  ( engine = 'mp3' OR store ='mp3')",Conn);
+
+            SQLiteCommand Command = new SQLiteCommand("SELECT * FROM song WHERE name LIKE '%" + D.Title.Replace("'", "") + "%' AND artist LIKE '%" + D.Artist.Replace("'", "") + "%' AND  ( engine = 'mp3' OR store ='mp3')", Conn);
 			SQLiteDataReader Reader = Command.ExecuteReader();
 			if(Reader.HasRows)
 			{

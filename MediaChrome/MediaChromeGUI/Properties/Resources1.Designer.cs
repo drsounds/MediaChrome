@@ -130,6 +130,13 @@ namespace MediaChrome.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap button_down {
+            get {
+                object obj = ResourceManager.GetObject("button_down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap button1 {
             get {
                 object obj = ResourceManager.GetObject("button1", resourceCulture);
@@ -140,6 +147,13 @@ namespace MediaChrome.Properties {
         internal static System.Drawing.Bitmap button2 {
             get {
                 object obj = ResourceManager.GetObject("button2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button3 {
+            get {
+                object obj = ResourceManager.GetObject("button3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -476,27 +490,6 @@ namespace MediaChrome.Properties {
         internal static System.Drawing.Bitmap top_wall {
             get {
                 object obj = ResourceManager.GetObject("top_wall", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap top_wall1 {
-            get {
-                object obj = ResourceManager.GetObject("top_wall1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap top_wall11 {
-            get {
-                object obj = ResourceManager.GetObject("top_wall11", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap top_wall2 {
-            get {
-                object obj = ResourceManager.GetObject("top_wall2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -43,13 +43,13 @@
 			}
 		?>
 	</section>
-% if(false){
+
 	<section name="debug">
 			
 		
 	</section>
 	
-% }
+
 	<section name="Feed">
 	<?
 		

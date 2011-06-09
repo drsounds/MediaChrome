@@ -57,8 +57,12 @@ for(var i=0; i < artist.Albums.Length ; i++){
 % }
 	
 	
+	
 	</section>
 	<section name="Biography">
+	<?
+	var d = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=Cher&api_key=b25b959554ed76058ac220b7b2e0a026");
+	var bio = d.GetElementsByTagName("bio").Items(0).GetElementsByTagNameName("summary").Items(0).
 	</section>
 </view>
 		

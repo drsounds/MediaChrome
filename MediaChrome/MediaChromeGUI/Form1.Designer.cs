@@ -57,8 +57,11 @@
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
             this.listViewX1 = new MediaChrome.XListView();
             this.panel4 = new MediaChrome.ExPanel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.ucPosBar2 = new webclassprototype.ucPosBar();
             this.ucPosBar1 = new webclassprototype.ucPosBar();
             this.cBtn2 = new MediaChrome.cBtn();
             this.cBtn1 = new MediaChrome.cBtn();
@@ -224,7 +227,7 @@
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(346, 18);
+            this.button1.Location = new System.Drawing.Point(374, 19);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 18;
@@ -271,10 +274,13 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panel4.BackgroundImage = global::MediaChrome.Properties.Resources.rbottom1;
+            this.panel4.BackgroundImage = global::MediaChrome.Properties.Resources.top_wall;
             this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel4.Controls.Add(this.label4);
+            this.panel4.Controls.Add(this.label1);
             this.panel4.Controls.Add(this.panel8);
             this.panel4.Controls.Add(this.panel6);
+            this.panel4.Controls.Add(this.ucPosBar2);
             this.panel4.Controls.Add(this.ucPosBar1);
             this.panel4.Controls.Add(this.cBtn2);
             this.panel4.Controls.Add(this.cBtn1);
@@ -285,6 +291,30 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1076, 53);
             this.panel4.TabIndex = 23;
+            this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(912, 12);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.TabIndex = 24;
+            this.label4.Text = "0:000";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(220, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 13);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "0:00";
             // 
             // panel8
             // 
@@ -309,17 +339,31 @@
             this.panel6.TabIndex = 22;
             this.panel6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel6_MouseDown);
             // 
+            // ucPosBar2
+            // 
+            this.ucPosBar2.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.ucPosBar2.BorderColor = System.Drawing.Color.Black;
+            this.ucPosBar2.FillColor = System.Drawing.Color.White;
+            this.ucPosBar2.Location = new System.Drawing.Point(149, 12);
+            this.ucPosBar2.Maximum = 100F;
+            this.ucPosBar2.Name = "ucPosBar2";
+            this.ucPosBar2.Size = new System.Drawing.Size(58, 13);
+            this.ucPosBar2.TabIndex = 14;
+            this.ucPosBar2.Value = 100F;
+            this.ucPosBar2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ucPosBar1_MouseDown);
+            this.ucPosBar2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ucPosBar1_MouseUp_1);
+            // 
             // ucPosBar1
             // 
             this.ucPosBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ucPosBar1.BackColor = System.Drawing.Color.Transparent;
+            this.ucPosBar1.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ucPosBar1.BorderColor = System.Drawing.Color.Black;
             this.ucPosBar1.FillColor = System.Drawing.Color.White;
-            this.ucPosBar1.Location = new System.Drawing.Point(141, 22);
+            this.ucPosBar1.Location = new System.Drawing.Point(255, 12);
             this.ucPosBar1.Maximum = 100F;
             this.ucPosBar1.Name = "ucPosBar1";
-            this.ucPosBar1.Size = new System.Drawing.Size(739, 13);
+            this.ucPosBar1.Size = new System.Drawing.Size(651, 13);
             this.ucPosBar1.TabIndex = 14;
             this.ucPosBar1.Value = 0F;
             this.ucPosBar1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ucPosBar1_MouseDown);
@@ -331,10 +375,10 @@
             this.cBtn2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn2.BackgroundImage")));
             this.cBtn2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.cBtn2.Img = global::MediaChrome.Properties.Resources.back;
-            this.cBtn2.Location = new System.Drawing.Point(20, 10);
+            this.cBtn2.Location = new System.Drawing.Point(9, 0);
             this.cBtn2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cBtn2.Name = "cBtn2";
-            this.cBtn2.Size = new System.Drawing.Size(32, 32);
+            this.cBtn2.Size = new System.Drawing.Size(43, 42);
             this.cBtn2.TabIndex = 10;
             this.cBtn2.Load += new System.EventHandler(this.cBtn8_Load_1);
             this.cBtn2.Click += new System.EventHandler(this.cBtn2_Click_1);
@@ -346,10 +390,10 @@
             this.cBtn1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn1.BackgroundImage")));
             this.cBtn1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.cBtn1.Img = global::MediaChrome.Properties.Resources.forward;
-            this.cBtn1.Location = new System.Drawing.Point(92, 10);
+            this.cBtn1.Location = new System.Drawing.Point(102, 0);
             this.cBtn1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cBtn1.Name = "cBtn1";
-            this.cBtn1.Size = new System.Drawing.Size(32, 32);
+            this.cBtn1.Size = new System.Drawing.Size(42, 42);
             this.cBtn1.TabIndex = 10;
             this.cBtn1.Load += new System.EventHandler(this.cBtn8_Load_1);
             this.cBtn1.Click += new System.EventHandler(this.cBtn1_Click_1);
@@ -361,10 +405,10 @@
             this.cBtn8.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn8.BackgroundImage")));
             this.cBtn8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.cBtn8.Img = global::MediaChrome.Properties.Resources.play;
-            this.cBtn8.Location = new System.Drawing.Point(56, 10);
+            this.cBtn8.Location = new System.Drawing.Point(56, 0);
             this.cBtn8.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cBtn8.Name = "cBtn8";
-            this.cBtn8.Size = new System.Drawing.Size(32, 32);
+            this.cBtn8.Size = new System.Drawing.Size(42, 42);
             this.cBtn8.TabIndex = 10;
             this.cBtn8.Load += new System.EventHandler(this.cBtn8_Load_1);
             this.cBtn8.Click += new System.EventHandler(this.cBtn8_Click_2);
@@ -488,7 +532,7 @@
             this.panel5.Cursor = System.Windows.Forms.Cursors.SizeNS;
             this.panel5.Location = new System.Drawing.Point(9, -4);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1060, 16);
+            this.panel5.Size = new System.Drawing.Size(1060, 17);
             this.panel5.TabIndex = 22;
             this.panel5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel5_MouseDown);
             // 
@@ -533,7 +577,7 @@
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.BackgroundImage = global::MediaChrome.Properties.Resources.icon;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.pictureBox1.Location = new System.Drawing.Point(9, 11);
+            this.pictureBox1.Location = new System.Drawing.Point(9, 13);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(37, 39);
             this.pictureBox1.TabIndex = 19;
@@ -546,10 +590,10 @@
             this.cBtn4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn4.BackgroundImage")));
             this.cBtn4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.cBtn4.Img = global::MediaChrome.Properties.Resources.forward;
-            this.cBtn4.Location = new System.Drawing.Point(88, 14);
+            this.cBtn4.Location = new System.Drawing.Point(87, 14);
             this.cBtn4.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cBtn4.Name = "cBtn4";
-            this.cBtn4.Size = new System.Drawing.Size(28, 28);
+            this.cBtn4.Size = new System.Drawing.Size(36, 36);
             this.cBtn4.TabIndex = 11;
             this.cBtn4.Load += new System.EventHandler(this.cBtn4_Load);
             this.cBtn4.Click += new System.EventHandler(this.CBtn4Click);
@@ -562,10 +606,10 @@
             this.cBtn5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn5.BackgroundImage")));
             this.cBtn5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.cBtn5.Img = null;
-            this.cBtn5.Location = new System.Drawing.Point(304, 14);
+            this.cBtn5.Location = new System.Drawing.Point(311, 12);
             this.cBtn5.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cBtn5.Name = "cBtn5";
-            this.cBtn5.Size = new System.Drawing.Size(27, 28);
+            this.cBtn5.Size = new System.Drawing.Size(44, 41);
             this.cBtn5.TabIndex = 10;
             this.cBtn5.Load += new System.EventHandler(this.cBtn3_Load);
             this.cBtn5.Click += new System.EventHandler(this.CBtn3Click);
@@ -578,10 +622,10 @@
             this.cBtn3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn3.BackgroundImage")));
             this.cBtn3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.cBtn3.Img = global::MediaChrome.Properties.Resources.back;
-            this.cBtn3.Location = new System.Drawing.Point(58, 14);
+            this.cBtn3.Location = new System.Drawing.Point(48, 14);
             this.cBtn3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cBtn3.Name = "cBtn3";
-            this.cBtn3.Size = new System.Drawing.Size(26, 28);
+            this.cBtn3.Size = new System.Drawing.Size(36, 36);
             this.cBtn3.TabIndex = 10;
             this.cBtn3.Load += new System.EventHandler(this.cBtn3_Load);
             this.cBtn3.Click += new System.EventHandler(this.CBtn3Click);
@@ -591,7 +635,7 @@
             this.textBox1.BackColor = System.Drawing.Color.Transparent;
             this.textBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("textBox1.BackgroundImage")));
             this.textBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.textBox1.Location = new System.Drawing.Point(120, 12);
+            this.textBox1.Location = new System.Drawing.Point(127, 14);
             this.textBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(180, 33);
@@ -715,14 +759,12 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
         private ExPanel panel4;
-        private cBtn cBtn8;
         private System.Windows.Forms.MenuStrip menuStrip2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private ExPanel panel3;
         private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
         private cBtn cBtn2;
-        private cBtn cBtn1;
         private System.Windows.Forms.Label label3;
         private webclassprototype.ucPosBar ucPosBar1;
         private System.Windows.Forms.Button button1;
@@ -738,6 +780,11 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel8;
+        private webclassprototype.ucPosBar ucPosBar2;
+        private cBtn cBtn1;
+        private cBtn cBtn8;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label1;
 
     }
 }

@@ -34,7 +34,7 @@ namespace MediaChrome
 		
 		void CBtnMouseDown(object sender, MouseEventArgs e)
 		{
-			this.BackgroundImage = Properties.Resources.button1;
+            this.BackgroundImage = Properties.Resources.button_down;
 		}
 		
 		void CBtnLoad(object sender, EventArgs e)
@@ -44,12 +44,12 @@ namespace MediaChrome
 		
 		void CBtnMouseUp(object sender, MouseEventArgs e)
 		{
-			this.BackgroundImage = Properties.Resources.button2;
+			this.BackgroundImage = Properties.Resources.button3;
 		}
 		public Image Img
 		{
 			get{return this.pictureBox1.BackgroundImage;}
-			set{this.pictureBox1.BackgroundImage = value;}
+            set { this.pictureBox1.BackgroundImage = value; }
 		}
 		
 		void PictureBox1MouseEnter(object sender, EventArgs e)
@@ -71,5 +71,20 @@ namespace MediaChrome
 		{
 			this.OnClick(new EventArgs());
 		}
+
+        private void cBtn_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            this.OnClick(new EventArgs());
+        }
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.BackgroundImage = Properties.Resources.button3;
+        }
 	}
 }

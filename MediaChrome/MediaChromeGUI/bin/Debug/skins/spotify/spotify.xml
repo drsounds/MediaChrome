@@ -28,8 +28,8 @@
 	<component rel="ErrorBar" BackColor="#FFFFAA" ForeColor="#000000" BackgroundImage="~\top_bar_blue.png" />
 	<component rel="Board#Toolbar#Item" BackgroundImage="~\toolbutton.png" />
 	<component rel="Board#ListHeader" BackgroundImage="~\list_header.png" />
-	<component rel="Board#Section#Text" ForeColor="#FFFFFF" />
-	<component rel="Board#Section#Text#Shadow" ForeColor="#000000" />
+	<component rel="Board#Section#Text" ForeColor="#000000" />
+	<component rel="Board#Section#Text#Shadow" ForeColor="#ffffff" />
 	<component rel="Board#ListHeader#Separator" BackgroundImage="~\list_header_divider.png" />
 	<component rel="Menu#BG" BackgroundImage="~\top_wall1.png" BackColor="#ced5db" />
 </skin>

@@ -38,6 +38,7 @@
             this.Load += new System.EventHandler(this.ucPosBar_Load);
             this.PaddingChanged += new System.EventHandler(this.ucPosBar_PaddingChanged);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.ucPosBar_Paint);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ucPosBar_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ucPosBar_MouseMove);
             this.ResumeLayout(false);
 

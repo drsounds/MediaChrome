@@ -88,20 +88,35 @@ namespace webclassprototype
             e.DrawRectangle(new Pen(BorderColor), 0, 0, this.Width - 1, this.Height - 1);
             e.FillEllipse(new SolidBrush(FillColor), Value * XPart, 0, this.Height, this.Height);
 #endif
-            BufferedGraphicsContext Cont = new BufferedGraphicsContext();
-            BufferedGraphics r = Cont.Allocate(p, new Rectangle(0, 0, this.Width, this.Height));
-            Graphics e = r.Graphics;
-            // Draw background
-            e.DrawImage(Bar,new Rectangle(0,0,this.Height,this.Height),new Rectangle(0,0,16,16),GraphicsUnit.Pixel);
-            e.DrawImage(Bar, new Rectangle(this.Height, 0, this.Width-this.Height, this.Height), new Rectangle(16, 0, 16, 16), GraphicsUnit.Pixel);
-            e.DrawImage(Bar, new Rectangle(this.Width - this.Height, 0,this.Height , this.Height), new Rectangle(32, 0, 16, 16), GraphicsUnit.Pixel);
-            float val = value > 0 ? value : 1;
-            // Draw position bar
-            if (!float.IsInfinity(XPart))
+            try
             {
-                e.DrawImage(Thumb, (val / maximum)*Width, 0, this.Height, this.Height);
+                BufferedGraphicsContext Cont = new BufferedGraphicsContext();
+                BufferedGraphics r = Cont.Allocate(p, new Rectangle(0, 0, this.Width, this.Height));
+                Graphics e = r.Graphics;
+                e.FillRectangle(new SolidBrush(this.BackColor), new Rectangle(0, 0, this.Width, this.Height));
+                // Draw background
+                e.DrawImage(Bar, new Rectangle(0, 0, this.Height, this.Height), new Rectangle(0, 0, 16, 16), GraphicsUnit.Pixel);
+                e.DrawImage(Bar, new Rectangle(this.Height, 0, this.Width - this.Height * 2, this.Height), new Rectangle(16, 0, 16, 16), GraphicsUnit.Pixel);
+                e.DrawImage(Bar, new Rectangle(this.Width - this.Height, 0, this.Height, this.Height), new Rectangle(32, 0, 16, 16), GraphicsUnit.Pixel);
+                float val = value > 0 ? value : 1;
+                // Draw position bar
+                if (!float.IsInfinity(XPart))
+                {
+                    float visual_position = (val / maximum) * (Width); // Visual position of the bar
+                    if (visual_position > this.Width - this.Height)
+                    {
+                        visual_position = this.Width - this.Height;
+                    }
+                    if (visual_position < 0)
+                        visual_position = 0;
+
+                    e.DrawImage(Thumb, visual_position, 0, this.Height, this.Height);
+                }
+                r.Render();
             }
-            r.Render();
+            catch
+            {
+            }
         }
         private void ucPosBar_Paint(object sender, PaintEventArgs e)
         {
@@ -131,6 +146,22 @@ namespace webclassprototype
         private void ucPosBar_PaddingChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void ucPosBar_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                float x = 0;
+                int i = 0;
+                while (x < e.X)
+                {
+                    x += XPart;
+
+                }
+                Value = x / XPart;
+                this.Refresh();
+            }
         }
     }
 }
