@@ -130,11 +130,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Board.cs">
+    <Compile Include="Boardl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Board.Designer.cs">
-      <DependentUpon>Board.cs</DependentUpon>
+    <Compile Include="Boardl.Designer.cs">
+      <DependentUpon>Boardl.cs</DependentUpon>
     </Compile>
     <Compile Include="CListView.cs">
       <SubType>Component</SubType>
@@ -173,15 +173,17 @@
       <DependentUpon>Scrollbar.cs</DependentUpon>
     </Compile>
     <Compile Include="Skin.cs" />
-    <Compile Include="Spofity.cs" />
+    <Compile Include="Spofity.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ViewError.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ViewError.Designer.cs">
       <DependentUpon>ViewError.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Board.resx">
-      <DependentUpon>Board.cs</DependentUpon>
+    <EmbeddedResource Include="Boardl.resx">
+      <DependentUpon>Boardl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CListView.resx">
       <DependentUpon>CListView.cs</DependentUpon>

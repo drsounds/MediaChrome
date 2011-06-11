@@ -34,5 +34,17 @@ namespace MediaChrome {
                 this["Skin"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("mp3")]
+        public string DefaultPlayer {
+            get {
+                return ((string)(this["DefaultPlayer"]));
+            }
+            set {
+                this["DefaultPlayer"] = value;
+            }
+        }
     }
 }

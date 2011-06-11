@@ -1,13 +1,13 @@
 <?
 var playlist = getPlaylist(service,parameter);
 ?>
-<view>
-	<section name="Playlist" list="true">
+<view live="true">
+	<section name="Playlist" list="true" >
 		<columnheader noelm="true" name=" " size="18" />
 		<columnheader noelm="true" name="Title" size="150" />
 		<columnheader noelm="true" name="Artist" size="150" />
 		<columnheader noelm="true" name="Album" size="150" />
-		<space height="18" />
+
 		<?	
 		for(var i=0; i < playlist.Songs.Count; i++){ var song = playlist.Songs[i];
 		?>

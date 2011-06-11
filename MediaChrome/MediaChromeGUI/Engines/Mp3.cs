@@ -24,6 +24,26 @@ namespace MediaChrome
 	/// </summary>
 	public class MP3Player : IPlayEngine
     {
+        /// <summary>
+        /// Returns an song by the specified ISRC
+        /// </summary>
+        /// <param name="ISRC"></param>
+        /// <returns></returns>
+        public Song GetSongFromISRC(string ISRC) { return new Song(); }
+        /// <summary>
+        /// Returns an artist by the specified ID
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public Artist ArtistFromID(string ID) { return new Artist(); }
+
+        /// <summary>
+        /// Returns an album by the specified UPC
+        /// </summary>
+        /// <param name="UPC"></param>
+        /// <returns></returns>
+        public Album AlbumFromUPC(string UPC) { return new Album(); }
+
         public List<Song> QueryRadio(String Query)
         {
             return new List<Song>();
@@ -500,7 +520,7 @@ namespace MediaChrome
                     String D = "";
                     while ((D = SR.ReadLine()) != null)
                     {
-                        if (D.StartsWith("music:"))
+                        if (D.StartsWith("music:")||D.StartsWith("http://music/"))
                         {
                             /* Uri Url = new System.Uri(D);
                              Song P = new Song();
@@ -520,22 +540,7 @@ namespace MediaChrome
                             // TODO: TO be implemented later
 
                         }
-                        else
-                        {
-                            SQLiteCommand Command = new SQLiteCommand("SELECT * FROM " + " WHERE path='" + D + "'", Conn);
-                            SQLiteDataReader SQLDR = Command.ExecuteReader();
-                            try
-                            {
-                                SQLDR.Read();
-                                Song _Song = Song.GetSongFromURI(D);
-                                 
-                                _Songs.Add(_Song);
-                            }
-                            catch
-                            {
-
-                            }
-                        }
+                        
 
                     }
                 }
@@ -562,7 +567,7 @@ namespace MediaChrome
               
                  */
                 Playlist d = new Playlist(this,Name,PlsID,Host);
-                LoadPlaylist(Name, ref d);
+             //   LoadPlaylist(Name, ref d);
                 
                 return d;
             }
@@ -624,7 +629,7 @@ namespace MediaChrome
                         }
                         SR.Close();
                     }
-                    Strings.Insert(pos, Path.Replace(" ","%20"));
+                    Strings.Insert(pos, "http://music/"+_Song.Artist+"/"+(_Song.AlbumName != "" ? "%20" : "")+"/"+_Song.Name);
                     using (StreamWriter SW = new StreamWriter(MediaChrome.MainForm.DownloadDir + "\\" + name))
                     {
                         foreach (String d in Strings)

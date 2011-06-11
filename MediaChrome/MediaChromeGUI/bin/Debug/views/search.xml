@@ -14,9 +14,10 @@
 		<columnheader noelm="true" name="Title" size="320" />
 		<columnheader noelm="true" name="Artist" size="320" />
 		<columnheader noelm="true" name="Album" size="320" />
-		<space height="10"/>
-		 <label height="50" size="14" left="10" top="@TOP" width="500">Search results for '@{parameter}'</label>
-		
+		<vbox flex="1">
+			<label height="50" size="14" left="10" width="500">Search results for '@{parameter}'</label>
+			<label height="50" size="14" left="10" width="500">Found x matches</label>
+		</vbox>
 		<!--<label height="50" color="#aaeeaa" left="10" top="@TOP" width="500">Did you mean</label> -->
 		
 

@@ -187,6 +187,20 @@
     <Compile Include="cBtn.Designer.cs">
       <DependentUpon>cBtn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Engines\AudioData.cs" />
+    <Compile Include="Engines\BassPlayer.cs" />
+    <Compile Include="Engines\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Engines\Login.designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Engines\SpotifyView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Engines\SpotifyView.designer.cs">
+      <DependentUpon>SpotifyView.cs</DependentUpon>
+    </Compile>
     <Compile Include="PlaybackNotifier.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -296,6 +310,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="cBtn.resx">
       <DependentUpon>cBtn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Engines\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Engines\SpotifyView.resx">
+      <DependentUpon>SpotifyView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PlaybackNotifier.resx">
       <DependentUpon>PlaybackNotifier.cs</DependentUpon>

@@ -600,6 +600,27 @@
             with the mediachrome framework must implement this class.
             </summary>
         </member>
+        <member name="M:MediaChrome.IPlayEngine.GetSongFromISRC(System.String)">
+            <summary>
+            Returns an Song by the ISRC playable in the specified engine.
+            </summary>
+            <param name="ISRC"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.ArtistFromID(System.String)">
+            <summary>
+            Returns an artist from the specified ID, called from the separate thread
+            </summary>
+            <param name="ID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.AlbumFromUPC(System.String)">
+            <summary>
+            Returns an album from UPC. Should be called in an separated thread.
+            </summary>
+            <param name="UPC"></param>
+            <returns></returns>
+        </member>
         <member name="M:MediaChrome.IPlayEngine.QueryRadio(System.String)">
             <summary>
             Query a radio stream.

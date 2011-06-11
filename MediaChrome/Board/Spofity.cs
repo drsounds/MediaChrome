@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,77 +14,77 @@ using System.Drawing;
 using System.ComponentModel;
 namespace Board
 {
-    
-[Serializable]
-  	public class Spofity
-	{
+
+    [Serializable]
+    public class Spofity
+    {
         /// <summary>
         /// Gets or sets if the view is live
         /// </summary>
         public bool Live { get; set; }
-    private Stack<int> historySections;
-    private Stack<int> forwardSections;
-    /// <summary>
-    /// History of section
-    /// </summary>
-    public Stack<int> HistorySections
-    {
-        get
+        private Stack<int> historySections;
+        private Stack<int> forwardSections;
+        /// <summary>
+        /// History of section
+        /// </summary>
+        public Stack<int> HistorySections
         {
-            if (historySections == null) historySections = new Stack<int>();
-            return historySections;
+            get
+            {
+                if (historySections == null) historySections = new Stack<int>();
+                return historySections;
+            }
+
         }
 
-    }
+        /// <summary>
+        /// History of forward sections
+        /// </summary>
+        public Stack<int> ForwardSections
+        {
+            get
+            {
+                if (forwardSections == null) forwardSections = new Stack<int>();
+                return forwardSections;
+            }
 
-    /// <summary>
-    /// History of forward sections
-    /// </summary>
-    public Stack<int> ForwardSections
-    {
-        get
-        {
-            if (forwardSections == null) forwardSections = new Stack<int>();
-            return forwardSections;
         }
 
-    }
+        /// <summary>
+        /// Goback an section
+        /// </summary>
+        /// <returns></returns>
+        public int GoBack()
+        {
+            if (HistorySections.Count > 0)
+            {
+                ForwardSections.Push(this.currentSection);
+                int d = HistorySections.Pop();
 
-    /// <summary>
-    /// Goback an section
-    /// </summary>
-    /// <returns></returns>
-    public int GoBack()
-    {
-        if (HistorySections.Count > 0)
-        {
-            ForwardSections.Push(this.currentSection);
-            int d = HistorySections.Pop();
-
-            return d;
+                return d;
+            }
+            else
+            {
+                return -1;
+            }
         }
-        else
+        /// <summary>
+        /// Go forward an sectionn
+        /// </summary>
+        /// <returns></returns>
+        public int GoForward()
         {
-            return -1;
+            if (ForwardSections.Count > 0)
+            {
+                HistorySections.Push(this.currentSection);
+                int d = ForwardSections.Pop();
+                return d;
+            }
+            else
+            {
+                return -1;
+            }
         }
-    }
-    /// <summary>
-    /// Go forward an sectionn
-    /// </summary>
-    /// <returns></returns>
-    public int GoForward()
-    {
-        if (ForwardSections.Count > 0)
-        {
-            HistorySections.Push(this.currentSection);
-            int d = ForwardSections.Pop();
-            return d;
-        }
-        else
-        {
-            return -1;
-        }
-    }
         /// <summary>
         /// Delegate which manage events for mako creation
         /// </summary>
@@ -96,17 +96,17 @@ namespace Board
         /// Occurs when the mako template engine has been init
         /// </summary>
         public event MakoCreateEventHandler MakoGeneration;
-    /// <summary>
-    /// Gets or sets the parent view for this Spofity instance
-    /// </summary>
-    public DrawBoard.View ParentView { get; set; }
+        /// <summary>
+        /// Gets or sets the parent view for this Spofity instance
+        /// </summary>
+        public DrawBoard.View ParentView { get; set; }
         /// <summary>
         /// Delegate to manage playbacks from the view's list
         /// </summary>
         /// <param name="sender">The element sender</param>
         /// <param name="uri">The uri to the current playing</param>
         /// <returns>A boolean whether the playing could be started or not</returns>
-        public delegate bool ElementPlaybackStarted(Spofity sender,Element element, String uri);
+        public delegate bool ElementPlaybackStarted(Spofity sender, Element element, String uri);
 
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace Board
         /// Play an item
         /// </summary>
         /// <param name="item"></param>
-        public void PlayItem(Element item,int Position,int section)
+        public void PlayItem(Element item, int Position, int section)
         {
             /**
              * If view is flow, begin sync new content
@@ -165,7 +165,7 @@ namespace Board
                 * begin collecting all items which are classified with the type 'Entry'
                 * */
 
-            bool found=false;
+            bool found = false;
             foreach (Element d in elements)
             {
                 // If the current has been found and the item is an entry add it to the playlist
@@ -190,7 +190,7 @@ namespace Board
 
             // Raise the playback started event
             if (PlaybackStarted != null)
-                PlaybackStarted(this,item, item.GetAttribute("uri"));
+                PlaybackStarted(this, item, item.GetAttribute("uri"));
         }
         /// <summary>
         /// Called by the script to initiate an ajax-like process of new elements
@@ -220,7 +220,7 @@ namespace Board
             }
         }
 
-        
+
 
         /// <summary>
         /// List with all content receivers. It are checked regulary for finished downloads.
@@ -323,8 +323,8 @@ namespace Board
             set
             {
                 currentSection = value;
-                
-             
+
+
             }
         }
         /// <summary>
@@ -333,22 +333,22 @@ namespace Board
         /// <returns></returns>
         public Section GetPlayingSection()
         {
-           
-                foreach (Section t in this.View.Sections)
+
+            foreach (Section t in this.View.Sections)
+            {
+                foreach (Element _elm in t.Elements)
                 {
-                    foreach (Element _elm in t.Elements)
+                    if (_elm.Entry)
                     {
-                        if (_elm.Entry)
+                        if (_elm.GetAttribute("__playing") == "true")
                         {
-                            if (_elm.GetAttribute("__playing") == "true")
-                            {
-                                return t;
-                            }
+                            return t;
                         }
                     }
                 }
-                
-            
+            }
+
+
             return null;
         }
 
@@ -367,165 +367,166 @@ namespace Board
         /// </summary>
         public void NextSong()
         {
-            
+
             // Raise the playback event again
             GetPlayingSection().PlayIndex++;
         }
         /// <summary>
         /// The drawboard has an playlist stack which is used for listing of media items.
         /// </summary>
-        public Queue<Element> Playlist {get;set;}
+        public Queue<Element> Playlist { get; set; }
 
         /// <summary>
         /// The element which represents the now playing song
         /// </summary>
         public Element NowPlaying { get; set; }
-            
-  	 
-	    public delegate void ActionEvent();
-	    public event ActionEvent BeginLoading;
-	    public event ActionEvent FinishedLoading;
-	    public bool Loaded {get;set;}
-	    private View view;
-	    public View View
-	    {
-	        get
-	        {
-	            return view;
-	        }
-	        set
-	        {
-	            view = value;
-	        }
-	    }
-	    private string uri;
-	    public string URI
-	    {
-	        get
-	        {
-	            return uri;
-	        }
-	        set
-	        {
-	            uri = value;
-	        }
-	    }
-	    Stream RawData;
-	    public void Process()
-	    {
-	            
-	
-	    }
-	    private  int topPos=0;
-	    public int TopPos
-	    {
-	        get
-	        {
-	        	return topPos;
-	        }
-	        set{
-	        	topPos=value;
-	        }
-	    }
-	    private int countItems=0;
-	    public int CountItems
-	    {
-	        get
-	        {
-	        	return countItems;
-	        }
-	        set
-	        {
-	        	countItems=value;
-	        }
-	    }
-            
-	    public static int ITEM_HEIGHT = 20;
-	    public static int LIST_LEFT = 140;	
-	    public  static void SecElement(ref Element X,Spofity R)
-	    {
+
+
+        public delegate void ActionEvent();
+        public event ActionEvent BeginLoading;
+        public event ActionEvent FinishedLoading;
+        public bool Loaded { get; set; }
+        private View view;
+        public View View
+        {
+            get
+            {
+                return view;
+            }
+            set
+            {
+                view = value;
+            }
+        }
+        private string uri;
+        public string URI
+        {
+            get
+            {
+                return uri;
+            }
+            set
+            {
+                uri = value;
+            }
+        }
+        Stream RawData;
+        public void Process()
+        {
+
+
+        }
+        private int topPos = 0;
+        public int TopPos
+        {
+            get
+            {
+                return topPos;
+            }
+            set
+            {
+                topPos = value;
+            }
+        }
+        private int countItems = 0;
+        public int CountItems
+        {
+            get
+            {
+                return countItems;
+            }
+            set
+            {
+                countItems = value;
+            }
+        }
+
+        public static int ITEM_HEIGHT = 20;
+        public static int LIST_LEFT = 140;
+        public static void SecElement(ref Element X, Spofity R)
+        {
             X.AssertBounds(false);
-	        /*int topPos = R.TopPos;
-	        if(X.GetAttribute("position")==("absolute"))
-        	{
-        		try
-        		{
-        		X.Top = int.Parse(X.GetAttribute("top").Replace("@top",topPos.ToString()));
-        		X.Left = int.Parse(X.GetAttribute("left"));
-        		}
-        		catch
-        		{
-        			X.Top = 0;
-        			X.Left = 0;
-        		}
-        	}
-        	else
-        	{
-        		X.Top = topPos;
-        		X.Left = 0;
-        	}
+            /*int topPos = R.TopPos;
+            if(X.GetAttribute("position")==("absolute"))
+            {
+                try
+                {
+                X.Top = int.Parse(X.GetAttribute("top").Replace("@top",topPos.ToString()));
+                X.Left = int.Parse(X.GetAttribute("left"));
+                }
+                catch
+                {
+                    X.Top = 0;
+                    X.Left = 0;
+                }
+            }
+            else
+            {
+                X.Top = topPos;
+                X.Left = 0;
+            }
 	                		
-	                	switch(X.Type)
-	                	{
+                        switch(X.Type)
+                        {
 	                				
-	                		case "sp:space":
+                            case "sp:space":
 	                			
-	                			topPos+=int.Parse(X.GetAttribute("distance"));
+                                topPos+=int.Parse(X.GetAttribute("distance"));
 	                				
-	                			break;
-	                		case "sp:entry":
-	                			X.Height = ITEM_HEIGHT;
-	                			if(X.GetAttribute("position")!="absolute")
-	                			{
-	                				X.Left = LIST_LEFT;
-	                				X.Width =-1;
-	                				X.Top = topPos;
-	                			}
+                                break;
+                            case "sp:entry":
+                                X.Height = ITEM_HEIGHT;
+                                if(X.GetAttribute("position")!="absolute")
+                                {
+                                    X.Left = LIST_LEFT;
+                                    X.Width =-1;
+                                    X.Top = topPos;
+                                }
 	                			
 	                				
-	                			break;
-	                		case "sp:header":
-	                			if(X.GetAttribute("position")!="absolute")
-	                			{
-	                				X.Left = LIST_LEFT;
-	                				X.Width =-1;
-	                				X.Top = topPos;
-	                			}
-	                			break;
-	                		case "sp:label":
-	                			if(X.GetAttribute("position")!="absolute")
-	                			{
-	                				X.Left = LIST_LEFT;
-	                				X.Width =-1;
-	                				X.Top = topPos;
-	                			}
-	                					break;
-	                		case "sp:section":
-	                			X.Height = ITEM_HEIGHT;
-	                			if(X.GetAttribute("position")!="absolute")
-	                			{
+                                break;
+                            case "sp:header":
+                                if(X.GetAttribute("position")!="absolute")
+                                {
+                                    X.Left = LIST_LEFT;
+                                    X.Width =-1;
+                                    X.Top = topPos;
+                                }
+                                break;
+                            case "sp:label":
+                                if(X.GetAttribute("position")!="absolute")
+                                {
+                                    X.Left = LIST_LEFT;
+                                    X.Width =-1;
+                                    X.Top = topPos;
+                                }
+                                        break;
+                            case "sp:section":
+                                X.Height = ITEM_HEIGHT;
+                                if(X.GetAttribute("position")!="absolute")
+                                {
 	                				
-	                				X.Left = LIST_LEFT;
-	                			}
-	                			X.Width = -1;
-	                			break;
-	                		case "sp:image":
-	                			X.Width = int.Parse(X.GetAttribute("width"));
-	                			X.Height = int.Parse(X.GetAttribute("height"));
-	                			break;
-	                	}
-	                	if(X.GetAttribute("position")!="absolute")
-	                	{
-	                			topPos+=ITEM_HEIGHT;
-	                			R.topPos+=ITEM_HEIGHT;
-	                	}
-	                R.CountItems++;*/
-	    }
-	    public void Serialize()
-	    {
-	           
-	            
-	    }
+                                    X.Left = LIST_LEFT;
+                                }
+                                X.Width = -1;
+                                break;
+                            case "sp:image":
+                                X.Width = int.Parse(X.GetAttribute("width"));
+                                X.Height = int.Parse(X.GetAttribute("height"));
+                                break;
+                        }
+                        if(X.GetAttribute("position")!="absolute")
+                        {
+                                topPos+=ITEM_HEIGHT;
+                                R.topPos+=ITEM_HEIGHT;
+                        }
+                    R.CountItems++;*/
+        }
+        public void Serialize()
+        {
+
+
+        }
         /// <summary>
         /// This method will convert the xml attributes to element attributes
         /// </summary>
@@ -547,11 +548,11 @@ namespace Board
             {
                 if (CT.GetType() == typeof(XmlElement))
                 {
-                    elm.SetAttribute( CT.Name.ToLower(), CT.InnerText);
+                    elm.SetAttribute(CT.Name.ToLower(), CT.InnerText);
                 }
             }
         }
-        
+
         /// <summary>
         /// Fetch data from either hard drive or remote web address
         /// </summary>
@@ -568,9 +569,9 @@ namespace Board
                     String data = WC.DownloadString(address);
                     return data;
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
-                    return "ERROR: "+e.Message ;
+                    return "ERROR: " + e.Message;
                 }
             }
             else
@@ -588,12 +589,12 @@ namespace Board
                 }
                 catch (Exception e)
                 {
-                    return "ERROR: "+e.Message;
+                    return "ERROR: " + e.Message;
                 }
             }
         }
 
-   
+
 
         #region ScriptFunctions
 
@@ -611,7 +612,7 @@ namespace Board
         /// <param name="name">the name of the tag</param>
         public object __getElementId(string name)
         {
-            object cf =  GetElementById(LayoutElements.DocumentElement,name);
+            object cf = GetElementById(LayoutElements.DocumentElement, name);
             return cf;
         }
         /// <summary>
@@ -632,20 +633,20 @@ namespace Board
         /// <param name="element"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public object __setAttribute(object element, string attribute,string value)
+        public object __setAttribute(object element, string attribute, string value)
         {
             XmlElement elm = (XmlElement)element;
             elm.SetAttribute(attribute, value);
             return null;
         }
-    /// <summary>
-    /// Own implementation of getElementById as XmlDocument's getelementsbyId could not be
-    /// used without DTD
-    /// </summary>
-    /// <param name="src">the xml document to work on</param>
-    /// <param name="ID">the id of the element to find</param>
-    /// <remarks>This function is recursive</remarks>
-    /// <returns></returns>
+        /// <summary>
+        /// Own implementation of getElementById as XmlDocument's getelementsbyId could not be
+        /// used without DTD
+        /// </summary>
+        /// <param name="src">the xml document to work on</param>
+        /// <param name="ID">the id of the element to find</param>
+        /// <remarks>This function is recursive</remarks>
+        /// <returns></returns>
         public XmlElement GetElementById(XmlElement src, string val)
         {
 
@@ -658,10 +659,10 @@ namespace Board
                 if (Node.NodeType == XmlNodeType.Element)
                 {
                     XmlElement elm = (XmlElement)Node;
-                     getElement = GetElementById(elm, val);
-                     if (getElement != null)
-                         return getElement;
-                         
+                    getElement = GetElementById(elm, val);
+                    if (getElement != null)
+                        return getElement;
+
                 }
             }
             return null;
@@ -689,69 +690,69 @@ namespace Board
         /// The script running when inflating the child view is not able to interact with the host session,
         /// and have their own scope.
         /// </remarks> 
-        public void InflateView(Section srcSection,Element item, XmlNode CT)
+        public void InflateView(Section srcSection, Element item, XmlNode CT)
         {
-                
-                
-                // Create additional makoengine
-                MakoEngine ME = new MakoEngine();
-                if (this.MakoGeneration != null)
-                    this.MakoGeneration(ME, new EventArgs());
-                XmlElement _Element = (XmlElement)CT;
-                    String ViewMako = "";
-                // Load the view by the attribute src but if the name starts with component_ inflate instead it from the tag name in the folder components
-                    if (CT.Name.StartsWith("component_"))
-                    {
-                        ViewMako = SynchronizeData(CT.Name.Replace("component_", ""));
-                    }
-                    else
-                    {
-                        ViewMako = SynchronizeData(_Element.GetAttribute("src"));
-                    }
 
-                // If the operation failed leave the function
-                if (ViewMako.StartsWith("ERROR:"))  
-                    return;
 
-                // Add all properties of the element as arg_{attribute} to the child layer
-                foreach (XmlAttribute attr in CT.Attributes)
-                {
-                    ME.RuntimeMachine.SetVariable("arg_" + attr.Name, attr.Value);
-                }
+            // Create additional makoengine
+            MakoEngine ME = new MakoEngine();
+            if (this.MakoGeneration != null)
+                this.MakoGeneration(ME, new EventArgs());
+            XmlElement _Element = (XmlElement)CT;
+            String ViewMako = "";
+            // Load the view by the attribute src but if the name starts with component_ inflate instead it from the tag name in the folder components
+            if (CT.Name.StartsWith("component_"))
+            {
+                ViewMako = SynchronizeData(CT.Name.Replace("component_", ""));
+            }
+            else
+            {
+                ViewMako = SynchronizeData(_Element.GetAttribute("src"));
+            }
 
-                // Add all text child elements of the element as arg_{attribute} to the child layer
-                foreach (XmlElement attr in CT.ChildNodes)
-                {
-                    ME.RuntimeMachine.SetVariable("arg_" + attr.Name, attr.InnerText);
-                }
+            // If the operation failed leave the function
+            if (ViewMako.StartsWith("ERROR:"))
+                return;
 
-                     
-                // Otherwise preprocess the layer.
-                    String Result = ME.Preprocess(ViewMako,"",true);
+            // Add all properties of the element as arg_{attribute} to the child layer
+            foreach (XmlAttribute attr in CT.Attributes)
+            {
+                ME.RuntimeMachine.SetVariable("arg_" + attr.Name, attr.Value);
+            }
 
-                // then inflate the data
-                // Create xml document
-                XmlDocument d = new XmlDocument();
-                d.LoadXml(Result);
+            // Add all text child elements of the element as arg_{attribute} to the child layer
+            foreach (XmlElement attr in CT.ChildNodes)
+            {
+                ME.RuntimeMachine.SetVariable("arg_" + attr.Name, attr.InnerText);
+            }
 
-                // All inflates can only have one section
-                XmlNodeList Sections = d.GetElementsByTagName("section");
-                XmlElement iSection = (XmlElement)Sections[0];
-                {
-                    // Create new section
-                    Section _Section = new Section(this);
 
-                    
-                       
-                    // Inflate all elements of the subsection into the list
-                    RenderSection(srcSection, iSection);
-                        
-                }
-              
+            // Otherwise preprocess the layer.
+            String Result = ME.Preprocess(ViewMako, "", true);
+
+            // then inflate the data
+            // Create xml document
+            XmlDocument d = new XmlDocument();
+            d.LoadXml(Result);
+
+            // All inflates can only have one section
+            XmlNodeList Sections = d.GetElementsByTagName("section");
+            XmlElement iSection = (XmlElement)Sections[0];
+            {
+                // Create new section
+                Section _Section = new Section(this);
+
+
+
+                // Inflate all elements of the subsection into the list
+                RenderSection(srcSection, iSection);
+
+            }
+
         }
 
 
-            
+
         /// <summary>
         /// This is an recursive method which will create elements to the 
         /// Board to view.
@@ -770,15 +771,15 @@ namespace Board
                 {
                     XmlText r = (XmlText)node;
 
-                   
+
                 }
                 if (node.GetType() != typeof(XmlElement))
                     continue;
                 XmlElement item = (XmlElement)node;
-                
+
 
                 // Create various kind of controls depending of node type
-                Element CT = new Element(srcSection,this.ParentBoard);
+                Element CT = new Element(srcSection, this.ParentBoard);
 
                 // If nothing else specified, the element top should be managed by the drawing cache
                 CT.SetAttribute("top", "@TOP");
@@ -786,30 +787,30 @@ namespace Board
                 // Assert an style template if provided
                 if (item.Name == "inflate")
                 {
-                    InflateView(srcSection,CT, node);
+                    InflateView(srcSection, CT, node);
                     continue;
                 }
-                     
-                Dictionary<String, String> Style = new Dictionary<string,string>();
+
+                Dictionary<String, String> Style = new Dictionary<string, string>();
                 item.HasAttribute("style");
                 CssParser parser = new CssParser();
-                Dictionary<String,String> values = parser.ParseCssString(item.GetAttribute("style")) ;
+                Dictionary<String, String> values = parser.ParseCssString(item.GetAttribute("style"));
                 CT.stylesheet = values;
 
                 // Append all custom attributes first
                 AppendElementAttributes(ref CT, item);
                 #region InflaterService
-                   
-                    
-                    
+
+
+
                 #endregion
 
                 // Set the type of the element to the item's tag definition
                 CT.SetAttribute("type", item.Name);
                 CT.SetAttribute("text", item.InnerText);
                 CT.Data = item.InnerXml;
-           //     ExtractXml(item, CT);
-              
+                //     ExtractXml(item, CT);
+
 
                 // By default the top of the element should be set according to the page settings
                 CT.SetAttribute("top", "@TOP");
@@ -818,88 +819,90 @@ namespace Board
                 CT.AssertBounds(false);
 
                 // The integer specifies the top position. @TOP token means this variable should set the height
-                   
-                    
+
+
                 // Tweek the element behaviour according to some specific tag names
-                 
+
                 switch (item.Name.ToLower())
                 {
                     case "p":
                         CT.SetAttribute("type", "label");
                         break;
                     case "h1":
-                          
-                           
-                       
-                         
-                        CT.SetAttribute("size","15");
+
+
+
+
+                        CT.SetAttribute("size", "15");
                         break;
                     case "button":
-                            
-            
-                          
+
+
+
                         CT.SetAttribute("text", item.InnerText);
                         CT.Data = item.InnerText;
-                          
+
                         break;
                     case "img":
 
                         CT.SetAttribute("type", "image");
-                           
+
                         break;
                 }
-                
+
                 C.Elements.Add(CT);
 
                 // Do this for children
-                CT= RenderElements(srcSection,CT, item);
+                this.ParentBoard.RaiseElementAddEvent(CT);
+                CT = RenderElements(srcSection, CT, item);
+                
 
             }
             return C;
         }
-    public enum ParseMode
-    {
-        Beginning,Attribute,Value
-    }
-    public string ExtractTagAttribute(Element Output, string tag)
-    {
-        /***
-         * Create new xml document and parse the tag
-         * */
-        XmlDocument XD = new XmlDocument();
-        String xml = "<xml>" + tag+"</xml>";
-        
-        XD.LoadXml(xml);
-
-        var elm = XD.DocumentElement.ChildNodes[0];
-
-        /**
-         * Convert the element to an Spofity element
-         * */
-
-        Output.Type = elm.Name; // Set type of element
-        
-        // Assert properties
-        foreach (XmlAttribute r in elm.Attributes)
+        public enum ParseMode
         {
-            Output.SetAttribute(r.Name, r.Value);
+            Beginning, Attribute, Value
         }
-        
-        // Assert child elements
-        foreach (XmlNode Node in elm.ChildNodes)
+        public string ExtractTagAttribute(Element Output, string tag)
         {
-            Output.SetAttribute(Node.Name, Node.InnerText);
+            /***
+             * Create new xml document and parse the tag
+             * */
+            XmlDocument XD = new XmlDocument();
+            String xml = "<xml>" + tag + "</xml>";
+
+            XD.LoadXml(xml);
+
+            var elm = XD.DocumentElement.ChildNodes[0];
+
+            /**
+             * Convert the element to an Spofity element
+             * */
+
+            Output.Type = elm.Name; // Set type of element
+
+            // Assert properties
+            foreach (XmlAttribute r in elm.Attributes)
+            {
+                Output.SetAttribute(r.Name, r.Value);
+            }
+
+            // Assert child elements
+            foreach (XmlNode Node in elm.ChildNodes)
+            {
+                Output.SetAttribute(Node.Name, Node.InnerText);
+            }
+            // Return the element type (TagName)
+            return elm.Name;
         }
-        // Return the element type (TagName)
-        return elm.Name;
-    }
-    /// <summary>
-    /// Extract all [attrb=value] implented in the string and return the tag name
-    /// 
-    /// </summary>
-    /// <param name="Output">The element to apply</param>
-    /// <param name="tag">The tag to harash</param>
-    /// <returns></returns>
+        /// <summary>
+        /// Extract all [attrb=value] implented in the string and return the tag name
+        /// 
+        /// </summary>
+        /// <param name="Output">The element to apply</param>
+        /// <param name="tag">The tag to harash</param>
+        /// <returns></returns>
         public string ExtractTagAttributes(Element Output, string tag)
         {
 
@@ -911,14 +914,14 @@ namespace Board
              *   1 = At attribute name,
              *   2 = inside attribute value ]
              *   */
-           ParseMode currentState = ParseMode.Beginning;
+            ParseMode currentState = ParseMode.Beginning;
 
             /**
              * If the cursor is inside an "" this variable
              * will be true, and if so it will skip the whitespace
              * */
 
-            bool insideString = false;                   
+            bool insideString = false;
 
             StringBuilder buffer = new StringBuilder();                 // The buffer of chars for the current token
 
@@ -930,45 +933,45 @@ namespace Board
 
             for (int i = 0; i < tag.Length; i++)
             {
-                
-                char token = tag[i];     
-                
+
+                char token = tag[i];
+
                 /**
                  * If the current character is an " toggle
                  * inside buffer (do not change mode on whitespace)
                  * */
-                if(token=='"')
+                if (token == '"')
                 {
-                    insideString=!insideString;
+                    insideString = !insideString;
                     continue;
                 }
 
-                switch(currentState)
+                switch (currentState)
                 {
                     case ParseMode.Attribute:
-                        
-                        if(token==' '&&!insideString)
+
+                        if (token == ' ' && !insideString)
                         {
                             /** Flush the buffer and move the content
                              * to the attribute bufffer */
-                            bufferReady=buffer.ToString();   
-                             buffer.Clear();
+                            bufferReady = buffer.ToString();
+                            buffer.Clear();
                             // Set parse mode to attribute
-                             currentState = ParseMode.Value;
+                            currentState = ParseMode.Value;
                             continue;
 
                         }
                         break;
                     case ParseMode.Value:
-                        if(token==' ' || token=='>'&&!insideString)
+                        if (token == ' ' || token == '>' && !insideString)
                         {
-                            if(tag[token-1]==' ')
+                            if (tag[token - 1] == ' ')
                                 continue;
                             // Get the value
                             String value = buffer.ToString();
                             buffer.Clear();
                             // Create element's attribute
-                            Board.Attribute d = new Attribute() { name=bufferReady,value=value};
+                            Board.Attribute d = new Attribute() { name = bufferReady, value = value };
                             // add the attribute to the element
                             Output.Attributes.Add(d);
 
@@ -979,32 +982,32 @@ namespace Board
                             }
                             else
                             {
-                             currentState=   ParseMode.Attribute;
+                                currentState = ParseMode.Attribute;
                             }
                             continue;
                         }
                         break;
                     case ParseMode.Beginning:
-                        if(token==' ')
+                        if (token == ' ')
                         {
-                            if(tag[token-1]==' ')
+                            if (tag[token - 1] == ' ')
                                 continue;
                             elementName = buffer.ToString();
                             // Clear the buffer
-                             buffer.Clear();
+                            buffer.Clear();
 
                             // Set parse mode to attribute
-                            currentState=ParseMode.Attribute;
+                            currentState = ParseMode.Attribute;
                             continue;
                         }
                         break;
-              
+
                 }
 
                 // Otherwise append the char to the current buffer
                 buffer.Append(token);
 
-              
+
             }
             return elementName;
         }
@@ -1014,7 +1017,7 @@ namespace Board
         /// <param name="i">ref int to position</param>
         /// <param name="cf"></param>
         /// <param name="CT"></param>
-        public void  ExtractTag(ref int totalSize,ref int i, string Cf, Element CT)
+        public void ExtractTag(ref int totalSize, ref int i, string Cf, Element CT)
         {
             /**
              * Get element contents
@@ -1022,8 +1025,8 @@ namespace Board
 
             // Get starttag
             var j = Cf.IndexOf('<', i);        // get index < of first position
-   
-            var k = Cf.IndexOf('>',j);             // get index of ending > of tag name
+
+            var k = Cf.IndexOf('>', j);             // get index of ending > of tag name
 
             /** 
              * Handle short tag elements
@@ -1031,10 +1034,10 @@ namespace Board
             if (Cf.Substring(k - 1, 1) == "/")
             {
                 Element bOutput = new Element(CT.ParentSection, this.ParentBoard);
-            
+
                 // Get the element
                 string type_ = Cf.Substring(j + 1, (k - 1) - j - 2).Trim();
-                string type= ExtractTagAttribute(bOutput,type_);
+                string type = ExtractTagAttribute(bOutput, type_);
                 bOutput.SetAttribute("type", type);
                 bOutput.Type = type;
                 CT.Elements.Add(bOutput);
@@ -1043,91 +1046,91 @@ namespace Board
                 i = Cf.IndexOf("/>", j + 1);
 
                 // Set the length of the element
-                bOutput.SetAttribute("t_length", (type_+3).Length.ToString());
+                bOutput.SetAttribute("t_length", (type_ + 3).Length.ToString());
                 return;
             }
-            var elmName = Cf.Substring(j+1,k-j-1);   // Extract tag name
+            var elmName = Cf.Substring(j + 1, k - j - 1);   // Extract tag name
 
 
             // Get Contents
-            var m = Cf.IndexOf("</",k);            // Get index of end tag
+            var m = Cf.IndexOf("</", k);            // Get index of end tag
 
-            var elmContents = Cf.Substring(k+1,m-k-1); // Extract tag contents
+            var elmContents = Cf.Substring(k + 1, m - k - 1); // Extract tag contents
 
-            i += (k - j) - (m - k) +3;
-            
+            i += (k - j) - (m - k) + 3;
+
             /**
              * Create output element. Tell it can be implemented to the type
              * */
             Element Output = new Element(CT.ParentSection, this.ParentBoard); // Create new element
             int t_pos = j - totalSize;
             Output.SetAttribute("t_pos", j.ToString()); // set element textual position
-            
-            
-            var tagName = ExtractTagAttributes(Output,elmName);
-            Output.SetAttribute("type",tagName);       // Set the type of inline markup to the elmName
+
+
+            var tagName = ExtractTagAttributes(Output, elmName);
+            Output.SetAttribute("type", tagName);       // Set the type of inline markup to the elmName
             // increase totalsize
-            Output.SetAttribute("t_length",(elmName.Length + elmContents.Length + 4 + 1 +tagName.Length*2).ToString());
+            Output.SetAttribute("t_length", (elmName.Length + elmContents.Length + 4 + 1 + tagName.Length * 2).ToString());
             CT.Elements.Add(Output);                // Add the element to children
 
 
             Output.Data = elmContents;              // Set output's textContent
-            
+
 
         }
-        
-        public void  ExtractXml(XmlNode item, Element CT)
+
+        public void ExtractXml(XmlNode item, Element CT)
         {
-             // Extract contents to string
+            // Extract contents to string
 
-                //    Elements
-                var childNodes = item.ChildNodes;
+            //    Elements
+            var childNodes = item.ChildNodes;
 
-                // The current node
-                int currentNode = 0;
+            // The current node
+            int currentNode = 0;
 
-                // the current element
-                XmlElement currentElm=null;
-                CT.Data = item.InnerText;
-                CT.InnerXML = item.InnerXml;
+            // the current element
+            XmlElement currentElm = null;
+            CT.Data = item.InnerText;
+            CT.InnerXML = item.InnerXml;
 
-                // Numeric opinter to the child elements
-                int elmPointer = 0;
-                /***
-                 * Mark all occuranses of XML tags
-                 * */
+            // Numeric opinter to the child elements
+            int elmPointer = 0;
+            /***
+             * Mark all occuranses of XML tags
+             * */
 
             // totalsize of all elements
-                int totalSize = 0;
-                for (int i = 0; i < item.InnerXml.Length; i++)
+            int totalSize = 0;
+            for (int i = 0; i < item.InnerXml.Length; i++)
+            {
+                if (i > 0)
+                {
+                    char ch = item.InnerXml[i];
+                    // If the current char is an < extract next child node
+                    if (ch == '<')
                     {
-                        if (i > 0)
+                        if (item.InnerXml[i + 1] == '/')
                         {
-                            char ch = item.InnerXml[i];
-                            // If the current char is an < extract next child node
-                            if (ch == '<')
-                            {
-                                if (item.InnerXml[i + 1] == '/')
-                                {
-                                    // jump to position after next > 
-                                    i = item.InnerXml.IndexOf('>', i);
-                                    continue;
-                                }
-
-                                // Store current I
-                                int oldI = i;
-                                // get element tag name and populate the item
-                                ExtractTag(ref totalSize, ref i, item.InnerXml, CT);
-
-
-                                // Remove the string encloseed by the tag
-                                continue;
-                            }
+                            // jump to position after next > 
+                            i = item.InnerXml.IndexOf('>', i);
+                            continue;
                         }
-                
+
+                        // Store current I
+                        int oldI = i;
+                        // get element tag name and populate the item
+                        ExtractTag(ref totalSize, ref i, item.InnerXml, CT);
+
+
+                        // Remove the string encloseed by the tag
+                        continue;
+                    }
                 }
-             
-            
+
+            }
+
+
         }
         /// <summary>
         /// This is an recursive method which will create elements on an section
@@ -1146,7 +1149,7 @@ namespace Board
                     continue;
                 XmlElement item = (XmlElement)node;
                 // Create various kind of controls depending of node type
-                Element CT = new Element(C,this.ParentBoard);
+                Element CT = new Element(C, this.ParentBoard);
 
                 // If nothing else specified, the element top should be managed by the drawing cache
                 CT.SetAttribute("top", "@TOP");
@@ -1154,7 +1157,7 @@ namespace Board
                 // Assert an style template if provided
                 if (item.Name == "inflate")
                 {
-                    InflateView(C,CT, node);
+                    InflateView(C, CT, node);
                     continue;
                 }
 
@@ -1163,7 +1166,7 @@ namespace Board
                 Dictionary<String, String> Style = new Dictionary<string, string>();
                 item.HasAttribute("style");
                 CssParser parser = new CssParser();
-                Dictionary<String,String> values = parser.ParseCssString(item.GetAttribute("style"));
+                Dictionary<String, String> values = parser.ParseCssString(item.GetAttribute("style"));
 
                 // Append all custom attributes first
                 AppendElementAttributes(ref CT, item);
@@ -1173,10 +1176,10 @@ namespace Board
                 CT.Type = item.Name;
                 CT.SetAttribute("text", item.InnerText);
                 CT.Data = item.InnerXml;
-                
+
                 // Extract the elent's inner data, but only if it's attribute is set to content
-            ///    if(item.HasAttribute("content"))
-          //      ExtractXml(item, CT);
+                ///    if(item.HasAttribute("content"))
+                //      ExtractXml(item, CT);
 
                 // By default the top of the element should be set according to the page settings
                 CT.SetAttribute("top", "@TOP");
@@ -1215,34 +1218,35 @@ namespace Board
 
                         break;
                 }
+                this.ParentBoard.RaiseElementAddEvent(CT);
                 C.rawList.Add(CT);
-               
+
 
                 // Do this for children
-              
+
 
             }
             return C;
         }
 
-	    public Thread loadThread;
-	    public void LoadData()
-	    {
-	
-	        if(BeginLoading!=null)
-	        BeginLoading();
-	        loadThread = new Thread(Process);
-	        loadThread.Start();
-	    }
+        public Thread loadThread;
+        public void LoadData()
+        {
+
+            if (BeginLoading != null)
+                BeginLoading();
+            loadThread = new Thread(Process);
+            loadThread.Start();
+        }
         /// <summary>
         /// Render the layoutElements into real elements
         /// </summary>
         public void Render(XmlDocument d)
         {
-        //    try
+            //    try
             {
-           
-              
+
+
 
                 // Set the xmlHashCode to the xmldocument's instance so it won't be any collision
                 this.xmlHashCode = d.GetHashCode();
@@ -1251,7 +1255,7 @@ namespace Board
 
                 // Create new ghost view
                 this.View = new View();
-                this.Live = d.DocumentElement.HasAttribute("live"); 
+                this.Live = d.DocumentElement.HasAttribute("live");
                 // iterate through all sections of the page
                 XmlNodeList Sections = d.GetElementsByTagName("section");
                 foreach (XmlElement iSection in Sections)
@@ -1283,7 +1287,7 @@ namespace Board
                     _Section = RenderSection(_Section, iSection);
                     _Section.Header = !iSection.HasAttribute("noheader");
 
-                    
+
                     /**
                      * Set column headers by the column element is defined, define all columnheaders
                      * */
@@ -1309,44 +1313,44 @@ namespace Board
 
                     this.View.Sections.Add(_Section);
                     _Section.ptop = 20;
-                    if(this.View!=null)
-                        if(this.View.Sections!=null)
-                    // Merge properties of all entries from old view to the new
-                    foreach (Section _section1 in this.View.Sections)
-                    {
-                        foreach (Element er in _section1.Entries)
-                        {
-                            foreach (Section newSection in this.View.Sections)
+                    if (this.View != null)
+                        if (this.View.Sections != null)
+                            // Merge properties of all entries from old view to the new
+                            foreach (Section _section1 in this.View.Sections)
                             {
-                                
-                                foreach (Element newElement in newSection.Entries)
+                                foreach (Element er in _section1.Entries)
                                 {
-                                    /***
-                                     * Copy all attribute states on the old elements to the new one
-                                      **/
-                                    if (newElement.GetAttribute("uri") == er.GetAttribute("uri"))
+                                    foreach (Section newSection in this.View.Sections)
                                     {
-                                        if (er.GetAttribute("__playing") == "true")
+
+                                        foreach (Element newElement in newSection.Entries)
                                         {
-                                            newElement.SetAttribute("__playing", "true");
-                                        }
-                                        if (er.Selected)
-                                        {
-                                            newElement.SetAttribute("__selected", "true");
-                                            newElement.Selected = true;
+                                            /***
+                                             * Copy all attribute states on the old elements to the new one
+                                              **/
+                                            if (newElement.GetAttribute("uri") == er.GetAttribute("uri"))
+                                            {
+                                                if (er.GetAttribute("__playing") == "true")
+                                                {
+                                                    newElement.SetAttribute("__playing", "true");
+                                                }
+                                                if (er.Selected)
+                                                {
+                                                    newElement.SetAttribute("__selected", "true");
+                                                    newElement.Selected = true;
+                                                }
+                                            }
                                         }
                                     }
                                 }
+
+                                // Add the element to the buffer
+                                // _section1.SortedBuffer.AddRange(_section1.Elements);
+
                             }
-                        }
 
-                        // Add the element to the buffer
-                       // _section1.SortedBuffer.AddRange(_section1.Elements);
-
-                    }
-                  
                     // Copy the elements to an secure buffer
-                    
+
                 }
 
                 /***
@@ -1446,9 +1450,9 @@ namespace Board
                 SetScriptFunctionality();
                 LoadData();
 #endif
-           
+
             }
-    //           catch
+            //           catch
             {
 
             }
@@ -1458,9 +1462,9 @@ namespace Board
         /// </summary>
         private int xmlHashCode = 0;
 
-    /// <summary>
-    /// Returns whether the LayoutElements has been changed since last occuration
-    /// </summary>
+        /// <summary>
+        /// Returns whether the LayoutElements has been changed since last occuration
+        /// </summary>
         public void CheckPendingChanges()
         {
             try
@@ -1493,17 +1497,17 @@ namespace Board
                 return;
             }
 
-           
+
             /**
              * Preprocess the page again
              * */
-            String r = this.Engine.Preprocess(this.TemplateCode,this.Parameter,false);
+            String r = this.Engine.Preprocess(this.TemplateCode, this.Parameter, false);
 
             /**
              * Only refresh the layout elements and thus the render elements
              * if the new rendering results in changes and not an error token
              * */
-            if(r != "NONCHANGE" && !r.StartsWith("ERROR:"))
+            if (r != "NONCHANGE" && !r.StartsWith("ERROR:"))
             {
                 try
                 {
@@ -1511,7 +1515,7 @@ namespace Board
                     XmlDocument XD = new XmlDocument();
                     XD.LoadXml(r);
 
-                 
+
 
                     // Render new time
                     this.LayoutElements = XD;
@@ -1519,10 +1523,10 @@ namespace Board
                 }
                 catch
                 {
-                    
+
                 }
             }
-     
+
         }
         /// <summary>
         /// Method to configure scripts dom manipulation functions on layout element
@@ -1542,28 +1546,28 @@ namespace Board
             // Set an ajax like function
             this.ScriptEngine.SetFunction("downloadContent", new Func<string, string, object>(__downloadContentAsync));
         }
-        
+
         /// <summary>
         /// The drawboard this view is attached to
         /// </summary>
         public DrawBoard ParentBoard { get; set; }
-        
-	    /// <summary>
-	    /// Load an custom HTML page into the special section.
+
+        /// <summary>
+        /// Load an custom HTML page into the special section.
         /// 
         /// It have to be preparsed by the MakoEngine.
-	    /// </summary>
+        /// </summary>
         /// <remarks>Objects must now call Initialize to make it work perform. The reason for change is to make it able to set event handlers for MakoCreation</remarks>
-	    /// <param name="data">The ready preprocessed data from Mako alt. common html data</param>
-	    public Spofity(DrawBoard parentBoard)
-	    {
+        /// <param name="data">The ready preprocessed data from Mako alt. common html data</param>
+        public Spofity(DrawBoard parentBoard)
+        {
 
             ParentBoard = parentBoard;
-	        
-	
-	
-	
-	    }
+
+
+
+
+        }
         /// <summary>
         /// Holds the preprocessed template
         /// </summary>
@@ -1573,13 +1577,13 @@ namespace Board
         /// </summary>
         public String Parameter { get; set; }
 
-    /// <summary>
-    /// Initializes the view
-    /// </summary>
-    /// <param name="data"></param>
-    /// <param name="engine"></param>
-    /// <param name="pretemplate">The mako syntaxed template. Used for recurring updates</param>
-        public void Initialize(string parameter,string pretemplate, string data, MakoEngine engine)
+        /// <summary>
+        /// Initializes the view
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="engine"></param>
+        /// <param name="pretemplate">The mako syntaxed template. Used for recurring updates</param>
+        public void Initialize(string parameter, string pretemplate, string data, MakoEngine engine)
         {
 
             {
@@ -1597,10 +1601,10 @@ namespace Board
                     this.TemplateCode = pretemplate;
                     SetScriptFunctionality();
                     XmlDocument d = new XmlDocument();
-                    d.LoadXml(data.Replace(";",""));
+                    d.LoadXml(data.Replace(";", ""));
                     // Render
                     Render(d);
-                    
+
 
                     LoadData();
                 }
@@ -1608,128 +1612,128 @@ namespace Board
                 {
                 }
             }
-           
+
         }
 
         bool _Section_PlaybackItemChanged(Spofity sender, Element element, string uri)
         {
-            if(this.PlaybackStarted!=null)
+            if (this.PlaybackStarted != null)
                 return this.PlaybackStarted(sender, element, uri);
             return false;
         }
-	 
-	    void Spofity_FinishedLoading()
-	    {	
-	
-	          
-	    }
-	}
-	
-	public class UL
-	{
-	    public UL()
-	    {
-	        lis = new List<LI>();
-	    }
-	    [XmlElement("li")]
-	    private List<LI> lis;
-	    public List<LI> Lis
-	    {
-	        get
-	        {
-	            return lis;
-	        }
-	        set
-	        {
-	            lis = value;
-	        }
-	    }
-	    public class LI
-	    {
-	        public LI()
-	        {
-	            lis = new List<LI>();
-	        }
-	        [XmlElement("li")]
-	        private List<LI> lis;
-	        public List<LI> Lis
-	        {
-	            get
-	            {
-	                return lis;
-	            }
-	            set
-	            {
-	                lis = value;
-	            }
-	        }
-	    }
-	}
-	
-	[XmlRoot("html")]
-	public class HTML : View
-	{
-	
-	
-	    private List<Section> sections;
-	    [XmlElement("p")]
-	    public List<Section> Sections
-	    {
-	        get
-	        {
-	            return sections;
-	        }
-	        set
-	        {
-	            sections = value;
-	        }
-	    }
-	}
-	[XmlRoot("view")]
-	[Serializable]
-	public class View
-	{
-       
-	    public View()
-	    {
-	        sections = new List<Section>();
-	        Sets = new List<Set>();
+
+        void Spofity_FinishedLoading()
+        {
+
+
+        }
+    }
+
+    public class UL
+    {
+        public UL()
+        {
+            lis = new List<LI>();
+        }
+        [XmlElement("li")]
+        private List<LI> lis;
+        public List<LI> Lis
+        {
+            get
+            {
+                return lis;
+            }
+            set
+            {
+                lis = value;
+            }
+        }
+        public class LI
+        {
+            public LI()
+            {
+                lis = new List<LI>();
+            }
+            [XmlElement("li")]
+            private List<LI> lis;
+            public List<LI> Lis
+            {
+                get
+                {
+                    return lis;
+                }
+                set
+                {
+                    lis = value;
+                }
+            }
+        }
+    }
+
+    [XmlRoot("html")]
+    public class HTML : View
+    {
+
+
+        private List<Section> sections;
+        [XmlElement("p")]
+        public List<Section> Sections
+        {
+            get
+            {
+                return sections;
+            }
+            set
+            {
+                sections = value;
+            }
+        }
+    }
+    [XmlRoot("view")]
+    [Serializable]
+    public class View
+    {
+
+        public View()
+        {
+            sections = new List<Section>();
+            Sets = new List<Set>();
             Toolbar = new Toolbar();
-	    }
+        }
         public Toolbar Toolbar { get; set; }
-	    private List<Section> sections;
-	    [XmlElement("section")]
-	    public List<Section> Sections
-	    {
-	        get
-	        {
-	            return sections;
-	        }
-	        set
-	        {
-	            sections = value;
-	        }
-	    }
-	    [XmlElement("set")]
-	    public List<Set> Sets { get; set; }
-	/*    private List<UL> uls;
-	    public List<UL> Uls
-	    {
-	        get
-	        {
-	            return uls;
-	        }
-	        set
-	        {
-	            uls = value;
-	        }
-	    }*/
-	    /* [XmlAttribute("name")]
-	    public string Name;
-	    [XmlAttribute("url")]
-	    public string Url;*/
-	
-	}
+        private List<Section> sections;
+        [XmlElement("section")]
+        public List<Section> Sections
+        {
+            get
+            {
+                return sections;
+            }
+            set
+            {
+                sections = value;
+            }
+        }
+        [XmlElement("set")]
+        public List<Set> Sets { get; set; }
+        /*    private List<UL> uls;
+            public List<UL> Uls
+            {
+                get
+                {
+                    return uls;
+                }
+                set
+                {
+                    uls = value;
+                }
+            }*/
+        /* [XmlAttribute("name")]
+        public string Name;
+        [XmlAttribute("url")]
+        public string Url;*/
+
+    }
     public class Toolbar
     {
         public List<Element> Items { get; set; }
@@ -1741,16 +1745,16 @@ namespace Board
     /// <summary>
     /// Element class.
     /// </summary>
-	public class Section
-	{
+    public class Section
+    {
 
         /// <summary>
         /// Resets the ptop and reorder the layout
         /// </summary>
         public void RenderLayout()
         {
-            ptop=0;
-            foreach(Element elm in elements)
+            ptop = 0;
+            foreach (Element elm in elements)
             {
                 elm.AssertBounds(false);
             }
@@ -1763,69 +1767,69 @@ namespace Board
         /// <summary>
         /// Mode of sorting
         /// </summary>
-        public enum SortMode {Default,Ascending,Descending};
+        public enum SortMode { Default, Ascending, Descending };
 
         /// <summary>
         /// Sort elements
         /// </summary>
         /// <param name="column"></param>
         /// <param name="mode"></param>
-        public void Sort(string column,SortMode mode)
+        public void Sort(string column, SortMode mode)
         {
             switch (mode)
             {
                 case SortMode.Default:
-                   // Return to common elements mode
+                    // Return to common elements mode
                     this.elements = null;
                     break;
                 case SortMode.Ascending:
                     /**
                      * Preserve the default mode in the buffer
                      * */
-                   
-                  
+
+
                     /**
                      * Sort
                      * */
-                    
+
                     // Save this elements in the sorted buffer
                     this.elements = new List<Element>();
                     this.elements.AddRange(this.rawList);
-                 
-                    for (int i=0; i < this.elements.Count;i++)
+
+                    for (int i = 0; i < this.elements.Count; i++)
                     {
-                        for (int j=0; j < this.elements.Count;j++)
+                        for (int j = 0; j < this.elements.Count; j++)
                         {
                             if (Sorter != null)
                             {
                                 Element src = elements[i];
                                 Element target = elements[j];
-                                switch(Sorter.CompareElement(target,src, column))
+                                switch (Sorter.CompareElement(target, src, column))
                                 {
                                     case DrawBoard.CompareResult.None:
                                         continue;
-                                    case  DrawBoard.CompareResult.After:
+                                    case DrawBoard.CompareResult.After:
                                         // Move the element where it should be
                                         elements.Remove(src);
-                                        
-                                        elements.Insert(j,src);
+
+                                        elements.Insert(j, src);
                                         src.SetAttribute("top", target.GetAttribute("top"));
-                                      
-                                    break;
+
+                                        break;
                                     default:
                                         continue;
                                 }
                             }
-                                    
+
                         }
                     }
                     this.RenderLayout();
-                   
-                    
+
+
 
                     break;
                 case SortMode.Descending:
-                   
+
                     break;
             }
         }
@@ -1834,7 +1838,7 @@ namespace Board
         /// </summary>
         public Board.DrawBoard.IListSorter Sorter { get; set; }
 
-        
+
         /// <summary>
         /// Convert the physical index to real index. Moved from Spofity.CS
         /// </summary>
@@ -1875,9 +1879,9 @@ namespace Board
                     if (index == pos)
                     {
                         // Get physical index of the item
-                        int realIndex =this.Elements.IndexOf(ct);
+                        int realIndex = this.Elements.IndexOf(ct);
                         // insert the collection here
-                        this.elements.InsertRange(realIndex,elements);
+                        this.elements.InsertRange(realIndex, elements);
                         // break and return
                         return;
                     }
@@ -1897,9 +1901,10 @@ namespace Board
         }
         public List<Element> Entries
         {
-            get{
+            get
+            {
                 // <date>2011-04-24 16:24</date>
-          
+
                 // Allocate list for only entries
                 List<Element> entries = new List<Element>();
                 foreach (Element cf in this.Elements)
@@ -1908,9 +1913,9 @@ namespace Board
                         entries.Add(cf);
                 }
                 return entries;
-            }   
+            }
         }
-        
+
         public WebKit.WebKitBrowser Layout { get; set; }
         private int flowHeight = 120;
         public int FlowHeight
@@ -2074,7 +2079,7 @@ namespace Board
         public bool Reorder { get; set; }
 
         private bool locked = true;
-     
+
         /// <summary>
         /// Gets or sets if the view are locked for edit.
         /// </summary>
@@ -2085,25 +2090,25 @@ namespace Board
             {
                 return locked;
             }
-            set{locked=value; }
+            set { locked = value; }
         }
         /// <summary>
         /// In order to be able to use filter, an instance of an inherited class will assert the filtered query
         /// </summary>
-        public interface  IViewFilter
+        public interface IViewFilter
         {
             /// <summary>
             /// Must be implemented to filter
             /// </summary>
             /// <param name="src"></param>
             /// <returns>Wheather the element is visible or not</returns>
-             bool FilterElement(Element src,string query);
+            bool FilterElement(Element src, string query);
         }
 
         /// <summary>
         /// An temporary view if filtered.
         /// </summary>
-        public List<Element> FilterView 
+        public List<Element> FilterView
         {
             get;
             set;
@@ -2111,15 +2116,15 @@ namespace Board
         /// <summary>
         /// An instance of the abstract class ViewFilter
         /// </summary>
-        public IViewFilter Filter { get; set; } 
+        public IViewFilter Filter { get; set; }
         /// <summary>
         /// Generates an filter view according to the query
         /// </summary>
         /// <param name="query"></param>
         public void GenerateFilterView(string query)
         {
-            
-            if (query == ""||query == null)
+
+            if (query == "" || query == null)
             {
                 FilterView = null;
                 return;
@@ -2138,31 +2143,32 @@ namespace Board
             // build view according to filter
             foreach (Element ct in this.elements)
             {
-                if (Filter.FilterElement(ct,query))
+                if (Filter.FilterElement(ct, query))
                 {
                     Element copy = ct.Copy();
                     FilterView.Add(copy);
                 }
             }
-           
+
         }
         private string filterQuery;
-        
+
         /// <summary>
         /// Gets and sets the filtering query. 
         /// </summary>
-        public String FilterQuery {
+        public String FilterQuery
+        {
             get
             {
                 return filterQuery;
-                
+
             }
             set
             {
                 filterQuery = value;
                 GenerateFilterView(value);
             }
-        
+
         }
 
         /// <summary>
@@ -2182,7 +2188,7 @@ namespace Board
             {
                 foreach (Element d in this.Elements)
                 {
-                    if (d.Entry && d.GetAttribute("__playing")!="")
+                    if (d.Entry && d.GetAttribute("__playing") != "")
                         return d;
                 }
                 return null;
@@ -2197,37 +2203,37 @@ namespace Board
             get
             {
                 // counter
-                int i=0;
+                int i = 0;
 
                 // only increase counter if element is an entry
                 foreach (Element d in this.Elements)
                 {
                     if (d.Entry)
                     {
-                        if(d.GetAttribute("__playing")!="")
+                        if (d.GetAttribute("__playing") != "")
                             return i;
                         i++;
                     }
-                        
+
                 }
                 return i;
             }
             set
             {
-                
+
                 foreach (Element d in this.Elements)
                 {
                     if (d.Entry)
                     {
                         if (d.GetAttribute("__playing") != "")
                         {
-                            d.SetAttribute("__playing","");
+                            d.SetAttribute("__playing", "");
                         }
-                        
+
                     }
 
                 }
-                int counter =0;
+                int counter = 0;
                 foreach (Element elm in Elements)
                 {
                     if (elm.Entry)
@@ -2240,7 +2246,7 @@ namespace Board
                         }
                         counter++;
                     }
-                    
+
                 }
             }
         }
@@ -2270,7 +2276,7 @@ namespace Board
             }
             set
             {
-           
+
                 // Deactivate the selected items
                 foreach (Element d in this.Elements)
                 {
@@ -2307,11 +2313,11 @@ namespace Board
         /// <returns>An element if found at the location, NULL otherwise</returns>
         public Element EntryAt(int index)
         {
-            int i=0;
+            int i = 0;
             foreach (Element d in this.elements)
             {
-                
-                    
+
+
 
                 if (d.Entry)
                 {
@@ -2332,52 +2338,54 @@ namespace Board
         /// <summary>
         /// Definite count of items. Obsolute
         /// </summary>
-	    public int CountItems {get;set;}
+        public int CountItems { get; set; }
 
         /// <summary>
         /// Short way to add element
         /// </summary>
         /// <param name="d"></param>
         /// <param name="X"></param>
-	    public void AddElement(Element d,Spofity X)
-	    {
-	    	this.elements.Add(d);
-	    	CountItems++;
-	    	Board.Spofity.SecElement(ref d,X);
-	    	/*if(d.GetAttribute("position")!="absolute")
-	    	{
-		    	switch(d.GetAttribute("type"))
-		    	{
-		    		case "sp:entry":
-		    			d.Height=32;
-		    			d.Top = X.TopPos;
-		    			X.TopPos+=32;
+        public void AddElement(Element d, Spofity X)
+        {
+            this.rawList.Add(d);
+            CountItems++;
+            Board.Spofity.SecElement(ref d, X);
+            this.Parent.ParentBoard.RaiseElementAddEvent(d);
+
+            /*if(d.GetAttribute("position")!="absolute")
+            {
+                switch(d.GetAttribute("type"))
+                {
+                    case "sp:entry":
+                        d.Height=32;
+                        d.Top = X.TopPos;
+                        X.TopPos+=32;
 		    				
-		    			break;
-		    		case "sp:divider":
-		    			d.Height = 48;
-		    			d.Top = X.TopPos+2;
-		    			X.TopPos+=50;
-		    			break;
-		    		case "sp:header":
-		    			d.Height = 48;
-		    			d.Top = X.TopPos;
-		    			X.TopPos+=32;
-		    			break;
-		    		case "sp:section":
-		    			d.Height = 48;
-		    			d.Top = X.TopPos;
-		    			X.TopPos+=32;
-		    			break;
-		    	}
-	    	}*/
-	    		
-	    }
-	    public Section(Spofity parent)
-	    {
-           
+                        break;
+                    case "sp:divider":
+                        d.Height = 48;
+                        d.Top = X.TopPos+2;
+                        X.TopPos+=50;
+                        break;
+                    case "sp:header":
+                        d.Height = 48;
+                        d.Top = X.TopPos;
+                        X.TopPos+=32;
+                        break;
+                    case "sp:section":
+                        d.Height = 48;
+                        d.Top = X.TopPos;
+                        X.TopPos+=32;
+                        break;
+                }
+            }*/
+
+        }
+        public Section(Spofity parent)
+        {
+
             Parent = parent;
-	       
+
             // Add standard columns (title,position)
             Sets = new List<Set>();
             /**
@@ -2395,83 +2403,83 @@ namespace Board
             ColumnHeaders = new Dictionary<string, int>();
             Sorter = new Board.DrawBoard.EntrySorter();
             rawList = new List<Element>();
-	    }
-	    private string name;
-	    [XmlElement("set")]
-	    public List<Set> Sets { get; set; }
-	    [XmlAttribute("name")]
-	    public string Name
-	    {
-	        get
-	        {
-	            return name;
-	        }
-	        set
-	        {
-	            name = value;
-	        }
-	    }
+        }
+        private string name;
+        [XmlElement("set")]
+        public List<Set> Sets { get; set; }
+        [XmlAttribute("name")]
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+            }
+        }
         /// <summary>
         /// This is the unmodified list of elements in an section of an view.
         /// </summary>
-         [XmlElement("element")]
+        [XmlElement("element")]
         public List<Element> rawList;
 
         // This is an extra list of elements which are used for customized views, like sorting and filtering
-	    private List<Element> elements;
-	   
+        private List<Element> elements;
+
         /// <summary>
         /// The visible elements in an view
         /// </summary>
-	    public List<Element> Elements
-	    {
-	        get
-	        {
+        public List<Element> Elements
+        {
+            get
+            {
                 if (elements != null)
                     return elements;
                 else
                     return rawList;
-	        }
-	        
-	    }
-	}
-	public class Attribute
-	{
-	    [XmlAttribute("name")]
-	    public string name;
-	    [XmlAttribute("value")]
-	    public string value;
-	}
-	
-	public class Set
-	{
-	    [XmlElement("entry")]
-	    public List<Entry> Entries { get; set; }
-	    public Set()
-	    {
-	        Entries = new List<Entry>();
-	    }
-	    [XmlAttribute("image")]
-	    public string Image { get; set; }
-	}
-	
-	public class Entry
-	{
-	    [XmlAttribute("href")]
-	    public string Href { get; set; }
-	    [XmlAttribute("title")]
-	    public string Title { get; set; }
-	    [XmlAttribute("type")]
-	    public string Type { get; set; }
-	    [XmlAttribute("artist")]
-	    public string Artist { get; set; }
-	}
+            }
+
+        }
+    }
+    public class Attribute
+    {
+        [XmlAttribute("name")]
+        public string name;
+        [XmlAttribute("value")]
+        public string value;
+    }
+
+    public class Set
+    {
+        [XmlElement("entry")]
+        public List<Entry> Entries { get; set; }
+        public Set()
+        {
+            Entries = new List<Entry>();
+        }
+        [XmlAttribute("image")]
+        public string Image { get; set; }
+    }
+
+    public class Entry
+    {
+        [XmlAttribute("href")]
+        public string Href { get; set; }
+        [XmlAttribute("title")]
+        public string Title { get; set; }
+        [XmlAttribute("type")]
+        public string Type { get; set; }
+        [XmlAttribute("artist")]
+        public string Artist { get; set; }
+    }
 
     /// <summary>
     /// An element represents the object drawn on the Board class in an particular view
     /// </summary>
-	public class Element 
-	{
+    public class Element
+    {
         public Dictionary<string, object> Styles;
 
         private void ParseStyle(string str)
@@ -2495,7 +2503,7 @@ namespace Board
         /// <summary>
         /// Store an boxed instance of any class in the element
         /// </summary>
-        public object Tag {get;set;}
+        public object Tag { get; set; }
         /// <summary>
         /// Returns if the element has an pending image
         /// </summary>
@@ -2544,8 +2552,8 @@ namespace Board
         /// <summary>
         /// Bitmap contents of the element
         /// </summary>
-        public Bitmap  Bitmap { get; set; }
-        
+        public Bitmap Bitmap { get; set; }
+
         /// <summary>
         /// Asserts font of the object by their attributes
         /// </summary>
@@ -2553,11 +2561,11 @@ namespace Board
         {
             // Create new font if the font of the instance is NULL
             if (this.Font == null)
-                this.Font = new Font("Tahoma",8.5f, FontStyle.Regular);
+                this.Font = new Font("Tahoma", 8.5f, FontStyle.Regular);
             // Set up font size
             float fontSize = 8;
             float.TryParse(this.GetAttribute("size"), out fontSize);
-            if(fontSize<=0)
+            if (fontSize <= 0)
                 fontSize = 8;
 
             // Assert element font attributes
@@ -2586,7 +2594,7 @@ namespace Board
         /// <returns>An instance of an copy of this instance</returns>
         public Element Copy()
         {
-            Element dc = new Element(this.ParentSection,this.ParentSection.Parent.ParentBoard);
+            Element dc = new Element(this.ParentSection, this.ParentSection.Parent.ParentBoard);
             dc.type = this.type;
             dc.Parent = this.Parent;
             dc.Original = this;
@@ -2594,9 +2602,9 @@ namespace Board
             foreach (Attribute at in this.attributes)
                 dc.SetAttribute(at.name, at.value);
             // Copy the bounds
-            dc.SetAttribute("left",this.OldLeft.ToString());
+            dc.SetAttribute("left", this.OldLeft.ToString());
             dc.SetAttribute("top", this.OldTop.ToString());
-            dc.SetAttribute("width",this.Width.ToString());
+            dc.SetAttribute("width", this.Width.ToString());
             dc.SetAttribute("height", this.Height.ToString());
             dc.AssertBounds(true);
             return dc;
@@ -2609,7 +2617,7 @@ namespace Board
 
         public int OldLeft { get; set; }
         public int OldTop { get; set; }
-       
+
         /// <summary>
         /// Gets and sets whether the object has been called. Currently this property is used to call image download
         /// handler when it tries to draw at the first time but prevent it are done always.
@@ -2624,7 +2632,7 @@ namespace Board
         {
             foreach (Element child in Elements)
             {
-                if (child.GetAttribute("t_pos")==pos.ToString())
+                if (child.GetAttribute("t_pos") == pos.ToString())
                     return child;
             }
             return null;
@@ -2646,16 +2654,16 @@ namespace Board
         /// <param name="padding">Padding rules applied to the workspace object relying in</param>
         /// <returns>an boolean wheather the object is inside the visible screen bounds</returns>
         /// 
-        public Rectangle GetCoordinates(int scrollX,int scrollY,Rectangle Bounds,int padding)
+        public Rectangle GetCoordinates(int scrollX, int scrollY, Rectangle Bounds, int padding)
         {
             Element _Element = this;
-                
+
             int left = _Element.Left - scrollX;
-            int top =  _Element.Top - scrollY ;
-            int width = _Element.Width > 0 ?  _Element.Width :  Bounds.Width - left;
+            int top = _Element.Top - scrollY;
+            int width = _Element.Width > 0 ? _Element.Width : Bounds.Width - left;
             int height = _Element.Height > 0 ? _Element.Height : this.Height;
             Rectangle Rect = new Rectangle(left, top, width, height);
-                
+
             return Rect;
         }
         /// <summary>
@@ -2666,9 +2674,9 @@ namespace Board
         /// <param name="Bounds">The bounds the object is residing in</param>
         /// <param name="padding">Padding rules applied to the workspace object relying in</param>
         /// <returns></returns>
-        public bool InsideScreen(int scrollX,int scrollY,Rectangle srcBounds,int padding)
+        public bool InsideScreen(int scrollX, int scrollY, Rectangle srcBounds, int padding)
         {
-            Rectangle Bounds = GetCoordinates(scrollX, scrollY,srcBounds,padding);
+            Rectangle Bounds = GetCoordinates(scrollX, scrollY, srcBounds, padding);
             int top = Bounds.Top;
             int height = Bounds.Height;
             int Left = Bounds.Left;
@@ -2702,6 +2710,15 @@ namespace Board
         /// </summary>
         public void AssertBounds(bool copy)
         {
+
+            // if this is the first entry in an list view, push down it the amount of column headers
+            if (this.ParentSection.Entries.Count > 0)
+            {
+                if (this.type == "entry" && this.ParentSection.Entries[0] == this)
+                {
+                    ptop += this.ParentHost.columnheader_height;
+                }
+            }
             /**
         * If the current section is an flow, do 
         * not show the entry
@@ -2710,21 +2727,21 @@ namespace Board
                 return;
             if (this.GetAttribute("noelm") != "")
                 return;
-                
+
             int top = 0;
             int left, width, height;
 
             // Try get integers from the attributes
-            int.TryParse(GetAttribute("top"),out top);
+            int.TryParse(GetAttribute("top"), out top);
             int.TryParse(GetAttribute("left"), out left);
             int.TryParse(GetAttribute("width"), out width);
-            int.TryParse(GetAttribute("height"),out height);
+            int.TryParse(GetAttribute("height"), out height);
 
             // If height is smaller than one measure the height by the text content
             if (height < 1)
             {
                 height = 30;
-                
+
             }
             if (!copy)
             {
@@ -2733,28 +2750,29 @@ namespace Board
             }
             // Get if the element is persisten
             bool persistent = false;
-            bool.TryParse(GetAttribute("persistent"),out persistent);
+            bool.TryParse(GetAttribute("persistent"), out persistent);
             Persistent = persistent;
 
-          
-                
+
+
             // If the top variable is still below one, assign the top to the ptop variable and increase ptop iself   
             if (top < 1)
             {
 
                 top = ptop;
-                    if (!Persistent)
-                    {
+                if (!Persistent)
+                {
 
-                      ptop += height;
-                       
-                    }
-                    else
-                    {
-                       
-
-                    }
                    
+                    ptop += height;
+
+                }
+                else
+                {
+
+
+                }
+
             }
             // Apply the values to the native width/height markup
             this.Width = width;
@@ -2777,7 +2795,7 @@ namespace Board
         /// <summary>
         /// Gets and set the top of the element
         /// </summary>
-	    public int Top {get;set;}
+        public int Top { get; set; }
 
         /// <summary>
         /// Gets and set the left position of the element
@@ -2787,12 +2805,12 @@ namespace Board
         /// <summary>
         /// Gets and sets the width of the element. Width below one is considered as filling width.
         /// </summary>
-	    public int Width {get;set;}
+        public int Width { get; set; }
 
         /// <summary>
         /// Gets and sets the height of the element. Values below one is considered as filling vertically.
         /// </summary>
-	    public int Height {get;set;}
+        public int Height { get; set; }
 
         /// <summary>
         /// Gets and sets the raw data of the object. For example an text node will has its content stored in this
@@ -2804,7 +2822,7 @@ namespace Board
             get;
             set;
         }
-        
+
         /// <summary>
         /// The drawboard the element is drawn on
         /// </summary>
@@ -2817,7 +2835,7 @@ namespace Board
         /// <param name="value">the value of the attribute</param>
         public void SetAttribute(String name, string value)
         {
-            
+
             /** boolean indicating wheather an matching attribute was found, 
                 * if not add an to the collection
                 * */
@@ -2830,7 +2848,7 @@ namespace Board
                     found = true;
                 }
             }
-            
+
             // If the attribute is an type set the type property to the value
             if (name == type)
             {
@@ -2850,17 +2868,17 @@ namespace Board
             if (this.IsCopy)
                 this.Original.SetAttribute(name, value);
 
-          
-               
+
+
         }
         public Section ParentSection { get; set; }
-	    public Element(Section parentSection,DrawBoard parentBoard)
-	    {
+        public Element(Section parentSection, DrawBoard parentBoard)
+        {
             this.ParentSection = parentSection;
             this.ParentHost = parentBoard;
-	        attributes = new List<Attribute>();
+            attributes = new List<Attribute>();
             Elements = new ElementCollection();
-	    }
+        }
 
         private bool selected;
         /// <summary>
@@ -2879,7 +2897,7 @@ namespace Board
                 if (IsCopy)
                     this.Original.selected = true;
 
-               
+
 
 
             }
@@ -2904,43 +2922,43 @@ namespace Board
                 this.ParentHost.scrollY -= this.Height;
 
         }
-	    private string type;
+        private string type;
 
         /// <summary>
         /// Gets and sets the type of element. 
         /// </summary>
-	    [XmlAttribute("type")]
-	    public string Type
-	    {
-	        get
-	        {
+        [XmlAttribute("type")]
+        public string Type
+        {
+            get
+            {
                 if (GetAttribute("type") != "")
                     return GetAttribute("type");
-	            return type;
-	        }
-	        set
-	        {
-	            type = value;
+                return type;
+            }
+            set
+            {
+                type = value;
                 SetAttribute("type", type);
-	        }
-	    }
+            }
+        }
         /// <summary>
         /// An list of arbitrary attributes applied to the object. These attributes provides the properties coming from
         /// the underlying input and are managed by the application. 
         /// </summary>
-	    private List<Attribute> attributes;
-	    [XmlElement("attribute")]
-	    public List<Attribute> Attributes
-	    {
-	        get
-	        {
-	            return attributes;
-	        }
-	        set
-	        {
-	            attributes = value;
-	        }
-	    }
+        private List<Attribute> attributes;
+        [XmlElement("attribute")]
+        public List<Attribute> Attributes
+        {
+            get
+            {
+                return attributes;
+            }
+            set
+            {
+                attributes = value;
+            }
+        }
         /// <summary>
         /// Class for defining children element collection
         /// </summary>
@@ -2951,12 +2969,12 @@ namespace Board
                 elements = new List<Element>();
             }
             int position = -1;
-            IEnumerator System.Collections.IEnumerable .GetEnumerator()
+            IEnumerator System.Collections.IEnumerable.GetEnumerator()
             {
                 return elements.AsEnumerable<Element>().ToArray().GetEnumerator();
             }
-               
-            public Element Parent {get;set;}
+
+            public Element Parent { get; set; }
             private List<Element> elements;
             [XmlElement("element")]
             public Element this[int index]
@@ -2965,10 +2983,10 @@ namespace Board
                 {
                     return elements[index];
                 }
-                set 
+                set
                 {
                     elements[index] = value;
-                        
+
                 }
             }
             public void Add(Element elm)
@@ -2983,18 +3001,18 @@ namespace Board
         /// depends of the target implementation.
         /// </summary>
         public ElementCollection Elements { get; set; }
-	    public string GetAttribute(string name)
-	    {
-	        foreach (Attribute a in attributes)
-	            {
-	            if (a.name == name)
-	            {
-	                return a.value;
-	            }
-	        }
-	        return "";
-	    }
-	      
-	       
-	}
+        public string GetAttribute(string name)
+        {
+            foreach (Attribute a in attributes)
+            {
+                if (a.name == name)
+                {
+                    return a.value;
+                }
+            }
+            return "";
+        }
+
+
+    }
 }

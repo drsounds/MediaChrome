@@ -7,7 +7,7 @@
 		<entry title="Radio" width="-1" height="16" top="@TOP" shref="@{service}:radio:a"/>
 		<entry title="Local Music" width="-1" height="16" top="@TOP" shref="@{service}:local:c"/>
 		<entry title="Store" width="-1" height="16" top="@TOP" shref="@{service}:store:a"/>
-		<space height="30" top="@TOP"/>	
-		<divider height="30"  top="@TOP"/>
+		<space height="20" top="@TOP"/>	
+		<divider height="20"  top="@TOP"/>
 	</section>
 </view>

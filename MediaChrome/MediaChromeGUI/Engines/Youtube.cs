@@ -26,6 +26,26 @@ namespace MediaChrome
 	/// </summary>
 	public class Youtube : MediaChrome.IPlayEngine
     {
+        /// <summary>
+        /// Returns an song by the specified ISRC
+        /// </summary>
+        /// <param name="ISRC"></param>
+        /// <returns></returns>
+        public Song GetSongFromISRC(string ISRC) { return new Song(); }
+        /// <summary>
+        /// Returns an artist by the specified ID
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public Artist ArtistFromID(string ID) { return new Artist(); }
+
+        /// <summary>
+        /// Returns an album by the specified UPC
+        /// </summary>
+        /// <param name="UPC"></param>
+        /// <returns></returns>
+        public Album AlbumFromUPC(string UPC) { return new Album(); }
+
         public List<Song> QueryRadio(String Query)
         {
             return new List<Song>();
@@ -171,8 +191,8 @@ namespace MediaChrome
 
                 }
                 // http://www.youtube.com/apiplayer?enablejsapi=1&version=3
-              _Song.Path="youtube:"+((XmlElement)Item.GetElementsByTagName("link")[3]).GetAttribute("href").Replace("http://gdata.youtube.com/feeds/api/videos/","").Replace("?v=1","");
-              //  _Song.Path = "youtube:" + ((XmlElement)Item.GetElementsByTagName("link")[0]).GetAttribute("href"); _Song.Engine = "youtube";
+           //   _Song.Path="youtube:"+((XmlElement)Item.GetElementsByTagName("link")[3]).GetAttribute("href").Replace("http://gdata.youtube.com/feeds/api/videos/","").Replace("?v=1","");
+                _Song.Path = "youtube:" + ((XmlElement)Item.GetElementsByTagName("link")[0]).GetAttribute("href"); _Song.Engine = this;
                 _Song.Store = "Youtube";
                 if (_Song.Title.Contains(_Song2.Title) && _Song.Title.Contains(_Song2.Artist)) 
                     return _Song;
@@ -184,7 +204,25 @@ namespace MediaChrome
 		public Youtube()
 		{
 			YouPlayer=new WebBrowser();
+
+            if (r == null)
+            {
+                r = new Form();
+                r.Controls.Add(YouPlayer);
+                YouPlayer.Dock = DockStyle.Fill;
+                r.Show();
+            }
+            YouPlayer.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(YouPlayer_DocumentCompleted);
 		}
+
+        void YouPlayer_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            try
+            {
+                YouPlayer.Navigate("javascript:play()");
+            }
+            catch { }
+        }
 		public Control MediaControl
 		{
 			get
@@ -249,8 +287,8 @@ namespace MediaChrome
 					
 				}
 				try{
-                _Song.Path="youtube:"+((XmlElement)Item.GetElementsByTagName("link")[3]).GetAttribute("href").Replace("http://gdata.youtube.com/feeds/api/videos/","").Replace("?v=1","");
-                //_Song.Path = "youtube:" + ((XmlElement)Item.GetElementsByTagName("link")[0]).GetAttribute("href");
+                    //_Song.Path="youtube:"+((XmlElement)Item.GetElementsByTagName("link")[3]).GetAttribute("href").Replace("http://gdata.youtube.com/feeds/api/videos/","").Replace("?v=1","");
+                _Song.Path = "youtube:" + ((XmlElement)Item.GetElementsByTagName("link")[0]).GetAttribute("href");
                 _Song.Engine = this;
 				_Song.Store="Youtube";
 				songs.Add(_Song);
@@ -272,7 +310,7 @@ namespace MediaChrome
                 _PlayTimer.Stop();
             _PlayTimer = new Timer();
             _PlayTimer.Tick += new EventHandler(_PlayTimer_Tick);
-            YouPlayer.Navigate("javascript:play()");
+            
         }
 
         void _PlayTimer_Tick(object sender, EventArgs e)
@@ -298,22 +336,25 @@ namespace MediaChrome
             YouPlayer.Navigate("javascript:seekTo(" + ((float)(((float)pos)/100.0f)).ToString().Replace(",",".") + "*parseInt(document.getElementById('duration').innerHTML))");
             position = (int)pos;
         }
-		
+        Form r;
+        [STAThread]
 		public void Load(string Content)
 		{
-			if(YouPlayer==null)
+            if (YouPlayer == null)
 			{
 				
 	
 				YouPlayer.Show();
 				
 			}
-            YouPlayer.Show();
-            YouPlayer.Navigate("about:blank");
-			YouPlayer.Navigate("http://code.google.com/intl/en-US/apis/youtube/youtube_player_demo.html");
-            YouPlayer.Navigate("javascript:loadVideo('" + Content.Replace("youtube:", "") + "',0,'default')");
-        
-         //   YouPlayer.Navigate(Content.Replace("youtube:",""));
+            YouPlayer.Navigate(Content.Replace("youtube:", ""));
+       
+			//YouPlayer.Navigate("http://code.google.com/intl/en-US/apis/youtube/youtube_player_demo.html");
+      
+            //      YouPlayer.Navigate("javascript:loadVideo('" + Content.Replace("youtube:", "") + "',0,'default')");
+            
+         
+            //   YouPlayer.Navigate(Content.Replace("youtube:",""));
 		}
 		
 		public void ImportEx(object Conn, string RootDir)

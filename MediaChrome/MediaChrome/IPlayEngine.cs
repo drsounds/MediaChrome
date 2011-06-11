@@ -52,6 +52,7 @@ namespace MediaChrome
     /// </summary>
     public class Artist : IMedia
     {
+      
         /// <summary>
         /// Available albums for the artist
         /// </summary>
@@ -452,6 +453,24 @@ namespace MediaChrome
   
 	public interface IPlayEngine
 	{
+        /// <summary>
+        /// Returns an Song by the ISRC playable in the specified engine.
+        /// </summary>
+        /// <param name="ISRC"></param>
+        /// <returns></returns>
+        Song GetSongFromISRC(String ISRC);
+        /// <summary>
+        /// Returns an artist from the specified ID, called from the separate thread
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        Artist ArtistFromID(string ID);
+        /// <summary>
+        /// Returns an album from UPC. Should be called in an separated thread.
+        /// </summary>
+        /// <param name="UPC"></param>
+        /// <returns></returns>
+        Album AlbumFromUPC(string UPC);
         /// <summary>
         /// Query a radio stream.
         /// </summary>

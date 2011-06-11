@@ -54,8 +54,10 @@ namespace MediaChrome
                 this.ID = ID;
 
                 this.Host = host;
-                Thread ds = new Thread(RetrieveData);
-                ds.Start();
+                Playlist s = this;
+              //  Thread ds = new Thread(RetrieveData);
+                Songs = Engine.LoadPlaylist(this.ID,ref s) ;
+                
             }
 
             /// <summary>

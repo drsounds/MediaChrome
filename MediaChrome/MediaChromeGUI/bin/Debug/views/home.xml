@@ -12,12 +12,12 @@
 		<item title="Create playlist" onclick="scopeToPlaylist()" />
 	</toolbar>
 	<section name="Overview">
-		<space height="30"/>
-		<label height="50" color="#aaeeaa" left="10" top="@TOP" size="20" width="500">What's new</label>
-		<label height="20" color="#aaeeaa" left="10" top="@TOP" size="8" width="-1" persistent="true">The latest shared music on facebook</label>
-		<!-- <button left="360" text="Make playlist" top="@TOP"  width="100" height="20" onclick="scopeToPlaylist()"/>-->
-		<space height="30"/> 
-
+	
+			<label height="50" color="#aaeeaa" left="10" size="20" width="500">What's new</label>
+			<label height="20" color="#aaeeaa" left="10" size="8" width="-1" persistent="true">The latest shared music on facebook</label>
+			<!-- <button left="360" text="Make playlist" top="@TOP"  width="100" height="20" onclick="scopeToPlaylist()"/>-->
+			<space height="30"/> 
+	
 		<?
 		
 			if(d!=false){
