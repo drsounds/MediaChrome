@@ -25,11 +25,14 @@ function list_remove(uri)
 		<columnheader noelm="true" name="Comment" size="350" />
 		
 		<h1 height="40" color="#FFFFFF">Playlist</h1> 
-		<hbox height="64">
-			<image src="" width="64" height="64" left="10"  shadow="true"/>
+		<hbox height="128">
+			<image src="" width="128" height="128" left="10"  shadow="true"/>
 			<label left="80" flex="1" height="60">Description goes here</label>
-			<image src="" width="64" height="64"  shadow="true"/>
-			<label left="80" width="64" height="60">Description goes here</label>
+			<vbox width="164">
+				<image src=""  height="64"  shadow="true"/>
+				
+				<label  width="64" height="60">Description goes here</label>
+			</vbox>
 			
 		</hbox>
 		

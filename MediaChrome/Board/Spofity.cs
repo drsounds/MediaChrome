@@ -2725,8 +2725,11 @@ namespace Board
 
             int left = _Element.Left - scrollX;
             int top = _Element.Top - scrollY;
+            
             int width = _Element.Width > 0 ? _Element.Width : Bounds.Width - left;
             int height = _Element.Height > 0 ? _Element.Height : this.Height;
+            
+
             /***
              * If element is type of V/Hbox set width to the parent's width
              * */
@@ -2748,17 +2751,18 @@ namespace Board
                 if (_Element.Parent.Type == "vbox")
                 {
 
-                    int ctop = this.Parent.Top;       // left position of parent
-                    int cheight = this.ParentHost.Height; // width of parent (currently host)
+                    int ctop = int.Parse(this.Parent.GetAttribute("_top"));       // top position of parent
+                    int cheight = int.Parse(this.Parent.GetAttribute("_height")); // height of parent (currently host)
 
 
                     /***
                      * Go through the collection and label
                      * all child elements values in the collection
-                     * so we can calculate the dynamic width
+                     * so we can calculate the dynamic height
                      * */
-                    foreach (Element m in _Element.Parent.Elements)
+                    for (int i = 0; i < _Element.Parent.Elements.Count; i++)
                     {
+                        Element m = _Element.Parent.Elements[i];
                         m.SetAttribute("s_height", ParseWidth(m.GetAttribute("height"), padding).ToString());
 
 
@@ -2768,8 +2772,31 @@ namespace Board
                          * */
                         if (m.GetAttribute("flex") == "1")
                         {
-                            // Set s_width to -1 to indicate flexibility
+                            // Set s_height to -1 to indicate flexibility
                             m.SetAttribute("s_height", "-1");
+
+                            float restcount = 0; // height of resting elements
+                            float flex = 1;
+                            // calculate height of all succeeding elements
+                            for (int j = i + 1; j < _Element.Parent.Elements.Count; j++)
+                            {
+                                Element n = _Element.Parent.Elements[j];
+
+                                // if there is an flex of the element, create a division
+                                if (n.GetAttribute("flex") == "1")
+                                {
+                                    flex /= 2;
+                                }
+                                else
+                                {
+                                    restcount += ParseWidth(n.GetAttribute("height"), padding);
+                                }
+                            }
+                            // add flex variant to restcount
+                            restcount += restcount * flex;
+                            // set restcount to the elements attribute
+                            m.SetAttribute("s_restcount", restcount.ToString());
+
                         }
                     }
 
@@ -2778,51 +2805,57 @@ namespace Board
                      * out the current element bounds
                      * */
 
-                    int __topPos = _Element.Parent.Top;
-                    width = _Element.Parent.Width;
-                    top = _Element.Parent.Top;
+                    float __toppos = int.Parse(this.Parent.GetAttribute("_top"));
+                    width = int.Parse(this.Parent.GetAttribute("_width"));
+                    left = int.Parse(_Element.Parent.GetAttribute("_left")) - width;
 
                     // Now calculate YOUR elements
                     foreach (Element elm in _Element.Parent.Elements)
                     {
-                        // if element is the current one, assert it
-                        if (elm == this)
-                        {
-                           top = __topPos;
-
-                            height = int.Parse(elm.GetAttribute("s_width"));
-                        }
 
 
                         /**
-                         * INVOKE WIDTH STEP
+                         * INVOKE height STEP
                          * If element's flex is set to -1,
-                         * revoke the element's width
+                         * revoke the element's height
                          * */
                         if (elm.GetAttribute("s_height") == "-1")
                         {
-                            // if difference between __leftpos and cwidth is smaller than 10% of t
-                            // the actual bounds, reset the width to an default one.
-                            if (Diff(__topPos, cheight) > 100)
+                            // if difference between __toppos and cheight is smaller than 10% of t
+                            // the actual bounds, reset the height to an default one.
+                            if (Diff(__toppos, cheight) > 100)
                             {
-                                // Increase leftpos
-                                __topPos += cheight - __topPos;
+
+                                int s_height = int.Parse(elm.GetAttribute("s_height"));
+                                // Increase toppos
+                                __toppos += cheight - float.Parse(elm.GetAttribute("s_restcount"));
+
                             }
                         }
-                        else // otherwise set width to relative or absolute
+                        else // otherwise set height to relative or absolute
                         {
 
-                            __topPos += int.Parse(elm.GetAttribute("s_height"));
+                            __toppos += int.Parse(elm.GetAttribute("s_height"));
 
                         }
+                        // if element is the current one, assert it
+                        if (elm == this)
+                        {
+
+
+                            height = int.Parse(elm.GetAttribute("s_height"));
+                            top = (int)__toppos - height;
+                        }
+
 
                     }
+
 
                 }
                 if (_Element.Parent.Type == "hbox")
                 {
-                    int cleft = this.Parent.Left;       // left position of parent
-                    int cwidth = this.ParentHost.Width; // width of parent (currently host)
+                    int cleft = int.Parse(this.Parent.GetAttribute("_left"));       // left position of parent
+                    int cwidth = int.Parse(this.Parent.GetAttribute("_width")); // width of parent (currently host)
 
                     
                     /***
@@ -2875,9 +2908,9 @@ namespace Board
                      * out the current element bounds
                      * */
 
-                    float __leftpos = _Element.Parent.Left;
-                    height = _Element.Parent.Height;
-                    top = _Element.Parent.Top;
+                    float __leftpos = int.Parse(this.Parent.GetAttribute("_left"));
+                    height = int.Parse(this.Parent.GetAttribute("_height"));
+                    top = int.Parse(this.Parent.GetAttribute("_top"));
 
                     // Now calculate YOUR elements
                     foreach (Element elm in _Element.Parent.Elements)
@@ -2977,7 +3010,11 @@ namespace Board
                 }
 
             }
-            Rectangle Rect = new Rectangle(left+padding, top+padding, width-padding*2, height-padding*2);
+            this.SetAttribute("_left", left.ToString());
+            this.SetAttribute("_top", top.ToString());
+            this.SetAttribute("_width", width.ToString());
+            this.SetAttribute("_height", height.ToString());
+            Rectangle Rect = new Rectangle(left+padding - scrollX, top+padding - scrollY, width-padding*2, height-padding*2);
             return Rect;
         }
         /// <summary>
