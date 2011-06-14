@@ -31,9 +31,9 @@ var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.
 		<hbox height="128">
 			
 			<image  width="128" 	  src="@{img}" shadow="true" />
-			<vbox flex="1" height="128">
-				<label flex="1" bold="true" size="12" color="#FFFFFF"  height="20" >a @{real_name}</label>
-			</vbox>
+			
+				<label height="30" bold="true" size="12" color="#FFFFFF" >@{real_name}</label>
+			
 		
 			<vbox width="128" height="128">
 				<label bold="true" left="320" size="12" color="#FFFFFF" top="30" width="1440" height="60">Friends</label>

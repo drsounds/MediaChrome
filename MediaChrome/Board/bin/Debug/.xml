@@ -2057,6 +2057,11 @@
             the underlying input and are managed by the application. 
             </summary>
         </member>
+        <member name="P:Board.Element.Identifier">
+            <summary>
+            Gets or sets the unique identifier of the object
+            </summary>
+        </member>
         <member name="P:Board.Element.Tag">
             <summary>
             Store an boxed instance of any class in the element
@@ -2116,6 +2121,11 @@
             <summary>
             Gets and set the persistency. If true, the ptop will not be 
             changed after appending but will use the last valueo of it.
+            </summary>
+        </member>
+        <member name="P:Board.Element.Depth">
+            <summary>
+            Returns how deep the object is residing in the context
             </summary>
         </member>
         <member name="P:Board.Element.ptop">

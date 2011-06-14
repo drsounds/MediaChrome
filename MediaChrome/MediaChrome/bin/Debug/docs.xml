@@ -980,5 +980,10 @@
             <param name="host">The host of the playlist (the media provider)</param>
             <param name="cache">The cache to use instead of loading an new one</param>
         </member>
+        <member name="P:MediaChrome.Views.Playlist.Annotation">
+            <summary>
+            Text annotation for playlist. Support easy HTML
+            </summary>
+        </member>
     </members>
 </doc>

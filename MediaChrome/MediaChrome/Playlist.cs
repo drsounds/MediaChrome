@@ -13,7 +13,10 @@ namespace MediaChrome
             public Playlist() 
             {
             }
-
+            /// <summary>
+            /// Text annotation for playlist. Support easy HTML
+            /// </summary>
+            public string Annotation { get; set; }
             public string Owner { get; set; }
             public bool CanModify { get; set; }
             public String Title { get; set; }

@@ -68,5 +68,10 @@ namespace Board
             
             board.LoadContent(textBox3.Text);
         }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            
+        }
     }
 }
