@@ -1,13 +1,39 @@
 <?
 var playlist = getPlaylist(service,parameter);
+function list_remove(uri)
+{
+	
+	for(var i =0; i < playlist.Songs; i++){ var song = playlist.Songs[i];
+		if(song.Path == uri){
+			playlist.Remove(i);
+		}
+	}
+	return "TRUE";
+}
 ?>
-<view live="true">
-	<section name="Playlist" list="true" >
+<view>
+	<section name="Playlist" list="true" editable="true" >
+		
 		<columnheader noelm="true" name=" " size="18" />
-		<columnheader noelm="true" name="Title" size="150" />
+		<columnheader noelm="true" name="Title" size="350" />
 		<columnheader noelm="true" name="Artist" size="150" />
 		<columnheader noelm="true" name="Album" size="150" />
 
+
+		<columnheader noelm="true" name="User" size="150" />
+		<columnheader noelm="true" name="Date" size="150" />
+		<columnheader noelm="true" name="Comment" size="350" />
+		
+		<h1 height="40" color="#FFFFFF">Playlist</h1> 
+		<hbox height="64">
+			<image src="" width="64" height="64" left="10"  shadow="true"/>
+			<label left="80" flex="1" height="60">Description goes here</label>
+			<image src="" width="64" height="64"  shadow="true"/>
+			<label left="80" width="64" height="60">Description goes here</label>
+			
+		</hbox>
+		
+		<space height="10"/>
 		<?	
 		for(var i=0; i < playlist.Songs.Count; i++){ var song = playlist.Songs[i];
 		?>

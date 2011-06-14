@@ -9,6 +9,21 @@ namespace MediaChrome.SocialNetworking
 {
     public class Facebook : ISocialNetwork
     {
+        public string Namespace
+        {
+            get
+            {
+                return "facebook";
+            }
+        }
+ 
+        public string Name
+        {
+            get
+            {
+                return "Facebook";
+            }
+        }
         /// <summary>
         /// The underlying api
         /// </summary>

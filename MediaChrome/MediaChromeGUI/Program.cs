@@ -47,14 +47,14 @@ namespace MediaChrome
              * */
           //MediaEngines.Add("spotify", new MediaChrome.SpotifyPlayer());
          //   MediaEngines.Add("mp3", new MediaChrome.MP3Player());
-          //    MediaEngines.Add("youtube", new MediaChrome.Youtube());
+         //   MediaEngines.Add("youtube", new MediaChrome.Youtube());
             MediaEngines.Add("mp3", new MediaChrome.MP3Player());
 
             /**
              * Add social networks
              * */
             SocialNetworks.Add("facebook", new MediaChrome.SocialNetworking.Facebook());
-
+           
 
             // Add next song event handling
             foreach(MediaChrome.IPlayEngine Engine in MediaEngines.Values)

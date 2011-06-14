@@ -365,6 +365,7 @@ namespace MediaChrome
         {
             PlaybackNotifier R = new PlaybackNotifier(currentPlayer, song);
             R.Show();
+            this.cBtn8.Img = Properties.Resources.pause;
         }
         private MediaChrome.IPlayEngine currentPlayer;
 
@@ -387,9 +388,10 @@ namespace MediaChrome
 
                     }
                     // Get current section
-                    Board.Section section = this.treeview.CurrentView.Content.View.Sections[0];
-
-                    this.treeview.Navigate("spotify:menu:1", "spotify", "views");
+                    //Board.Section section = this.treeview.CurrentView.Content.View.Sections[0];
+                    string nspace = value.Namespace;
+                    this.treeview.Navigate(String.Format("{0}:menu:0",nspace), nspace, "views");
+#if(obsolute)    
                     section.ptop = 120;
 
                     try
@@ -419,9 +421,14 @@ namespace MediaChrome
                         }
                     }
                     catch { }
+ #endif
+
                 }
+
                 catch { }
+
             }
+
         }
 
         /// <summary>
@@ -441,7 +448,9 @@ namespace MediaChrome
         }
         public class View
         {
-            public View(String uri, string adress)
+            
+            public Spofity Base {get;set;}
+            public View(String uri, string adress,Spofity spotify )
             {
                 URI = uri;
                 Adress = adress;
@@ -585,7 +594,7 @@ namespace MediaChrome
         {
             board.NextSong();
         }
-        
+       
         /// <summary>
         /// The board to draw on
         /// </summary>
@@ -720,7 +729,7 @@ namespace MediaChrome
             }
         }
 
-
+        
         /// <summary>
         /// Will split the window when mouse move if true
         /// </summary>
@@ -806,7 +815,7 @@ namespace MediaChrome
             this.splitter1.MouseDown += new MouseEventHandler(splitter1_MouseDown);
 
             // Set splitter move events
-
+            this.board.FinishedReorder += new DrawBoard.ItemReorderEvenHandler(board_FinishedReorder);
             this.board.MouseMove += new MouseEventHandler(board_MouseMove);
             this.splitter1.MouseMove += new MouseEventHandler(splitter1_MouseMove);
             this.treeview.MouseMove += new MouseEventHandler(treeview_MouseMove);
@@ -835,6 +844,7 @@ namespace MediaChrome
             treeview.Navigate("spotify:menu:1", "spotify", "views");
             treeview.DragOverElement += new Board.DrawBoard.ElementDragEventHandler(treeview_DragOverElement);
             treeview.DropElement += new Board.DrawBoard.ElementDragEventHandler(treeview_DropElement);
+            treeview.ElementAdded += new DrawBoard.ElementParseEvent(treeview_ElementAdded);
              /**
               * Add items on treeview
               * 
@@ -853,9 +863,101 @@ namespace MediaChrome
             * */
             this.board.ElementAdded += new Board.DrawBoard.ElementParseEvent(board_ElementAdded);
             this.board.ElementParsing += new DrawBoard.ElementParseEvent(board_ElementParsing);
+            this.board.ElementDeleting += new DrawBoard.ElementActionEventHandler(board_ElementDeleting);
+
+            /**
+             * Set contextMenu for board
+             * */
+            this.board.ContextMenu = this.contextMenu1;
+            this.board.ContextMenu.Popup += new EventHandler(ContextMenu_Popup);
+            this.treeview.MakoGeneration += new DrawBoard.MakoCreateEventHandler(treeview_MakoGeneration);
             DefaultPlayer = Program.MediaEngines[MediaChrome.Settings.Default.DefaultPlayer];
 
         }
+
+        void treeview_ElementAdded(object Sender, DrawBoard.ElementParseEventArgs e)
+        {
+           /***
+            * If item is pointing to an playlist,
+            * assert the playlist as an tag
+            * */
+            if(e.Element.GetAttribute("shref").StartsWith(String.Format("{0}:playlist:",DefaultPlayer.Namespace)))
+            {
+                Playlist cf = DefaultPlayer.ViewPlaylist(e.Element.GetAttribute("title"),e.Element.GetAttribute("shref").Split(':')[2]);
+                e.Element.Tag = cf;
+            } 
+        }
+
+        void treeview_MakoGeneration(object sender, EventArgs e)
+        {
+            Board.MakoEngine d = (Board.MakoEngine)sender;
+            d.RuntimeMachine.SetFunction("getPlaylists", new Func<string, string, object>(__getPlaylists));
+
+        }
+
+        void ContextMenu_Popup(object sender, EventArgs e)
+        {
+            menuItem3.MenuItems.Clear();
+            /***
+             * Add all available social networks in the application
+             * */
+            foreach (MediaChrome.SocialNetworking.ISocialNetwork Network in Program.SocialNetworks.Values)
+            {
+                MenuItem Item = menuItem3.MenuItems.Add(Network.Name);
+                Item.Tag = Network;
+                Item.Click += new EventHandler(Item_Click);
+            }
+        }
+
+        void Item_Click(object sender, EventArgs e)
+        {
+            // Get senders
+            MenuItem d = (MenuItem)sender;
+            ISocialNetwork Network = (ISocialNetwork)d.Tag;
+            if (board.SelectedItems.Count > 0)
+            {
+                // Get song behind link
+          
+
+                // Share the first entry
+                Network.PostLink("Post from MediaChrome", new Uri(board.SelectedItems[0].GetAttribute("uri shref href")), Visibility.All);
+
+            }
+        }
+
+        void board_ElementDeleting(object sender, DrawBoard.ElementActionEventArgs e)
+        {
+
+            e.RemoveEntry = true;
+            try
+            {
+                foreach (Element elm in e.Element)
+                {
+
+
+                    if (this.board.Invoke("list_delete('" + elm.GetAttribute("uri") + "')") != "FALSE")
+                    {
+                        elm.SetAttribute("__toBeDeleted", "true");
+                        
+                    }
+                        
+                }
+            }
+            catch { e.RemoveEntry = true; }
+        }
+
+        void board_FinishedReorder(object sender, DrawBoard.ItemReorderEventArgs e)
+        {
+            try
+            {
+                
+                    this.board.Invoke(String.Format("playlist.Reorder(playlist.Songs[{0}],{0},{1});", e.OldPos, e.NewPosition));
+
+                
+            }
+            catch { }
+        }
+    
 
         void board_ElementParsing(object Sender, DrawBoard.ElementParseEventArgs e)
         {
@@ -921,7 +1023,7 @@ namespace MediaChrome
         /// <param name="param"></param>
         public void AddSongs(object param)
         {
-            if (CurrentPlayer == null)
+            if (DefaultPlayer == null)
             {
                 ShowMessage("An media engine must be active in order to create playlist");
                 return;
@@ -945,7 +1047,7 @@ namespace MediaChrome
                 {
                     return;
                 }*/
-                plsss = CurrentPlayer.CreatePlaylist(String.Format("New Playlist {0}{1}{2}{3}{4}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second));
+                plsss = DefaultPlayer.CreatePlaylist(String.Format("New Playlist {0}{1}{2}{3}{4}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second));
 
             }
             
@@ -1169,7 +1271,13 @@ namespace MediaChrome
                      {
                          Song d = (Song)_elm.Tag;
                          MediaChrome.Views.Playlist Playlist = (MediaChrome.Views.Playlist)e.Destination.Tag;
-                         Playlist.Add(d, 0);
+                         String ID = Playlist.ID.Replace(String.Format("{0}:playlist:", DefaultPlayer.Namespace), "");
+
+                         
+                         Playlist.Add(d, Playlist.Engine.LoadPlaylist(ID,ref Playlist).Count+1);
+                         Thread c = new Thread(this.board.Views[String.Format("{0}:playlist:{1}", DefaultPlayer.Namespace, ID)].Content.UpdateAsync);
+                         c.Start();
+                         
                      }
                      catch
                      {
@@ -1560,10 +1668,28 @@ namespace MediaChrome
               d.RuntimeMachine.SetFunction("radioQuery", new Func<string, string, object>(__radioQuery));
               d.RuntimeMachine.SetFunction("getCurrentPlaylist", new Func< object>(__getCurrentPlaylist));
               d.RuntimeMachine.SetFunction("ownPlaylist", new Func<object>(__ownPlaylist));
+              d.RuntimeMachine.SetFunction("getPlaylists", new Func<string,string,object>(__getPlaylists));
               d.RuntimeMachine.SetFunction("extern", new Func<string, object>(__extern));
               d.RuntimeMachine.SetFunction("section", new Func<string, object>(__setActiveSection));
 
-        }   
+        }
+        /// <summary>
+        /// Returns a list of playlists
+        /// </summary>
+        /// <param name="engine">The engine query</param>
+        /// <param name="parameter">The parameter</param>
+        /// <returns></returns>
+        public object __getPlaylists(string engine, string parameter)
+        {
+            try
+            {
+                return Program.MediaEngines[engine].Playlists;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         /// <summary>
         ///  Used by the script to get local files
@@ -3060,7 +3186,7 @@ namespace MediaChrome
                 else
                 {
                     currentPlayer.Pause();
-                    cBtn8.Img = Properties.Resources.play2;
+                    cBtn8.Img = Properties.Resources.play;
                 }
             }
             catch { }
@@ -3172,6 +3298,46 @@ namespace MediaChrome
         private void panel4_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+       
+        private void menuItem5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                
+            }
+            catch
+            {
+            }
+        }
+
+        private void menuItem10_Click(object sender, EventArgs e)
+        {
+            this.board.RaiseCopy();
+        }
+
+        private void cBtn5_Click(object sender, EventArgs e)
+        {
+            // Create new playlist by default
+            try
+            {
+             
+                    // Start the operation on an new thread
+                AskDialog d = new AskDialog(MediaChrome.Properties.Resources.icon,"Enter a name for the new playlist","New Playlist");
+                if (d.ShowDialog() == DialogResult.OK)
+                {
+                    String Name = d.Value;
+                    this.DefaultPlayer.CreatePlaylist(Name);
+
+                    // Update the view
+                    Thread t = new Thread(this.treeview.CurrentView.Content.UpdateAsync);
+                    t.Start();
+
+                }
+            }
+            catch
+            {
+            }
         }
 
     }

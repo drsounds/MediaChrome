@@ -6,6 +6,7 @@
 		<item title="+ Import music" onclick="importMusic()"/>
 	</toolbar>
 	<section name="Local files" list="true">
+		<space height="60" />
 		<columnheader noelm="true" name=" " size="20" />
 	
 		<columnheader noelm="true" name="Title" size="320" />

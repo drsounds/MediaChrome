@@ -747,6 +747,7 @@ namespace MediaChrome
 		/// <summary>
 		/// Playlist-related functionality
 		/// </summary>
+        /// <param name="PlsID">Should only consist of the unique id for the playlist, not from the engine</param>
         /// <returns>A instance of the playlist class with content from this source</returns>
 		Playlist ViewPlaylist(string Name,String PlsID);
         /// <summary>

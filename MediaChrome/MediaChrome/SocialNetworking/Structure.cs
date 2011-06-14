@@ -175,6 +175,15 @@ namespace MediaChrome.SocialNetworking
     /// </summary>
     public interface ISocialNetwork
     {
+        /// <summary>
+        /// The name of the social network
+        /// </summary>
+        string Name { get; }
+        /// <summary>
+        /// Namespace of the network
+        /// </summary>
+        string Namespace { get; }
+        
 
         /// <summary>
         /// Login to an social network. UserName/Password is handled by an form

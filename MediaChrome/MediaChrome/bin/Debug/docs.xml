@@ -253,6 +253,16 @@
             <param name="query">The query to use</param>
             <returns>an instance to an SocialFeed encapsulating the user's feed data, or NULL if failed</returns>
         </member>
+        <member name="P:MediaChrome.SocialNetworking.ISocialNetwork.Name">
+            <summary>
+            The name of the social network
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.ISocialNetwork.Namespace">
+            <summary>
+            Namespace of the network
+            </summary>
+        </member>
         <member name="P:MediaChrome.SocialNetworking.ISocialNetwork.LastUpdates">
             <summary>
             Gets the last updates
@@ -756,6 +766,7 @@
             <summary>
             Playlist-related functionality
             </summary>
+            <param name="PlsID">Should only consist of the unique id for the playlist, not from the engine</param>
             <returns>A instance of the playlist class with content from this source</returns>
         </member>
         <member name="M:MediaChrome.IPlayEngine.CreatePlaylist(System.String)">

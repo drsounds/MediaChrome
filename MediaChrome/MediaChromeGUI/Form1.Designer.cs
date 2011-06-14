@@ -52,6 +52,18 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.timer4 = new System.Windows.Forms.Timer(this.components);
+            this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.playOpenResourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenu1 = new System.Windows.Forms.ContextMenu();
+            this.menuItem1 = new System.Windows.Forms.MenuItem();
+            this.menuItem2 = new System.Windows.Forms.MenuItem();
+            this.menuItem3 = new System.Windows.Forms.MenuItem();
+            this.menuItem4 = new System.Windows.Forms.MenuItem();
+            this.menuItem5 = new System.Windows.Forms.MenuItem();
+            this.menuItem7 = new System.Windows.Forms.MenuItem();
+            this.menuItem8 = new System.Windows.Forms.MenuItem();
+            this.menuItem9 = new System.Windows.Forms.MenuItem();
+            this.menuItem10 = new System.Windows.Forms.MenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.panel3 = new MediaChrome.ExPanel();
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
@@ -89,6 +101,7 @@
             this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
+            this.contextMenuStrip3.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             this.panel4.SuspendLayout();
@@ -224,6 +237,79 @@
             this.timer4.Enabled = true;
             this.timer4.Tick += new System.EventHandler(this.timer4_Tick_1);
             // 
+            // contextMenuStrip3
+            // 
+            this.contextMenuStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.playOpenResourceToolStripMenuItem});
+            this.contextMenuStrip3.Name = "contextMenuStrip3";
+            this.contextMenuStrip3.Size = new System.Drawing.Size(170, 26);
+            // 
+            // playOpenResourceToolStripMenuItem
+            // 
+            this.playOpenResourceToolStripMenuItem.Name = "playOpenResourceToolStripMenuItem";
+            this.playOpenResourceToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.playOpenResourceToolStripMenuItem.Text = "Play/Open resource";
+            // 
+            // contextMenu1
+            // 
+            this.contextMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem1,
+            this.menuItem2,
+            this.menuItem3,
+            this.menuItem10,
+            this.menuItem4,
+            this.menuItem5,
+            this.menuItem7,
+            this.menuItem8,
+            this.menuItem9});
+            // 
+            // menuItem1
+            // 
+            this.menuItem1.Index = 0;
+            this.menuItem1.Text = "Play/Open";
+            // 
+            // menuItem2
+            // 
+            this.menuItem2.Index = 1;
+            this.menuItem2.Text = "-";
+            // 
+            // menuItem3
+            // 
+            this.menuItem3.Index = 2;
+            this.menuItem3.Text = "Share to";
+            // 
+            // menuItem4
+            // 
+            this.menuItem4.Index = 4;
+            this.menuItem4.Text = "-";
+            // 
+            // menuItem5
+            // 
+            this.menuItem5.Index = 5;
+            this.menuItem5.Text = "Edit Metadata";
+            this.menuItem5.Click += new System.EventHandler(this.menuItem5_Click);
+            // 
+            // menuItem7
+            // 
+            this.menuItem7.Index = 6;
+            this.menuItem7.Text = "Delete";
+            // 
+            // menuItem8
+            // 
+            this.menuItem8.Index = 7;
+            this.menuItem8.Text = "-";
+            // 
+            // menuItem9
+            // 
+            this.menuItem9.Index = 8;
+            this.menuItem9.Text = "Properties";
+            // 
+            // menuItem10
+            // 
+            this.menuItem10.Index = 3;
+            this.menuItem10.Text = "Copy Media URI";
+            this.menuItem10.Click += new System.EventHandler(this.menuItem10_Click);
+            // 
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -243,7 +329,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(2, 86);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1076, 261);
+            this.panel3.Size = new System.Drawing.Size(1076, 81);
             this.panel3.TabIndex = 24;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint_1);
             // 
@@ -265,7 +351,7 @@
             this.listViewX1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
             this.listViewX1.Location = new System.Drawing.Point(0, 0);
             this.listViewX1.Name = "listViewX1";
-            this.listViewX1.Size = new System.Drawing.Size(211, 261);
+            this.listViewX1.Size = new System.Drawing.Size(211, 81);
             this.listViewX1.TabIndex = 22;
             this.listViewX1.UseCompatibleStateImageBehavior = false;
             this.listViewX1.View = System.Windows.Forms.View.Details;
@@ -287,7 +373,7 @@
             this.panel4.Controls.Add(this.cBtn8);
             this.panel4.Controls.Add(this.menuStrip2);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(2, 347);
+            this.panel4.Location = new System.Drawing.Point(2, 167);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1076, 53);
             this.panel4.TabIndex = 23;
@@ -447,7 +533,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 86);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(2, 314);
+            this.panel1.Size = new System.Drawing.Size(2, 134);
             this.panel1.TabIndex = 20;
             // 
             // panel7
@@ -455,7 +541,7 @@
             this.panel7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panel7.BackColor = System.Drawing.Color.Transparent;
             this.panel7.Cursor = System.Windows.Forms.Cursors.SizeNESW;
-            this.panel7.Location = new System.Drawing.Point(0, 302);
+            this.panel7.Location = new System.Drawing.Point(0, 122);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(13, 12);
             this.panel7.TabIndex = 22;
@@ -612,7 +698,7 @@
             this.cBtn5.Size = new System.Drawing.Size(44, 41);
             this.cBtn5.TabIndex = 10;
             this.cBtn5.Load += new System.EventHandler(this.cBtn3_Load);
-            this.cBtn5.Click += new System.EventHandler(this.CBtn3Click);
+            this.cBtn5.Click += new System.EventHandler(this.cBtn5_Click);
             this.cBtn5.DragDrop += new System.Windows.Forms.DragEventHandler(this.cBtn5_DragDrop);
             this.cBtn5.DragOver += new System.Windows.Forms.DragEventHandler(this.cBtn5_DragOver);
             // 
@@ -676,7 +762,7 @@
             this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1078, 400);
+            this.ClientSize = new System.Drawing.Size(1078, 220);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel1);
@@ -701,6 +787,7 @@
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.contextMenuStrip1.ResumeLayout(false);
             this.contextMenuStrip2.ResumeLayout(false);
+            this.contextMenuStrip3.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             this.panel4.ResumeLayout(false);
@@ -785,6 +872,18 @@
         private cBtn cBtn8;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip3;
+        private System.Windows.Forms.ToolStripMenuItem playOpenResourceToolStripMenuItem;
+        private System.Windows.Forms.ContextMenu contextMenu1;
+        private System.Windows.Forms.MenuItem menuItem1;
+        private System.Windows.Forms.MenuItem menuItem2;
+        private System.Windows.Forms.MenuItem menuItem3;
+        private System.Windows.Forms.MenuItem menuItem4;
+        private System.Windows.Forms.MenuItem menuItem5;
+        private System.Windows.Forms.MenuItem menuItem7;
+        private System.Windows.Forms.MenuItem menuItem8;
+        private System.Windows.Forms.MenuItem menuItem9;
+        private System.Windows.Forms.MenuItem menuItem10;
 
     }
 }

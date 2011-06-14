@@ -1,5 +1,5 @@
  <view>
-	<section name="Menu"  noalt="true" noheader="true" editable="false">
+	<section  name="Menu"  noalt="true" noheader="true" editable="false">
 		<columnheader noelm="true" name=" " size="20" />
 		<columnheader noelm="true" name="Title" size="120" />
 	
@@ -9,5 +9,15 @@
 		<entry title="Store" width="-1" height="16" top="@TOP" shref="@{service}:store:a"/>
 		<space height="20" top="@TOP"/>	
 		<divider height="20"  top="@TOP"/>
+		<?
+		var playlists = getPlaylists(service,parameter);	
+		for(var i=0; i < playlists.Count; i++){ var playlist = playlists[i];
+		var title = playlist.Title;
+		var id = playlist.ID;
+		?>
+		<entry height="16" width="-1" shref="@{id}" title="@{title}" />
+		<?
+		}
+		?>
 	</section>
 </view>

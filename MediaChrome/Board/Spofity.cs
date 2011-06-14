@@ -763,24 +763,32 @@ namespace Board
         /// <param name="srcSection">The section for the elements to apply on, used by the inflater</param>
         public Element RenderElements(Section srcSection, Element C, XmlElement iSection)
         {
+            Element prevElement = null;
             // Iterate through the fields and create elements
             XmlNodeList items = iSection.ChildNodes;
             foreach (XmlNode node in items)
             {
+             
                 if (node.GetType() == typeof(XmlText))
                 {
                     XmlText r = (XmlText)node;
 
-
+                    continue;
                 }
                 if (node.GetType() != typeof(XmlElement))
                     continue;
                 XmlElement item = (XmlElement)node;
-
+                if (item.ParentNode != iSection)
+                    continue;
 
                 // Create various kind of controls depending of node type
                 Element CT = new Element(srcSection, this.ParentBoard);
-
+                if (prevElement != null)
+                {
+                    CT.PreviousElement = prevElement;
+                    prevElement.NextElement = CT;
+                } CT.PreviousElement = prevElement;
+                CT.Parent = C;
                 // If nothing else specified, the element top should be managed by the drawing cache
                 CT.SetAttribute("top", "@TOP");
 
@@ -855,7 +863,9 @@ namespace Board
                 // Do this for children
                 this.ParentBoard.RaiseElementAddEvent(CT);
                 CT = RenderElements(srcSection, CT, item);
-                
+
+                // set ct as previous element
+                prevElement = CT;
 
             }
             return C;
@@ -1141,6 +1151,8 @@ namespace Board
         /// <param name="iSection">The section to start with</param>
         public Section RenderSection(Section C, XmlElement iSection)
         {
+            // Previous element
+            Element prevElement = null;
             // Iterate through the fields and create elements
             XmlNodeList items = iSection.ChildNodes;
             foreach (XmlNode node in items)
@@ -1151,6 +1163,13 @@ namespace Board
                 // Create various kind of controls depending of node type
                 Element CT = new Element(C, this.ParentBoard);
 
+                // if previous element is not null, set it's next element to the current
+                if (prevElement != null)
+                {
+                    CT.PreviousElement = prevElement;
+
+                    prevElement.NextElement = CT;
+                }
                 // If nothing else specified, the element top should be managed by the drawing cache
                 CT.SetAttribute("top", "@TOP");
 
@@ -1220,11 +1239,14 @@ namespace Board
                 }
                 this.ParentBoard.RaiseElementAddEvent(CT);
                 C.rawList.Add(CT);
-
-
+              
+                // set previous next element to current one
+                prevElement = CT;
+                
                 // Do this for children
+                RenderElements(C, CT, item);
 
-
+               
             }
             return C;
         }
@@ -1694,12 +1716,24 @@ namespace Board
     public class View
     {
 
+        /// <summary>
+        /// Parent Spofity
+        /// </summary>
+      
         public View()
         {
+ 
             sections = new List<Section>();
             Sets = new List<Set>();
             Toolbar = new Toolbar();
         }
+        public String URI
+        {
+            get;
+            set;
+        }
+        public String Querystring
+        { get; set; }
         public Toolbar Toolbar { get; set; }
         private List<Section> sections;
         [XmlElement("section")]
@@ -1812,7 +1846,7 @@ namespace Board
                                         // Move the element where it should be
                                         elements.Remove(src);
 
-                                        elements.Insert(j, src);
+                                        elements.Insert(j+1, src);
                                         src.SetAttribute("top", target.GetAttribute("top"));
 
                                         break;
@@ -2066,7 +2100,7 @@ namespace Board
         {
             // reset ptop
             ptop = 20;
-            foreach (Element ct in this.elements)
+            foreach (Element ct in this.rawList)
             {
                 ct.SetAttribute("left", ct.OldLeft.ToString());
                 ct.SetAttribute("top", ct.OldTop.ToString());
@@ -2480,6 +2514,8 @@ namespace Board
     /// </summary>
     public class Element
     {
+        public Element PreviousElement { get; set; }
+        public Element NextElement { get; set; }
         public Dictionary<string, object> Styles;
 
         private void ParseStyle(string str)
@@ -2644,6 +2680,34 @@ namespace Board
         public bool Persistent { get; set; }
 
         public Element Parent { get; set; }
+
+        /// <summary>
+        /// Parsesewidth
+        /// </summary>
+        /// <param name="width">The width</param>
+        /// <param name="padding">The padding</param>
+        /// <returns></returns>
+        private float ParseWidth(string _width,float padding)
+        {
+            if (_width == "")
+                return 0;
+            float awidth;
+
+            int width = 0;
+            if (_width.EndsWith("%"))
+            {
+                float c = float.Parse(_width.Replace("%", "")) / 100;
+                awidth = (int)((float)c * (width - padding * 2));
+            }
+            else
+            {
+                
+                    awidth = float.Parse(_width.Replace("px", ""));
+               
+                    
+            }
+            return awidth;
+        }
         /// <summary>
         /// Returns coordinates coordinates for the object bounds
         /// </summary>
@@ -2657,14 +2721,274 @@ namespace Board
         public Rectangle GetCoordinates(int scrollX, int scrollY, Rectangle Bounds, int padding)
         {
             Element _Element = this;
+            
 
             int left = _Element.Left - scrollX;
             int top = _Element.Top - scrollY;
             int width = _Element.Width > 0 ? _Element.Width : Bounds.Width - left;
             int height = _Element.Height > 0 ? _Element.Height : this.Height;
-            Rectangle Rect = new Rectangle(left, top, width, height);
+            /***
+             * If element is type of V/Hbox set width to the parent's width
+             * */
+            if (_Element.GetAttribute("type") == "vbox")
+               Width = _Element.Parent != null ? _Element.Parent.Width : this.ParentHost.Width;
+                
+            if (_Element.GetAttribute("type") == "hbox")
+                Width = _Element.Parent != null ? _Element.Parent.Width : this.ParentHost.Width;
 
+
+           
+            /**
+             * If element is preceeding an h/vbox assign bounds thereof
+             * */
+            if (_Element.Parent != null)
+            {
+                // parentCoordinate´s
+                Rectangle coords = _Element.Parent.GetCoordinates(scrollX, scrollY, this.Bounds, padding);
+                if (_Element.Parent.Type == "vbox")
+                {
+
+                    int ctop = this.Parent.Top;       // left position of parent
+                    int cheight = this.ParentHost.Height; // width of parent (currently host)
+
+
+                    /***
+                     * Go through the collection and label
+                     * all child elements values in the collection
+                     * so we can calculate the dynamic width
+                     * */
+                    foreach (Element m in _Element.Parent.Elements)
+                    {
+                        m.SetAttribute("s_height", ParseWidth(m.GetAttribute("height"), padding).ToString());
+
+
+                        /**
+                         * If m has an attribute flex=1 assert 
+                         * the flex rate of the element
+                         * */
+                        if (m.GetAttribute("flex") == "1")
+                        {
+                            // Set s_width to -1 to indicate flexibility
+                            m.SetAttribute("s_height", "-1");
+                        }
+                    }
+
+                    /**
+                     * Now set bounds for all elements to get
+                     * out the current element bounds
+                     * */
+
+                    int __topPos = _Element.Parent.Top;
+                    width = _Element.Parent.Width;
+                    top = _Element.Parent.Top;
+
+                    // Now calculate YOUR elements
+                    foreach (Element elm in _Element.Parent.Elements)
+                    {
+                        // if element is the current one, assert it
+                        if (elm == this)
+                        {
+                           top = __topPos;
+
+                            height = int.Parse(elm.GetAttribute("s_width"));
+                        }
+
+
+                        /**
+                         * INVOKE WIDTH STEP
+                         * If element's flex is set to -1,
+                         * revoke the element's width
+                         * */
+                        if (elm.GetAttribute("s_height") == "-1")
+                        {
+                            // if difference between __leftpos and cwidth is smaller than 10% of t
+                            // the actual bounds, reset the width to an default one.
+                            if (Diff(__topPos, cheight) > 100)
+                            {
+                                // Increase leftpos
+                                __topPos += cheight - __topPos;
+                            }
+                        }
+                        else // otherwise set width to relative or absolute
+                        {
+
+                            __topPos += int.Parse(elm.GetAttribute("s_height"));
+
+                        }
+
+                    }
+
+                }
+                if (_Element.Parent.Type == "hbox")
+                {
+                    int cleft = this.Parent.Left;       // left position of parent
+                    int cwidth = this.ParentHost.Width; // width of parent (currently host)
+
+                    
+                    /***
+                     * Go through the collection and label
+                     * all child elements values in the collection
+                     * so we can calculate the dynamic width
+                     * */
+                    for (int i=0; i < _Element.Parent.Elements.Count;i++)
+                    {
+                        Element m = _Element.Parent.Elements[i];
+                        m.SetAttribute("s_width",ParseWidth(m.GetAttribute("width"),padding).ToString());
+
+
+                        /**
+                         * If m has an attribute flex=1 assert 
+                         * the flex rate of the element
+                         * */
+                        if (m.GetAttribute("flex") == "1")
+                        {
+                            // Set s_width to -1 to indicate flexibility
+                            m.SetAttribute("s_width", "-1");
+
+                            float restcount = 0; // width of resting elements
+                            float flex = 1;
+                            // calculate width of all succeeding elements
+                            for (int j = i + 1; j < _Element.Parent.Elements.Count; j++)
+                            {
+                                Element n = _Element.Parent.Elements[j];
+                                
+                                // if there is an flex of the element, create a division
+                                if (n.GetAttribute("flex") == "1")
+                                {
+                                    flex /= 2;
+                                }
+                                else
+                                {
+                                    restcount += ParseWidth(n.GetAttribute("width"), padding);
+                                }
+                            }
+                            // add flex variant to restcount
+                            restcount += restcount * flex;
+                            // set restcount to the elements attribute
+                            m.SetAttribute("s_restcount", restcount.ToString());
+
+                        }
+                    }
+
+                    /**
+                     * Now set bounds for all elements to get
+                     * out the current element bounds
+                     * */
+
+                    float __leftpos = _Element.Parent.Left;
+                    height = _Element.Parent.Height;
+                    top = _Element.Parent.Top;
+
+                    // Now calculate YOUR elements
+                    foreach (Element elm in _Element.Parent.Elements)
+                    {
+                        
+
+                        /**
+                         * INVOKE WIDTH STEP
+                         * If element's flex is set to -1,
+                         * revoke the element's width
+                         * */
+                        if (elm.GetAttribute("s_width") == "-1")
+                        {
+                            // if difference between __leftpos and cwidth is smaller than 10% of t
+                            // the actual bounds, reset the width to an default one.
+                            if (Diff(__leftpos, cwidth) > 100)
+                            {
+                               
+                                int s_width = int.Parse(elm.GetAttribute("s_width"));
+                                // Increase leftpos
+                                __leftpos += cwidth - float.Parse(elm.GetAttribute("s_restcount"));
+
+                            }
+                        }
+                        else // otherwise set width to relative or absolute
+                        {
+
+                            __leftpos += int.Parse(elm.GetAttribute("s_width"));
+
+                        }
+                        // if element is the current one, assert it
+                        if (elm == this)
+                        {
+                            
+
+                            width = int.Parse(elm.GetAttribute("s_width"));
+                            left = (int)__leftpos - width;
+                        }
+
+
+                    }
+
+
+#if (obsolote)
+                    for (int i = 0; i < _Element.Parent.Elements.Count; i++ )
+                    {
+                        Element cf = _Element.Parent.Elements[i];
+                        float awidth = 0; // the width of the current element
+                        /*
+                         *  If we come to yourself, break and begin assigning
+                         *  */
+
+                        /**
+                         * Compute width of the element
+                         * */
+                       
+
+                        /** if flex property is set, increase the width
+                             * */
+                        if (cf.GetAttribute("flex") != "")
+                        {
+                            int flex = 0;
+                            int.TryParse(cf.GetAttribute("flex"), out flex);
+
+
+                            //awidth = ( this.ParentHost.Width - (__leftpos+awidth)) - __leftpos;
+
+                            int seqWidth = 0;
+                          
+                               
+
+                            // distance between width and the end of the horizontal bounds
+                            float distance = this.ParentHost.Width - (__leftpos + awidth);
+                            // difference between the previous value and the current position
+                            float iwidth = distance - (awidth + __leftpos);
+
+                            // add the awidth to the distance
+                            awidth += iwidth - __leftpos;
+                        }
+
+                        if (cf == this)
+                        {
+                            left = __leftpos;
+
+                            width = (int)awidth;
+
+                        }
+
+                        __leftpos += (int)awidth;
+
+
+
+                    }
+
+#endif
+
+                }
+
+            }
+            Rectangle Rect = new Rectangle(left+padding, top+padding, width-padding*2, height-padding*2);
             return Rect;
+        }
+        /// <summary>
+        /// Gets the difference between two integers
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="__leftpos"></param>
+        /// <returns></returns>
+        private float Diff(float p, float __leftpos)
+        {
+            return p > __leftpos ? p - __leftpos : __leftpos - p;
         }
         /// <summary>
         /// Function to measure wheather the element is inside the screen bounds, eg. visible
@@ -2763,9 +3087,18 @@ namespace Board
                 if (!Persistent)
                 {
 
-                   
-                    ptop += height;
-
+                    if (Parent!=null&&Parent.GetAttribute("type").Contains("box") )
+                    {
+                      
+                    }
+                    else
+                    {
+                        ptop += height;
+                    }
+                    if (GetAttribute("type").Contains("box"))
+                    {
+                        ptop += 5;
+                    }
                 }
                 else
                 {
@@ -2964,6 +3297,13 @@ namespace Board
         /// </summary>
         public class ElementCollection : IEnumerable
         {
+            public int Count
+            {
+                get
+                {
+                    return elements.Count;
+                }
+            }
             public ElementCollection()
             {
                 elements = new List<Element>();
@@ -3003,6 +3343,18 @@ namespace Board
         public ElementCollection Elements { get; set; }
         public string GetAttribute(string name)
         {
+            if (name.Contains(" "))
+            {
+                StringBuilder Values = new StringBuilder();
+                String[] names = name.Split(' ');
+                foreach (String prop in names)
+                {
+                    Values.Append(this.GetAttribute(prop));
+                }
+                return Values.ToString();
+            }
+
+                    
             foreach (Attribute a in attributes)
             {
                 if (a.name == name)

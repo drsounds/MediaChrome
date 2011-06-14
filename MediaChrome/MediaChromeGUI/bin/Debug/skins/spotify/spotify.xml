@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <skin xmlns="http://skin.mediachrome.net/2011/skin-definition">
 	<title>Spotify skin</title>
-	<component rel="Board" BackColor="#383838" ForeColor="#EEEEEE" />
+	<component rel="Board" BackColor="#383838" ForeColor="#aaaaaa" />
 	<component rel="Board#Alternative" BackColor="#303030" ForeColor="#aaaaaa" />
-	<component rel="Board#Selection" BackColor="#ccccff" ForeColor="#003300" />
+	<component rel="Board#Entry" ForeColor="#dddddd" />
+	<component rel="Board#Selection" BackColor="#a9d9fe" ForeColor="#003300" />
 	<component rel="Board#Active" BackColor="#111111" ForeColor="#AAFFAA" />
 	<component rel="Board#Section" BackColor="#ffffff" ForeColor="#000000"  />
 	<component rel="Board#TextFade" BackColor="#eeeeff" ForeColor="#333388" />

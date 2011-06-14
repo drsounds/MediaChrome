@@ -20,11 +20,15 @@ namespace MediaChrome
             public IPlayEngine Engine { get; set; }
             public String ID { get; set; }
             public System.Windows.Forms.Form Host;
-            public List<Song> Songs { get; set; }
+            public List<Song> Songs
+            {
+                get;set;
+            }
             public void Remove(int id)
             {
                 Engine.RemoveFromPlaylist(ID, id);
             }
+            
             public void Add(Song _Song, int pos)
             {
                 try

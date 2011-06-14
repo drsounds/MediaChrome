@@ -33,6 +33,10 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MediaChromeWebSite", "..\..
 		VWDPort = "49399"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaChromeService", "..\MediaChromeService\MediaChromeService.csproj", "{291ABBF7-D2BC-4A79-871A-91AA3D869840}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaChromeService.Tests", "..\MediaChromeService.Tests\MediaChromeService.Tests.csproj", "{4148C0D0-8E24-419D-8238-87EEC4E2F3C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -179,6 +183,42 @@ Global
 		{A49D1DEF-493E-4D2E-87A5-B90A4F71B753}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 		{A49D1DEF-493E-4D2E-87A5-B90A4F71B753}.Release|Win32.ActiveCfg = Debug|Any CPU
 		{A49D1DEF-493E-4D2E-87A5-B90A4F71B753}.Release|x86.ActiveCfg = Debug|Any CPU
+		{291ABBF7-D2BC-4A79-871A-91AA3D869840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{291ABBF7-D2BC-4A79-871A-91AA3D869840}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{291ABBF7-D2BC-4A79-871A-91AA3D869840}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{291ABBF7-D2BC-4A79-871A-91AA3D869840}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{291ABBF7-D2BC-4A79-871A-91AA3D869840}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{291ABBF7-D2BC-4A79-871A-91AA3D869840}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{291ABBF7-D2BC-4A79-871A-91AA3D869840}.EXPERIMENTAL|Any CPU.ActiveCfg = Release|Any CPU
+		{291ABBF7-D2BC-4A79-871A-91AA3D869840}.EXPERIMENTAL|Any CPU.Build.0 = Release|Any CPU
+		{291ABBF7-D2BC-4A79-871A-91AA3D869840}.EXPERIMENTAL|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{291ABBF7-D2BC-4A79-871A-91AA3D869840}.EXPERIMENTAL|Mixed Platforms.Build.0 = Release|Any CPU
+		{291ABBF7-D2BC-4A79-871A-91AA3D869840}.EXPERIMENTAL|Win32.ActiveCfg = Release|Any CPU
+		{291ABBF7-D2BC-4A79-871A-91AA3D869840}.EXPERIMENTAL|x86.ActiveCfg = Release|Any CPU
+		{291ABBF7-D2BC-4A79-871A-91AA3D869840}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{291ABBF7-D2BC-4A79-871A-91AA3D869840}.Release|Any CPU.Build.0 = Release|Any CPU
+		{291ABBF7-D2BC-4A79-871A-91AA3D869840}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{291ABBF7-D2BC-4A79-871A-91AA3D869840}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{291ABBF7-D2BC-4A79-871A-91AA3D869840}.Release|Win32.ActiveCfg = Release|Any CPU
+		{291ABBF7-D2BC-4A79-871A-91AA3D869840}.Release|x86.ActiveCfg = Release|Any CPU
+		{4148C0D0-8E24-419D-8238-87EEC4E2F3C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4148C0D0-8E24-419D-8238-87EEC4E2F3C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4148C0D0-8E24-419D-8238-87EEC4E2F3C6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4148C0D0-8E24-419D-8238-87EEC4E2F3C6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4148C0D0-8E24-419D-8238-87EEC4E2F3C6}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{4148C0D0-8E24-419D-8238-87EEC4E2F3C6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4148C0D0-8E24-419D-8238-87EEC4E2F3C6}.EXPERIMENTAL|Any CPU.ActiveCfg = Release|Any CPU
+		{4148C0D0-8E24-419D-8238-87EEC4E2F3C6}.EXPERIMENTAL|Any CPU.Build.0 = Release|Any CPU
+		{4148C0D0-8E24-419D-8238-87EEC4E2F3C6}.EXPERIMENTAL|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4148C0D0-8E24-419D-8238-87EEC4E2F3C6}.EXPERIMENTAL|Mixed Platforms.Build.0 = Release|Any CPU
+		{4148C0D0-8E24-419D-8238-87EEC4E2F3C6}.EXPERIMENTAL|Win32.ActiveCfg = Release|Any CPU
+		{4148C0D0-8E24-419D-8238-87EEC4E2F3C6}.EXPERIMENTAL|x86.ActiveCfg = Release|Any CPU
+		{4148C0D0-8E24-419D-8238-87EEC4E2F3C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4148C0D0-8E24-419D-8238-87EEC4E2F3C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4148C0D0-8E24-419D-8238-87EEC4E2F3C6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4148C0D0-8E24-419D-8238-87EEC4E2F3C6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4148C0D0-8E24-419D-8238-87EEC4E2F3C6}.Release|Win32.ActiveCfg = Release|Any CPU
+		{4148C0D0-8E24-419D-8238-87EEC4E2F3C6}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

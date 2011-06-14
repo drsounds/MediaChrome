@@ -121,12 +121,12 @@ namespace MediaChrome
 			Importer = (IPlayEngine)MediaChrome.Program.MediaEngines[(String)comboBox1.SelectedValue];
 			button2.Enabled=false;
 			button1.Enabled=false;
-			
 			Thread XCM = new Thread(ImportFiles);
 			XCM.Start();
 			timer1.Start();
 			label3.Show();
 			button3.Enabled=false;
+            
 			ready=false;
 		}
 		
@@ -154,5 +154,15 @@ namespace MediaChrome
 		{
 			e.Cancel=!ready;
 		}
+
+        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            
+        }
+
+        private void printDocument2_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+           
+        }
 	}
 }
