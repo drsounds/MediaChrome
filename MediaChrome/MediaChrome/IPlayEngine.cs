@@ -104,14 +104,24 @@ namespace MediaChrome
         public IPlayEngine Engine { get; set; }
     }
 
-	/// <summary>
-	/// Description of IPlayEngine.
-	/// </summary>
-	/// 
-	
-	
+    /// <summary>
+    /// An track is an instance of playable song
+    /// </summary>
+    /// 
+
 	public class Song :IMedia
     {
+        public enum SongType
+        {
+            Local, Streaming, Cached
+        }
+
+        /// <summary>
+        /// The type of Song.
+        /// </summary>
+        public SongType Type { get; set; }
+
+        
         public static class UriHelper
         {
             public static Dictionary<String, String> Querystrings(Uri d)
@@ -208,6 +218,7 @@ namespace MediaChrome
             return GetSongFromURI(D);
 
         }
+       
         /// <summary>
         /// Convert an mediachrome URI to an Song instance
         /// </summary>
@@ -454,6 +465,31 @@ namespace MediaChrome
 	public interface IPlayEngine
 	{
         /// <summary>
+        /// The System .ICO of the engine
+        /// </summary>
+        System.Drawing.Icon SystemIcon { get;  }
+
+        /// <summary>
+        /// Get an custom property of the engine
+        /// </summary>
+        /// <param name="prop">name of property</param>
+        object GetProperty(string prop);
+
+        /// <summary>
+        /// Set an custom property of the engine
+        /// </summary>
+        /// <param name="prop">property name</param>
+        /// <param name="val">value in object</param>
+        void SetProperty(string prop, object val);
+
+        /// <summary>
+        /// Invokes an command to the engine
+        /// </summary>
+        /// <param name="command">the name of the command</param>
+        /// <param name="arguments">The arguments of the command</param>
+        /// <returns>An object from the command</returns>
+        object InvokeCommand(string command, params object[] arguments);
+        /// <summary>
         /// Returns an Song by the ISRC playable in the specified engine.
         /// </summary>
         /// <param name="ISRC"></param>
@@ -544,7 +580,8 @@ namespace MediaChrome
         /// <summary>
         /// Show the log in creditals. Log in is handled by each service
         /// </summary>
-        void Login();
+        /// <returns>If the log in was sucessfull</returns>
+        bool Login();
 
 
         /// <summary>

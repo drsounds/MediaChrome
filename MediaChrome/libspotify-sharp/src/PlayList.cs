@@ -249,7 +249,7 @@ namespace Spotify
 		
 		static Playlist()
 		{
-			// lock(libspotify.Mutex)
+			lock(libspotify.Mutex)
 			{
 				callbacks = new libspotify.sp_playlist_callbacks();
 				
@@ -289,7 +289,7 @@ namespace Spotify
 				Track[] currentTracks;
 				int[] indices;
 				
-				// lock(libspotify.Mutex)
+				 lock(libspotify.Mutex)
 				{
                     currentTracks = pl.CurrentTracks;
 					tracks = new Track[num_tracks];

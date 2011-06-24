@@ -28,7 +28,7 @@ using System.Runtime.InteropServices;
 
 namespace Spotify
 {	
-	public class User
+	public partial class User
 	{
 		private IntPtr userPtr = IntPtr.Zero;
 		

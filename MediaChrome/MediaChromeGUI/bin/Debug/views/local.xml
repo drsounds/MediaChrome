@@ -6,15 +6,26 @@
 		<item title="+ Import music" onclick="importMusic()"/>
 	</toolbar>
 	<section name="Local files" list="true">
-		<space height="60" />
+
 		<columnheader noelm="true" name=" " size="20" />
 	
 		<columnheader noelm="true" name="Title" size="320" />
 		<columnheader noelm="true" name="Artist" size="320" />
 		<columnheader noelm="true" name="Album" size="320" />
-	
+		<columnheader noelm="true" name="l" size="16" />
+		<hbox height="64">
+			<img src="@skin/ic_library_home.png" width="48" height="48" />
+			
+				
+			<vbox flex="1">
+				<label size="12">Local music</label>
+				<label height="30" width="300" >Your local music files</label>
+				
+			</vbox>
+		<button onclick="import()" width="100" text="Import music" />
+		</hbox>
 % for(var i=0; i < localFiles.Count; i++){ var song = localFiles[i]; var title =song.Title.replace("&","").replace("\"","");
-		<entry top="@TOP" left="0" height="18" width="-1" >
+		<entry icon_l="@skin/file.png" top="@TOP" left="0" height="18" width="-1" >
 			<title noelm="true"><![CDATA[@{title}]]></title>
 			<uri noelm="true"><![CDATA[@{song.Path}]]></uri>
 			

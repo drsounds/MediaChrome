@@ -41,11 +41,12 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChr
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.Preferences.resources
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\WebKitBrowser.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\WebKit.Interop.dll
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.Login.resources
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\Spotify.SpotifyView.resources
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.AskDialog.resources
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\MediaChromeGUI.exe.manifest
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\MediaChromeGUI.application
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChromeGUI.TrustInfo.xml
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChromeGUI.exe.manifest
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChromeGUI.application
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.Switch.resources
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.ServicesSelector.EngineEntry.resources
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.EngineManager.resources

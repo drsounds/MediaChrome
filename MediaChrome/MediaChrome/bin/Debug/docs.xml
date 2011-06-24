@@ -487,7 +487,7 @@
         </member>
         <member name="T:MediaChrome.Song">
             <summary>
-            Description of IPlayEngine.
+            An track is an instance of playable song
             </summary>
             
         </member>
@@ -512,6 +512,11 @@
         <member name="F:MediaChrome.Song.subSongs">
             <summary>
             Sub-songs. Not used
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Type">
+            <summary>
+            The type of Song.
             </summary>
         </member>
         <member name="P:MediaChrome.Song.Checked">
@@ -610,6 +615,27 @@
             with the mediachrome framework must implement this class.
             </summary>
         </member>
+        <member name="M:MediaChrome.IPlayEngine.GetProperty(System.String)">
+            <summary>
+            Get an custom property of the engine
+            </summary>
+            <param name="prop">name of property</param>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.SetProperty(System.String,System.Object)">
+            <summary>
+            Set an custom property of the engine
+            </summary>
+            <param name="prop">property name</param>
+            <param name="val">value in object</param>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.InvokeCommand(System.String,System.Object[])">
+            <summary>
+            Invokes an command to the engine
+            </summary>
+            <param name="command">the name of the command</param>
+            <param name="arguments">The arguments of the command</param>
+            <returns>An object from the command</returns>
+        </member>
         <member name="M:MediaChrome.IPlayEngine.GetSongFromISRC(System.String)">
             <summary>
             Returns an Song by the ISRC playable in the specified engine.
@@ -662,6 +688,7 @@
             <summary>
             Show the log in creditals. Log in is handled by each service
             </summary>
+            <returns>If the log in was sucessfull</returns>
         </member>
         <member name="M:MediaChrome.IPlayEngine.Logout">
             <summary>
@@ -815,6 +842,11 @@
             <param name="p"></param>
             <param name="playlist"></param>
             <returns></returns>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.SystemIcon">
+            <summary>
+            The System .ICO of the engine
+            </summary>
         </member>
         <member name="P:MediaChrome.IPlayEngine.Paused">
             <summary>

@@ -28,13 +28,13 @@ using System.Runtime.InteropServices;
 
 namespace Spotify
 {
-	internal static class libspotify
+	internal static partial class libspotify
 	{	
 		internal static object Mutex = new object();        
 		
 		#region Constants
 	
-		public const int SPOTIFY_API_VERSION = 4;
+		public const int SPOTIFY_API_VERSION = 5;
 	
 		#endregion
 
@@ -249,7 +249,10 @@ namespace Spotify
 		
 		[DllImport ("libspotify")]
 		internal static extern sp_error sp_playlistcontainer_move_playlist(IntPtr containerPtr, int index, int new_position);
-		
+
+        [DllImport("libspotify")]
+        internal static extern void sp_playlist_set_offline_mode(IntPtr session, IntPtr playlist, bool offline);
+
 	
 		#endregion			
 		
@@ -639,6 +642,80 @@ namespace Spotify
 		}
 		
 		#endregion
+
+        #region Extension by Alexander Forselius drsounds@gmail.com
+           /// <summary>
+        /// 
+        /// </summary>
+        public enum sp_playlist_offline_status
+        {
+            SP_PLAYLIST_OFFLINE_STATUS_NO,
+            SP_PLAYLIST_OFFLINE_STATUS_YES,
+            SP_PLAYLIST_OFFLINE_STATUS_DOWNLOADING,
+            SP_PLAYLIST_OFFLINE_STATUS_WAITING
+        }
+        [DllImport("libspotify")]
+        internal static extern IntPtr sp_playlist_get_description(IntPtr sourcePlaylist);
+            
+        [DllImport("libspotify")]
+        internal static extern IntPtr sp_playlist_subscribers(IntPtr sourcePlaylist);
+
+        [DllImport("libspotify")]
+        internal static extern int sp_offline_num_playlists(IntPtr session);
+
+        [DllImport("libspotify")]
+        internal static extern void sp_offline_sync_get_status(IntPtr session,ref  sp_playlist_offline_status status);
+        [DllImport("libspotify")]
+        internal static extern int sp_offline_tracks_to_sync(IntPtr session	 );
+        [DllImport("libspotify")]
+        internal static extern sp_error sp_inbox_error(IntPtr session);
+        [DllImport("libspotify")]
+        internal static extern void sp_inbox_add_ref(IntPtr sp_inbox);
+
+        [DllImport("libspotify")]
+        internal static extern void sp_inbox_release(IntPtr sp_inbox);
+        public enum sp_toplisttype
+        {
+            SP_TOPLIST_TYPE_ARTISTS = 0, 
+  SP_TOPLIST_TYPE_ALBUMS = 1, 
+  SP_TOPLIST_TYPE_TRACKS = 2 
+        }
+        public enum sp_toplistregion
+        {
+              SP_TOPLIST_REGION_EVERYWHERE = 0, 
+  SP_TOPLIST_REGION_USER = 1 
+        }
+        internal static extern IntPtr sp_toplistbrowse_create (IntPtr session, sp_toplisttype type, sp_toplistregion region,string  username, IntPtr callback,IntPtr userdata);
+        [DllImport("libspotify")]
+        internal static extern bool 	sp_toplistbrowse_is_loaded (IntPtr tlb);
+
+        [DllImport("libspotify")]
+        internal static extern sp_error sp_toplistbrowse_error(IntPtr tlb);
+
+        [DllImport("libspotify")]
+        internal static extern void sp_toplistbrowse_add_ref(IntPtr tlb);
+
+        [DllImport("libspotify")]
+        internal static extern void sp_toplistbrowse_release(IntPtr tlb);
+
+        [DllImport("libspotify")]
+        internal static extern int sp_toplistbrowse_num_artists(IntPtr tlb);
+
+        [DllImport("libspotify")]
+        internal static extern IntPtr sp_toplistbrowse_artist(IntPtr tlb, int index);
+
+        [DllImport("libspotify")]
+        internal static extern int sp_toplistbrowse_num_albums(IntPtr tlb);
+        
+        [DllImport("libspotify")]
+        internal static extern IntPtr sp_toplistbrowse_album(IntPtr tlb, int index);
+       
+        [DllImport("libspotify")]
+        internal static extern int sp_toplistbrowse_num_tracks(IntPtr tlb);
+        
+        [DllImport("libspotify")]
+        internal static extern IntPtr sp_toplistbrowse_track(IntPtr tlb, int index);
+        #endregion
 
     }	
 	

@@ -31,13 +31,14 @@ var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.
 		<hbox height="128">
 			
 			<image  width="128" 	  src="@{img}" shadow="true" />
-			
+			<vbox flex="1" height="128">
 				<label height="30" bold="true" size="12" color="#FFFFFF" >@{real_name}</label>
-			
+				<label bold="true" size="12" color="#FFFFFF" flex="1" >LastFM.User</label>
+			</vbox>
 		
-			<vbox width="128" height="128">
+			<vbox width="328" height="128">
 				<label bold="true" left="320" size="12" color="#FFFFFF" top="30" width="1440" height="60">Friends</label>
-				<hbox height="128" width="128">
+				<hbox height="32" width="128">
 				<?
 				var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.getfriends&user="+parameter+"&api_key=b25b959554ed76058ac220b7b2e0a026");
 				var users = user_info.GetElementsByTagName("user");
@@ -48,15 +49,29 @@ var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.
 					var left = 320;
 					var top = 80 + 10 * i;
 				?>
-				<vbox width="60">
-					<img src="" width="32" height="32" />
-					<label height="16" href="@{service}:lastfm_user:@{name}" >@{name}</label>
-				</vbox>
+						<img src="" width="32" height="32" />
+						
+			
+				</hbox>
+				<hbox height="32" width="128">
 				<!--	<img top="60" width="60" height="60" left="@{left}" href="@{link}" src="@{picture}" shadow="true" /> -->
 				<?
 				}
+				var users = user_info.GetElementsByTagName("user");
+				for(var i = 0; i < users.Count && i < 5; i++){ var user = users.Item(i);
+					var link = user.GetElementsByTagName("name").Item(0).InnerText;
+					var picture = user.GetElementsByTagName("image").Item(0).InnerText;
+					var name = user.GetElementsByTagName("name").Item(0).InnerText;
+					var left = 320;
+					var top = 80 + 10 * i;
 				?>
+					<label height="16"  href="@{service}:lastfm_user:@{name}" >@{name}</label>
+				<?
+				}
+				?>
+				
 				</hbox>
+					
 			</vbox>
 		</hbox>
 		
@@ -72,7 +87,9 @@ var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.
 		-->
 			<section name="Recent Scrobbles" height="24">Recent Scrobbles</section>
 		
-		<space height="30" />
+		<!-- header -->
+				
+				
 		<?
 		var d = user_recent;
 		
@@ -101,11 +118,16 @@ var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.
 		<divider height="30" />
 	</section>
 	<section list="true" name="Recent">
+	
 		<columnheader noelm="true" name=" " size="20" />
 		<columnheader noelm="true" name="Date" size="120" />
 		<columnheader noelm="true" name="Title" size="320" />
 		<columnheader noelm="true" name="Artist" size="320" />
 		<columnheader noelm="true" name="User" size="320" />
+		<hbox height="64">
+			<img src="@{skin_dir}/Scrobble.png" width="44" height="44" />
+			<label flex="1">Recent scrobbles from @{parameter}</label>
+		</hbox>
 		<?
 		var d = user_recent;
 		

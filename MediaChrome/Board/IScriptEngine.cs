@@ -78,25 +78,10 @@ namespace Board
         /// <returns>True if sucess, false if failed </returns>
         public string  Run(string scriptCode)
         {
-            try
-            {
+            
                 return (bool)scriptEngine.Run(scriptCode) ? "true" : "false";
                 
-            }
-                
-            catch(Exception e)
-            {
-
-                // Load error page
-                using (System.IO.StreamReader SR = new System.IO.StreamReader("views\\error.xml"))
-                {
-                    string errorView = new MakoEngine().Preprocess(SR.ReadToEnd(), "", false,true);
-                    scriptEngine.SetParameter("error", e.Message + "\n "+ e.StackTrace);
-
-                    return (bool)scriptEngine.Run(errorView) ? "true" :"false";
-                }
-                
-            }
+           
         }
     
 

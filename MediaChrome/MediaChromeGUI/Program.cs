@@ -36,19 +36,55 @@ namespace MediaChrome
         /// </summary>
         public static Dictionary<String, MediaChrome.SocialNetworking.ISocialNetwork> SocialNetworks = new Dictionary<string,SocialNetworking.ISocialNetwork>();
 
+        /// <summary>
+        /// Loads an set of media providers into MediaChrome's provider list
+        /// </summary>
+        /// <param name="Location"></param>
+        public static void LoadEngines(string Location)
+        {
+            DirectoryInfo DI = new DirectoryInfo(Location);
+            foreach (DirectoryInfo dir in DI.GetDirectories())
+            {
+                LoadEngine(dir);
+            }
+        }
+
+        /// <summary>
+        /// Loads the specified engine into the stack
+        /// </summary>
+        /// <param name="Dir">the directory of the engine</param>
+        /// <returns>An boolean indicating the load was sucessfull or failed</returns>
+        public static bool LoadEngine(DirectoryInfo Dir)
+        {
+            try
+            {
+                IPlayEngine IE = (IPlayEngine)Activator.CreateInstance(Dir.FullName + "\\" + Dir.Name + ".dll", "Provider");
+                Program.MediaEngines.Add(Dir.Name, IE);
+                return true;
+
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public static Form1 mainForm;
         [STAThread]
         static void Main(string[] arguments)
         {
             mainForm = new Form1();
             
+
             /**
              * Add media engines
              * */
-          //MediaEngines.Add("spotify", new MediaChrome.SpotifyPlayer());
+            LoadEngines("C:\\MediaProviders");
+
+
+  //          MediaEngines.Add("spotify", new MediaChrome.SpotifyPlayer());
          //   MediaEngines.Add("mp3", new MediaChrome.MP3Player());
          //   MediaEngines.Add("youtube", new MediaChrome.Youtube());
-            MediaEngines.Add("mp3", new MediaChrome.MP3Player());
+    //        MediaEngines.Add("mp3", new MediaChrome.MP3Player());
 
             /**
              * Add social networks

@@ -58,12 +58,12 @@
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.menuItem3 = new System.Windows.Forms.MenuItem();
+            this.menuItem10 = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.menuItem5 = new System.Windows.Forms.MenuItem();
             this.menuItem7 = new System.Windows.Forms.MenuItem();
             this.menuItem8 = new System.Windows.Forms.MenuItem();
             this.menuItem9 = new System.Windows.Forms.MenuItem();
-            this.menuItem10 = new System.Windows.Forms.MenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.panel3 = new MediaChrome.ExPanel();
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
@@ -278,6 +278,12 @@
             this.menuItem3.Index = 2;
             this.menuItem3.Text = "Share to";
             // 
+            // menuItem10
+            // 
+            this.menuItem10.Index = 3;
+            this.menuItem10.Text = "Copy Media URI";
+            this.menuItem10.Click += new System.EventHandler(this.menuItem10_Click);
+            // 
             // menuItem4
             // 
             this.menuItem4.Index = 4;
@@ -303,12 +309,6 @@
             // 
             this.menuItem9.Index = 8;
             this.menuItem9.Text = "Properties";
-            // 
-            // menuItem10
-            // 
-            this.menuItem10.Index = 3;
-            this.menuItem10.Text = "Copy Media URI";
-            this.menuItem10.Click += new System.EventHandler(this.menuItem10_Click);
             // 
             // button1
             // 
@@ -687,7 +687,6 @@
             // cBtn5
             // 
             this.cBtn5.AllowDrop = true;
-            this.cBtn5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cBtn5.BackColor = System.Drawing.Color.Transparent;
             this.cBtn5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn5.BackgroundImage")));
             this.cBtn5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;

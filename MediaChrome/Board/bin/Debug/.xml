@@ -446,6 +446,11 @@
             <param name="font"></param>
             <returns></returns>
         </member>
+        <member name="F:Board.DrawBoard.lLabel">
+            <summary>
+            LinkLabel for background color
+            </summary>
+        </member>
         <member name="M:Board.DrawBoard.DrawText(System.String,Board.Element,System.Drawing.SolidBrush,System.Drawing.Font,System.Drawing.Graphics,System.Drawing.Rectangle,System.Int32@,System.Int32@,System.Int32@)">
             <summary>
             Method to dynamically draw text and include subsets of elements inside the markup of the text
@@ -816,6 +821,11 @@
             Occurs when the mako template engine has been init
             </summary>
         </member>
+        <member name="P:Board.DrawBoard.RefreshRate">
+            <summary>
+            The update interval of the board rendering
+            </summary>
+        </member>
         <member name="E:Board.DrawBoard.BeginDownloadImage">
             <summary>
             Occurs when an image is begin to be downloaded. Runs on another thread
@@ -917,6 +927,39 @@
             </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "P:Board.DrawBoard.Entries" -->
+        <member name="T:Board.DrawBoard.ItemIcon">
+            <summary>
+            An bitmap representing an icon for an item
+            </summary>
+        </member>
+        <member name="M:Board.DrawBoard.ItemIcon.#ctor(System.Drawing.Image,System.Boolean)">
+            <summary>
+            Creates new item icon
+            </summary>
+            <param name="sourceImage">The bitmap to use</param>
+        </member>
+        <member name="M:Board.DrawBoard.ItemIcon.InvertBitmap(System.Drawing.Bitmap@,System.Drawing.Bitmap@)">
+            <summary>
+            Inverts the bitmap colors, to the target.
+            </summary>
+            <param name="source">The source bitmap</param>
+            <param name="target">The target bitmap with an inverse source bitmap</param>
+        </member>
+        <member name="P:Board.DrawBoard.ItemIcon.IsIcon">
+            <summary>
+            Decides wheter this is an icon or image
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ItemIcon.Bitmap">
+            <summary>
+            The image
+            </summary>
+        </member>
+        <member name="P:Board.DrawBoard.ItemIcon.InvertedImage">
+            <summary>
+            The inverted image, used on light selection
+            </summary>
+        </member>
         <member name="T:Board.DrawBoard.ItemClipEventArgs">
             <summary>
             Event args for clipboard related tasks
@@ -1358,6 +1401,19 @@
             
             </summary>
         </member>
+        <member name="M:Board.MakoEngine.Invoke(System.String,System.Object[])">
+            <summary>
+            Invokes an method on the script
+            </summary>
+            <param name="method">method name</param>
+            <param name="args">arguments passed to the function</param>
+            <returns></returns>
+        </member>
+        <member name="F:Board.MakoEngine.OldOutput">
+            <summary>
+            Returns the old output
+            </summary>
+        </member>
         <member name="M:Board.MakoEngine.__printx(System.String)">
             <summary>
             Callback where the output is thrown to, called by the parsed string
@@ -1401,6 +1457,16 @@
             <value>Returns an 2 field String array where {InitialVariableName,Output}</value>
             <returns></returns>
         </member>
+        <member name="F:Board.MakoEngine.JSPython">
+            <summary>
+            The javascript will be like as python
+            </summary>
+        </member>
+        <member name="F:Board.MakoEngine.RuntimeMachine">
+            <summary>
+            Instance of the Jint engine running at runtime
+            </summary>
+        </member>
         <member name="M:Board.MakoEngine.Execute(System.String)">
             <summary>
             This function executes string in the js mako engine
@@ -1413,21 +1479,6 @@
             </summary>
             <param name="input">The input string to parse</param>
             <param name="argument">The argument sent to the parser</param>
-        </member>
-        <member name="P:Board.MakoEngine.OldOutput">
-            <summary>
-            Returns the old output
-            </summary>
-        </member>
-        <member name="P:Board.MakoEngine.JSPython">
-            <summary>
-            The javascript will be like as python
-            </summary>
-        </member>
-        <member name="P:Board.MakoEngine.RuntimeMachine">
-            <summary>
-            Instance of the Jint engine running at runtime
-            </summary>
         </member>
         <member name="T:Board.MakoEngine.CreateEventHandler">
             <summary>
@@ -1452,6 +1503,12 @@
             Go forward an sectionn
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Board.Spofity.synchronizeContent(System.Object)">
+            <summary>
+            Invokes on synchronization
+            </summary>
+            <param name="section"></param>
         </member>
         <member name="M:Board.Spofity.PlayItem(Board.Element,System.Int32,System.Int32)">
             <summary>

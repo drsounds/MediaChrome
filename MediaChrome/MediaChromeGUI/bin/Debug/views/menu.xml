@@ -2,11 +2,10 @@
 	<section  name="Menu"  noalt="true" noheader="true" editable="false">
 		<columnheader noelm="true" name=" " size="20" />
 		<columnheader noelm="true" name="Title" size="120" />
-	
-		<entry title="Home" width="-1" height="16" top="@TOP" shref="@{service}:home:a"/>
-		<entry title="Radio" width="-1" height="16" top="@TOP" shref="@{service}:radio:a"/>
-		<entry title="Local Music" width="-1" height="16" top="@TOP" shref="@{service}:local:c"/>
-		<entry title="Store" width="-1" height="16" top="@TOP" shref="@{service}:store:a"/>
+
+		<entry icon_Title="@skin/home.png" title="Home" width="-1" height="16" top="@TOP" shref="@{service}:home:a"/>
+		<entry icon_title="@skin/ic_menu_radio.png" title="Radio" width="-1" height="16" top="@TOP" shref="@{service}:radio:a"/>
+		<entry icon_Title="@skin/ic_menu_local_files.png" title="Local Music" width="-1" height="16" top="@TOP" shref="@{service}:local:c"/>
 		<space height="20" top="@TOP"/>	
 		<divider height="20"  top="@TOP"/>
 		<?
@@ -15,7 +14,7 @@
 		var title = playlist.Title;
 		var id = playlist.ID;
 		?>
-		<entry height="16" width="-1" shref="@{id}" title="@{title}" />
+		<entry icon_Title="@skin/ic_menu_playlist.png" height="16" width="-1" shref="@{id}" title="@{title}" />
 		<?
 		}
 		?>

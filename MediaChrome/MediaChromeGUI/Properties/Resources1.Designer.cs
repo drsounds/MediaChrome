@@ -60,6 +60,13 @@ namespace MediaChrome.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap _switch {
+            get {
+                object obj = ResourceManager.GetObject("_switch", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap ajax_loader {
             get {
                 object obj = ResourceManager.GetObject("ajax_loader", resourceCulture);
@@ -71,6 +78,13 @@ namespace MediaChrome.Properties {
             get {
                 object obj = ResourceManager.GetObject("ajax_loader1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Icon app_icon {
+            get {
+                object obj = ResourceManager.GetObject("app_icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         

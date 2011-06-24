@@ -25,7 +25,7 @@ namespace MediaChrome {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("spotify")]
+        [global::System.Configuration.DefaultSettingValueAttribute("mediachrome")]
         public string Skin {
             get {
                 return ((string)(this["Skin"]));

@@ -130,9 +130,14 @@ namespace Board
                 return Engine.RuntimeMachine;
             }
         }
+        /// <summary>
+        /// Invokes on synchronization
+        /// </summary>
+        /// <param name="section"></param>
         public void synchronizeContent(object section)
         {
-            Engine.Execute("event_flow_update()");
+            
+            Engine.Invoke("event_flow_update",section);
 
         }
         /// <summary>
@@ -2027,13 +2032,15 @@ namespace Board
                     // calculate the total height of all items
                     foreach (Element c in this.Elements)
                     {
+                        if (c.Parent != null)
+                            continue;
                         // Check if this position is higher than any previous one and add it if so
 
                         int newpos = (c.Top + c.Height) - lastPosition;
                         // Add the item's top if the item's top is not equal to -1 (@TOP)
                         lastPosition = c.Top + c.Height;
 
-                        elementTotalHeight += newpos;
+                       elementTotalHeight += newpos;
 
                     }
                     // If the total elements filling is higher than the view's visible space.
@@ -2469,9 +2476,7 @@ namespace Board
         {
             get
             {
-                if (elements != null)
-                    return elements;
-                else
+                
                     return rawList;
             }
 
@@ -2593,7 +2598,7 @@ namespace Board
         /// Bitmap contents of the element
         /// </summary>
         public Bitmap Bitmap { get; set; }
-
+        
         /// <summary>
         /// Asserts font of the object by their attributes
         /// </summary>
@@ -2824,7 +2829,7 @@ namespace Board
                             // add flex variant to restcount
                             restcount += restcount * flex;
                             // set restcount to the elements attribute
-                            m.SetAttribute(m.Parent.Identifier + "_v_restcount", restcount.ToString());
+                            m.SetAttribute(m    .Identifier + "_v_restcount", restcount.ToString());
 
                         }
                     }

@@ -108,10 +108,6 @@
       <Project>{2B72EF2A-6611-4492-A753-0E1C8612A3E2}</Project>
       <Name>MediaChromeGUI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\xmlfick\xmlfick.csproj">
-      <Project>{E344CCBA-1F8B-4FE5-AB1F-3DD444DF64D3}</Project>
-      <Name>xmlfick</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

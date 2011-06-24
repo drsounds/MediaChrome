@@ -96,7 +96,7 @@ namespace Spotify
 				{
 					bufferPtr = Marshal.AllocHGlobal(bufSize);
 					
-				//	lock(libspotify.Mutex)
+					lock(libspotify.Mutex)
 					{
 						strlen = libspotify.sp_link_as_string(linkPtr, bufferPtr, bufSize);	
 					}

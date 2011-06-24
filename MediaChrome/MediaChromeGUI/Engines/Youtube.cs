@@ -26,6 +26,30 @@ namespace MediaChrome
 	/// </summary>
 	public class Youtube : MediaChrome.IPlayEngine
     {
+        public System.Drawing.Icon SystemIcon
+        {
+            get
+            {
+                return Properties.Resources.app_icon;
+            }
+        }
+        /// <summary>
+        /// Get an custom property of the engine
+        /// </summary>
+        /// <param name="prop">name of property</param>
+        public object GetProperty(string prop)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Set an custom property of the engine
+        /// </summary>
+        /// <param name="prop">property name</param>
+        /// <param name="val">value in object</param>
+        public void SetProperty(string prop, object val)
+        {
+        }
         /// <summary>
         /// Returns an song by the specified ISRC
         /// </summary>
@@ -72,7 +96,7 @@ namespace MediaChrome
         public String Company { get; set; }
         public String Copyright { get; set; }
         public bool LoggedIn { get; set; }
-        public void Login() { }
+        public bool Login() { return false; }
         public void Logout() { }
         public bool Purchase(Song song) { return false; }
         public Uri ServiceUri { get; set; }
@@ -416,5 +440,22 @@ namespace MediaChrome
 				
 			}
 		}
-	}
+
+        public Dictionary<string, object> Parameters
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public object InvokeCommand(string command, params object[] arguments)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

@@ -41,7 +41,7 @@ namespace MediaChrome.ServicesSelector
             }
             set
             {
-                this.linkLabel1.Text = loggedIn ? "Logout" : "Login";
+                this.switch1.Active = loggedIn;
             }
         }
         bool hover = false;
@@ -106,6 +106,19 @@ namespace MediaChrome.ServicesSelector
                 e.Graphics.FillRectangle(new System.Drawing.Drawing2D.LinearGradientBrush(new Point(0, 0), new Point(0, this.Height), Color.FromArgb(255, 211, 0), Color.FromArgb(255, 211, 0)), new Rectangle(0, 0, this.Width, this.Height));
                 
             }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!loggedIn)
+                this.Engine.Login();
+            else
+                this.Engine.Logout();
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Engine.ShowOptions();
         }
     }
 }

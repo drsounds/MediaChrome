@@ -381,7 +381,7 @@ namespace MediaChrome
                 {
                     MediaChrome.Settings.Default.DefaultPlayer = value.Namespace;
                     Properties.Settings.Default.Save();
-
+                    this.Icon = value.SystemIcon;
                     if (DefaultPlayer.Image != null)
                     {
                         this.pictureBox1.BackgroundImage = DefaultPlayer.Icon;
@@ -504,13 +504,13 @@ namespace MediaChrome
         public Form1()
         {
             InitializeComponent();
-            this.SuspendLayout();
+      //      this.SuspendLayout();
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             this.SetStyle(ControlStyles.UserPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.ResizeRedraw, true);
-            this.ResumeLayout();
-            
+         //   this.ResumeLayout();
+          
             playlistsToAdd = new Stack<Board.Element>();
         }
         Spotify.Session SpotifySession;
@@ -829,6 +829,10 @@ namespace MediaChrome
             // assign link click for menu
             treeview.LinkClick += new Board.DrawBoard.LinkClicked(treeview_LinkClick);
             this.board.Navigating += new Board.DrawBoard.NavigateEventHandler(board_Navigating);
+            /***
+      * Assign the Spotify skin to this application
+      * */
+            this.Skin = new Board.Skin(String.Format("skins\\{0}\\{0}.xml", Settings.Default.Skin));
             // assign makogeneration initialization code
             this.board.MakoGeneration += new Board.DrawBoard.MakoCreateEventHandler(board_MakoGeneration);
             this.treeview.DragOverElement+=new Board.DrawBoard.ElementDragEventHandler(playlistView_DragOverElement);
@@ -853,10 +857,7 @@ namespace MediaChrome
             // Add standard list items
            
            
-           /***
-            * Assign the Spotify skin to this application
-            * */
-            this.Skin = new Board.Skin(String.Format("skins\\{0}\\{0}.xml", Settings.Default.Skin));
+     
             board.InvalidView += new Board.DrawBoard.ViewErrorEventHandler(board_InvalidView);
            /**
             * Set event handlers for added elements
@@ -1642,7 +1643,17 @@ namespace MediaChrome
             return null;
         }
 
-
+        /// <summary>
+        /// Invokes an custom function of the service
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="method"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public object __call(string service, string method, params object[] args)
+        {
+            return Program.MediaEngines[service].InvokeCommand(method, args);
+        }
         /// <summary>
         /// Method to initialize all features available for subscripts
         /// </summary>
@@ -1660,6 +1671,7 @@ namespace MediaChrome
               d.RuntimeMachine.SetFunction("getUserFeed", new Func<string,object>(__getUserFeed));
               d.RuntimeMachine.SetFunction("isValidMedia", new Func<string, object>(__isValidMedia));
               d.RuntimeMachine.SetFunction("getFeed", new Func< string, object>(__getFeed));
+              d.RuntimeMachine.SetFunction("call", new Func<string, string,object[], object>(__call));
               d.RuntimeMachine.SetFunction("getUserFeed", new Func<string, string, object>(__getUserFeed));
               d.RuntimeMachine.SetFunction("findMusic", new Func<string, object>(__findMusic));
               d.RuntimeMachine.SetFunction("getPlaylist", new Func<string,string, object>(__getPlaylist));
@@ -1671,6 +1683,7 @@ namespace MediaChrome
               d.RuntimeMachine.SetFunction("getPlaylists", new Func<string,string,object>(__getPlaylists));
               d.RuntimeMachine.SetFunction("extern", new Func<string, object>(__extern));
               d.RuntimeMachine.SetFunction("section", new Func<string, object>(__setActiveSection));
+              d.RuntimeMachine.SetVariable("skin_dir", this.Skin.Directory);
 
         }
         /// <summary>

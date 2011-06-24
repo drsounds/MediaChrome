@@ -33,13 +33,11 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\DeskWiki.exe
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\DeskWiki.pdb
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\Board.exe
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\Jint.dll
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\xmlfick.exe
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\LibspotifySharp.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\Interop.WMPLib.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\System.Data.SQLite.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\AxInterop.WMPLib.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\Board.pdb
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\xmlfick.pdb
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\MediaChrome.pdb
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\System.Data.SQLite.xml
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\obj\x86\Debug\ResolveAssemblyReference.cache
@@ -54,5 +52,3 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\MediaChrome.dl
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\MediaChromeGUI.pdb
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\WebKitBrowser.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\WebKit.Interop.dll
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\Bass.Net.dll
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\Spocky.dll

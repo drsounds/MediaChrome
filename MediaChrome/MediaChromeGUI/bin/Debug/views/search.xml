@@ -8,16 +8,16 @@
  /*  */
 ?>
 <view>
-	<section name="Overview" list="true" >
+	<section name="Search result for @{parameter}" list="true" >
 		<columnheader noelm="true" name=" " size="20" />
 
 		<columnheader noelm="true" name="Title" size="320" />
 		<columnheader noelm="true" name="Artist" size="320" />
 		<columnheader noelm="true" name="Album" size="320" />
-		<vbox flex="1">
+		<!-- <vbox flex="1" height="128">
 			<label height="50" size="14" left="10" width="500">Search results for '@{parameter}'</label>
 			<label height="50" size="14" left="10" width="500">Found x matches</label>
-		</vbox>
+		</vbox> -->
 		<!--<label height="50" color="#aaeeaa" left="10" top="@TOP" width="500">Did you mean</label> -->
 		
 
@@ -36,13 +36,35 @@ var Title = result[i].Name;
 var Artist = result[i].Artist;
 var Album = result[i].Album;
 	var uri = result[i].Link;
+	var icon = result[i].Engine.Image;
 ?>
 
-		<entry dragUri="@{uri}" left="0" width="-1" top="@TOP" height="18"  href_artist="@{artist_uri}" href_album="@{album_uri}" uri="@{uri}">
+		<entry icon_title="@{icon}" dragUri="@{uri}" left="0" width="-1" top="@TOP" height="18"  href_artist="@{artist_uri}" href_album="@{album_uri}" uri="@{uri}">
 			<title noelm="true"><![CDATA[@{Title}]]></title>
 			<artist noelm="true"><![CDATA[@{Artist}]]></artist>
 			<album noelm="true"><![CDATA[@{Album.Name}]]></album>
+			
 		</entry>
 <? } ?>
 	</section>
+	<? if(false){?>
+	<section name="People">
+		<label width="-1" height="20" color="#FFFFFF" size="12">Friends</label>
+		<?
+		var d =  synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.getfriends&user="+parameter+"&api_key=b25b959554ed76058ac220b7b2e0a026");
+		var users = d.GetElementsByTagName("user");
+		for(var i=0; i < users.Count; i++){ var user = users.Items(i);
+			var img = user.GetElementsByTagName("image").Items(0).InnerText;
+			var name = user.GetElementsByTagNae("name").Items(0).InnerText;
+			
+		?>
+		<hbox height="64">
+			<img href="@{service}:lastfm_user:@{name}" src="@{img}" width="64" height="64" />
+			<label href="@{service}:lastfm_user:@{name}" flex="1" height="64" >@{name}</label>
+		</hbox>
+		<?
+		}
+		?>
+	</section>
+	<? } ?>
 </view>

@@ -15,9 +15,19 @@ namespace Board
     public class MakoEngine
     {
         /// <summary>
+        /// Invokes an method on the script
+        /// </summary>
+        /// <param name="method">method name</param>
+        /// <param name="args">arguments passed to the function</param>
+        /// <returns></returns>
+        public object Invoke(string method, params object[] args)
+        {
+            return this.RuntimeMachine.Invoke(method, args);
+        }
+        /// <summary>
         /// Returns the old output
         /// </summary>
-        public String OldOutput { get; set; }
+        public String OldOutput;
         /// <summary>
         /// Raises the create event handler. Useful to add features to the engine before running
         /// </summary>
@@ -113,29 +123,29 @@ namespace Board
             
             Dictionary<String, Object> Variables = new Dictionary<String, Object>();
             // The index of the beginning of an varialbe statement @{
-            int indexOf = 0;
+            int IndexOf = 0;
             /**
-             * Iterate through all indexes of the @{ statemenet until it ends (indexOf will return -1  becase indexOf will gain
-             * the new indexOf with the new statement
+             * Iterate through all indexes of the @{ statemenet until it ends (IndexOf will return -1  becase IndexOf will gain
+             * the new IndexOf with the new statement
              * */
             if(Line.Length > 0)
-            while (indexOf != -1)
+            while (IndexOf != -1)
             {
-                indexOf = Line.IndexOf(signature + "{", indexOf);
-                if (indexOf == -1)
+                IndexOf = Line.IndexOf(signature + "{", IndexOf);
+                if (IndexOf == -1)
                     break;
                 // Gain the index of the next occuranse of the @{ varialbe
                 
-                int endToken = Line.IndexOf('}', indexOf);
+                int endToken = Line.IndexOf('}', IndexOf);
 
-                int startIndex = indexOf + 2;
+                int startIndex = IndexOf + 2;
 
                 // Get the data inside the token
                 String Parseable = Line.Substring(startIndex,  endToken -  startIndex);
 
                 // Convert the inline token to concation
                 Line = Line.Replace("@{" + Parseable + "}",  "\" + ( "  + Parseable + " ) + \"");
-                indexOf = endToken;
+                IndexOf = endToken;
                
             }
             return Line;
@@ -152,18 +162,18 @@ namespace Board
         {
             Dictionary<String,Object> Variables = new Dictionary<String,Object>();
             // The index of the beginning of an varialbe statement @{
-            int indexOf = 0;
+            int IndexOf = 0;
             /**
-             * Iterate through all indexes of the @{ statemenet until it ends (indexOf will return -1  becase indexOf will gain
-             * the new indexOf with the new statement
+             * Iterate through all indexes of the @{ statemenet until it ends (IndexOf will return -1  becase IndexOf will gain
+             * the new IndexOf with the new statement
              * */
-            while (indexOf != -1)
+            while (IndexOf != -1)
             {
                 // Gain the index of the next occuranse of the @{ varialbe
-                indexOf  = Line.IndexOf(signature+"{");
-                int endToken = Line.IndexOf("}", indexOf);
+                IndexOf  = Line.IndexOf(signature+"{");
+                int endToken = Line.IndexOf("}", IndexOf);
 
-                int startIndex = indexOf+2;
+                int startIndex = IndexOf+2;
 
                 // Get the data inside the token
                 String Parseable = Line.Substring(startIndex, startIndex + endToken - 1);
@@ -234,11 +244,11 @@ namespace Board
         /// <summary>
         /// The javascript will be like as python
         /// </summary>
-        public bool JSPython { get; set; }
+        public bool JSPython;
         /// <summary>
         /// Instance of the Jint engine running at runtime
         /// </summary>
-        public IScriptEngine RuntimeMachine { get; set; }
+        public IScriptEngine RuntimeMachine;
         /// <summary>
         /// This function executes string in the js mako engine
         /// </summary>
@@ -367,7 +377,7 @@ namespace Board
                     {
                         // Append the last string
                         outputCode.Append(input[i]);
-                        // Format output code (replace " to ¤ and swap back on preprocessing)
+                        // Format output code (Replace " to ¤ and swap back on preprocessing)
                         String OutputCode = outputCode.ToString().Replace("\"", "¤").Replace("\n", "%BR%\");\n__printx(\"");
                         OutputCode = this.HandleToTokens(OutputCode.ToString(),'@');
                         finalOutput.Append("__printx(\"" + OutputCode + "\");");
@@ -439,10 +449,22 @@ namespace Board
                 }
                 catch (Exception e)
                 {
-                    return "ERROR: " + e.Message;
+                    // clear output
+                    this.Output = "";
+                    // Load error page
+                    using (System.IO.StreamReader SR = new System.IO.StreamReader("views\\error.xml"))
+                    {
+                        string errorView = new MakoEngine().Preprocess(SR.ReadToEnd(), "", false, true);
+                        RuntimeMachine = new JavaScriptEngine();
+                        RuntimeMachine.SetFunction("__printx", new Func<String, object>(__printx));
+                        RuntimeMachine.SetVariable("error", e.Message + "\n " + e.StackTrace);
+
+                        RuntimeMachine.Run((errorView));
+                    }
                 }
                 return this.Output;
             }
+               
             else
             {
                 return CallStack;
