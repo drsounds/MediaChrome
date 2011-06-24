@@ -72,6 +72,8 @@ namespace MediaChrome
         [STAThread]
         static void Main(string[] arguments)
         {
+            Application.SetCompatibleTextRenderingDefault(true);
+            Application.EnableVisualStyles();
             mainForm = new Form1();
             
 
@@ -79,10 +81,10 @@ namespace MediaChrome
              * Add media engines
              * */
             LoadEngines("C:\\MediaProviders");
-
+            
 
   //          MediaEngines.Add("spotify", new MediaChrome.SpotifyPlayer());
-         //   MediaEngines.Add("mp3", new MediaChrome.MP3Player());
+              MediaEngines.Add("mp3", new MediaChrome.MP3Player());
          //   MediaEngines.Add("youtube", new MediaChrome.Youtube());
     //        MediaEngines.Add("mp3", new MediaChrome.MP3Player());
 

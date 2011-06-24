@@ -1,0 +1,936 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MediaChrome</name>
+    </assembly>
+    <members>
+        <member name="F:MediaChrome.SocialNetworking.FacebookForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.FacebookForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.FacebookForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.FacebookForm.Result">
+            <summary>
+            The result code of the query is here
+            </summary>
+        </member>
+        <member name="T:Facebook.FacebookAPI">
+            <summary>
+            Wrapper around the Facebook Graph API. 
+            </summary>
+        </member>
+        <member name="M:Facebook.FacebookAPI.#ctor">
+            <summary>
+            Create a new instance of the API, with public access only.
+            </summary>
+        </member>
+        <member name="M:Facebook.FacebookAPI.#ctor(System.String)">
+            <summary>
+            Create a new instance of the API, using the given token to
+            authenticate.
+            </summary>
+            <param name="token">The access token used for
+            authentication</param>
+        </member>
+        <member name="M:Facebook.FacebookAPI.Get(System.String)">
+            <summary>
+            Makes a Facebook Graph API GET request.
+            </summary>
+            <param name="relativePath">The path for the call,
+            e.g. /username</param>
+        </member>
+        <member name="M:Facebook.FacebookAPI.Get(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Makes a Facebook Graph API GET request.
+            </summary>
+            <param name="relativePath">The path for the call,
+            e.g. /username</param>
+            <param name="args">A dictionary of key/value pairs that
+            will get passed as query arguments.</param>
+        </member>
+        <member name="M:Facebook.FacebookAPI.Delete(System.String)">
+            <summary>
+            Makes a Facebook Graph API DELETE request.
+            </summary>
+            <param name="relativePath">The path for the call,
+            e.g. /username</param>
+        </member>
+        <member name="M:Facebook.FacebookAPI.Post(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Makes a Facebook Graph API POST request.
+            </summary>
+            <param name="relativePath">The path for the call,
+            e.g. /username</param>
+            <param name="args">A dictionary of key/value pairs that
+            will get passed as query arguments. These determine
+            what will get set in the graph API.</param>
+        </member>
+        <member name="M:Facebook.FacebookAPI.Call(System.String,Facebook.HttpVerb,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Makes a Facebook Graph API Call.
+            </summary>
+            <param name="relativePath">The path for the call, 
+            e.g. /username</param>
+            <param name="httpVerb">The HTTP verb to use, e.g.
+            GET, POST, DELETE</param>
+            <param name="args">A dictionary of key/value pairs that
+            will get passed as query arguments.</param>
+        </member>
+        <member name="M:Facebook.FacebookAPI.MakeRequest(System.Uri,Facebook.HttpVerb,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Make an HTTP request, with the given query args
+            </summary>
+            <param name="url">The URL of the request</param>
+            <param name="verb">The HTTP verb to use</param>
+            <param name="args">Dictionary of key/value pairs that represents
+            the key/value pairs for the request</param>
+        </member>
+        <member name="M:Facebook.FacebookAPI.EncodeDictionary(System.Collections.Generic.Dictionary{System.String,System.String},System.Boolean)">
+            <summary>
+            Encode a dictionary of key/value pairs as an HTTP query string.
+            </summary>
+            <param name="dict">The dictionary to encode</param>
+            <param name="questionMark">Whether or not to start it
+            with a question mark (for GET requests)</param>
+        </member>
+        <member name="P:Facebook.FacebookAPI.AccessToken">
+            <summary>
+            The access token used to authenticate API calls.
+            </summary>
+        </member>
+        <member name="T:MediaChrome.SocialNetworking.User">
+            <summary>
+            Resembling an wall of feeds
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.User.Engine">
+            <summary>
+            Returns the network the user is residing on
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.User.Feed">
+            <summary>
+            Returns the user's feed
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.User.UserName">
+            <summary>
+            The user alias
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.User.ImageUrl">
+            <summary>
+            Image url
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.User.FirstName">
+            <summary>
+            First name of the user
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.User.LastName">
+            <summary>
+            Last name of the user
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.User.ID">
+            <summary>
+            The ID of the user
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.User.Link">
+            <summary>
+            The link to the user's page
+            </summary>
+        </member>
+        <member name="T:MediaChrome.SocialNetworking.SocialFeed">
+            <summary>
+            Class for social feeds
+            </summary>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.SocialFeed.#ctor(MediaChrome.SocialNetworking.ISocialNetwork)">
+            <summary>
+            Creates an new instance of Social Feed
+            </summary>
+            <param name="Service">The service used for the feed</param>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.SocialFeed.Engine">
+            <summary>
+            Gets the engine resembling the social network.
+            </summary>
+        </member>
+        <member name="T:MediaChrome.SocialNetworking.ISocialNetwork">
+            <summary>
+            Interface for social networks. Assembles an social network.
+            </summary>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.ISocialNetwork.Login">
+            <summary>
+            Login to an social network. UserName/Password is handled by an form
+            provided by the extension.
+            </summary>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.ISocialNetwork.Logout">
+            <summary>
+            Logout from the network
+            </summary>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.ISocialNetwork.PostStatusMessage(System.String,MediaChrome.SocialNetworking.Visibility)">
+            <summary>
+            Post an status message
+            </summary>
+            <param name="str">The string for status</param>
+            <returns>TRUE if sucess, FALSE if failed</returns>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.ISocialNetwork.PostLink(System.String,System.Uri,MediaChrome.SocialNetworking.Visibility)">
+            <summary>
+            Share an link to the wall
+            </summary>
+            <param name="msg">The message attached to the link</param>
+            <param name="link">The link to share</param>
+            <param name="security">How the visibility for the announcement should be configured</param>
+            <returns>TRUE if sucess, FALSE if failed</returns>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.ISocialNetwork.GetFeedFromUser(System.String)">
+            <summary>
+            Returns an feed for an particular user
+            </summary>
+            <param name="userName">The user name to locate</param>
+            <returns>an instance to an SocialFeed encapsulating the user's feed data, or NULL if failed</returns>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.ISocialNetwork.QueryFeedFromUser(System.String,System.String)">
+            <summary>
+            Returns an feed for an particular user with the specific textual query
+            </summary>
+            <param name="userName">The user name to locate</param>
+            <param name="query">The query to use</param>
+            <returns>an instance to an SocialFeed encapsulating the user's feed data, or NULL if failed</returns>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.ISocialNetwork.GetLastestUpdateFromQuery(System.String)">
+            <summary>
+            Gets the last updates by the specific textual query
+            </summary>
+            <param name="query">The query to use</param>
+            <returns>an instance to an SocialFeed encapsulating the user's feed data, or NULL if failed</returns>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.ISocialNetwork.LastUpdates">
+            <summary>
+            Gets the last updates
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.ISocialNetwork.Friends">
+            <summary>
+            Returns an list of your friends on the particular network
+            </summary>
+        </member>
+        <member name="T:MediaChrome.SocialNetworking.StatusMessage">
+            <summary>
+            An status message
+            </summary>
+        </member>
+        <member name="F:MediaChrome.SocialNetworking.StatusMessage.Security">
+            <summary>
+            Security for the message. 
+            </summary>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.StatusMessage.#ctor(System.String,MediaChrome.SocialNetworking.SocialFeed,System.DateTime,MediaChrome.SocialNetworking.Visibility)">
+            <summary>
+            Creates an new status message
+            </summary>
+            <param name="msg">The message</param>
+            <param name="parent">The parent</param>
+            <param name="time">The time</param>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.StatusMessage.Message">
+            <summary>
+            The message
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.StatusMessage.Parent">
+            <summary>
+            Gets or sets the parent feed
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.StatusMessage.Engine">
+            <summary>
+            Returns the engine providing the feed (shortcut to the parent one)
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.StatusMessage.HasLink">
+            <summary>
+            Returns if the message has an link
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.StatusMessage.Link">
+            <summary>
+            The link to provide by the status message. Null if the post
+            does not attach an link
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.StatusMessage.Time">
+            <summary>
+            The time for the post
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.StatusMessage.User">
+            <summary>
+            User behind the status messsage
+            </summary>
+        </member>
+        <member name="F:MediaChrome.SocialNetworking.Facebook.api">
+            <summary>
+            The underlying api
+            </summary>
+        </member>
+        <member name="F:MediaChrome.SocialNetworking.Facebook.token">
+            <summary>
+            The secret API token
+            </summary>
+        </member>
+        <member name="T:Facebook.JSONObject">
+            <summary>
+            Represents an object encoded in JSON. Can be either a dictionary 
+            mapping strings to other objects, an array of objects, or a single 
+            object, which represents a scalar.
+            </summary>
+        </member>
+        <member name="M:Facebook.JSONObject.CreateFromString(System.String)">
+            <summary>
+            Creates a JSONObject by parsing a string.
+            This is the only correct way to create a JSONObject.
+            </summary>
+        </member>
+        <member name="M:Facebook.JSONObject.ToDisplayableString">
+            <summary>
+            Prints the JSONObject as a formatted string, suitable for viewing.
+            </summary>
+        </member>
+        <member name="M:Facebook.JSONObject.Create(System.Object)">
+            <summary>
+            Recursively constructs this JSONObject 
+            </summary>
+        </member>
+        <member name="P:Facebook.JSONObject.IsDictionary">
+            <summary>
+            Returns true if this JSONObject represents a dictionary.
+            </summary>
+        </member>
+        <member name="P:Facebook.JSONObject.IsArray">
+            <summary>
+            Returns true if this JSONObject represents an array.
+            </summary>
+        </member>
+        <member name="P:Facebook.JSONObject.IsString">
+            <summary>
+            Returns true if this JSONObject represents a string value. 
+            </summary>
+        </member>
+        <member name="P:Facebook.JSONObject.IsInteger">
+            <summary>
+            Returns true if this JSONObject represents an integer value.
+            </summary>
+        </member>
+        <member name="P:Facebook.JSONObject.IsBoolean">
+            <summary>
+            Returns true if this JSONOBject represents a boolean value.
+            </summary>
+        </member>
+        <member name="P:Facebook.JSONObject.Dictionary">
+            <summary>
+            Returns this JSONObject as a dictionary
+            </summary>
+        </member>
+        <member name="P:Facebook.JSONObject.Array">
+            <summary>
+            Returns this JSONObject as an array
+            </summary>
+        </member>
+        <member name="P:Facebook.JSONObject.String">
+            <summary>
+            Returns this JSONObject as a string
+            </summary>
+        </member>
+        <member name="P:Facebook.JSONObject.Integer">
+            <summary>
+            Returns this JSONObject as an integer
+            </summary>
+        </member>
+        <member name="P:Facebook.JSONObject.Boolean">
+            <summary>
+            Returns this JSONObject as a boolean
+            </summary>
+        </member>
+        <member name="T:MediaChrome.IMedia">
+            <summary>
+            A IMedia represents the instances of songs,artists and albums
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IMedia.Link">
+            <summary>
+            The link to the artist
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IMedia.Name">
+            <summary>
+            The name of the artist
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IMedia.Engine">
+            <summary>
+            The engine the album is using
+            </summary>
+        </member>
+        <member name="T:MediaChrome.Artist">
+            <summary>
+            An artist
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Artist.Albums">
+            <summary>
+            Available albums for the artist
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Artist.Link">
+            <summary>
+            The link to the artist
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Artist.Name">
+            <summary>
+            The name of the artist
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Artist.Engine">
+            <summary>
+            The engine the album is using
+            </summary>
+        </member>
+        <member name="T:MediaChrome.Album">
+            <summary>
+            Class for album
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Album.Songs">
+            <summary>
+            Songs of the album
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Album.Artist">
+            <summary>
+            Album artist
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Album.Name">
+            <summary>
+            Name of the album
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Album.Link">
+            <summary>
+            The link of the album
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Album.Engine">
+            <summary>
+            The engine the album is using
+            </summary>
+        </member>
+        <member name="T:MediaChrome.Song">
+            <summary>
+            Description of IPlayEngine.
+            </summary>
+            
+        </member>
+        <member name="M:MediaChrome.Song.GetSongFromURI(System.String,System.Collections.Generic.List{MediaChrome.IPlayEngine})">
+            <summary>
+            Gets an song from the specific uri. Also checks about 
+            matching song from the specific list of engines.
+            </summary>
+            <param name="D">The URI to match to</param>
+            <param name="Engines">List of IPlayEngine to search in</param>
+            <remarks>This function may lock the current thread, as it may search on remote sources. This should
+            be run in an separate thread.</remarks>
+            <returns>An song instance</returns>
+        </member>
+        <member name="M:MediaChrome.Song.GetSongFromURI(System.String)">
+            <summary>
+            Convert an mediachrome URI to an Song instance
+            </summary>
+            <param name="D">The input URI</param>
+            <returns>A song instance</returns>
+        </member>
+        <member name="F:MediaChrome.Song.subSongs">
+            <summary>
+            Sub-songs. Not used
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Checked">
+            <summary>
+            Decides whether the song is checked.
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.CoverArt">
+            <summary>
+            Address to an bitmap file with coverart, either locally or remote
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Title">
+            <summary>
+            The title of the song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.ID">
+            <summary>
+            The ID of the song (URI)
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Artists">
+            <summary>
+            An array of artists, first is primary
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.ArtistUrl">
+            <summary>
+            Gets and sets the artist's uri of the track
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.AlbumUrl">
+            <summary>
+            Gets and sets the service URI for the album of the song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Album">
+            <summary>
+            The album of the song.
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.AlbumName">
+            <summary>
+            Gets the album name or sets it, making a default album instance
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Path">
+            <summary>
+            The MediaChrome' uri of the song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Engine">
+            <summary>
+            Gets and sets the engine used for the song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Store">
+            <summary>
+            The store of the song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Version">
+            <summary>
+            The version of the song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Popularity">
+            <summary>
+            Popularity of the song at the store
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Contributing">
+            <summary>
+            Gets or sets the contributing musician of the song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Feature">
+            <summary>
+            Gets or sets the featured artist on the song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.ProposedEngine">
+            <summary>
+            Gets and sets the desired Media Engine for this particular instance
+            </summary>
+        </member>
+        <member name="P:MediaChrome.Song.Composer">
+            <summary>
+            Gets and sets the composer of the song
+            </summary>
+        </member>
+        <member name="T:MediaChrome.IPlayEngine">
+            <summary>
+            A media service plug in for media chrome. Each music service who want to be integrated
+            with the mediachrome framework must implement this class.
+            </summary>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.QueryRadio(System.String)">
+            <summary>
+            Query a radio stream.
+            </summary>
+            <param name="Query">Query specific for the service</param>
+            <returns></returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.ConvertSongFromLink(System.String)">
+            <summary>
+            Convert an URI to an instance of Song Object. Used in conjunction with AudioSignature
+            </summary>
+            <param name="URI">The resource URI</param>
+            <returns>A Song with properties beloning to the resource behind the URI</returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.ShowOptions">
+            <summary>
+            Shows options dialogue.
+            </summary>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Purchase(MediaChrome.Song)">
+            <summary>
+            Handles purchases of an song
+            </summary>
+            <param name="song">A song</param>
+            <remarks>Not implemented</remarks>
+            <returns>Whether the purchase was accepted or rejected by the merchant</returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Login">
+            <summary>
+            Show the log in creditals. Log in is handled by each service
+            </summary>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Logout">
+            <summary>
+            Method for logging out the user from the service
+            </summary>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.GetArtist(System.String)">
+            <summary>
+            Get an artist by ID
+            </summary>
+            <param name="ID">The ID or name of the artist to retrieve, depending on the service</param>
+            <returns>An artist enclosed in an instance of MediaChrome's Artist class</returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.FindArtist(System.String)">
+            <summary>
+            Find an artist
+            </summary>
+            <param name="Query">The search query.</param>
+            <returns>Return an array of the founded artist at the engine</returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.GetAlbum(MediaChrome.Artist,System.String)">
+            <summary>
+            Get an album by artist
+            </summary>
+            <param name="artist">The artist for the query</param>
+            <param name="album">The name or ID of the album to locate, depending on the service</param>
+            <returns>An instance of the album enclosed into an Album class instance</returns>
+            <remarks>Used in conjunction with views frameworks</remarks>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.GetAlbum(System.String)">
+            <summary>
+            Get an album
+            </summary>
+            <param name="album">The name or ID of the album to locate, depending on the service</param>
+            <returns>An instance of the album enclosed into an Album class instance</returns>
+            <remarks>Used in conjunction with views frameworks</remarks>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.FindAlbum(System.String)">
+            <summary>
+            Find an album
+            </summary>
+            <param name="album"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Find(System.String)">
+            <summary>
+            Query for songs on the service cloud
+            </summary>
+            <param name="Query">The textual query</param>
+            <returns></returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.SongImport(MediaChrome.Song[])">
+            <summary>
+            Import songs into the local library according to the specifications.
+            </summary>
+            <param name="songs"></param>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Play">
+            <summary>
+            Starts playing the current song
+            </summary>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Pause">
+            <summary>
+            Occurs when pausing
+            </summary>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Stop">
+            <summary>
+            Occurs when stopping
+            </summary>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Seek(System.Double)">
+            <summary>
+            Occurs when seeking
+            </summary>
+            <param name="pos">The new position of the media</param>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Load(System.String)">
+            <summary>
+            Occurs when loading an song
+            </summary>
+            <param name="Content">The data uri associated with the song</param>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Import(System.String)">
+            <summary>
+            Import music to the local database
+            </summary>
+            <param name="Conn">SQLiteConnection instance for accessing the internal database</param>
+            <param name="RootDir">The file directory for the local files to recurse on</param>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Unload">
+            <summary>
+            Unload the engine
+            </summary>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.Search">
+            <summary>
+            Raw search songs from the service
+            </summary>
+            <returns>An list of songs</returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.RawFind(MediaChrome.Song)">
+            <returns></returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.ViewPlaylist(System.String,System.String)">
+            <summary>
+            Playlist-related functionality
+            </summary>
+            <returns>A instance of the playlist class with content from this source</returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.CreatePlaylist(System.String)">
+            <summary>
+            Creates an new playlist on the source.
+            </summary>
+            <param name="Name">The desired name of the playlist</param>
+            <returns>An instance of an playlist class representing the new playlist.</returns>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.AddToPlaylist(System.String,MediaChrome.Song,System.Int32)">
+            <summary>
+            Add an song to an playlist
+            </summary>
+            <param name="playlistID">The ID of the target playlist on the source</param>
+            <param name="_Song">The instance of the song</param>
+            <param name="pos">The desired position on the playlist to add on. -1 indicates the last position</param>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.AddToPlaylist(MediaChrome.Views.Playlist,MediaChrome.Song,System.Int32)">
+            <summary>
+            Add an song to an playlist
+            </summary>
+            <param name="playlistID">The ID of the target playlist on the source</param>
+            <param name="_Song">The instance of the song</param>
+            <param name="pos">The desired position on the playlist to add on. -1 indicates the last position</param>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.RemoveFromPlaylist(System.String,System.Int32)">
+            <summary>
+            Remove a song at the specified index on the playlist.
+            </summary>
+            <param name="playlistID">The ID of the playlist, specific for the service</param>
+            <param name="pos">The index of the song which should be removed</param>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.MoveSongPlaylist(System.String,MediaChrome.Song,System.Int32,System.Int32)">
+            <summary>
+            Moves an entry through the playlist, the collection between the starting and end index.
+            </summary>
+            <param name="playlistID">The ID of the playlist</param>
+            <param name="entry">The Song to move</param>
+            <param name="startLoc">start index of the chunk to move</param>
+            <param name="endLoc">end segment of cnhunk</param>
+        </member>
+        <member name="M:MediaChrome.IPlayEngine.LoadPlaylist(System.String,MediaChrome.Views.Playlist@)">
+            <summary>
+            Load an playlist and return the list. Obsolote.
+            </summary>
+            <param name="p"></param>
+            <param name="playlist"></param>
+            <returns></returns>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Paused">
+            <summary>
+            Gets or sets if the player has paused the current media
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.CurrentSong">
+            <summary>
+            Current song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.AudioSignature">
+            <summary>
+            Returns the base for the song urls (eg. spotify:track:*)
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Copyright">
+            <summary>
+            The copyright of the service
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Address">
+            <summary>
+            Physical adress to the company
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Company">
+            <summary>
+            The company providing the service
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.CompanyWebSite">
+            <summary>
+            The url to the company's website
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.ServiceUri">
+            <summary>
+            The web resource of the service
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.LoggedIn">
+            <summary>
+            Gets and sets whether the user is logged in to the service
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Streaming">
+            <summary>
+            Defines whether the music is streamed from an internet source
+            </summary>
+            <remarks>Not implemented</remarks>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.DownloadStore">
+            <summary>
+            Defines if purchases is available at the service
+            </summary>
+            <remarks>Not implemented</remarks>
+            
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Purchases">
+            <summary>
+            Returns a list of songs ready for purchase
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Image">
+            <summary>
+            Image representing the service
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Icon">
+            <summary>
+            The icon for the Engine
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.hasPlaylists">
+            <summary>
+            Gets whether the engine can handle playlists
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Status">
+            <summary>
+            The text status of the engine
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.MediaControl">
+            <summary>
+            Visible control for the specific engine
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Ready">
+            <summary>
+            Denotes if the playback is ready
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Duration">
+            <summary>
+            Duration of the current song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.FilesCompleted">
+            <summary>
+            The amount of files complete in an import
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.PlaylistsLoaded">
+            <summary>
+            Gets and sets if the playlists has been loaded
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Namespace">
+            <summary>
+            Namespace of the IPlayEngine. Used for as an arbitrary
+            identifier for the engine. Must not contain any whitespaces
+            and not be modified at any point at the application cycle.
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Title">
+            <summary>
+            Title of the engine. Must not be modified upon runtime
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.TotalFiles">
+            <summary>
+            Total local files
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Position">
+            <summary>
+            The position of the song
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Host">
+            <summary>
+            Host form. Used by the runtime
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Playlists">
+            <summary>
+            Returns a list of playlists from the current service
+            </summary>
+        </member>
+        <member name="P:MediaChrome.IPlayEngine.Length">
+            <summary>
+            Returns the duration of the current song (in seconds)
+            </summary>
+        </member>
+        <member name="M:MediaChrome.Views.Playlist.#ctor(MediaChrome.IPlayEngine,System.String,System.String,System.Windows.Forms.Form)">
+            <summary>
+            Creates a new playlist without an buffer
+            </summary>
+            <param name="Engine">The engine to work with</param>
+            <param name="Name">Name of the playlist</param>
+            <param name="ID">The system id of the playlist (specific for the extension)</param>
+            <param name="host">The host of the playlist (the media provider)</param>
+        </member>
+        <member name="M:MediaChrome.Views.Playlist.#ctor(MediaChrome.IPlayEngine,System.String,System.String,System.Windows.Forms.Form,System.Collections.Generic.List{MediaChrome.Song})">
+            <summary>
+            Creates a new playlist without an buffer
+            </summary>
+            <param name="Engine">The engine to work with</param>
+            <param name="Name">Name of the playlist</param>
+            <param name="ID">The system id of the playlist (specific for the extension)</param>
+            <param name="host">The host of the playlist (the media provider)</param>
+            <param name="cache">The cache to use instead of loading an new one</param>
+        </member>
+        <member name="M:MediaChrome.WebConnection.OpenWebConnection(System.Uri)">
+            <summary>
+            Opens an web connection
+            </summary>
+            <param name="Url"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

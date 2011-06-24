@@ -1,0 +1,7 @@
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeService\obj\Debug\ResolveAssemblyReference.cache
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeService\bin\MediaChromeService.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeService\bin\MediaChromeService.pdb
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeService\bin\MediaChrome.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeService\bin\MediaChrome.pdb
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeService\obj\Debug\MediaChromeService.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeService\obj\Debug\MediaChromeService.pdb

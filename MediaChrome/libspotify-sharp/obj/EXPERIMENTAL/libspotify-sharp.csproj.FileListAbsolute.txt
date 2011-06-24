@@ -1,0 +1,5 @@
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\libspotify-sharp\bin\EXPERIMENTAL\libspotify-sharp.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\libspotify-sharp\bin\EXPERIMENTAL\libspotify-sharp.pdb
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\libspotify-sharp\obj\EXPERIMENTAL\ResolveAssemblyReference.cache
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\libspotify-sharp\obj\EXPERIMENTAL\libspotify-sharp.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\libspotify-sharp\obj\EXPERIMENTAL\libspotify-sharp.pdb

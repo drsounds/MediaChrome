@@ -1,0 +1,9 @@
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\bin\EXPERIMENTAL\MediaChrome.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\bin\EXPERIMENTAL\MediaChrome.pdb
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\bin\EXPERIMENTAL\docs.xml
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\obj\EXPERIMENTAL\ResolveAssemblyReference.cache
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\obj\EXPERIMENTAL\MediaChrome.SocialNetworking.FacebookForm.resources
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\obj\EXPERIMENTAL\GenerateResource.read.1.tlog
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\obj\EXPERIMENTAL\GenerateResource.write.1.tlog
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\obj\EXPERIMENTAL\MediaChrome.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\obj\EXPERIMENTAL\MediaChrome.pdb

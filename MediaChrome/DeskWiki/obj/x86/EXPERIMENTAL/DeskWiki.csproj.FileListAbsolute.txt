@@ -1,0 +1,5 @@
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\obj\x86\EXPERIMENTAL\ResolveAssemblyReference.cache
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\obj\x86\EXPERIMENTAL\DeskWiki.Form1.resources
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\obj\x86\EXPERIMENTAL\DeskWiki.Properties.Resources.resources
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\obj\x86\EXPERIMENTAL\GenerateResource.read.1.tlog
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\obj\x86\EXPERIMENTAL\GenerateResource.write.1.tlog

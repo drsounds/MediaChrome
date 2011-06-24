@@ -1,0 +1,5 @@
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\dirC\bin\Debug\dirC.exe
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\dirC\bin\Debug\dirC.pdb
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\dirC\obj\x86\Debug\ResolveAssemblyReference.cache
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\dirC\obj\x86\Debug\dirC.exe
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\dirC\obj\x86\Debug\dirC.pdb

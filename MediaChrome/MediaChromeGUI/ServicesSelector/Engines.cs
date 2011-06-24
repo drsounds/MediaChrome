@@ -147,5 +147,11 @@ namespace MediaChrome
             Preferences prefs = new Preferences(this.Host);
             prefs.ShowDialog();
         }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            EngineManager d = new EngineManager();
+            d.Show();
+        }
     }
 }

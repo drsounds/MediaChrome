@@ -1,0 +1,64 @@
+<?
+/***
+Artist view for SpotifyUltra
+
+
+
+http://www.spotifyultra.com
+
+*/
+
+var artist = getArtist(service,parameter);
+
+
+var title = artist.Name;
+var bio = "Nice artist who loves music";
+?>
+<view>
+	<toolbar>
+	<!--	<item title="share" onclick="command()"/>
+		<menu title="example">
+			<menuitem onclick="test1()" title="A"/>
+		</menu> -->
+	</toolbar>
+
+	<section name="Overview">
+		<label size="20" left="110" top="@TOP" width="500" height="10"></label> 
+		<img src="http://krakelin.com/artist.png" top="@TOP" left="10" width="120" height="120" persistent="true" />
+<label size="10" left="150" top="@TOP" width="500" height="10" href="@{parameter}">@{title} <br/> @{bio}</label> 	
+	
+		<space height="130"/>
+		
+		<?
+		if(localAlbums.Count > 0){
+		?>
+		
+		<section  width="-1" height="24" left="0" top="@TOP">Local Files</section>
+		<space height="60"/>
+% for(var i=0; i lower than localAlbums.Count ; i++){ var localAlbum = localAlbums[i];
+		<inflate src="components/local_album.xml" name="@{localAlbum.Album}" artist="@{title}"/>
+% }
+
+		<? } ?> 
+		<section text="Albums" width="-1" left="0" height="24">Albums</section>
+		<space height="10"/>
+
+<?
+for(var i=0; i < artist.Albums.Length ; i++){ 		
+	var release = artist.Albums[i];
+	var artist = artist.Name;
+	var href =  artist.Albums[i].Link;
+	var query = href.split(':')[2];
+	
+	
+?>
+		<inflate src="components/album.xml" name="@{name}" id="@{query}" artist="@{parameter}" service="@{service}" uri="@{href}"/>
+ 
+% }
+	
+	
+	</section>
+	<section name="Biography">
+	</section>
+</view>
+		

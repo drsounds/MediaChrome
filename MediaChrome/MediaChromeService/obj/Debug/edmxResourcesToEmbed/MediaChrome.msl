@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MediaChromeModelStoreContainer" CdmEntityContainer="MediaChromeEntities">
+    <EntitySetMapping Name="playlist">
+      <EntityTypeMapping TypeName="MediaChromeModel.playlist">
+        <MappingFragment StoreEntitySet="playlist">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="songs" ColumnName="songs" />
+          <ScalarProperty Name="collaborative" ColumnName="collaborative" />
+          <ScalarProperty Name="annotation" ColumnName="annotation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

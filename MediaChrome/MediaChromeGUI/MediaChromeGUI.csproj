@@ -190,11 +190,19 @@
       <DependentUpon>AskDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="BaseFTPClient.cs" />
     <Compile Include="cBtn.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="cBtn.Designer.cs">
       <DependentUpon>cBtn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Engines\MP3\Mp3.cs" />
+    <Compile Include="Engines\MP3\Options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Engines\MP3\Options.Designer.cs">
+      <DependentUpon>Options.cs</DependentUpon>
     </Compile>
     <Compile Include="ServicesSelector\EngineEntry.cs">
       <SubType>UserControl</SubType>
@@ -322,6 +330,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="cBtn.resx">
       <DependentUpon>cBtn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Engines\MP3\Options.resx">
+      <DependentUpon>Options.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ServicesSelector\EngineEntry.resx">
       <DependentUpon>EngineEntry.cs</DependentUpon>

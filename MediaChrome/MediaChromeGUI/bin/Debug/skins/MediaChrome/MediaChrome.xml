@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<skin xmlns="http://skin.mediachrome.net/2011/skin-definition">
+	<title>Spotify skin</title>
+	<!-- Main View -->
+	<component rel="Board" BackColor="#f0f0f0" ForeColor="#666677" />
+	<component rel="Board#Alternative" BackColor="#eaeaea" ForeColor="#444444" />
+	<component rel="Board#Selection" BackColor="#ff7700" ForeColor="#ffffff" BackgroundImage="~\Selection.png" />
+	<component rel="Board#Active" BackColor="#111111" ForeColor="#AAFFAA" />
+	<component rel="Board#Section" BackColor="#EEEEEE" ForeColor="#ffffff"  />
+	<component rel="Board#TextFade" BackColor="#eeeeff" ForeColor="#333388" />
+	<component rel="Board#ListSection" BackgroundImage="~\list_section.png" />
+	<component rel="Header" BackColor="#aaaaaa" BackgroundImage="~\top_wall1.png" />
+	<component rel="Footer" BackColor="#aaaaaa" ForeColor="#000000" BackgroundImage="~\top_wall1.png" />
+	<component rel="Board#Toolbar" SeparatorImage="~\tab_separator.png" BackColor="#aaaaaa" ForeColor="#FFFFFF" BackgroundImage="~\toolbar.png" />
+	<component rel="Board#ActiveSection" BackColor="#aaaaaa" ForeColor="#664400" BackgroundImage="~\section.png" />
+	<component rel="ErrorBar" BackColor="#FFFFAA" ForeColor="#000000" BackgroundImage="~\top_bar_blue.png" />
+	<component rel="Board#Toolbar#Item" BackgroundImage="~\toolbutton.png" />
+	<component rel="Board#ListHeader" BackgroundImage="~\list_header.png" />
+	<component rel="Board#Section#Text" ForeColor="#FFFFFF" />
+	<component rel="Board#Section#Text#Shadow" ForeColor="#000000" />
+	<component rel="Board#ListHeader#Separator" BackgroundImage="~\list_header_divider.png" />
+	<component rel="Menu#BG" BackgroundImage="~\top_wall1.png" BackColor="#ced5db" />
+	<component rel="Board#Entry" ForeColor="#666677" />
+	<component rel="Switch" BackgroundImage="~\switch.png" />
+</skin>

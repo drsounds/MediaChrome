@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MediaChromeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="MediaChromeModelStoreContainer">
+    <EntitySet Name="playlist" EntityType="MediaChromeModel.Store.playlist" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="playlist">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="title" Type="nchar" Nullable="false" MaxLength="30" />
+    <Property Name="userID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="songs" Type="text" />
+    <Property Name="collaborative" Type="tinyint" Nullable="false" />
+    <Property Name="annotation" Type="varchar" MaxLength="350" />
+  </EntityType>
+</Schema>

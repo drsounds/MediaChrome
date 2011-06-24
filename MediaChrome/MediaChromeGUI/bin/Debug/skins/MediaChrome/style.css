@@ -1,0 +1,35 @@
+board
+{
+	background-color: #eeeeff;
+	color: #333333;
+}
+board#Alternative
+{
+	background-color: #eaeaff;
+	color:#444444;
+}
+board#Selection{
+	background-color:#ff7700;
+	color:#ffffff;
+	background-image: "~\Selection.png";
+}
+#Board#Active{
+	background-color:#111111;
+	b 
+
+
+ <component rel="Board" BackColor="#eeeeff" ForeColor="#333333" />
+	<component rel="Board#Alternative" BackColor="#eaeaff" ForeColor="#444444" />
+	<component rel="Board#Selection" BackColor="#ff7700" ForeColor="#ffffff" BackgroundImage="~\Selection.png" />
+	<component rel="Board#Active" BackColor="#111111" ForeColor="#AAFFAA" />
+	<component rel="Board#Section" BackColor="#EEEEEE" ForeColor="#ffffff"  />
+	<component rel="Board#TextFade" BackColor="#eeeeff" ForeColor="#333388" />
+	<component rel="Board#ListSection" BackgroundImage="~\list_section.png" />
+	<component rel="Header" BackColor="#aaaaaa" BackgroundImage="~\top_wall1.png" />
+	<component rel="Footer" BackColor="#aaaaaa" ForeColor="#000000" BackgroundImage="~\top_wall1.png" />
+	<component rel="Board#Toolbar" SeparatorImage="~\tab_separator.png" BackColor="#aaaaaa" ForeCOlor="#FFFFFF" BackgroundImage="~\toolbar.png" />
+	<component rel="Board#ActiveSection" BackColor="#aaaaaa" ForeColor="#664400" BackgroundImage="~\section.png" />
+	<component rel="ErrorBar" BackColor="#FFFFAA" ForeColor="#000000" BackgroundImage="~\top_bar_blue.png" />
+	<component rel="Board#Toolbar#Item" BackgroundImage="~\toolbutton.png" />
+	<component rel="Board#ListHeader" BackgroundImage="~\listHeader.png" />
+	<component rel="Menu#BG" BackgroundImage="~\top_wall1.png" BackColor="#ced5db" />

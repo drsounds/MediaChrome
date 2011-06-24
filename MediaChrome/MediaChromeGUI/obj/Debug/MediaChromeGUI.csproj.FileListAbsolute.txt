@@ -50,3 +50,4 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChr
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.Switch.resources
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.ServicesSelector.EngineEntry.resources
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.EngineManager.resources
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.Options.resources

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<engine>
+  <title>Spotify</title>
+  <namespace>spotify</namespace>
+  <description>
+    Spotify is an new way to discover music. Spotify for MediaChrome enables you
+    to stream music from Spotify on your mediaChrome
+  </description>
+  <author url="http://www.spotify.com">Spotify INC (Test)</author>
+</engine>
