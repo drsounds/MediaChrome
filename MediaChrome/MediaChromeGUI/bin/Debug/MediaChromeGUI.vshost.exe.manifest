@@ -57,14 +57,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Board.exe" size="1179648">
-      <assemblyIdentity name="Board" version="1.0.4192.24752" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Board.exe" size="1183744">
+      <assemblyIdentity name="Board" version="1.0.4193.18038" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>lo3FpoK6ufHa8zRcbhjHHaS0mz4=</dsig:DigestValue>
+        <dsig:DigestValue>cR0Nm5n24ygzoRQ7sspDzp6cVN4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -172,7 +172,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>6veFzYLzYd8qDSc13EoFO4WTdTU=</dsig:DigestValue>
+        <dsig:DigestValue>m3hTPOu/tNGPFN8qw4XbdSWI5Vg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -184,7 +184,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>T7J1o2AKqT/uIx6YvQpfGsb7aJA=</dsig:DigestValue>
+        <dsig:DigestValue>RxQYdCusCVCNXoApaMzS3BIvGME=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

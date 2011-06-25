@@ -333,7 +333,16 @@
             <param name="uri"></param>
             <returns></returns>
         </member>
-        <member name="M:Board.DrawBoard.Navigate(System.String,System.String,System.String)">
+        <member name="M:Board.DrawBoard.GetViewRecursively(System.String,System.String,System.String)">
+            <summary>
+            Recursive return of View
+            </summary>
+            <param name="Uri">Uri specfied for the view</param>
+            <param name="Path">Path to the folder</param>
+            <param name="App">View namespace</param>
+            <returns></returns>
+        </member>
+        <member name="M:Board.DrawBoard.Navigate(System.String,System.String,System.String[])">
             <summary>
             Public method to navigate.
             </summary>

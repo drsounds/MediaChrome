@@ -1166,7 +1166,7 @@ namespace MediaChrome
 
             if (!uri.Contains(":"))
             {
-                this.board.Navigate(String.Format("spotify:search:{0}", uri), "spotify", "views");
+                this.board.Navigate(String.Format("{0}:search:{1}",DefaultPlayer.Namespace, uri), DefaultPlayer.Namespace, "views","C:\\MediaViews\\");
             }
             if (uri.StartsWith("mc:") || uri.StartsWith("mediachrome:"))
             {
@@ -1238,7 +1238,7 @@ namespace MediaChrome
             {
                 if (this.CurrentPlayer != null)
                 {
-                    this.board.Navigate(this.currentPlayer.Namespace + ":search:" + uri, this.CurrentPlayer.Namespace, "views");
+                    this.board.Navigate(this.currentPlayer.Namespace + ":search:" + uri, this.CurrentPlayer.Namespace, "views", "C:\\MediaViews\\");
                 }
                 return;
             }
@@ -1253,7 +1253,7 @@ namespace MediaChrome
                 return;
             }
             this.CurrentNamespace=Engine;
-            this.board.Navigate(uri, Engine, "views");
+            this.board.Navigate(uri, Engine, "views", "C:\\MediaViews\\");
         }
         void treeview_DropElement(object sender, Board.DrawBoard.ElementDragEventArgs e)
         {
@@ -1385,7 +1385,7 @@ namespace MediaChrome
             if (uri.Split(':').Length < 2 )
             {
 
-                board.Navigate("spotify:search:" + uri, "spotify", "views");
+                board.Navigate("spotify:search:" + uri, "spotify", "views", "C:\\MediaViews\\");
                 return false;
             }
             else

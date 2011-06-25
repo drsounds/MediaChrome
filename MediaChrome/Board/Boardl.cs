@@ -1374,14 +1374,39 @@ namespace Board
             
           
          }*/
+        /// <summary>
+        /// Recursive return of View
+        /// </summary>
+        /// <param name="Uri">Uri specfied for the view</param>
+        /// <param name="Path">Path to the folder</param>
+        /// <param name="App">View namespace</param>
+        /// <returns></returns>
+        public View GetViewRecursively(string Uri,string Path,string App)
+        {
+            View newView = null;
+            DirectoryInfo DI = new DirectoryInfo(Path);
+            if (File.Exists(Path + "\\" + App + ".xml"))
+            {
+                newView = new View(Uri, Path + "\\" + App + ".xml", Uri);
+                return newView;
+            }
+            foreach (DirectoryInfo Folder in DI.GetDirectories())
+            {
 
+
+                return GetViewRecursively(Uri,Folder.FullName,App);
+            }
+            return null;
+
+            
+        }
         /// <summary>
         /// Public method to navigate.
         /// </summary>
         /// <param name="Uri">The name of the view</param>
         /// <param name="nspace">Namespace for the uri (xx:)</param>
         /// <param nme="BaseFolder">The base folder where the .xml view files reside</param>
-        public void Navigate(String Uri, String nspace, String BaseFolder)
+        public void Navigate(String Uri, String nspace, params string[] BaseFolder)
         {
             // Defines if the update should be forced with an preceeding $
             bool force = (Uri.EndsWith("$"));
@@ -1405,12 +1430,22 @@ namespace Board
             {
                 // Split the uri and fetch the two parts, the namespace, the view's namespace and the parameter
                 String[] Parts = Uri.Replace(nspace + ":", null).Split(':');
-
                 String App = Parts[0];
+                /**
+                 * Find the view to inherit
+                 * */
+                View newView = null;
+                foreach (String Folder in BaseFolder)
+                {
+                   newView = GetViewRecursively(Uri, Folder, App);
+                   if (newView != null)
+                       break;
+                }
+                if (newView == null)
+                    return;
+                
                 String Querystring = Uri.Replace(nspace + ":" + App + ":", "");
-
-                View newView = new View(Uri, BaseFolder + "\\" + App + ".xml", Uri);
-
+               
                 // Add the ding view to the view list
                 try
                 {

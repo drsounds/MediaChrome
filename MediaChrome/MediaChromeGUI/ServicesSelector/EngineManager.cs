@@ -221,7 +221,7 @@ namespace MediaChrome
             {
                 // Create new engine object
                 EngineEntry w = new EngineEntry(this.Host,cred,r.Title, r.Description, DownloadDir, r.Address, r.Namespace);
-                
+                w.Installed = r.Installed;
                 this.panel2.Controls.Add(w);
                 w.Dock = DockStyle.Top;
               
