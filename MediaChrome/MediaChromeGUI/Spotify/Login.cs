@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 using Spotify;
 
-namespace SpotifyPlugin
+namespace MediaChrome
 {
 	/// <summary>
 	/// Description of Login.
@@ -21,7 +21,7 @@ namespace SpotifyPlugin
 	{
        
         Session SpotifySession;
-        private SpotifyPlayer host;
+        private spotify host;
 		public Login()
 		{
 			//
@@ -34,7 +34,7 @@ namespace SpotifyPlugin
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
 		}
-        public Login(SpotifyPlayer Host)
+        public Login(spotify Host)
         {
             host = Host;
             //

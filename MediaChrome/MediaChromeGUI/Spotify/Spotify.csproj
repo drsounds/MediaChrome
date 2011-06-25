@@ -8,7 +8,7 @@
     <ProjectGuid>{4478DEE3-CEF1-4616-816C-60784AF36629}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SpotifyPlugin</RootNamespace>
+    <RootNamespace>MediaChrome</RootNamespace>
     <AssemblyName>Spotify</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -116,7 +116,6 @@
     <None Include="Resources\ajax-loader.gif" />
     <None Include="Resources\spotify_logo.png" />
     <None Include="Resources\app_icon.ico" />
-    <Content Include="Spotify.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

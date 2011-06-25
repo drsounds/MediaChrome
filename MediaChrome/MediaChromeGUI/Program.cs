@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.Threading;
 using System.IO;
 using Spotify;
+using System.Text;
+using System.Reflection;
 
 namespace MediaChrome
 {
@@ -48,7 +50,7 @@ namespace MediaChrome
                 LoadEngine(dir);
             }
         }
-
+      
         /// <summary>
         /// Loads the specified engine into the stack
         /// </summary>
@@ -58,8 +60,33 @@ namespace MediaChrome
         {
             try
             {
-                IPlayEngine IE = (IPlayEngine)Activator.CreateInstance(Dir.FullName + "\\" + Dir.Name + ".dll", "Provider");
+                // Copy all depencies to the application working directory
+                foreach (FileInfo fi in Dir.GetFiles("*.dll"))
+                {
+                     try
+                    {
+                        if (fi.Name != Dir.Name + ".dll")
+                        {
+                            if(!File.Exists( AppDomain.CurrentDomain.BaseDirectory + "\\" + fi.Name))
+                            File.Copy(fi.FullName, AppDomain.CurrentDomain.BaseDirectory + "\\" + fi.Name);
+                      
+                            Assembly.LoadFrom(fi.FullName);
+                              }
+                    }
+                    catch
+                    {
+                    }
+                }
+                Assembly assembly = Assembly.LoadFrom(Dir.FullName + "\\" + Dir.Name + ".dll");
+
+                Type type = assembly.GetType("MediaChrome."+Dir.Name);
+
+
+
+
+                IPlayEngine IE = (IPlayEngine)Activator.CreateInstance(type);
                 Program.MediaEngines.Add(Dir.Name, IE);
+                
                 return true;
 
             }

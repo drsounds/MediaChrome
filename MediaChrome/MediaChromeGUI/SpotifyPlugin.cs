@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Spotify;
 using System.IO;
-using Un4seen.Bass;
+
 namespace MediaChrome
 {/*
     class SpotifyEngine 

@@ -40,6 +40,14 @@ namespace MediaChrome.ServicesSelector
             InitializeComponent();
             Title = title;
             Description = description;
+            pictureBox1.WC.Credentials = ftpCreditals;
+            try
+            {
+                pictureBox1.Url = new Uri(this.Host +"/" + Namespace + "/" + Namespace + ".png");
+            }
+            catch
+            {
+            }
         }
         /// <summary>
         /// Directory for downloading the engine
@@ -66,10 +74,37 @@ namespace MediaChrome.ServicesSelector
         }
         public void Install()
         {
+            /**
+             *  If installed, ask for uninstallation
+             *  
+             * */
+            if (Installed)
+            {
+                if (MessageBox.Show("Do you really want to uninstall the app", "Confirm uninstallation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    if (!Directory.Exists(this.DownloadDirectory + "/" + this.Namespace))
+                        return;
+                    DirectoryInfo DI = new DirectoryInfo(this.DownloadDirectory + "/" + this.Namespace);
+                    foreach (FileInfo FI in DI.GetFiles("*.*"))
+                    {
+                        File.Delete(FI.FullName);
+                    }
+                }
+                Installed = false;
+                return;
+            }
             backgroundWorker1.RunWorkerAsync((DownloadDirectory + "/"));
             progressBar1.Show();
             progressBar1.Style = ProgressBarStyle.Marquee;
+
+            // Set progressbar position as the button
+            progressBar1.Left = button1.Left;
+            progressBar1.Top = button1.Top;
+            progressBar1.Width = button1.Width;
+          
+            progressBar1.Anchor = button1.Anchor;
             button1.Hide();
+           
         }
         /// <summary>
         /// Gets or sets the title of the engine
@@ -170,7 +205,7 @@ namespace MediaChrome.ServicesSelector
         {
             Install();
         }
-
+        public List<String> Files = new List<string>();
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
            
@@ -179,7 +214,7 @@ namespace MediaChrome.ServicesSelector
             /***
              * Get an list of all files attached to an plugin and download files
              * */
-            List<String> files = EngineManager.ListFilesFromFtp(this.Host+"/"+this.Address, ftpCreditals);
+            List<String> files = AddOnManager.ListFilesFromFtp(this.Host+"/"+Address, ftpCreditals);
 
             
             // Download all found files
@@ -194,6 +229,8 @@ namespace MediaChrome.ServicesSelector
                 }
                 // Download the plugin
                 BasicFTPClient WC = new BasicFTPClient(ftpCreditals.UserName,ftpCreditals.Password,this.Host.Replace("ftp://",""));
+                
+                //  WebClient WC = new WebClient();
                 WC.DownloadFile((this.Address+"/"+DirName),tPath+"\\"+DirName );
                 
             }
@@ -211,9 +248,22 @@ namespace MediaChrome.ServicesSelector
             }
             set
             {
-                this.button1.Text = installed ? "Uninstall" : "Install";
                 installed = value;
+                this.button1.Text = installed ? "Uninstall" : "Install";
+                
             }
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this.button1.Show();
+            this.progressBar1.Hide();
+            Installed = true;
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

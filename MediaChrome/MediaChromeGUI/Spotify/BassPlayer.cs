@@ -9,15 +9,15 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
-using MediaChrome.Views;
 using MediaChrome;
+using MediaChrome.Views;
 using Spotify;
 using Un4seen.Bass;
 
 
-namespace SpotifyPlugin
+namespace MediaChrome
 {
-	public class SpotifyPlayer : MediaChrome.IPlayEngine
+	public class spotify : MediaChrome.IPlayEngine
     {
         /// <summary>
         /// Get an custom property of the engine
@@ -576,18 +576,21 @@ namespace SpotifyPlugin
 		{
 			return new List<MediaChrome.Song>();
 		}
-		public SpotifyPlayer()
+#if(r)
+		public spotify()
 		{
+           
 			// Creat artists dictionary
             artists = new Dictionary<string, MediaChrome.IMedia>();
 			view = new Spotify.SpotifyView();
         	  Spocky.MyClass D = new Spocky.MyClass();
-             SpotifySession = Spotify.Session.CreateInstance(D.AppKey(), "SpofityCaches", "SpofityCaches", "LinSpot");
-             Login sD = new Login(this);
+             SpotifySession = Spotify.Session.CreateInstance(D.AppKey(), "C:\\SpofityCaches", "C:\\SpofityCaches", "LinSpot");
+            /* Login sD = new Login(this);
              if (sD.ShowDialog() == DialogResult.OK)
              {
                  SpotifySession.LogInSync(sD.User, sD.Pass, new TimeSpan(4000));
-             }
+             }*/
+
              SpotifySession.OnConnectionError += new SessionEventHandler(SpotifySession_OnConnectionError);
              SpotifySession.OnMusicDelivery += new MusicDeliveryEventHandler(SpotifySession_OnMusicDelivery);
 
@@ -596,16 +599,16 @@ namespace SpotifyPlugin
              SpotifySession.OnAlbumBrowseComplete += new AlbumBrowseEventHandler(SpotifySession_OnAlbumBrowseComplete);
              SpotifySession.OnImageLoaded += new ImageEventHandler(SpotifySession_OnImageLoaded);
              SpotifySession.PlaylistContainer.OnContainerLoaded += new PlaylistContainerEventHandler(PlaylistContainer_OnContainerLoaded);
-#if (nobug) 
+
             while (!playlistLoaded)
              {
                  Thread.Sleep(100);
              }
-#endif
+
              LoggedIn = true;
        
         }
-
+#endif
         void PlaylistContainer_OnContainerLoaded(PlaylistContainer sender, PlaylistContainerEventArgs e)
         {
             playlistLoaded = true;

@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.imageList1 = new System.Windows.Forms.ImageList();
-            this.toolTip1 = new System.Windows.Forms.ToolTip();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.copySpotifyURIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,14 +45,14 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.serialPort1 = new System.IO.Ports.SerialPort();
-            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip();
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.eToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.timer1 = new System.Windows.Forms.Timer();
-            this.timer2 = new System.Windows.Forms.Timer();
-            this.timer3 = new System.Windows.Forms.Timer();
-            this.timer4 = new System.Windows.Forms.Timer();
-            this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.timer3 = new System.Windows.Forms.Timer(this.components);
+            this.timer4 = new System.Windows.Forms.Timer(this.components);
+            this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.playOpenResourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu1 = new System.Windows.Forms.ContextMenu();
             this.menuItem1 = new System.Windows.Forms.MenuItem();
@@ -65,7 +66,6 @@
             this.menuItem9 = new System.Windows.Forms.MenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.panel3 = new MediaChrome.ExPanel();
-            this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
             this.listViewX1 = new MediaChrome.XListView();
             this.panel4 = new MediaChrome.ExPanel();
             this.label4 = new System.Windows.Forms.Label();
@@ -102,7 +102,6 @@
             this.contextMenuStrip2.SuspendLayout();
             this.contextMenuStrip3.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             this.panel4.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -176,13 +175,13 @@
             // facebookToolStripMenuItem
             // 
             this.facebookToolStripMenuItem.Name = "facebookToolStripMenuItem";
-            this.facebookToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.facebookToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.facebookToolStripMenuItem.Text = "Facebook";
             // 
             // twitterToolStripMenuItem
             // 
             this.twitterToolStripMenuItem.Name = "twitterToolStripMenuItem";
-            this.twitterToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.twitterToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.twitterToolStripMenuItem.Text = "Twitter";
             // 
             // toolStripMenuItem3
@@ -323,25 +322,14 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.axWindowsMediaPlayer1);
             this.panel3.Controls.Add(this.listViewX1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(2, 86);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1076, 81);
+            this.panel3.Size = new System.Drawing.Size(943, 464);
             this.panel3.TabIndex = 24;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint_1);
-            // 
-            // axWindowsMediaPlayer1
-            // 
-            this.axWindowsMediaPlayer1.Enabled = true;
-            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(589, 113);
-            this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
-            this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
-            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(380, 111);
-            this.axWindowsMediaPlayer1.TabIndex = 23;
-            this.axWindowsMediaPlayer1.Visible = false;
-            // 
+             // 
             // listViewX1
             // 
             this.listViewX1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
@@ -350,7 +338,7 @@
             this.listViewX1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
             this.listViewX1.Location = new System.Drawing.Point(0, 0);
             this.listViewX1.Name = "listViewX1";
-            this.listViewX1.Size = new System.Drawing.Size(211, 81);
+            this.listViewX1.Size = new System.Drawing.Size(211, 464);
             this.listViewX1.TabIndex = 22;
             this.listViewX1.UseCompatibleStateImageBehavior = false;
             this.listViewX1.View = System.Windows.Forms.View.Details;
@@ -372,9 +360,9 @@
             this.panel4.Controls.Add(this.cBtn8);
             this.panel4.Controls.Add(this.menuStrip2);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(2, 167);
+            this.panel4.Location = new System.Drawing.Point(2, 550);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1076, 53);
+            this.panel4.Size = new System.Drawing.Size(943, 53);
             this.panel4.TabIndex = 23;
             this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
             // 
@@ -384,7 +372,7 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(912, 12);
+            this.label4.Location = new System.Drawing.Point(779, 12);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 13);
             this.label4.TabIndex = 24;
@@ -406,7 +394,7 @@
             this.panel8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.panel8.BackColor = System.Drawing.Color.Transparent;
             this.panel8.Cursor = System.Windows.Forms.Cursors.SizeNWSE;
-            this.panel8.Location = new System.Drawing.Point(1033, 10);
+            this.panel8.Location = new System.Drawing.Point(900, 10);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(43, 43);
             this.panel8.TabIndex = 23;
@@ -420,7 +408,7 @@
             this.panel6.Cursor = System.Windows.Forms.Cursors.SizeNS;
             this.panel6.Location = new System.Drawing.Point(10, 41);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1027, 12);
+            this.panel6.Size = new System.Drawing.Size(894, 12);
             this.panel6.TabIndex = 22;
             this.panel6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel6_MouseDown);
             // 
@@ -448,7 +436,7 @@
             this.ucPosBar1.Location = new System.Drawing.Point(255, 12);
             this.ucPosBar1.Maximum = 100F;
             this.ucPosBar1.Name = "ucPosBar1";
-            this.ucPosBar1.Size = new System.Drawing.Size(651, 13);
+            this.ucPosBar1.Size = new System.Drawing.Size(518, 13);
             this.ucPosBar1.TabIndex = 14;
             this.ucPosBar1.Value = 0F;
             this.ucPosBar1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ucPosBar1_MouseDown);
@@ -522,7 +510,7 @@
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
             this.toolStripMenuItem5.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(136, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(140, 22);
             this.toolStripMenuItem5.Text = "Filter";
             // 
             // panel1
@@ -532,7 +520,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 86);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(2, 134);
+            this.panel1.Size = new System.Drawing.Size(2, 517);
             this.panel1.TabIndex = 20;
             // 
             // panel7
@@ -540,7 +528,7 @@
             this.panel7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panel7.BackColor = System.Drawing.Color.Transparent;
             this.panel7.Cursor = System.Windows.Forms.Cursors.SizeNESW;
-            this.panel7.Location = new System.Drawing.Point(0, 122);
+            this.panel7.Location = new System.Drawing.Point(0, 505);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(13, 12);
             this.panel7.TabIndex = 22;
@@ -555,7 +543,7 @@
             this.pane5.Dock = System.Windows.Forms.DockStyle.Top;
             this.pane5.Location = new System.Drawing.Point(0, 53);
             this.pane5.Name = "pane5";
-            this.pane5.Size = new System.Drawing.Size(1078, 33);
+            this.pane5.Size = new System.Drawing.Size(945, 33);
             this.pane5.TabIndex = 14;
             this.pane5.Visible = false;
             // 
@@ -563,7 +551,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Location = new System.Drawing.Point(1045, 2);
+            this.label5.Location = new System.Drawing.Point(912, 2);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(30, 30);
             this.label5.TabIndex = 0;
@@ -600,7 +588,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1078, 53);
+            this.panel2.Size = new System.Drawing.Size(945, 53);
             this.panel2.TabIndex = 12;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             this.panel2.DoubleClick += new System.EventHandler(this.panel2_DoubleClick);
@@ -617,7 +605,7 @@
             this.panel5.Cursor = System.Windows.Forms.Cursors.SizeNS;
             this.panel5.Location = new System.Drawing.Point(9, -4);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1060, 17);
+            this.panel5.Size = new System.Drawing.Size(927, 17);
             this.panel5.TabIndex = 22;
             this.panel5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel5_MouseDown);
             // 
@@ -627,7 +615,7 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(469, 3);
+            this.label3.Location = new System.Drawing.Point(402, 3);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 13);
             this.label3.TabIndex = 17;
@@ -638,7 +626,7 @@
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox3.BackgroundImage = global::MediaChrome.Properties.Resources.kan21;
-            this.pictureBox3.Location = new System.Drawing.Point(1068, 0);
+            this.pictureBox3.Location = new System.Drawing.Point(935, 0);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(10, 10);
             this.pictureBox3.TabIndex = 21;
@@ -751,7 +739,7 @@
             // 
             this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
             this.filterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.filterToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.filterToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.filterToolStripMenuItem.Text = "Filter";
             this.filterToolStripMenuItem.Click += new System.EventHandler(this.filterToolStripMenuItem_Click);
             // 
@@ -760,7 +748,7 @@
             this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1078, 220);
+            this.ClientSize = new System.Drawing.Size(945, 603);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel1);
@@ -787,7 +775,6 @@
             this.contextMenuStrip2.ResumeLayout(false);
             this.contextMenuStrip3.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.menuStrip2.ResumeLayout(false);
@@ -848,7 +835,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private ExPanel panel3;
-        private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
         private cBtn cBtn2;
         private System.Windows.Forms.Label label3;
         private webclassprototype.ucPosBar ucPosBar1;

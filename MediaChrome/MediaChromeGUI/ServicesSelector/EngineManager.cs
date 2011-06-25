@@ -13,13 +13,65 @@ using MediaChrome.ServicesSelector;
 using BasicFTPClientNamespace;
 namespace MediaChrome
 {
-    public partial class EngineManager : Form
+    public partial class AddOnManager : Form
     {
-        public EngineManager()
+        /// <summary>
+        /// Creates an new add-on manager
+        /// </summary>
+        /// <param name="host">Host for addons</param>
+        /// <param name="title">Title</param>
+        /// <param name="downloadFolder">Folder for storage of add-ons</param>
+        /// <param name="user">User name</param>
+        /// <param name="pass">password</param>
+        public AddOnManager(string host,string title,string downloadFolder,string Description, string user,string pass)
+        {
+            InitializeComponent();
+            this.Host=host;
+            this.Text = title;
+            this.DownloadDir = downloadFolder;
+            this.textBox1.Text = user;
+            this.textBox2.Text = pass;
+            PaneVisible = false;
+            button3_Click(this, new EventArgs());
+
+        }
+        public AddOnManager()
         {
             InitializeComponent();
         }
+        private bool paneVisible;
+        public bool PaneVisible
+        {
+            get
+            {
+                return paneVisible;
+            }
+            set
+            {
+                paneVisible = value;
+                this.panel3.Visible = PaneVisible;
+                this.progressBar1.Top = PaneVisible ? this.panel3.Top : this.label4.Top + this.label4.Height;
+                this.panel2.Top = this.progressBar1.Top + this.progressBar1.Height + 20;
+            }
+        }
+        private bool changesApplied;
 
+        /// <summary>
+        /// Indicates where changes is applied
+        /// </summary>
+        public bool ChangesApplied
+        {
+            get
+            {
+                return changesApplied;
+            }
+            set
+            {
+                
+                changesApplied = value;
+                this.button2.Text = changesApplied ? "Restart" : "Close";
+            }
+        }
         private void EngineManager_Load(object sender, EventArgs e)
         {
 
@@ -130,6 +182,7 @@ namespace MediaChrome
                     // If directory not contains . it's an directory
                     if (!dir.Contains("."))
                     {
+
                         // Download the information file
                         BasicFTPClient WC = new BasicFTPClient(cred.UserName, cred.Password, Host.Replace("ftp://",""));
                        
@@ -145,7 +198,7 @@ namespace MediaChrome
                         Engine.Namespace = D.GetElementsByTagName("namespace")[0].InnerText;
                         Engine.Host = Host;
                         Engine.Address = dir;
-                        Engine.Installed = File.Exists(DownloadDir + "\\" + Engine.Namespace + ".dll");
+                        Engine.Installed = File.Exists(DownloadDir + "\\" + Engine.Namespace+"\\"+ Engine.Namespace + ".dll");
                         Descriptors.Add(Engine);
 
                     }
@@ -171,7 +224,7 @@ namespace MediaChrome
                 
                 this.panel2.Controls.Add(w);
                 w.Dock = DockStyle.Top;
-                w.Height = 300;
+              
 
             }
             progressBar1.Hide();
@@ -180,6 +233,7 @@ namespace MediaChrome
         NetworkCredential cred;
         private void button3_Click(object sender, EventArgs e)
         {
+            this.panel2.Controls.Clear();
             // Use creditals provided with the textboxes
             cred = new NetworkCredential(textBox1.Text, textBox2.Text);
             Host = comboBox1.Text;
@@ -198,6 +252,35 @@ namespace MediaChrome
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            /**
+             * Restart mediaChrome if plugins has been installed or removed
+             * */
+            if (ChangesApplied)
+                Application.Restart();
+
+        }
+
+        private void AddOnManager_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
+
+        private void AddOnManager_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            /**
+             * Restart mediaChrome if plugins has been installed or removed
+             * */
+            if (ChangesApplied)
+                Application.Restart();
         }
     }
 }

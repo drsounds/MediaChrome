@@ -2,10 +2,8 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\MediaChr
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\Resources\kan1.png
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\Resources\kan2.png
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\Board.exe
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\Id3Tag.Net.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\JsonFx.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\MediaChrome.dll
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\NAudio.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\System.Data.SQLite.DLL
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\System.Data.SQLite.Linq.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\Jint.dll
@@ -13,11 +11,8 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\Board.pd
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\Id3Tag.Net.xml
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\JsonFx.xml
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\System.Data.SQLite.xml
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\Interop.WMPLib.dll
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\AxInterop.WMPLib.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\ResolveAssemblyReference.cache
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\Interop.WMPLib.dll
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\AxInterop.WMPLib.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChromeGUI.csproj.ResolveComReference.cache
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.cBtn.resources
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.Engines.resources
@@ -49,5 +44,9 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChr
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChromeGUI.application
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.Switch.resources
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.ServicesSelector.EngineEntry.resources
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.EngineManager.resources
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.Options.resources
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.AddOnManager.resources
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\sv\MediaChromeGUI.resources.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChrome.Properties.Resources.sv.resources
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\sv\MediaChromeGUI.resources.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\Interop.WMPLib.dll

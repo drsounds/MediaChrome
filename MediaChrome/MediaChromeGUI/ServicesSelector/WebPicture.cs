@@ -11,9 +11,10 @@ namespace MediaChrome.ServicesSelector
 {
     class WebPicture : PictureBox
     {
+        public  WebClient WC = new WebClient();
         private Uri uri;
 
-      
+       
         
         public Uri Url
         {
@@ -27,7 +28,7 @@ namespace MediaChrome.ServicesSelector
                 /**
                  * Download image asynchronisly
                  * */
-                WebClient WC = new WebClient();
+               
                 WC.DownloadDataCompleted+=new DownloadDataCompletedEventHandler(WC_DownloadDataCompleted);
                 if(uri != null)
                 WC.DownloadDataAsync(uri);
@@ -39,11 +40,15 @@ namespace MediaChrome.ServicesSelector
 
         void WC_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
         {
-            MemoryStream MS =new MemoryStream(e.Result);
+            try
+            {
+                MemoryStream MS = new MemoryStream(e.Result);
 
 
-            Image By = Image.FromStream(MS);
-            this.BackgroundImage = By;
+                Image By = Image.FromStream(MS);
+                this.BackgroundImage = By;
+            }
+            catch { }
         }
     }
 }

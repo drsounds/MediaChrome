@@ -473,6 +473,15 @@ namespace MediaChrome.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Media Service allows you to listen to music from many sources. By integrating many media services, your media experience will be better since MediaChrome&apos;s MusicMatch feature will try to find missing music on other of your source, so you won&apos;t loose any music.
+        /// </summary>
+        internal static string str_service_import {
+            get {
+                return ResourceManager.GetString("str_service_import", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap toolbar {
             get {
                 object obj = ResourceManager.GetObject("toolbar", resourceCulture);

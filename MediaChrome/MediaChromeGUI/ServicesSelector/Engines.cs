@@ -31,8 +31,7 @@ namespace MediaChrome
         }
         private void Engines_Load(object sender, EventArgs e)
         {
-            this.BackgroundImage = Host.Skin.Components["Menu#BG"].BackgroundImage;
-            this.BackColor = Host.Skin.Components["Menu#BG"].BackColor;
+           
             int left = 10;
             int top = 80;
             int increase=60;
@@ -150,8 +149,14 @@ namespace MediaChrome
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            EngineManager d = new EngineManager();
-            d.Show();
+            AddOnManager d = new AddOnManager("ftp://195.74.38.22", "Add views", "C:\\MediaProviders", Properties.Resources.str_service_import, "132246_public", "12345678");
+            d.ShowDialog();
+        }
+
+        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            AddOnManager addons = new AddOnManager("ftp://195.74.38.22", "Add views", "C:\\MediaViews","", "132246_mc_views", "12345678");
+            addons.ShowDialog();
         }
     }
 }

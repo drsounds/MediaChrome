@@ -2,8 +2,6 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\obj\Debug\
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\obj\Debug\Spotify.SpotifyView.resources
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\obj\Debug\GenerateResource.read.1.tlog
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\obj\Debug\GenerateResource.write.1.tlog
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\obj\Debug\SpotifyPlugin.Properties.Resources.resources
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\obj\Debug\SpotifyPlugin.Login.resources
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\Resources\kan1.png
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\Resources\kan2.png
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\Spotify.dll
@@ -20,7 +18,6 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\Jint.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\LibspotifySharp.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\System.Data.SQLite.dll
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\AxInterop.WMPLib.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\WebKit.Interop.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\Interop.WMPLib.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\Board.pdb
@@ -31,3 +28,6 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\System.Data.SQLite.xml
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\obj\Debug\Spotify.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\obj\Debug\Spotify.pdb
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\sv\MediaChromeGUI.resources.dll
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\obj\Debug\MediaChrome.Login.resources
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\obj\Debug\MediaChrome.Properties.Resources.resources
