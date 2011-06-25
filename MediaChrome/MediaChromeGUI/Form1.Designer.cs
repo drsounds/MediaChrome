@@ -1,4 +1,4 @@
-﻿namespace MediaChrome
+﻿namespace MediaChromeGUI
 {
     partial class Form1
     {
@@ -65,36 +65,36 @@
             this.menuItem8 = new System.Windows.Forms.MenuItem();
             this.menuItem9 = new System.Windows.Forms.MenuItem();
             this.button1 = new System.Windows.Forms.Button();
-            this.panel3 = new MediaChrome.ExPanel();
-            this.listViewX1 = new MediaChrome.XListView();
-            this.panel4 = new MediaChrome.ExPanel();
+            this.panel3 = new MediaChromeGUI.ExPanel();
+            this.listViewX1 = new MediaChromeGUI.XListView();
+            this.panel4 = new MediaChromeGUI.ExPanel();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.ucPosBar2 = new webclassprototype.ucPosBar();
             this.ucPosBar1 = new webclassprototype.ucPosBar();
-            this.cBtn2 = new MediaChrome.cBtn();
-            this.cBtn1 = new MediaChrome.cBtn();
-            this.cBtn8 = new MediaChrome.cBtn();
+            this.cBtn2 = new MediaChromeGUI.cBtn();
+            this.cBtn1 = new MediaChromeGUI.cBtn();
+            this.cBtn8 = new MediaChromeGUI.cBtn();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1 = new MediaChrome.ExPanel();
+            this.panel1 = new MediaChromeGUI.ExPanel();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.pane5 = new MediaChrome.ExPanel();
+            this.pane5 = new MediaChromeGUI.ExPanel();
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.panel2 = new MediaChrome.ExPanel();
+            this.panel2 = new MediaChromeGUI.ExPanel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.cBtn4 = new MediaChrome.cBtn();
-            this.cBtn5 = new MediaChrome.cBtn();
-            this.cBtn3 = new MediaChrome.cBtn();
-            this.textBox1 = new MediaChrome.ucSearch();
+            this.cBtn4 = new MediaChromeGUI.cBtn();
+            this.cBtn5 = new MediaChromeGUI.cBtn();
+            this.cBtn3 = new MediaChromeGUI.cBtn();
+            this.textBox1 = new MediaChromeGUI.ucSearch();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -347,7 +347,7 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panel4.BackgroundImage = global::MediaChrome.Properties.Resources.top_wall;
+            this.panel4.BackgroundImage = global::MediaChromeGUI.Properties.Resources.top_wall;
             this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel4.Controls.Add(this.label4);
             this.panel4.Controls.Add(this.label1);
@@ -447,7 +447,7 @@
             this.cBtn2.BackColor = System.Drawing.Color.Transparent;
             this.cBtn2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn2.BackgroundImage")));
             this.cBtn2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.cBtn2.Img = global::MediaChrome.Properties.Resources.back;
+            this.cBtn2.Img = global::MediaChromeGUI.Properties.Resources.back;
             this.cBtn2.Location = new System.Drawing.Point(9, 0);
             this.cBtn2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cBtn2.Name = "cBtn2";
@@ -462,7 +462,7 @@
             this.cBtn1.BackColor = System.Drawing.Color.Transparent;
             this.cBtn1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn1.BackgroundImage")));
             this.cBtn1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.cBtn1.Img = global::MediaChrome.Properties.Resources.forward;
+            this.cBtn1.Img = global::MediaChromeGUI.Properties.Resources.forward;
             this.cBtn1.Location = new System.Drawing.Point(102, 0);
             this.cBtn1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cBtn1.Name = "cBtn1";
@@ -477,7 +477,7 @@
             this.cBtn8.BackColor = System.Drawing.Color.Transparent;
             this.cBtn8.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn8.BackgroundImage")));
             this.cBtn8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.cBtn8.Img = global::MediaChrome.Properties.Resources.play;
+            this.cBtn8.Img = global::MediaChromeGUI.Properties.Resources.play;
             this.cBtn8.Location = new System.Drawing.Point(56, 0);
             this.cBtn8.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cBtn8.Name = "cBtn8";
@@ -573,7 +573,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panel2.BackgroundImage = global::MediaChrome.Properties.Resources.top_wall;
+            this.panel2.BackgroundImage = global::MediaChromeGUI.Properties.Resources.top_wall;
             this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel2.Controls.Add(this.panel5);
             this.panel2.Controls.Add(this.pictureBox3);
@@ -625,7 +625,7 @@
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox3.BackgroundImage = global::MediaChrome.Properties.Resources.kan21;
+            this.pictureBox3.BackgroundImage = global::MediaChromeGUI.Properties.Resources.kan21;
             this.pictureBox3.Location = new System.Drawing.Point(935, 0);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(10, 10);
@@ -636,7 +636,7 @@
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.BackgroundImage = global::MediaChrome.Properties.Resources.kan11;
+            this.pictureBox2.BackgroundImage = global::MediaChromeGUI.Properties.Resources.kan11;
             this.pictureBox2.Cursor = System.Windows.Forms.Cursors.SizeNWSE;
             this.pictureBox2.Location = new System.Drawing.Point(0, 0);
             this.pictureBox2.Name = "pictureBox2";
@@ -648,7 +648,7 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.BackgroundImage = global::MediaChrome.Properties.Resources.icon;
+            this.pictureBox1.BackgroundImage = global::MediaChromeGUI.Properties.Resources.icon;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pictureBox1.Location = new System.Drawing.Point(9, 13);
             this.pictureBox1.Name = "pictureBox1";
@@ -662,7 +662,7 @@
             this.cBtn4.BackColor = System.Drawing.Color.Transparent;
             this.cBtn4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn4.BackgroundImage")));
             this.cBtn4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.cBtn4.Img = global::MediaChrome.Properties.Resources.forward;
+            this.cBtn4.Img = global::MediaChromeGUI.Properties.Resources.forward;
             this.cBtn4.Location = new System.Drawing.Point(87, 14);
             this.cBtn4.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cBtn4.Name = "cBtn4";
@@ -693,7 +693,7 @@
             this.cBtn3.BackColor = System.Drawing.Color.Transparent;
             this.cBtn3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cBtn3.BackgroundImage")));
             this.cBtn3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.cBtn3.Img = global::MediaChrome.Properties.Resources.back;
+            this.cBtn3.Img = global::MediaChromeGUI.Properties.Resources.back;
             this.cBtn3.Location = new System.Drawing.Point(48, 14);
             this.cBtn3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cBtn3.Name = "cBtn3";

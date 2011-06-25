@@ -51,4 +51,3 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\MediaChrome.dl
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\MediaChromeGUI.pdb
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\WebKitBrowser.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\WebKit.Interop.dll
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\DeskWiki\bin\Debug\sv\MediaChromeGUI.resources.dll

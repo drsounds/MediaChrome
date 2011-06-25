@@ -1,4 +1,4 @@
-﻿namespace MediaChrome
+﻿namespace MediaChromeGUI
 {
     partial class Preferences
     {

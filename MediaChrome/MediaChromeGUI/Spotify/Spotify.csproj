@@ -79,10 +79,6 @@
     <Compile Include="StreamingBuffer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Board\Board.csproj">
-      <Project>{6471D06B-3647-4FDF-B980-7A59F9BDB790}</Project>
-      <Name>Board</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\DeskWiki\DeskWiki.csproj">
       <Project>{73C5EBB2-4FFF-4479-9B56-B3B0EE4FEC40}</Project>
       <Name>DeskWiki</Name>

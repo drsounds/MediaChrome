@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace MediaChrome
+namespace MediaChromeGUI
 {
     public partial class Switch : UserControl
     {
@@ -15,7 +15,7 @@ namespace MediaChrome
         {
             InitializeComponent();
             if (this.BackgroundImage == null)
-                this.BackgroundImage = MediaChrome.Properties.Resources._switch;
+                this.BackgroundImage = MediaChromeGUI.Properties.Resources._switch;
         }
         /// <summary>
         /// The switch value

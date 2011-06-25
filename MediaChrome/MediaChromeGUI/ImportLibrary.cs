@@ -13,8 +13,8 @@ using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-
-namespace MediaChrome
+using MediaChrome;
+namespace MediaChromeGUI
 {
 	/// <summary>
 	/// Description of ImportLibrary.
@@ -48,7 +48,7 @@ namespace MediaChrome
 			comboBox1.DisplayMember="Title";
 			comboBox1.ValueMember="Namespace";
 			List<IPlayEngine> Engines = new List<IPlayEngine>();
-            foreach (IPlayEngine Engine in MediaChrome.Program.MediaEngines.Values)
+            foreach (IPlayEngine Engine in MediaChromeGUI.Program.MediaEngines.Values)
 			{
 				Engines.Add(Engine);
 			}
@@ -118,7 +118,7 @@ namespace MediaChrome
 		
 		void Button2Click(object sender, EventArgs e)
 		{
-			Importer = (IPlayEngine)MediaChrome.Program.MediaEngines[(String)comboBox1.SelectedValue];
+			Importer = (IPlayEngine)MediaChromeGUI.Program.MediaEngines[(String)comboBox1.SelectedValue];
 			button2.Enabled=false;
 			button1.Enabled=false;
 			Thread XCM = new Thread(ImportFiles);

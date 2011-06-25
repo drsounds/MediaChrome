@@ -15,3 +15,4 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\obj\Debug\GenerateRes
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\obj\Debug\GenerateResource-ResGen.write.1.tlog
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\obj\Debug\GenerateResource.read.1.tlog
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\obj\Debug\GenerateResource.write.1.tlog
+L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\bin\Debug\MediaChrome.dll.config

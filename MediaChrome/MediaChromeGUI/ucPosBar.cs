@@ -67,14 +67,14 @@ namespace webclassprototype
         {
             get
             {
-                return MediaChrome.Properties.Resources.playthumb;
+                return MediaChromeGUI.Properties.Resources.playthumb;
             }
         }
         public Image Bar
         {
             get
             {
-                return MediaChrome.Properties.Resources.position_bar;
+                return MediaChromeGUI.Properties.Resources.position_bar;
             }
         }
         public Color BorderColor

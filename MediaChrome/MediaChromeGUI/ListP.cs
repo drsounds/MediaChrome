@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.Drawing;
 using System.Drawing.Design;
-namespace MediaChrome
+namespace MediaChromeGUI
 {
     class ListViewX : ListView
     {

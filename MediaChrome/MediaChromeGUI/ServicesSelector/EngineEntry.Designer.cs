@@ -1,4 +1,4 @@
-﻿namespace MediaChrome.ServicesSelector
+﻿namespace MediaChromeGUI.ServicesSelector
 {
     partial class EngineEntry
     {
@@ -36,8 +36,9 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.pictureBox1 = new MediaChrome.ServicesSelector.WebPicture();
-            this.pictureBox2 = new MediaChrome.ServicesSelector.WebPicture();
+            this.pictureBox1 = new MediaChromeGUI.ServicesSelector.WebPicture();
+            this.pictureBox2 = new MediaChromeGUI.ServicesSelector.WebPicture();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -111,9 +112,9 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(149, 18);
+            this.progressBar1.Location = new System.Drawing.Point(409, 40);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(254, 10);
+            this.progressBar1.Size = new System.Drawing.Size(75, 10);
             this.progressBar1.TabIndex = 8;
             this.progressBar1.Visible = false;
             // 
@@ -143,11 +144,25 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Url = null;
             // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Green;
+            this.label5.Location = new System.Drawing.Point(335, 14);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(61, 18);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Installed";
+            this.label5.Visible = false;
+            // 
             // EngineEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.linkLabel1);
@@ -179,5 +194,6 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private WebPicture pictureBox2;
+        private System.Windows.Forms.Label label5;
     }
 }

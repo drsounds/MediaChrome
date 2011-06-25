@@ -1,4 +1,4 @@
-﻿namespace MediaChrome.ServicesSelector
+﻿namespace MediaChromeGUI.ServicesSelector
 {
     partial class ServiceEntry
     {
@@ -33,7 +33,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.switch1 = new MediaChrome.Switch();
+            this.switch1 = new MediaChromeGUI.Switch();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 

@@ -1,4 +1,4 @@
-﻿namespace MediaChrome
+﻿namespace MediaChromeGUI
 {
     partial class AddOnManager
     {
@@ -42,7 +42,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.webPicture1 = new MediaChrome.ServicesSelector.WebPicture();
+            this.webPicture1 = new MediaChromeGUI.ServicesSelector.WebPicture();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webPicture1)).BeginInit();

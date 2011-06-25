@@ -49,7 +49,7 @@ namespace MediaChrome
 			this.label1 = new System.Windows.Forms.Label();
 			this.textBox2 = new System.Windows.Forms.TextBox();
 			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.pane1 = new MediaChrome.Pane();
+			this.pane1 = new MediaChromeGUI.Pane();
 			this.pictureBox2 = new System.Windows.Forms.PictureBox();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.panel1.SuspendLayout();
@@ -238,6 +238,6 @@ namespace MediaChrome
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox textBox1;
-		private MediaChrome.Pane pane1;
+		private MediaChromeGUI.Pane pane1;
 	}
 }

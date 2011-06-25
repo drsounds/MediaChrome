@@ -9,9 +9,9 @@ using System.Windows.Forms;
 using System.Net;
 using System.IO;
 using System.Xml;
-using MediaChrome.ServicesSelector;
+using MediaChromeGUI.ServicesSelector;
 using BasicFTPClientNamespace;
-namespace MediaChrome
+namespace MediaChromeGUI
 {
     public partial class AddOnManager : Form
     {
@@ -198,7 +198,7 @@ namespace MediaChrome
                         Engine.Namespace = D.GetElementsByTagName("namespace")[0].InnerText;
                         Engine.Host = Host;
                         Engine.Address = dir;
-                        Engine.Installed = File.Exists(DownloadDir + "\\" + Engine.Namespace+"\\"+ Engine.Namespace + ".dll");
+                        Engine.Installed = Directory.Exists(DownloadDir + "\\" + Engine.Namespace+"\\");
                         Descriptors.Add(Engine);
 
                     }

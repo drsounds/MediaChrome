@@ -5,7 +5,7 @@ using System.Text;
 using Spotify;
 using System.IO;
 
-namespace MediaChrome
+namespace MediaChromeGUI
 {/*
     class SpotifyEngine 
     {

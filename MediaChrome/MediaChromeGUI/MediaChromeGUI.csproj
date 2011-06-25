@@ -8,7 +8,7 @@
     <ProjectGuid>{2B72EF2A-6611-4492-A753-0E1C8612A3E2}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MediaChrome</RootNamespace>
+    <RootNamespace>MediaChromeGUI</RootNamespace>
     <AssemblyName>MediaChromeGUI</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
@@ -52,7 +52,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>MediaChrome.Program</StartupObject>
+    <StartupObject>MediaChromeGUI.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
@@ -193,6 +193,11 @@
     <Compile Include="Engines\MP3\Options.Designer.cs">
       <DependentUpon>Options.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="ServicesSelector\EngineEntry.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -274,15 +279,6 @@
     <Compile Include="ServicesSelector\WebPicture.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Settings.cs" />
-    <Compile Include="Settings.Designer.cs">
-      <DependentUpon>Settings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Settings1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
     <Compile Include="SpotifyPlugin.cs" />
     <Compile Include="Switch.cs">
       <SubType>UserControl</SubType>
@@ -323,7 +319,6 @@
     <EmbeddedResource Include="Engines\MP3\Options.resx">
       <DependentUpon>Options.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.sv.resx" />
     <EmbeddedResource Include="ServicesSelector\EngineEntry.resx">
       <DependentUpon>EngineEntry.cs</DependentUpon>
     </EmbeddedResource>
@@ -374,11 +369,11 @@
     <None Include="app.config" />
     <None Include="Program.cs.backup" />
     <None Include="Properties\app.manifest" />
-    <None Include="Resources\rbottom.png" />
-    <None Include="Settings.settings">
+    <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Resources\rbottom.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\StyleSheet.txt" />
@@ -404,20 +399,6 @@
     <None Include="Resources\kan2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Board\Board.csproj">
-      <Project>{6471D06B-3647-4FDF-B980-7A59F9BDB790}</Project>
-      <Name>Board</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MediaChrome\MediaChrome.csproj">
-      <Project>{1D280F8A-C27B-40A2-AA08-71DB6E82E530}</Project>
-      <Name>MediaChrome</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SacredRealm\Spocky\Spocky.csproj">
-      <Project>{124CAA53-A566-45DC-AC7A-E24752AB2E58}</Project>
-      <Name>Spocky</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -525,7 +506,16 @@
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Board\Board.csproj">
+      <Project>{6471D06B-3647-4FDF-B980-7A59F9BDB790}</Project>
+      <Name>Board</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MediaChrome\MediaChrome.csproj">
+      <Project>{1D280F8A-C27B-40A2-AA08-71DB6E82E530}</Project>
+      <Name>MediaChrome</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
-namespace MediaChrome
+namespace MediaChromeGUI
 {
     public partial class UpdatePlaylist : Form
     {

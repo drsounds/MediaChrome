@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SQLite;
 using MediaChrome;
-namespace MediaChrome
+namespace MediaChromeGUI
 {
     public class LocalLibrary
     {

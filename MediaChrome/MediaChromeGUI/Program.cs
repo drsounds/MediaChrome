@@ -9,8 +9,8 @@ using System.IO;
 using Spotify;
 using System.Text;
 using System.Reflection;
-
-namespace MediaChrome
+using MediaChrome;
+namespace MediaChromeGUI
 {
     static class Program
     {
@@ -36,7 +36,19 @@ namespace MediaChrome
         /// <summary>
         /// Social networks
         /// </summary>
-        public static Dictionary<String, MediaChrome.SocialNetworking.ISocialNetwork> SocialNetworks = new Dictionary<string,SocialNetworking.ISocialNetwork>();
+        public static Dictionary<String, MediaChrome.SocialNetworking.ISocialNetwork> SocialNetworks = new Dictionary<string,MediaChrome.SocialNetworking.ISocialNetwork>();
+
+        public static void LoadSocialNetworks(string Location)
+        {
+            // Return if the folder does not exists
+            if (!Directory.Exists(Location))
+                return;
+            DirectoryInfo DI = new DirectoryInfo(Location);
+            foreach (DirectoryInfo di in DI.GetDirectories())
+            {
+                LoadEngine<MediaChrome.SocialNetworking.ISocialNetwork>(di, Program.SocialNetworks);
+            }
+        }
 
         /// <summary>
         /// Loads an set of media providers into MediaChrome's provider list
@@ -45,9 +57,11 @@ namespace MediaChrome
         public static void LoadEngines(string Location)
         {
             DirectoryInfo DI = new DirectoryInfo(Location);
+            if (!Directory.Exists(Location))
+                return;
             foreach (DirectoryInfo dir in DI.GetDirectories())
             {
-                LoadEngine(dir);
+                LoadEngine<IPlayEngine>(dir,Program.MediaEngines);
             }
         }
       
@@ -56,7 +70,7 @@ namespace MediaChrome
         /// </summary>
         /// <param name="Dir">the directory of the engine</param>
         /// <returns>An boolean indicating the load was sucessfull or failed</returns>
-        public static bool LoadEngine(DirectoryInfo Dir)
+        public static bool LoadEngine<T>(DirectoryInfo Dir,Dictionary<string,T> Collection)
         {
             try
             {
@@ -71,7 +85,7 @@ namespace MediaChrome
                             File.Copy(fi.FullName, AppDomain.CurrentDomain.BaseDirectory + "\\" + fi.Name);
                       
                             Assembly.LoadFrom(fi.FullName);
-                              }
+                        }
                     }
                     catch
                     {
@@ -82,10 +96,10 @@ namespace MediaChrome
                 Type type = assembly.GetType("MediaChrome."+Dir.Name);
 
 
+                
 
-
-                IPlayEngine IE = (IPlayEngine)Activator.CreateInstance(type);
-                Program.MediaEngines.Add(Dir.Name, IE);
+                T IE = (T)Activator.CreateInstance(type);
+                Collection.Add(Dir.Name, IE);
                 
                 return true;
 
@@ -94,6 +108,12 @@ namespace MediaChrome
             {
                 return false;
             }
+        }
+
+
+        public static string StorageFolder(string folder)
+        {
+            return Properties.Settings.Default.StorageFolder +"\\"+folder;
         }
         public static Form1 mainForm;
         [STAThread]
@@ -107,11 +127,11 @@ namespace MediaChrome
             /**
              * Add media engines
              * */
-            LoadEngines("C:\\MediaProviders");
-            
+            LoadEngines(StorageFolder("Providers"));
+            LoadSocialNetworks(StorageFolder("SocialNetworks"));
 
   //          MediaEngines.Add("spotify", new MediaChrome.SpotifyPlayer());
-              MediaEngines.Add("mp3", new MediaChrome.MP3Player());
+              MediaEngines.Add("mp3", new MediaChromeGUI.MP3Player());
          //   MediaEngines.Add("youtube", new MediaChrome.Youtube());
     //        MediaEngines.Add("mp3", new MediaChrome.MP3Player());
 

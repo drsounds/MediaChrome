@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MediaChrome;
-namespace MediaChrome
+namespace MediaChromeGUI
 {
     public partial class MainForm
     {
@@ -68,7 +68,7 @@ namespace MediaChrome
         }
         public static System.Data.SQLite.SQLiteConnection MakeConnection()
         {
-            return new MediaChrome.LocalLibrary().MakeConnection();
+            return new MediaChromeGUI.LocalLibrary().MakeConnection();
         }
         public static Song GetSongFromQuery(System.Data.SQLite.SQLiteDataReader DR)
         {

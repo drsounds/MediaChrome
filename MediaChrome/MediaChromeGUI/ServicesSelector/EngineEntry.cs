@@ -11,7 +11,7 @@ using System.Threading;
 using System.IO;
 using BasicFTPClientNamespace;
 
-namespace MediaChrome.ServicesSelector
+namespace MediaChromeGUI.ServicesSelector
 {
     public partial class EngineEntry : UserControl
     {  
@@ -250,6 +250,8 @@ namespace MediaChrome.ServicesSelector
             {
                 installed = value;
                 this.button1.Text = installed ? "Uninstall" : "Install";
+                this.label5.Visible = installed;
+                this.BackColor = installed ? Color.FromArgb(241, 255, 241) : Color.White;
                 
             }
         }

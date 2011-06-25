@@ -13,11 +13,12 @@ using System.Data.Sql;
 using System.Data.SQLite;
 using System.IO;
 using System.Windows.Forms;
-using MediaChrome;
+using MediaChromeGUI;
 
 using WMPLib;
 using MediaChrome.Views;
-namespace MediaChrome
+using MediaChrome;
+namespace MediaChromeGUI
 {
 	/// <summary>
 	/// Description of Mp3.
@@ -115,7 +116,7 @@ namespace MediaChrome
 
                 id3.MP3 Dw = new id3.MP3(X.DirectoryName, X.Name);
                 id3.FileCommands.readMP3Tag(ref Dw);
-                SQLiteConnection CP = MediaChrome.MainForm.MakeConnection();
+                SQLiteConnection CP = MediaChromeGUI.MainForm.MakeConnection();
                 Song song = new Song();
                 song.Name = Dw.id3Title.Replace("\"","'").Replace("\0","");
                 song.Artist = Dw.id3Artist.Replace("\"", "'").Replace("\0", "");
@@ -192,7 +193,7 @@ namespace MediaChrome
         public MediaChrome.Album GetAlbum(Artist artist, string ID)
         {
             Album R = new Album();
-            SQLiteConnection D = MediaChrome.MainForm.MakeConnection();
+            SQLiteConnection D = MediaChromeGUI.MainForm.MakeConnection();
             SQLiteDataReader r = new SQLiteCommand("SELECT name,artist,album,path FROM song WHERE album = '" + ID + "' AND artist='"+artist.Name+"' ", D).ExecuteReader();
             
             // Create temporary list of songs
@@ -218,7 +219,7 @@ namespace MediaChrome
         public MediaChrome.Album GetAlbum(string ID)
         {
             Album R = new Album();
-            SQLiteConnection D = MediaChrome.MainForm.MakeConnection();
+            SQLiteConnection D = MediaChromeGUI.MainForm.MakeConnection();
             SQLiteDataReader r = new SQLiteCommand("SELECT name,artist,album,path FROM song WHERE album = '" + ID + "'", D).ExecuteReader();
 
             // Create temporary list of songs
@@ -249,7 +250,7 @@ namespace MediaChrome
         /// <returns></returns>
         public MediaChrome.Artist GetArtist(string ID)
         {
-            SQLiteConnection  D = MediaChrome.MainForm.MakeConnection();
+            SQLiteConnection  D = MediaChromeGUI.MainForm.MakeConnection();
 
             Artist artist = new Artist();
             artist.Name = ID;
@@ -296,7 +297,7 @@ namespace MediaChrome
         {
             if (Name == "" || Name == null)
                 return null;
-            String Path = MediaChrome.MainForm.DownloadDir + "\\" + Name + ".pls";
+            String Path = MediaChromeGUI.MainForm.DownloadDir + "\\" + Name + ".pls";
             if (!File.Exists(Path))
             {
                 FileStream d = File.Create(Path);
@@ -344,14 +345,14 @@ namespace MediaChrome
 		}
 		public Song RawFind(Song D)
 		{
-            SQLiteConnection Conn = MediaChrome.MainForm.MakeConnection();
+            SQLiteConnection Conn = MediaChromeGUI.MainForm.MakeConnection();
 
             SQLiteCommand Command = new SQLiteCommand("SELECT * FROM song WHERE name LIKE '%" + D.Title.Replace("'", "") + "%' AND artist LIKE '%" + D.Artist.Replace("'", "") + "%' AND  ( engine = 'mp3' OR store ='mp3')", Conn);
 			SQLiteDataReader Reader = Command.ExecuteReader();
 			if(Reader.HasRows)
 			{
 
-                Song result = MediaChrome.MainForm.GetSongFromQuery(Reader);
+                Song result = MediaChromeGUI.MainForm.GetSongFromQuery(Reader);
                 return result;
      //("mp3:"+Reader.GetString(0));
 				
@@ -379,7 +380,7 @@ namespace MediaChrome
 		public List<Song> Find(String Query)
 		{
 			List<Song> Songs = new List<Song>();
-            SQLiteConnection Conn = MediaChrome.MainForm.MakeConnection();
+            SQLiteConnection Conn = MediaChromeGUI.MainForm.MakeConnection();
 
 			SQLiteCommand Command = new SQLiteCommand("SELECT name,artist,album,path,store,engine FROM song WHERE name LIKE '%"+Query+"%' OR artist LIKE '%"+Query+"%' OR album LIKE '%"+Query+"%' AND engine='mp3'",Conn);
 			SQLiteDataReader  DR = Command.ExecuteReader();
@@ -544,10 +545,10 @@ namespace MediaChrome
 
             List<Song> _Songs = new List<Song>();
             playlist.CanModify = true;
-            SQLiteConnection Conn = MediaChrome.MainForm.MakeConnection();
+            SQLiteConnection Conn = MediaChromeGUI.MainForm.MakeConnection();
             try
             {
-                using (StreamReader SR = new StreamReader(MediaChrome.MainForm.DownloadDir + "\\" + PlsID.Replace(".pls","") + ".pls"))
+                using (StreamReader SR = new StreamReader(MediaChromeGUI.MainForm.DownloadDir + "\\" + PlsID.Replace(".pls","") + ".pls"))
                 {
                     String D = "";
                     while ((D = SR.ReadLine()) != null)
@@ -612,8 +613,8 @@ namespace MediaChrome
         {
             try
             {
-                String Path = MediaChrome.MainForm.GetURIFromSong(_Song);
-                string playlistFile = MediaChrome.MainForm.DownloadDir + "\\" + pls.Title + ".pls";
+                String Path = MediaChromeGUI.MainForm.GetURIFromSong(_Song);
+                string playlistFile = MediaChromeGUI.MainForm.DownloadDir + "\\" + pls.Title + ".pls";
                 if (File.Exists(playlistFile))
                 {
                     List<String> Strings = new List<string>();
@@ -649,10 +650,10 @@ namespace MediaChrome
             {
                 String Path = _Song.Path;
                 string name =playlistID.Replace("mp3:playlist:","")+".pls";
-                if (File.Exists(MediaChrome.MainForm.DownloadDir + "\\" +name ))
+                if (File.Exists(MediaChromeGUI.MainForm.DownloadDir + "\\" +name ))
                 {
                     List<String> Strings = new List<string>();
-                    using (StreamReader SR = new StreamReader(MediaChrome.MainForm.DownloadDir + "\\" + name))
+                    using (StreamReader SR = new StreamReader(MediaChromeGUI.MainForm.DownloadDir + "\\" + name))
                     {
                         String Line = "";
                         while ((Line = SR.ReadLine()) != null)
@@ -662,7 +663,7 @@ namespace MediaChrome
                         SR.Close();
                     }
                     Strings.Insert(pos, "http://music/"+_Song.Artist+"/"+(_Song.AlbumName != "" ? "%20" : "")+"/"+_Song.Name);
-                    using (StreamWriter SW = new StreamWriter(MediaChrome.MainForm.DownloadDir + "\\" + name))
+                    using (StreamWriter SW = new StreamWriter(MediaChromeGUI.MainForm.DownloadDir + "\\" + name))
                     {
                         foreach (String d in Strings)
                         {
@@ -683,10 +684,10 @@ namespace MediaChrome
         {
             try
             {
-                if (File.Exists(MediaChrome.MainForm.DownloadDir + "\\" + playlistID))
+                if (File.Exists(MediaChromeGUI.MainForm.DownloadDir + "\\" + playlistID))
                 {
                     List<String> Strings = new List<string>();
-                    using (StreamReader SR = new StreamReader(MediaChrome.MainForm.DownloadDir + "\\" + playlistID))
+                    using (StreamReader SR = new StreamReader(MediaChromeGUI.MainForm.DownloadDir + "\\" + playlistID))
                     {
                         String Line = "";
                         int fpos = 0;
@@ -699,7 +700,7 @@ namespace MediaChrome
                         
                         SR.Close();
                     }
-                    using (StreamWriter SW = new StreamWriter(MediaChrome.MainForm.DownloadDir + "\\" + playlistID))
+                    using (StreamWriter SW = new StreamWriter(MediaChromeGUI.MainForm.DownloadDir + "\\" + playlistID))
                     {
                         foreach (String d in Strings)
                         {
@@ -718,11 +719,11 @@ namespace MediaChrome
 		{
             try
             {
-			    if (File.Exists(MediaChrome.MainForm.DownloadDir + "\\" + playlistID))
+			    if (File.Exists(MediaChromeGUI.MainForm.DownloadDir + "\\" + playlistID))
                 {
                     List<String> Strings = new List<string>();
                     String Track = "";
-                    using (StreamReader SR = new StreamReader(MediaChrome.MainForm.DownloadDir + "\\" + playlistID))
+                    using (StreamReader SR = new StreamReader(MediaChromeGUI.MainForm.DownloadDir + "\\" + playlistID))
                     {
                         String Line = "";
                         int pos = 0;
@@ -747,7 +748,7 @@ namespace MediaChrome
                         }
                         SR.Close();
                     }
-                    using (StreamWriter SW = new StreamWriter(MediaChrome.MainForm.DownloadDir + "\\" + playlistID))
+                    using (StreamWriter SW = new StreamWriter(MediaChromeGUI.MainForm.DownloadDir + "\\" + playlistID))
                     {
                         foreach (String d in Strings)
                         {
@@ -766,12 +767,12 @@ namespace MediaChrome
         {
 			get
             {
-                List<Views.Playlist> Playlists = new List<MediaChrome.Views.Playlist>();
+                List<MediaChrome.Views.Playlist> Playlists = new List<MediaChrome.Views.Playlist>();
                     
                 try
                 {
 
-                   DirectoryInfo D = new DirectoryInfo(MediaChrome.MainForm.DownloadDir);
+                   DirectoryInfo D = new DirectoryInfo(MediaChromeGUI.MainForm.DownloadDir);
                     FileInfo[] playlists = D.GetFiles("*.pls");
                     foreach (FileInfo __Playlist in playlists)
                     {
@@ -780,7 +781,7 @@ namespace MediaChrome
                             /**
                              * Create an playlist
                              * */
-                            Views.Playlist _Playlist = this.CreatePlaylist(__Playlist.Name.Replace(".pls", ""));
+                            MediaChrome.Views.Playlist _Playlist = this.CreatePlaylist(__Playlist.Name.Replace(".pls", ""));
                             _Playlist.Engine = this;
                             //_Playlist.ID = "mp3:playlist:" + __Playlist.Name.Replace(".pls", "");
                             Playlists.Add(_Playlist);

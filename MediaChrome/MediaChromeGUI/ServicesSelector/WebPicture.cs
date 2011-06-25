@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using System.Security.Policy;
 using System.Net;
 using System.IO;
-namespace MediaChrome.ServicesSelector
+namespace MediaChromeGUI.ServicesSelector
 {
     class WebPicture : PictureBox
     {

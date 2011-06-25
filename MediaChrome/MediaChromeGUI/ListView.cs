@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace MediaChrome
+namespace MediaChromeGUI
 {
 	public class DropEventArgs
 		{

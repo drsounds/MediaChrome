@@ -8,7 +8,7 @@
     <ProjectGuid>{1D280F8A-C27B-40A2-AA08-71DB6E82E530}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MediaChrome</RootNamespace>
+    <RootNamespace>MediaChromeCore</RootNamespace>
     <AssemblyName>MediaChrome</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -93,6 +93,7 @@
     <Compile Include="WebConnection.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="SocialNetworking\Facebook\LICENSE" />
     <None Include="SocialNetworking\Facebook\readme.md" />
   </ItemGroup>

@@ -28,6 +28,5 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\System.Data.SQLite.xml
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\obj\Debug\Spotify.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\obj\Debug\Spotify.pdb
-L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\sv\MediaChromeGUI.resources.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\obj\Debug\MediaChrome.Login.resources
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\obj\Debug\MediaChrome.Properties.Resources.resources

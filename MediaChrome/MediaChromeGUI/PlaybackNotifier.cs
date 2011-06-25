@@ -6,8 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
-namespace MediaChrome
+using MediaChrome;
+namespace MediaChromeGUI
 {
     public partial class PlaybackNotifier : Form
     {

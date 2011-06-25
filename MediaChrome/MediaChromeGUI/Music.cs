@@ -18,7 +18,7 @@ namespace MusicEngine
 
     public interface ISession
     {
-        MediaChrome.Form1 Host
+        MediaChromeGUI.Form1 Host
         {
             get;
             set;

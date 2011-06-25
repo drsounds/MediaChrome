@@ -1,4 +1,4 @@
-﻿namespace MediaChrome
+﻿namespace MediaChromeGUI
 {
     partial class ucSearch
     {
@@ -29,7 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new MediaChrome.MyTextBox();
+            this.textBox1 = new MediaChromeGUI.MyTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
@@ -48,7 +48,7 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.BackgroundImage = global::MediaChrome.Properties.Resources.searchbtn;
+            this.panel1.BackgroundImage = global::MediaChromeGUI.Properties.Resources.searchbtn;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.panel1.Location = new System.Drawing.Point(143, 7);
             this.panel1.Name = "panel1";

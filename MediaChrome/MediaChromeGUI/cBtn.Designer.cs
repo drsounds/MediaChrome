@@ -6,7 +6,7 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-namespace MediaChrome
+namespace MediaChromeGUI
 {
 	
 	partial class cBtn
@@ -61,7 +61,7 @@ namespace MediaChrome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::MediaChrome.Properties.Resources.button3;
+            this.BackgroundImage = global::MediaChromeGUI.Properties.Resources.button3;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Controls.Add(this.pictureBox1);
             this.DoubleBuffered = true;

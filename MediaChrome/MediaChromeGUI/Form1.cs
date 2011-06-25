@@ -20,7 +20,7 @@ using MediaChrome;
 using MediaChrome.Views;
 using Board;
 
-namespace MediaChrome
+namespace MediaChromeGUI
 {
 
      
@@ -373,13 +373,13 @@ namespace MediaChrome
         {
             get
             {
-                return Program.MediaEngines[MediaChrome.Settings.Default.DefaultPlayer];
+                return Program.MediaEngines[Properties.Settings.Default.DefaultPlayer];
             }
             set
             {
                 try
                 {
-                    MediaChrome.Settings.Default.DefaultPlayer = value.Namespace;
+                    Properties.Settings.Default.DefaultPlayer = value.Namespace;
                     Properties.Settings.Default.Save();
                     this.Icon = value.SystemIcon;
                     if (DefaultPlayer.Image != null)
@@ -639,7 +639,7 @@ namespace MediaChrome
         }
         public object __import_music()
         {
-            MediaChrome.ImportLibrary frmImport = new MediaChrome.ImportLibrary();
+            MediaChromeGUI.ImportLibrary frmImport = new MediaChromeGUI.ImportLibrary();
             frmImport.ShowDialog();
             return null;
         }
@@ -832,7 +832,7 @@ namespace MediaChrome
             /***
       * Assign the Spotify skin to this application
       * */
-            this.Skin = new Board.Skin(String.Format("skins\\{0}\\{0}.xml", Settings.Default.Skin));
+            this.Skin = new Board.Skin(String.Format("skins\\{0}\\{0}.xml", Properties.Settings.Default.Skin));
             // assign makogeneration initialization code
             this.board.MakoGeneration += new Board.DrawBoard.MakoCreateEventHandler(board_MakoGeneration);
             this.treeview.DragOverElement+=new Board.DrawBoard.ElementDragEventHandler(playlistView_DragOverElement);
@@ -872,7 +872,7 @@ namespace MediaChrome
             this.board.ContextMenu = this.contextMenu1;
             this.board.ContextMenu.Popup += new EventHandler(ContextMenu_Popup);
             this.treeview.MakoGeneration += new DrawBoard.MakoCreateEventHandler(treeview_MakoGeneration);
-            DefaultPlayer = Program.MediaEngines[MediaChrome.Settings.Default.DefaultPlayer];
+            DefaultPlayer = Program.MediaEngines[Properties.Settings.Default.DefaultPlayer];
 
         }
 
@@ -1166,7 +1166,7 @@ namespace MediaChrome
 
             if (!uri.Contains(":"))
             {
-                this.board.Navigate(String.Format("{0}:search:{1}",DefaultPlayer.Namespace, uri), DefaultPlayer.Namespace, "views","C:\\MediaViews\\");
+                this.board.Navigate(String.Format("{0}:search:{1}",DefaultPlayer.Namespace, uri), DefaultPlayer.Namespace, "views", Program.StorageFolder("views"));
             }
             if (uri.StartsWith("mc:") || uri.StartsWith("mediachrome:"))
             {
@@ -1238,7 +1238,7 @@ namespace MediaChrome
             {
                 if (this.CurrentPlayer != null)
                 {
-                    this.board.Navigate(this.currentPlayer.Namespace + ":search:" + uri, this.CurrentPlayer.Namespace, "views", "C:\\MediaViews\\");
+                    this.board.Navigate(this.currentPlayer.Namespace + ":search:" + uri, this.CurrentPlayer.Namespace, "views", Program.StorageFolder("views"));
                 }
                 return;
             }
@@ -1253,7 +1253,7 @@ namespace MediaChrome
                 return;
             }
             this.CurrentNamespace=Engine;
-            this.board.Navigate(uri, Engine, "views", "C:\\MediaViews\\");
+            this.board.Navigate(uri, Engine, "views", Program.StorageFolder("views"));
         }
         void treeview_DropElement(object sender, Board.DrawBoard.ElementDragEventArgs e)
         {
@@ -1385,7 +1385,7 @@ namespace MediaChrome
             if (uri.Split(':').Length < 2 )
             {
 
-                board.Navigate("spotify:search:" + uri, "spotify", "views", "C:\\MediaViews\\");
+                board.Navigate("spotify:search:" + uri, "spotify", "views",Program.StorageFolder("views"));
                 return false;
             }
             else
@@ -2953,7 +2953,7 @@ namespace MediaChrome
         private void cBtn8_Click(object sender, EventArgs e)
         {
             // Create import library form
-            MediaChrome.ImportLibrary frmImport = new MediaChrome.ImportLibrary();
+            MediaChromeGUI.ImportLibrary frmImport = new MediaChromeGUI.ImportLibrary();
             frmImport.ShowDialog();
         }
 
@@ -3336,7 +3336,7 @@ namespace MediaChrome
             {
              
                     // Start the operation on an new thread
-                AskDialog d = new AskDialog(MediaChrome.Properties.Resources.icon,"Enter a name for the new playlist","New Playlist");
+                AskDialog d = new AskDialog(MediaChromeGUI.Properties.Resources.icon,"Enter a name for the new playlist","New Playlist");
                 if (d.ShowDialog() == DialogResult.OK)
                 {
                     String Name = d.Value;

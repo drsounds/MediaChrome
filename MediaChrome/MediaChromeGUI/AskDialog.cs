@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace MediaChrome
+namespace MediaChromeGUI
 {
     public partial class AskDialog : Form
     {

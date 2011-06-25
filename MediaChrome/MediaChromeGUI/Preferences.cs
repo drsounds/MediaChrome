@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 
-namespace MediaChrome
+namespace MediaChromeGUI
 {
     public partial class Preferences : Form
     {
@@ -35,7 +35,7 @@ namespace MediaChrome
         /// <summary>
         /// The mainform host
         /// </summary>
-        public MediaChrome.Form1 Host { get; set; }
+        public MediaChromeGUI.Form1 Host { get; set; }
         public List<Entry> Skins { get; set; }
         string baseFolder = "skins\\";
         private void Preferences_Load(object sender, EventArgs e)
@@ -49,7 +49,7 @@ namespace MediaChrome
             foreach (DirectoryInfo dir in di.GetDirectories())
             {
                 comboBox1.Items.Add(dir.Name);
-                if (dir.Name == Settings.Default.Skin)
+                if (dir.Name == Properties.Settings.Default.Skin)
                 {
                     comboBox1.SelectedIndex = i;
                 }
@@ -64,8 +64,8 @@ namespace MediaChrome
         private void ApplySettings()
         {
             Host.Skin = new Board.Skin(String.Format(baseFolder + "{0}\\{0}.xml", (string)comboBox1.Items[comboBox1.SelectedIndex]));
-            Settings.Default.Skin = (string)comboBox1.Items[comboBox1.SelectedIndex];
-            Settings.Default.Save();
+            Properties.Settings.Default.Skin = (string)comboBox1.Items[comboBox1.SelectedIndex];
+            Properties.Settings.Default.Save();
         }
         private void button3_Click(object sender, EventArgs e)
         {

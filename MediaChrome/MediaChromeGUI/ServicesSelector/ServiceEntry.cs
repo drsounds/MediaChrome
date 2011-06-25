@@ -6,8 +6,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
-namespace MediaChrome.ServicesSelector
+using MediaChrome;
+namespace MediaChromeGUI.ServicesSelector
 {
     public partial class ServiceEntry : UserControl
     {

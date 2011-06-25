@@ -6,9 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using MediaChrome.ServicesSelector;
-
-namespace MediaChrome
+using MediaChromeGUI.ServicesSelector;
+using MediaChrome;
+namespace MediaChromeGUI
 {
     public partial class Engines : Form
     {
@@ -149,14 +149,20 @@ namespace MediaChrome
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            AddOnManager d = new AddOnManager("ftp://195.74.38.22", "Add views", "C:\\MediaProviders", Properties.Resources.str_service_import, "132246_public", "12345678");
+            AddOnManager d = new AddOnManager("ftp://195.74.38.22", "Add Music Service", Program.StorageFolder("Providers"), Properties.Resources.str_service_import, "132246_public", "12345678");
             d.ShowDialog();
         }
 
         private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            AddOnManager addons = new AddOnManager("ftp://195.74.38.22", "Add views", "C:\\MediaViews","", "132246_mc_views", "12345678");
+            AddOnManager addons = new AddOnManager("ftp://195.74.38.22", "Add View Mashups", Program.StorageFolder("views"), "", "132246_mc_views", "12345678");
             addons.ShowDialog();
+        }
+
+        private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            AddOnManager d = new AddOnManager("ftp://195.74.38.22", "Add Social Networks", Program.StorageFolder("SocialNetworks"), Properties.Resources.str_service_import, "132246_public", "12345678");
+            d.ShowDialog();
         }
     }
 }
