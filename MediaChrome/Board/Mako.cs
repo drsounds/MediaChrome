@@ -49,7 +49,7 @@ namespace Board
                 this.Create(this, new EventArgs());
             }
         }
-        String Output = "";
+        public String Output = "";
         /// <summary>
         /// Callback where the output is thrown to, called by the parsed string
         /// </summary>
@@ -457,7 +457,7 @@ namespace Board
                         string errorView = new MakoEngine().Preprocess(SR.ReadToEnd(), "", false, true);
                         RuntimeMachine = new JavaScriptEngine();
                         RuntimeMachine.SetFunction("__printx", new Func<String, object>(__printx));
-                        RuntimeMachine.SetVariable("error", e.Message + "\n " + e.StackTrace);
+                        RuntimeMachine.SetVariable("error", e.ToString() + "\n " );
 
                         RuntimeMachine.Run((errorView));
                     }

@@ -23,15 +23,72 @@ var bio = "Nice artist who loves music";
 	</toolbar>
 
 	<section name="Overview">
-		<hbox height="128">
-			<img src="http://krakelin.com/artist.png" width="128" height="128"  />
-			<vbox flex="1" >
-				<label size="20" height="10" href="@{parameter}">@{title}</label> 
-				<label size="10"  height="60" top="@TOP" width="500" >@{bio}</label> 	
-			</vbox>
+		<table width="100%">
+			<tr>
+				<td valign="top">
+					<img src="http://krakelin.com/artist.png" width="128" height="128"  />
+				</td>
+				<td width="75%" valign="top">
 			
-		</hbox>
-		
+					<a href="@{service}:artist:@{parameter}">@{title}</a> <br/>
+					
+				
+				</td>	
+				<td width="25%" valign="top">
+					<h3>Related artists</h3>
+					
+				</td>
+				<td width="25%" valign="top">
+					<h3>Top listeners</h3>
+					<table width="100%">
+						<tr>
+							<td>
+							<?
+							var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=artist.gettopfans&artist="+title+"&api_key=b25b959554ed76058ac220b7b2e0a026");
+							if(!(!user_info))
+							{
+							var users = user_info.GetElementsByTagName("user");
+							for(var i = 0; i < users.Count && i < 5; i++){ var user = users.Item(i);
+								var link = user.GetElementsByTagName("name").Item(0).InnerText;
+								var picture = user.GetElementsByTagName("image").Item(0).InnerText;
+								var name = user.GetElementsByTagName("name").Item(0).InnerText;
+								var left = 320;
+								var top = 80 + 10 * i;
+							?>
+								
+									<a href="@{service}:lastfm_user:@{name}"><img src="@{picture}" width="48" height="48" /></a>
+							<?
+							}
+							}
+							?>
+							</td>
+						</tr>
+						<tr>
+							<td>
+							<?
+							if(!(!user_info))
+							{
+								var users = user_info.GetElementsByTagName("user");
+								for(var i = 0; i < users.Count && i < 5; i++){ var user = users.Item(i);
+									var link = user.GetElementsByTagName("name").Item(0).InnerText;
+									var picture = user.GetElementsByTagName("image").Item(0).InnerText;
+									var name = user.GetElementsByTagName("name").Item(0).InnerText;
+									var left = 320;
+									var top = 80 + 10 * i;
+							?>
+								<a href="@{service}:lastfm_user:@{name}">@{name}</a> 
+							<?
+							}
+							}
+							?>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			
+		</table>
+		<space height="10"/>
 		<?
 		if(localAlbums.Count > 0){
 		?>
@@ -44,7 +101,7 @@ var bio = "Nice artist who loves music";
 
 		<? } ?> 
 		<section text="Albums" width="-1" left="0" height="24">Albums</section>
-		<space height="10"/>
+		
 
 <?
 for(var i=0; i < artist.Albums.Length ; i++){ 		
@@ -62,8 +119,34 @@ for(var i=0; i < artist.Albums.Length ; i++){
 	
 	
 	</section>
-	<section name="Biography">
-	
+	<section name="Listners">
+		<?
+		var y = 0;
+		var users = user_info;
+		if(!(!users)){
+		for(var i = 0; i < users.Count ; i++){ var user = users.Item(i);
+			var link = user.GetElementsByTagName("name").Item(0).InnerText;
+			var picture = user.GetElementsByTagName("image").Item(0).InnerText;
+			var name = user.GetElementsByTagName("name").Item(0).InnerText;
+			var left = 50 + 80 * i;
+			var top =60 + y*90;
+			var ctop = top + 90;
+			if(i == 15 ){
+				y++;
+			}
+		?>
+		<a href="@{service}:lastfm_user:@{name}">
+			<div style="position:absolute;top:@{ctop}px;left: @{left}px;">
+				<img src="@{picture}"  style="width:300px; height:300px"  />
+				<br/>
+				<span>@{name}</span>
+			</div>
+		</a>
+	<!--	<img top="@{top}" width="60" height="60" left="@{left}" href="@{service}:lastfm_user:@{name}" src="@{link}" shadow="true" /> -->
+		<?
+		}
+		}
+		?>
 
 	</section>
 </view>

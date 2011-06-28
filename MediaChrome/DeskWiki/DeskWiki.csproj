@@ -102,10 +102,6 @@
       <Project>{6471D06B-3647-4FDF-B980-7A59F9BDB790}</Project>
       <Name>Board</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MediaChromeGUI\MediaChromeGUI.csproj">
-      <Project>{2B72EF2A-6611-4492-A753-0E1C8612A3E2}</Project>
-      <Name>MediaChromeGUI</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

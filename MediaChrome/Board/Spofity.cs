@@ -773,7 +773,7 @@ namespace Board
             XmlNodeList items = iSection.ChildNodes;
             foreach (XmlNode node in items)
             {
-             
+                
                 if (node.GetType() == typeof(XmlText))
                 {
                     XmlText r = (XmlText)node;
@@ -782,6 +782,11 @@ namespace Board
                 }
                 if (node.GetType() != typeof(XmlElement))
                     continue;
+
+                // Skip the element if this is an attribute
+                if (node.Attributes.GetNamedItem("noelm") != null)
+                    continue;
+
                 XmlElement item = (XmlElement)node;
                 if (item.ParentNode != iSection)
                     continue;
@@ -821,7 +826,7 @@ namespace Board
                 // Set the type of the element to the item's tag definition
                 CT.SetAttribute("type", item.Name);
                 CT.SetAttribute("text", item.InnerText);
-                CT.Data = item.InnerXml;
+                CT.Data = CT.GetAttribute("textonly") == "true" ? item.InnerText : item.InnerXml;
                 //     ExtractXml(item, CT);
 
 
@@ -1175,6 +1180,9 @@ namespace Board
 
                     prevElement.NextElement = CT;
                 }
+                // Skip the element if this is an attribute
+                if (node.Attributes.GetNamedItem("noelm") != null)
+                    continue;
                 // If nothing else specified, the element top should be managed by the drawing cache
                 CT.SetAttribute("top", "@TOP");
 
@@ -1194,12 +1202,14 @@ namespace Board
 
                 // Append all custom attributes first
                 AppendElementAttributes(ref CT, item);
-                CT.AssertBounds(false);
                 // Set the type of the element to the item's tag definition
                 CT.SetAttribute("type", item.Name);
+                CT.AssertBounds(false);
+               
+               
                 CT.Type = item.Name;
                 CT.SetAttribute("text", item.InnerText);
-                CT.Data = item.InnerXml;
+                CT.Data = CT.GetAttribute("textonly") == "true" ? item.InnerText : item.InnerXml;
 
                 // Extract the elent's inner data, but only if it's attribute is set to content
                 ///    if(item.HasAttribute("content"))
@@ -1248,9 +1258,10 @@ namespace Board
                 // set previous next element to current one
                 prevElement = CT;
                 
-                // Do this for children
-                RenderElements(C, CT, item);
-
+                // Do this for children but only for entries
+             
+                    RenderElements(C, CT, item);
+          
                
             }
             return C;
@@ -1614,6 +1625,7 @@ namespace Board
         {
 
             {
+                XmlDocument d = new XmlDocument();
                 try
                 {
                     this.Receivers = new List<ContentReceiver>();
@@ -1627,7 +1639,7 @@ namespace Board
                     this.Engine = engine;
                     this.TemplateCode = pretemplate;
                     SetScriptFunctionality();
-                    XmlDocument d = new XmlDocument();
+                    
                     d.LoadXml(data.Replace(";", ""));
                     // Render
                     Render(d);
@@ -1635,8 +1647,33 @@ namespace Board
 
                     LoadData();
                 }
-                catch
+                catch(XmlException e)
                 {
+                    /** Get the lone those where affected */
+                    String[] Lines = data.Split('\n');
+                    String Cause = Lines[e.LineNumber-1].Replace("<","&lt;").Replace(">","&gt;");
+
+                    // clear output
+                    JavaScriptEngine RuntimeMachine = new JavaScriptEngine();
+                    // Load error page
+                    using (System.IO.StreamReader SR = new System.IO.StreamReader("views\\error.xml"))
+                    {
+                        MakoEngine ME = new MakoEngine();
+                        string errorView = ME.Preprocess(SR.ReadToEnd(), "", false, true);
+                        RuntimeMachine = new JavaScriptEngine();
+                        RuntimeMachine.SetFunction("__printx", new Func<String, object>(ME.__printx));
+                        RuntimeMachine.SetVariable("error", Cause + "\n" + e.ToString() + "\n ");
+
+                        RuntimeMachine.Run((errorView));
+                        d.LoadXml(ME.Output);
+                        
+                        // Render
+                        Render(d);
+
+
+                        LoadData();
+                    }
+                    // TODO AAA
                 }
             }
 
@@ -2032,15 +2069,16 @@ namespace Board
                     // calculate the total height of all items
                     foreach (Element c in this.Elements)
                     {
-                        if (c.Parent != null)
+                        if (c.Parent != null && c.GetAttribute("noelm") == "true")
                             continue;
-                        // Check if this position is higher than any previous one and add it if so
 
-                        int newpos = (c.Top + c.Height) - lastPosition;
+                        // Check if this position is higher than any previous one and add it if so
+                        int newpos = (c.Top + c.Height) - lastPosition ;
+                        
                         // Add the item's top if the item's top is not equal to -1 (@TOP)
                         lastPosition = c.Top + c.Height;
 
-                       elementTotalHeight += newpos;
+                        elementTotalHeight += newpos;
 
                     }
                     // If the total elements filling is higher than the view's visible space.
@@ -3131,7 +3169,7 @@ namespace Board
         /// </summary>
         public void AssertBounds(bool copy)
         {
-
+              
             // if this is the first entry in an list view, push down it the amount of column headers
             if (this.ParentSection.Entries.Count > 0)
             {
@@ -3176,8 +3214,10 @@ namespace Board
 
 
 
-            // If the top variable is still below one, assign the top to the ptop variable and increase ptop iself   
-            if (top < 1)
+            // If the top variable is still below one, assign the top to the ptop variable and increase ptop iself, but only
+            // for own view controls
+            if (top < 1 && (this.Type=="space" || Type=="entry" || Type == "space" || Type == "label" || Type == "image"))
+            
             {
 
                 top = ptop;

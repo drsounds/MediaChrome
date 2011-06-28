@@ -3,6 +3,7 @@
 	<title>Spotify skin</title>
 	<!-- Main View -->
 	<component rel="Board" BackColor="#f0f0f0" ForeColor="#666677" />
+	
 	<component rel="Board#Alternative" BackColor="#eaeaea" ForeColor="#444444" />
 	<component rel="Board#Selection" BackColor="#ff7700" ForeColor="#ffffff" BackgroundImage="~\Selection.png" />
 	<component rel="Board#Active" BackColor="#111111" ForeColor="#AAFFAA" />

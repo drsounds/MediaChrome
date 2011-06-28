@@ -34,7 +34,7 @@ namespace MediaChromeGUI
             {
                 MediaChrome.Song LF = new MediaChrome.Song();
                 LF.Title = (String)DR["title"];
-                LF.Artist = (String)DR["artist"];
+                LF.ArtistName = (String)DR["artist"];
                 LF.AlbumName = (String)DR["album"];
                 LF.Path = (String)DR["path"];
                 try
@@ -72,7 +72,7 @@ namespace MediaChromeGUI
                 MediaChrome.Song LF = new MediaChrome.Song();
               
                 LF.Title = GetData("name",DR);
-                LF.Artist = GetData("artist",DR);
+                LF.ArtistName = GetData("artist",DR);
                 LF.AlbumName = GetData("album",DR);
                 LF.Path = GetData("path",DR);
                     LF.CoverArt = GetData("cover_art",DR);

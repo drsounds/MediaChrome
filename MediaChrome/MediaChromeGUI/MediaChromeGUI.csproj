@@ -137,6 +137,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\LibspotifySharp.dll</HintPath>
     </Reference>
+    <Reference Include="MediaChrome, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MediaChrome\bin\Debug\MediaChrome.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite">
@@ -510,10 +514,6 @@
     <ProjectReference Include="..\Board\Board.csproj">
       <Project>{6471D06B-3647-4FDF-B980-7A59F9BDB790}</Project>
       <Name>Board</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MediaChrome\MediaChrome.csproj">
-      <Project>{1D280F8A-C27B-40A2-AA08-71DB6E82E530}</Project>
-      <Name>MediaChrome</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

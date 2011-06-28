@@ -83,22 +83,25 @@ namespace MediaChromeGUI
                         {
                             if(!File.Exists( AppDomain.CurrentDomain.BaseDirectory + "\\" + fi.Name))
                             File.Copy(fi.FullName, AppDomain.CurrentDomain.BaseDirectory + "\\" + fi.Name);
-                      
-                            Assembly.LoadFrom(fi.FullName);
                         }
+                            Assembly.LoadFrom(fi.FullName);
+                        
                     }
-                    catch
+                    catch            
                     {
                     }
                 }
                 Assembly assembly = Assembly.LoadFrom(Dir.FullName + "\\" + Dir.Name + ".dll");
 
                 Type type = assembly.GetType("MediaChrome."+Dir.Name);
+                if (type == null)
+                    type = assembly.GetType("MCRuntime." + Dir.Name);
 
 
                 
 
-                T IE = (T)Activator.CreateInstance(type);
+                object c = (object)Activator.CreateInstance(type);
+                T IE = (T)c;
                 Collection.Add(Dir.Name, IE);
                 
                 return true;

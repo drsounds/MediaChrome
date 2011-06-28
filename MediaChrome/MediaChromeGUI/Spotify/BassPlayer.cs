@@ -27,7 +27,7 @@ namespace MediaChrome
         {
             return null;
         }
-
+     
         /// <summary>
         /// Set an custom property of the engine
         /// </summary>
@@ -98,7 +98,7 @@ namespace MediaChrome
             while (track == null) { }
             while (track.Error == sp_error.IS_LOADING) { }
             Song d = new Song();
-            d.Artist = track.Artists[0].Name;
+            d.ArtistName = track.Artists[0].Name;
             d.AlbumName = track.Album.Name;
             d.Title = track.Name;
             return d;
@@ -121,14 +121,14 @@ namespace MediaChrome
         public String Company { get; set; }
         public String Copyright { get; set; }
         public bool LoggedIn { get; set; }
-        public bool Login() {
+        public LoginResult Login() {
            
 
             Login sD = new Login(this);
             if (sD.ShowDialog() == DialogResult.OK)
             {
                 SpotifySession.LogInSync(sD.User, sD.Pass, new TimeSpan(4000));
-       
+                return LoginResult.Fail;
         
             }
             SpotifySession.OnConnectionError += new SessionEventHandler(SpotifySession_OnConnectionError);
@@ -143,7 +143,7 @@ namespace MediaChrome
             {
                 Thread.Sleep(100);
             }
-            return true;
+            return LoginResult.Pass;
           
         }
         public void Logout() {
@@ -359,7 +359,7 @@ namespace MediaChrome
         public Song RawFind(Song _Song)
         {
             // TODO: Add handler later
-            Spotify.Search result = SpotifySession.SearchSync("\""+_Song.Title + "\" artist:\"" + _Song.Artist + "\"", 0, 4, 0, 4, 0, 4, new TimeSpan(4000000));
+            Spotify.Search result = SpotifySession.SearchSync("\""+_Song.Title + "\" artist:\"" + _Song.ArtistName + "\"", 0, 4, 0, 4, 0, 4, new TimeSpan(4000000));
             DateTime s = DateTime.Now;
             // wait until the result has been generated
             while (result == null) {
@@ -371,13 +371,13 @@ namespace MediaChrome
             // if song was found deliver the first match
             foreach(Track i in result.Tracks)
             {
-                if (i.Name.Contains(_Song.Title) && i.Artists[0].Name.Contains(_Song.Artist))
+                if (i.Name.Contains(_Song.Title) && i.Artists[0].Name.Contains(_Song.ArtistName))
                 {
                     // Convert the track to an mc instance
                     Song c = new Song();
                     Track _track = result.Tracks[0];
                     c.Name = c.Name;
-                    c.Artist = _track.Artists[0].Name;
+                    c.ArtistName = _track.Artists[0].Name;
                     c.AlbumName = _track.Album.Name;
                     c.Path = _track.LinkString;
                     c.Link = _track.LinkString;
@@ -423,7 +423,7 @@ namespace MediaChrome
 
             Song A = new MediaChrome.Song();
             A.Title = Df.Name;
-            A.Artist = Df.Artists[0].Name;
+            A.ArtistName = Df.Artists[0].Name;
             A.Album = new MediaChrome.Album();
             A.AlbumName = Df.Album.Name;
        
@@ -447,7 +447,7 @@ namespace MediaChrome
             // Set song attributes
             Song.Title = song.Name;
             Song.Path = song.LinkString;
-            Song.Artist = song.Artists[0].Name;
+            Song.ArtistName = song.Artists[0].Name;
             Song.AlbumName = song.Album.Name;
             return Song;
 
@@ -814,7 +814,7 @@ namespace MediaChrome
              CurrentSong = new Song();
              CurrentSong.Name = currentTrack.Name;
              CurrentSong.Title = currentTrack.Name;
-             CurrentSong.Artist = currentTrack.Artists[0].Name;
+             CurrentSong.ArtistName = currentTrack.Artists[0].Name;
              CurrentSong.AlbumName = currentTrack.Album.Name;
 
          	SpotifySession.PlayerLoad(currentTrack);
@@ -868,7 +868,7 @@ namespace MediaChrome
                     Song D = new Song();
                     D.Title = _Track.Name;
                     D.AlbumName = _Track.Album.Name;
-                    D.Artist = _Track.Artists[0].Name;
+                    D.ArtistName = _Track.Artists[0].Name;
                     D.Path = _Track.LinkString;
                     Songs.Add(D);
                 }
@@ -883,7 +883,7 @@ namespace MediaChrome
 		}
         private void AddSongToPlaylist(Song _Song, Spotify.Playlist List,int pos)
         {
-            Spotify.Search Search = SpotifySession.SearchSync(String.Format("artist:\"{0}\"  {2}", _Song.Artist, _Song.AlbumName, _Song.Title), 0, 4, 0, 4, 0, 6, new TimeSpan(5000000));
+            Spotify.Search Search = SpotifySession.SearchSync(String.Format("artist:\"{0}\"  {2}", _Song.ArtistName, _Song.AlbumName, _Song.Title), 0, 4, 0, 4, 0, 6, new TimeSpan(5000000));
 
             // Wait until search is null
             while (Search == null) { }
@@ -891,7 +891,7 @@ namespace MediaChrome
             // Add the song
             foreach (Track t in Search.Tracks)
             {
-                if (t.Name.Contains(_Song.Name) && t.Artists[0].Name.Contains(_Song.Artist))
+                if (t.Name.Contains(_Song.Name) && t.Artists[0].Name.Contains(_Song.ArtistName))
                 {
                     List.AddTracks(new Track[] { t }, pos);
                 

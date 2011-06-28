@@ -41,7 +41,7 @@ namespace MediaChromeGUI
             this.pictureBox1.BackgroundImage = this.Engine.Icon;
 
             this.label1.Text = Song.Name;
-            this.label2.Text = Song.Artist;
+            this.label2.Text = Song.ArtistName;
            
 
         }

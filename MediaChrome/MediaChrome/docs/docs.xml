@@ -32,112 +32,6 @@
             LastFM scrobbler
             </summary>
         </member>
-        <member name="F:MediaChrome.SocialNetworking.FacebookForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:MediaChrome.SocialNetworking.FacebookForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:MediaChrome.SocialNetworking.FacebookForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="P:MediaChrome.SocialNetworking.FacebookForm.Result">
-            <summary>
-            The result code of the query is here
-            </summary>
-        </member>
-        <member name="T:Facebook.FacebookAPI">
-            <summary>
-            Wrapper around the Facebook Graph API. 
-            </summary>
-        </member>
-        <member name="M:Facebook.FacebookAPI.#ctor">
-            <summary>
-            Create a new instance of the API, with public access only.
-            </summary>
-        </member>
-        <member name="M:Facebook.FacebookAPI.#ctor(System.String)">
-            <summary>
-            Create a new instance of the API, using the given token to
-            authenticate.
-            </summary>
-            <param name="token">The access token used for
-            authentication</param>
-        </member>
-        <member name="M:Facebook.FacebookAPI.Get(System.String)">
-            <summary>
-            Makes a Facebook Graph API GET request.
-            </summary>
-            <param name="relativePath">The path for the call,
-            e.g. /username</param>
-        </member>
-        <member name="M:Facebook.FacebookAPI.Get(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
-            <summary>
-            Makes a Facebook Graph API GET request.
-            </summary>
-            <param name="relativePath">The path for the call,
-            e.g. /username</param>
-            <param name="args">A dictionary of key/value pairs that
-            will get passed as query arguments.</param>
-        </member>
-        <member name="M:Facebook.FacebookAPI.Delete(System.String)">
-            <summary>
-            Makes a Facebook Graph API DELETE request.
-            </summary>
-            <param name="relativePath">The path for the call,
-            e.g. /username</param>
-        </member>
-        <member name="M:Facebook.FacebookAPI.Post(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
-            <summary>
-            Makes a Facebook Graph API POST request.
-            </summary>
-            <param name="relativePath">The path for the call,
-            e.g. /username</param>
-            <param name="args">A dictionary of key/value pairs that
-            will get passed as query arguments. These determine
-            what will get set in the graph API.</param>
-        </member>
-        <member name="M:Facebook.FacebookAPI.Call(System.String,Facebook.HttpVerb,System.Collections.Generic.Dictionary{System.String,System.String})">
-            <summary>
-            Makes a Facebook Graph API Call.
-            </summary>
-            <param name="relativePath">The path for the call, 
-            e.g. /username</param>
-            <param name="httpVerb">The HTTP verb to use, e.g.
-            GET, POST, DELETE</param>
-            <param name="args">A dictionary of key/value pairs that
-            will get passed as query arguments.</param>
-        </member>
-        <member name="M:Facebook.FacebookAPI.MakeRequest(System.Uri,Facebook.HttpVerb,System.Collections.Generic.Dictionary{System.String,System.String})">
-            <summary>
-            Make an HTTP request, with the given query args
-            </summary>
-            <param name="url">The URL of the request</param>
-            <param name="verb">The HTTP verb to use</param>
-            <param name="args">Dictionary of key/value pairs that represents
-            the key/value pairs for the request</param>
-        </member>
-        <member name="M:Facebook.FacebookAPI.EncodeDictionary(System.Collections.Generic.Dictionary{System.String,System.String},System.Boolean)">
-            <summary>
-            Encode a dictionary of key/value pairs as an HTTP query string.
-            </summary>
-            <param name="dict">The dictionary to encode</param>
-            <param name="questionMark">Whether or not to start it
-            with a question mark (for GET requests)</param>
-        </member>
-        <member name="P:Facebook.FacebookAPI.AccessToken">
-            <summary>
-            The access token used to authenticate API calls.
-            </summary>
-        </member>
         <member name="T:MediaChrome.SocialNetworking.User">
             <summary>
             Resembling an wall of feeds
@@ -327,14 +221,26 @@
             User behind the status messsage
             </summary>
         </member>
-        <member name="F:MediaChrome.SocialNetworking.Facebook.api">
+        <member name="F:MediaChrome.SocialNetworking.FacebookForm.components">
             <summary>
-            The underlying api
+            Required designer variable.
             </summary>
         </member>
-        <member name="F:MediaChrome.SocialNetworking.Facebook.token">
+        <member name="M:MediaChrome.SocialNetworking.FacebookForm.Dispose(System.Boolean)">
             <summary>
-            The secret API token
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:MediaChrome.SocialNetworking.FacebookForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:MediaChrome.SocialNetworking.FacebookForm.Result">
+            <summary>
+            The result code of the query is here
             </summary>
         </member>
         <member name="T:Facebook.JSONObject">
@@ -408,6 +314,129 @@
         <member name="P:Facebook.JSONObject.Boolean">
             <summary>
             Returns this JSONObject as a boolean
+            </summary>
+        </member>
+        <member name="T:Facebook.FacebookAPI">
+            <summary>
+            Wrapper around the Facebook Graph API. 
+            </summary>
+        </member>
+        <member name="M:Facebook.FacebookAPI.#ctor">
+            <summary>
+            Create a new instance of the API, with public access only.
+            </summary>
+        </member>
+        <member name="M:Facebook.FacebookAPI.#ctor(System.String)">
+            <summary>
+            Create a new instance of the API, using the given token to
+            authenticate.
+            </summary>
+            <param name="token">The access token used for
+            authentication</param>
+        </member>
+        <member name="M:Facebook.FacebookAPI.Get(System.String)">
+            <summary>
+            Makes a Facebook Graph API GET request.
+            </summary>
+            <param name="relativePath">The path for the call,
+            e.g. /username</param>
+        </member>
+        <member name="M:Facebook.FacebookAPI.Get(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Makes a Facebook Graph API GET request.
+            </summary>
+            <param name="relativePath">The path for the call,
+            e.g. /username</param>
+            <param name="args">A dictionary of key/value pairs that
+            will get passed as query arguments.</param>
+        </member>
+        <member name="M:Facebook.FacebookAPI.Delete(System.String)">
+            <summary>
+            Makes a Facebook Graph API DELETE request.
+            </summary>
+            <param name="relativePath">The path for the call,
+            e.g. /username</param>
+        </member>
+        <member name="M:Facebook.FacebookAPI.Post(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Makes a Facebook Graph API POST request.
+            </summary>
+            <param name="relativePath">The path for the call,
+            e.g. /username</param>
+            <param name="args">A dictionary of key/value pairs that
+            will get passed as query arguments. These determine
+            what will get set in the graph API.</param>
+        </member>
+        <member name="M:Facebook.FacebookAPI.Call(System.String,Facebook.HttpVerb,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Makes a Facebook Graph API Call.
+            </summary>
+            <param name="relativePath">The path for the call, 
+            e.g. /username</param>
+            <param name="httpVerb">The HTTP verb to use, e.g.
+            GET, POST, DELETE</param>
+            <param name="args">A dictionary of key/value pairs that
+            will get passed as query arguments.</param>
+        </member>
+        <member name="M:Facebook.FacebookAPI.MakeRequest(System.Uri,Facebook.HttpVerb,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Make an HTTP request, with the given query args
+            </summary>
+            <param name="url">The URL of the request</param>
+            <param name="verb">The HTTP verb to use</param>
+            <param name="args">Dictionary of key/value pairs that represents
+            the key/value pairs for the request</param>
+        </member>
+        <member name="M:Facebook.FacebookAPI.EncodeDictionary(System.Collections.Generic.Dictionary{System.String,System.String},System.Boolean)">
+            <summary>
+            Encode a dictionary of key/value pairs as an HTTP query string.
+            </summary>
+            <param name="dict">The dictionary to encode</param>
+            <param name="questionMark">Whether or not to start it
+            with a question mark (for GET requests)</param>
+        </member>
+        <member name="P:Facebook.FacebookAPI.AccessToken">
+            <summary>
+            The access token used to authenticate API calls.
+            </summary>
+        </member>
+        <member name="M:MediaChrome.Views.Playlist.#ctor(MediaChrome.IPlayEngine,System.String,System.String,System.Windows.Forms.Form)">
+            <summary>
+            Creates a new playlist without an buffer
+            </summary>
+            <param name="Engine">The engine to work with</param>
+            <param name="Name">Name of the playlist</param>
+            <param name="ID">The system id of the playlist (specific for the extension)</param>
+            <param name="host">The host of the playlist (the media provider)</param>
+        </member>
+        <member name="M:MediaChrome.Views.Playlist.#ctor(MediaChrome.IPlayEngine,System.String,System.String,System.Windows.Forms.Form,System.Collections.Generic.List{MediaChrome.Song})">
+            <summary>
+            Creates a new playlist without an buffer
+            </summary>
+            <param name="Engine">The engine to work with</param>
+            <param name="Name">Name of the playlist</param>
+            <param name="ID">The system id of the playlist (specific for the extension)</param>
+            <param name="host">The host of the playlist (the media provider)</param>
+            <param name="cache">The cache to use instead of loading an new one</param>
+        </member>
+        <member name="P:MediaChrome.Views.Playlist.Annotation">
+            <summary>
+            Text annotation for playlist. Support easy HTML
+            </summary>
+        </member>
+        <member name="F:MediaChrome.SocialNetworking.Facebook.api">
+            <summary>
+            The underlying api
+            </summary>
+        </member>
+        <member name="F:MediaChrome.SocialNetworking.Facebook.token">
+            <summary>
+            The secret API token
+            </summary>
+        </member>
+        <member name="T:MediaChrome.LoginResult">
+            <summary>
+            Login states
             </summary>
         </member>
         <member name="T:MediaChrome.IMedia">
@@ -891,7 +920,7 @@
         <member name="P:MediaChrome.IPlayEngine.LoggedIn">
             <summary>
             Gets and sets whether the user is logged in to the service
-            </summary>
+            </summary>           s
         </member>
         <member name="P:MediaChrome.IPlayEngine.Streaming">
             <summary>
@@ -991,30 +1020,6 @@
         <member name="P:MediaChrome.IPlayEngine.Length">
             <summary>
             Returns the duration of the current song (in seconds)
-            </summary>
-        </member>
-        <member name="M:MediaChrome.Views.Playlist.#ctor(MediaChrome.IPlayEngine,System.String,System.String,System.Windows.Forms.Form)">
-            <summary>
-            Creates a new playlist without an buffer
-            </summary>
-            <param name="Engine">The engine to work with</param>
-            <param name="Name">Name of the playlist</param>
-            <param name="ID">The system id of the playlist (specific for the extension)</param>
-            <param name="host">The host of the playlist (the media provider)</param>
-        </member>
-        <member name="M:MediaChrome.Views.Playlist.#ctor(MediaChrome.IPlayEngine,System.String,System.String,System.Windows.Forms.Form,System.Collections.Generic.List{MediaChrome.Song})">
-            <summary>
-            Creates a new playlist without an buffer
-            </summary>
-            <param name="Engine">The engine to work with</param>
-            <param name="Name">Name of the playlist</param>
-            <param name="ID">The system id of the playlist (specific for the extension)</param>
-            <param name="host">The host of the playlist (the media provider)</param>
-            <param name="cache">The cache to use instead of loading an new one</param>
-        </member>
-        <member name="P:MediaChrome.Views.Playlist.Annotation">
-            <summary>
-            Text annotation for playlist. Support easy HTML
             </summary>
         </member>
     </members>

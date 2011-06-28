@@ -13,6 +13,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
+using WebKit.Interop;
 
 
 namespace Board
@@ -686,7 +687,7 @@ namespace Board
                 {
 
                     this.currentView.Section = value;
-
+                    Invoke(new MethodInvoker(RenderBrowserElements));
                 }
                 catch
                 {
@@ -1004,7 +1005,19 @@ namespace Board
             Thread D = new Thread(LoadContent);
             D.Start((object)URI);
         }
-        View currentView;
+        private View mCurrentView;
+        public View currentView
+        {
+            get
+            {
+                return mCurrentView;
+            }
+            set
+            {
+                mCurrentView = value;
+                Invoke(new MethodInvoker(RenderBrowserElements));
+            }
+        }
         public void GoForward()
         {
             if (!ViewExist())
@@ -1748,10 +1761,57 @@ namespace Board
                 timer1.Interval = value;
             }
         }
+        public class Browser : WebKit.WebKitBrowser
+        {
+            Board.DrawBoard Host;
+           
+            public Browser(Board.DrawBoard host)
+            {
+                Host = host;
+                
+
+            }
+            protected override void OnPaintBackground(PaintEventArgs e)
+            {
+                base.OnPaintBackground(e);
+                e.Graphics.FillRectangle(new SolidBrush(Host.BackColor), new Rectangle(0, 0, Width+5, Height+5));
+            }
+        }
+        Browser browser;
         private void Artist_Load(object sender, EventArgs e)
         {
-
+            browser = new Browser(this);
+            this.Controls.Add(browser);
+            browser.TabStop = false;
+            
+            browser.Navigating += new WebBrowserNavigatingEventHandler(browser_Navigating);
+            
+            WebView r = (WebView)browser.GetWebView();
+            
+           // r.focusedFrame().setAllowsScrolling(0);
+            browser.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GotFocus += new EventHandler(DrawBoard_GotFocus);
            // this.SuspendLayout();
+        }
+
+        void DrawBoard_GotFocus(object sender, EventArgs e)
+        {
+            this.Focus();
+            this.Focus = true;
+        }
+
+        void browser_GotFocus(object sender, EventArgs e)
+        {
+            this.Focus();   
+        }
+
+        void browser_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+        {
+
+            string uri = e.Url.ToString();
+                this.Navigate(uri,uri.Split(':')[0],"views");
+                e.Cancel=true;
+            
         }
         public event ScrollEventHandler Scrolling;
         int LEFT = 140;
@@ -2143,6 +2203,7 @@ namespace Board
             get
             {
                 List<Element> selectedItems = new List<Element>();
+                if(ViewBuffer!=null)
                 foreach (Element elm in this.ViewBuffer)
                 {
                     if (elm.Selected)
@@ -2474,9 +2535,15 @@ namespace Board
         /// <param name="position">Rectangle of position</param>
         /// <param name="left">Left position of character start</param>
         /// <param name="row">row on character start</param>
-        public void DrawText(String xml, Element elm, SolidBrush fontBrush, Font font, Graphics g, Rectangle position, ref int entryship, ref int left, ref int row)
+        public void DrawText( String xml, Element elm, SolidBrush fontBrush, Font font, Graphics g, Rectangle position, ref int entryship, ref int left, ref int row,bool html = false)
         {
-#if(obsolote)
+            if(!html)
+            {
+                g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+                g.SmoothingMode = SmoothingMode.None;
+                g.DrawString(xml, font, fontBrush, position);
+                return;
+            }
             List<Element> elementsToShow = new List<Element>();
             foreach (Element d in elm.Elements)
             {
@@ -2569,10 +2636,7 @@ namespace Board
                 elmPos++;
 
             }
-#endif
-            g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-            g.SmoothingMode = SmoothingMode.None;
-            g.DrawString(xml, font, fontBrush, position);
+
         }
         Bitmap TextBuffer;
         private int GetTextHeight(string p, Font font, IBoardRender g)
@@ -2593,10 +2657,14 @@ namespace Board
         {
             get
             {
+                if (this.CurSection == null)
+                    return 0;
                 return this.CurSection.ScrollY;
             }
             set
             {
+                if (this.CurSection == null)
+                    return;
                 this.CurSection.ScrollY = value;
                 AssertScroll();
             }
@@ -2660,6 +2728,7 @@ namespace Board
         /// <param name="entryship">The number of entry placed</param>
         public void DrawElement(Element _Element, Graphics d, ref int entryship, Rectangle Bounds, int padding, ref int t_left, ref int t_row)
         {
+
             /**
              * If the current section is an flow, do 
              * not show the entry
@@ -2676,7 +2745,8 @@ namespace Board
             int left = Bounds.Left;
             int top = Bounds.Top;
             int width = Bounds.Width;
-
+            if (Bounds.Bottom < 0 || Bounds.Right < 0)
+                return;
             /**
              * Check if the mouse is inside the element's bounds 
              * and if so set it as the hover element. The bounds are relative to the element's text
@@ -3006,8 +3076,15 @@ namespace Board
                   * */
                     int _row = 0;
                    if (_Element.Data != null)
-                        DrawText((_Element.Data), _Element, new SolidBrush(ForeGround), labelFont, d, new Rectangle(new Point(left, top + 2), new Size(width, height)), ref entryship, ref  t_left, ref t_row);
-                    
+                       if (_Element.GetAttribute("textonly") != "true")
+                       {
+                           DrawText((_Element.Data), _Element, new SolidBrush(ForeGround), labelFont, d, new Rectangle(new Point(left, top + 2), new Size(width, height)), ref entryship, ref  t_left, ref t_row,true);
+                       }
+                       else
+                       {
+                           d.DrawString(_Element.Data, labelFont, new SolidBrush(Foreground), new Point(left, top + 2));
+                       }
+                       
 
 
                     break;
@@ -3342,13 +3419,173 @@ namespace Board
         private bool reoredering = false;
 
         /// <summary>
-        /// Draw inside an certain view. Mouse events are measured here instead of mousemove
+        /// Recursive sub element rendering
         /// </summary>
-        /// <param name="p">The graphics buffer</param>
-        /// <param name="CurrentView"> The view to base from</param>
+        /// <param name="doc"></param>
+        /// <param name="elm"></param>
+        /// <param name="e"></param>
+        public void RenderBrowserElement(ref WebKit.DOM.Document doc, WebKit.DOM.Element elm, Element e)
+        {
+            browser.BackColor = this.BackColor;
+            foreach (Board.Attribute attribute in e.Attributes)
+            {
+                if (attribute.name == "href")
+                {
+                    if(!attribute.value.Contains("http://go.go/"))
+                    attribute.value = "http://go.go/" + attribute.value;
+                }
+                elm.SetAttribute(attribute.name, attribute.value);
+                
+            }
 
+            // Do this for  children
+            foreach (Element d in e.Elements)
+            {
+                WebKit.DOM.Element subElement = doc.CreateElement(d.Type);
+                RenderBrowserElement(ref doc, subElement,d);
+                try
+                {
+                    elm.AppendChild(subElement);
+                }
+                catch { }
 
+            }
 
+        }
+       
+        /// <summary>
+        /// Create webkit elements
+        /// </summary>
+        public void RenderBrowserElements()
+        {
+            /**
+             * Alternate element rendering
+             * */
+            var style = String.Format("cursor:default;background: {0};font-family:\"{1}\"; color: {2};",ColorTranslator.ToHtml(BackColor),this.Font.FontFamily.Name,ColorTranslator.ToHtml(ForeColor));
+            
+            StringBuilder markup = new StringBuilder(); 
+            String mc = ""; // template preprocessor
+            using (StreamReader SR = new StreamReader("views\\generic_header.xml"))
+            {
+               mc=(SR.ReadToEnd());
+               SR.Close();
+            }
+      
+            if(CurSection != null)
+                foreach (Element c in this.CurSection.Elements)
+                {
+                    if (c.Type == "entry" || c.Type == "columnheader")
+                        continue;
+                    markup.Append(String.Format("<{0}>{1}</{0}>", c.Type, c.Data));
+                }
+           
+            mc = mc.Replace("<content/>", markup.ToString());
+            
+            foreach (Component comp in skin.Components.Values)
+            {
+                mc = mc.Replace("#(" + comp.Rel + ".ForeColor)", ColorTranslator.ToHtml(comp.ForeColor));
+                mc = mc.Replace("#(" + comp.Rel + ".BackColor)", ColorTranslator.ToHtml(comp.BackColor));
+                mc = mc.Replace("#(" + comp.Rel + ".BackImage)", comp.backgroundImage);
+
+            }
+            this.browser.DocumentText = mc.Replace("@{style}", style);
+#if(obsolote)
+            return;
+            try
+            {
+                // Remove all elements
+                while (this.browser.Document.FirstChild != null)
+
+                    this.browser.Document.RemoveChild(this.browser.Document.FirstChild);
+
+            }
+            catch
+            {
+            }
+            // Create stylesheet
+            var styleElement = this.browser.Document.CreateElement("style");
+            styleElement.SetAttribute("type","text/css");
+            styleElement.TextContent=style;
+            var html = browser.Document.CreateElement("html");
+            
+            var body = browser.Document.CreateElement("body");
+            var head = browser.Document.CreateElement("head");
+            try
+            {
+                browser.Document.AppendChild(html);
+            }
+            catch { }
+
+            try
+            {
+                html.AppendChild(head);
+            }
+            catch { }
+            try
+            {
+                html.AppendChild(body);
+            }
+            catch { }
+            head.AppendChild(styleElement);
+            try
+            {
+         
+            }
+            catch { }
+           
+            if (this.CurSection != null)
+            {
+                // Render the elements in the DOM node
+                foreach (Element d in this.CurSection.Elements)
+                {
+                    WebKit.DOM.Element Elm = this.browser.Document.CreateElement(d.Type);
+                    foreach (Board.Attribute attribute in d.Attributes)
+                    {
+                        // Add an goto specifier so links works!
+                        if (attribute.name == "href")
+                        {
+                            if (!attribute.value.Contains("http://go.go/"))
+                                attribute.value = "http://go.go/" + attribute.value;
+                        }
+                        Elm.SetAttribute(attribute.name, attribute.value);
+
+                    }
+                    WebKit.DOM.Document doc = this.browser.Document;
+                    
+                   
+                    foreach(Element elm in d.Elements)
+                    {
+
+                        var elm2 = doc.CreateElement(elm.Type);
+                        RenderBrowserElement(ref doc, elm2, elm);
+                        try
+                        {
+                            Elm.AppendChild(elm2);
+                        }
+                        catch
+                        {
+                        }
+                    }
+                        // Set text content to data
+                    if (Elm.ChildNodes.Length < 1)
+                        Elm.TextContent = d.Data;
+                    try
+                    {
+                        body.AppendChild(Elm);
+                    }
+                    catch
+                    {
+
+                    }
+                    WebView view = (WebView)this.browser.GetWebView();
+                  
+                    
+                }
+
+            }
+#endif
+        }
+        public delegate void AddChildHandler(WebKit.DOM.Element elm);
         // integer for the current tab which is hovered
         private int hovered_tab = -1;
 
@@ -3360,9 +3597,47 @@ namespace Board
         /// Draws the view
         /// </summary>
         /// <param name="p">The graphics to draw with</param>
+        /// <summary>
+        /// Draw inside an certain view. Mouse events are measured here instead of mousemove
+        /// </summary>
+        /// <param name="p">The graphics buffer</param>
+        /// <param name="CurrentView"> The view to base from</param>
+
         public void Draw(Graphics p)
         {
+            if (this.CurSection == null)
+            {
+                p.FillRectangle(new SolidBrush(this.BackColor),new Rectangle(0,0,this.Width,this.Height));
+                return;
+            }
+            int hTop = this.CurSection.Header ? tabbar_height + 2 : 0; // Height of tabbar
+
             HoveredElement = null;
+            if (this.Entries.Count > 0)
+            {
+                
+                // set webkit
+                browser.Left = 0;
+                browser.Width = this.Width;
+                Rectangle preEntry = this.Entries[0].GetCoordinates(scrollX, scrollY, new Rectangle(0, 0, this.Width, this.Height), 0);
+                int secHeight = this.Entries[0].GetCoordinates(scrollX, 0, new Rectangle(0, 0, this.Width, this.Height), 0).Top;
+                // top of first element
+                int seqHeight = Entries.Count > 0 ? preEntry.Top : this.Height;
+               
+                browser.Height = secHeight -tabbar_height -columnheader_height - ScrollY*2 ;
+                WebView d = (WebView)browser.GetWebView();
+                
+                browser.VerticalScroll.Value= browser.VerticalScroll.Maximum;              
+            }
+            else
+            {
+                browser.Left = 0;
+                browser.Top = hTop - scrollY;
+                browser.Width = this.Width;
+                browser.Height = this.CurSection.TotalHeight;
+            }
+
+
             /**
              * Init graphics engine
              * */
@@ -3406,7 +3681,7 @@ namespace Board
 
                 if (this.Background != null)
                     d.DrawImage(this.Background, new Rectangle(0, 0, this.Width, this.Height));
-
+                bool headerEnd = false; // Has reached end of header Gecko
                 /**
                  * If the currentView isn't null begin draw all elements on the board
                  * */
@@ -3417,11 +3692,25 @@ namespace Board
                                 for (int i = 0; i < ViewBuffer.Count; i++)
                                 {
                                     // Calculate the view coordinates of the element
-
+                                    
                                     Element _Element = ViewBuffer[i];
+
+                                    // After reaching the space element, header has ended
+                                    if (_Element.Type == "space")
+                                    {
+                                        headerEnd = true;
+                                    }
+                                    if (_Element.Type != "entry" && !headerEnd)
+                                    {
+                                        continue;
+                                    }
+                                    
                                     int padding = 0;
                                     if (_Element.GetAttribute("type") != "entry")
+                                    {
                                         padding = 3;
+                                       
+                                    }
                                     Rectangle ScreenCoordinates = _Element.GetCoordinates(scrollX, scrollY, this.Bounds, padding);
                                     // Draw the element and it's children
                                 
@@ -3975,7 +4264,11 @@ namespace Board
         public string dragURI = "";
         private void Artist_MouseDown(object sender, MouseEventArgs e)
         {
-            // if active column is defined, assert it
+            if (!this.browser.Bounds.Contains(e.X, e.Y))
+            {
+                this.Focus();
+                this.Focus = true;
+            }// if active column is defined, assert it
             if (activeColumn > -1)
             {
                 return;
@@ -4618,6 +4911,7 @@ namespace Board
             {
                 // Allocate list for only entries
                 List<Element> entries = new List<Element>();
+                if(this.ViewBuffer != null)
                 for (int i = 0; i < this.ViewBuffer.Count; i++)
                 {
                     Element cf = ViewBuffer[i];

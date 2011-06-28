@@ -57,14 +57,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Board.exe" size="1183744">
-      <assemblyIdentity name="Board" version="1.0.4193.18038" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Board.exe" size="1187840">
+      <assemblyIdentity name="Board" version="1.0.4196.20073" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>cR0Nm5n24ygzoRQ7sspDzp6cVN4=</dsig:DigestValue>
+        <dsig:DigestValue>GDRatcA33WHKWvqqbmf1zyhYgS4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -153,14 +153,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MediaChrome.dll" size="33280">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MediaChrome.dll" size="33792">
       <assemblyIdentity name="MediaChrome" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>gTb4XVvNN5gmi8buRexURhGrRmQ=</dsig:DigestValue>
+        <dsig:DigestValue>ikV4SEOsVnKQ+pOhvL4hZ9KSXGQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -172,7 +172,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>EUZ7bsuCZD1hXK/x4ltRcmHlzY8=</dsig:DigestValue>
+        <dsig:DigestValue>PPq3ttfRCpbptnfIuCGLefbCTLA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

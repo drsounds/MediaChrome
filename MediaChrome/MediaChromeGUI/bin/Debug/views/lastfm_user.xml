@@ -1,4 +1,4 @@
-<?
+﻿<?
 /* Get user from parameter */
 var user = parameter;
 
@@ -28,52 +28,74 @@ var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.
 			</vbox>
 			
 		</hbox>-->
-		<hbox height="128">
-			
-			<image  width="128" 	  src="@{img}" shadow="true" />
-			<vbox flex="1" height="128">
-				<label height="30" bold="true" size="12" color="#FFFFFF" >@{real_name}</label>
-				<label bold="true" size="12" color="#FFFFFF" flex="1" >LastFM.User</label>
-			</vbox>
-		
-			<vbox width="328" height="128">
-				<label bold="true" left="320" size="12" color="#FFFFFF" top="30" width="1440" height="60">Friends</label>
-				<hbox height="32" width="128">
-				<?
-				var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.getfriends&user="+parameter+"&api_key=b25b959554ed76058ac220b7b2e0a026");
-				var users = user_info.GetElementsByTagName("user");
-				for(var i = 0; i < users.Count && i < 5; i++){ var user = users.Item(i);
-					var link = user.GetElementsByTagName("name").Item(0).InnerText;
-					var picture = user.GetElementsByTagName("image").Item(0).InnerText;
-					var name = user.GetElementsByTagName("name").Item(0).InnerText;
-					var left = 320;
-					var top = 80 + 10 * i;
-				?>
-						<img src="" width="32" height="32" />
-						
-			
-				</hbox>
-				<hbox height="32" width="128">
-				<!--	<img top="60" width="60" height="60" left="@{left}" href="@{link}" src="@{picture}" shadow="true" /> -->
-				<?
-				}
-				var users = user_info.GetElementsByTagName("user");
-				for(var i = 0; i < users.Count && i < 5; i++){ var user = users.Item(i);
-					var link = user.GetElementsByTagName("name").Item(0).InnerText;
-					var picture = user.GetElementsByTagName("image").Item(0).InnerText;
-					var name = user.GetElementsByTagName("name").Item(0).InnerText;
-					var left = 320;
-					var top = 80 + 10 * i;
-				?>
-					<label height="16"  href="@{service}:lastfm_user:@{name}" >@{name}</label>
-				<?
-				}
-				?>
+		<table width="100%">
+			<tr>
+				<td valign="top">
+					<img  width="128"  height="128"	  src="@{img}" shadow="true" />
+				</td>
+				<td valign="top" width="100%">
+					<table width="100%">
+						<tr>
+							<td valign="top">@{real_name}</td>
+						</tr>
+						<tr>
+							<td valign="top">LastFM.User</td>
+						</tr>
+					</table>
+				</td>
+				<td valign="top">
+					<table width="25%">
+						<tr>
+							<td>Friends</td>
+						</tr>
+						<tr>
+							<td>
+								<table width="100%">
+									<tr>
+										<td>
+									<?
+									var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.getfriends&user="+parameter+"&api_key=b25b959554ed76058ac220b7b2e0a026");
+									var users = user_info.GetElementsByTagName("user");
+									for(var i = 0; i < users.Count && i < 5; i++){ var user = users.Item(i);
+										var link = user.GetElementsByTagName("name").Item(0).InnerText;
+										var picture = user.GetElementsByTagName("image").Item(0).InnerText;
+										var name = user.GetElementsByTagName("name").Item(0).InnerText;
+										var left = 320;
+										var top = 80 + 10 * i;
+									?>
+										
+											<a href="@{service}:lastfm_user:@{name}"><img src="@{picture}" width="48" height="48" /></a>
+									<?
+									}
+									?>
+										</td>
+									</tr>
+									<tr>
+										<td>
+										<?
+										var users = user_info.GetElementsByTagName("user");
+										for(var i = 0; i < users.Count && i < 5; i++){ var user = users.Item(i);
+											var link = user.GetElementsByTagName("name").Item(0).InnerText;
+											var picture = user.GetElementsByTagName("image").Item(0).InnerText;
+											var name = user.GetElementsByTagName("name").Item(0).InnerText;
+											var left = 320;
+											var top = 80 + 10 * i;
+										?>
+											<a href="@{service}:lastfm_user:@{name}">@{name}</a> ?
+										<?
+										}
+										?>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
 				
-				</hbox>
-					
-			</vbox>
-		</hbox>
+			</tr>
+		</table>		
+	
 		
 		
 		<!-- spacer -->
@@ -81,7 +103,7 @@ var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.
 		
 		
 		
-		<space height="50" />
+		<space height="228" />
 	<!--	<divider height="30" />
 		<label left="150" bold="true" size="8" color="#FFFFFF" top="@TOP" width="640" height="20">Recent scrobbles</label>
 		-->
@@ -124,10 +146,17 @@ var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.
 		<columnheader noelm="true" name="Title" size="320" />
 		<columnheader noelm="true" name="Artist" size="320" />
 		<columnheader noelm="true" name="User" size="320" />
-		<hbox height="64">
-			<img src="@{skin_dir}/Scrobble.png" width="44" height="44" />
-			<label flex="1">Recent scrobbles from @{parameter}</label>
-		</hbox>
+		<table width="100%" height="64">
+			<tr>
+				<td>
+					<img src="@{skin_dir}/Scrobble.png" width="44" height="44" />
+				</td>
+				<td>
+					<label flex="1">Recent scrobbles from @{parameter}</label>
+				</td>
+			</tr>
+		</table>
+		<space height="128" />
 		<?
 		var d = user_recent;
 		
@@ -188,7 +217,13 @@ var user_info = synchronize_data("http://ws.audioscrobbler.com/2.0/?method=user.
 				y++;
 			}
 		?>
-		<label top="@{ctop}" align="tr" left="@{left}" width="300" href="@{service}:lastfm_user:@{name}" >@{name}</label>
+		<a href="@{service}:lastfm_user:@{name}">
+			<div style="position:absolute;top: @{ctop}px;left: @{left}px;">
+				<img src="@{picture}" width="128" height="128"	  />
+				<br/>
+				<span>@{name}</span>
+			</div>
+		</a>
 	<!--	<img top="@{top}" width="60" height="60" left="@{left}" href="@{service}:lastfm_user:@{name}" src="@{link}" shadow="true" /> -->
 		<?
 		}

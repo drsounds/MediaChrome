@@ -34,6 +34,15 @@
     <Reference Include="Bass.Net">
       <HintPath>..\bin\Debug\Bass.Net.dll</HintPath>
     </Reference>
+    <Reference Include="MediaChrome, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\MediaChrome\bin\Debug\MediaChrome.dll</HintPath>
+    </Reference>
+    <Reference Include="MediaChromeGUI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <ExecutableExtension>.exe</ExecutableExtension>
+      <HintPath>..\bin\Debug\MediaChromeGUI.exe</HintPath>
+    </Reference>
     <Reference Include="NAudio">
       <HintPath>..\NAudio.dll</HintPath>
     </Reference>
@@ -86,14 +95,6 @@
     <ProjectReference Include="..\..\libspotify-sharp\libspotify-sharp.csproj">
       <Project>{33ECCB93-27D8-40DB-82E8-B47AAE19AA9C}</Project>
       <Name>libspotify-sharp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\MediaChrome\MediaChrome.csproj">
-      <Project>{1D280F8A-C27B-40A2-AA08-71DB6E82E530}</Project>
-      <Name>MediaChrome</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MediaChromeGUI.csproj">
-      <Project>{2B72EF2A-6611-4492-A753-0E1C8612A3E2}</Project>
-      <Name>MediaChromeGUI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

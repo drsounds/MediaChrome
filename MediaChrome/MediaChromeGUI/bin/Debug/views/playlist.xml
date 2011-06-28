@@ -24,32 +24,44 @@ function list_remove(uri)
 		<columnheader noelm="true" name="Date" size="150" />
 		<columnheader noelm="true" name="Comment" size="350" />
 		
-		
-		<hbox height="128">
-			<image src="" width="128" height="128" left="10"  shadow="true"/>
 			
-			<vbox flex="1" height="128">	
-				<label height="30" size="12">@{playlist.Title}</label>
-				<label  width="464" height="60" size="8">@{playlist.Annotation}</label>
-			</vbox>
+		<table width="100%">
+			<tr>
+				<td>
+					<img src="http://www.globalstudies.gu.se/digitalAssets/1313/1313159_igs_plugg2.jpg" width="128" height="128" left="10"  shadow="true"/>
 			
-			<vbox width="128"  >
-				<label size="12" color="#FFFFFF">Subscribers</label>
-				<hbox height="128">
-					<vbox width="128">
-						<image src=""  height="64"   width="64" shadow="true"/>
-						<label  width="64" height="60" 	>test</label>
-					</vbox>
-					<vbox width="128">
-						<image src=""  height="64"  width="64"  shadow="true"/>
-						<label  width="64" height="60" 	>test</label>
-					</vbox>
-				</hbox>			
-			</vbox>
+				</td>
+				<td valign="top" width="100%">
+					<span class="header"><b>@{playlist.Title}</b></span><br/>
+					
+					<p style="font-size:12px">@{playlist.Annotation} I love <a href="@{service}:playlist:A">Music</a></p>
+						
+				</td>
+				<td valign="top">
+					<b>Subscribers</b><br/>
+				
+					<table>
+						<tr>
+							<td>
+								<img src="http://www.globalstudies.gu.se/digitalAssets/1313/1313159_igs_plugg2.jpg"  height="64"   width="64" shadow="true"/>
+								<img src="http://www.globalstudies.gu.se/digitalAssets/1313/1313159_igs_plugg2.jpg"  height="64"   width="64" shadow="true"/>
+								<img src="http://www.globalstudies.gu.se/digitalAssets/1313/1313159_igs_plugg2.jpg"  height="64"   width="64" shadow="true"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<?
+								for(var i=0; i < 5; i++){?>
+								<a href="@{service}:playlist:@{parameter}">test</a>  ●
+								<? } ?>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
 			
-		</hbox>
-		
-		<space height="10"/>
+		</table>
+		<space height="180" />
 		<?	
 		for(var i=0; i < playlist.Songs.Count; i++){ var song = playlist.Songs[i];
 		?>

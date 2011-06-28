@@ -339,7 +339,7 @@ namespace MediaChromeGUI
                 /// </summary>
                 D.Play();
                 CurrentPlayer = D;
-                NotifyNewSong(new Song() { Title=Path,Artist=Path  });
+                NotifyNewSong(new Song() { Title=Path,ArtistName=Path  });
 
 
             }
@@ -981,7 +981,7 @@ namespace MediaChromeGUI
                  * */
                 Song d = new Song();
                 d.Title = e.Element.GetAttribute("title");
-                d.Artist = e.Element.GetAttribute("artist");
+                d.ArtistName = e.Element.GetAttribute("artist");
                 d.AlbumName = e.Element.GetAttribute("album");
                 d.Path = e.Element.GetAttribute("uri");
                 e.Element.Tag = d;
@@ -1607,7 +1607,7 @@ namespace MediaChromeGUI
         /// <param name="query"></param>
         /// <returns></returns>
         public object __findMusic(string service, string query)
-        {
+            {
             /**
              * IF service is defined with * 
              * find on all service

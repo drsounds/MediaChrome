@@ -20,29 +20,20 @@
 		</vbox> -->
 		<!--<label height="50" color="#aaeeaa" left="10" top="@TOP" width="500">Did you mean</label> -->
 		
-
-<? 
-/** Get local songs */
-var local_content = queryLocalFiles("SELECT * FROM song WHERE artist LIKE '%"+parameter+"%' OR album LIKE '%"+parameter+"%' OR name LIKE '%"+parameter+"%'");
-
-for(var i=0; i < local_content.Count; i++){ var local_song=local_content[i];
-?> 
-	<entry left="0" width="-1" top="@TOP" height="18" title="@{local_song.Title}"   artist="@{local_song.Artist}" album="@{local_song.Album.Name}" uri="@{local_song.Path}"/>
 <?
-}
 
 for(var i=0; i < result.Count; i++){
-var Title = result[i].Name;
-var Artist = result[i].Artist;
-var Album = result[i].Album;
-	var uri = result[i].Link;
-	var icon = result[i].Engine.Image;
+var Title = result[i].Name.replace("<","").replace(">","").replace("&","");
+var Artist = result[i].ArtistName.replace("<","").replace(">","").replace("&","");
+var Album = result[i].AlbumName.replace("<","").replace(">","").replace("&","");
+	var uri = result[i].Link.replace("<","").replace(">","").replace("&","");
+/*var icon = result[i].Engine.Image; */
 ?>
 
-		<entry icon_title="@{icon}" dragUri="@{uri}" left="0" width="-1" top="@TOP" height="18"  href_artist="@{artist_uri}" href_album="@{album_uri}" uri="@{uri}">
-			<title noelm="true"><![CDATA[@{Title}]]></title>
-			<artist noelm="true"><![CDATA[@{Artist}]]></artist>
-			<album noelm="true"><![CDATA[@{Album.Name}]]></album>
+		<entry draguri="@{uri}" left="0" width="-1" top="@TOP" height="18"  href_artist="@{artist_uri}" href_album="@{album_uri}" uri="@{uri}">
+			<title noelm="true">@{Title}</title>
+			<artist noelm="true">@{Artist}</artist>
+			<album noelm="true">@{Album.Name}</album>
 			
 		</entry>
 <? } ?>

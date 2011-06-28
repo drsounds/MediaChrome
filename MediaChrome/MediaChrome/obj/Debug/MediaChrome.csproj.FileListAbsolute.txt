@@ -16,3 +16,15 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\obj\Debug\GenerateRes
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\obj\Debug\GenerateResource.read.1.tlog
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\obj\Debug\GenerateResource.write.1.tlog
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\bin\Debug\MediaChrome.dll.config
+L:\Dropbox\MediaChrome\MediaChrome\MediaChrome\bin\Debug\MediaChrome.dll.config
+L:\Dropbox\MediaChrome\MediaChrome\MediaChrome\bin\Debug\MediaChrome.dll
+L:\Dropbox\MediaChrome\MediaChrome\MediaChrome\bin\Debug\MediaChrome.pdb
+L:\Dropbox\MediaChrome\MediaChrome\MediaChrome\bin\Debug\docs.xml
+L:\Dropbox\MediaChrome\MediaChrome\MediaChrome\obj\Debug\ResolveAssemblyReference.cache
+L:\Dropbox\MediaChrome\MediaChrome\MediaChrome\obj\Debug\MediaChrome.SocialNetworking.FacebookForm.resources
+L:\Dropbox\MediaChrome\MediaChrome\MediaChrome\obj\Debug\GenerateResource-ResGen.read.1.tlog
+L:\Dropbox\MediaChrome\MediaChrome\MediaChrome\obj\Debug\GenerateResource.read.1.tlog
+L:\Dropbox\MediaChrome\MediaChrome\MediaChrome\obj\Debug\GenerateResource-ResGen.write.1.tlog
+L:\Dropbox\MediaChrome\MediaChrome\MediaChrome\obj\Debug\GenerateResource.write.1.tlog
+L:\Dropbox\MediaChrome\MediaChrome\MediaChrome\obj\Debug\MediaChrome.dll
+L:\Dropbox\MediaChrome\MediaChrome\MediaChrome\obj\Debug\MediaChrome.pdb

@@ -4,259 +4,98 @@
         <name>Board</name>
     </assembly>
     <members>
-        <member name="T:Board.Skin">
+        <member name="T:Board.IScriptEngine">
             <summary>
-            Skin architecture.
+            Interface for dealing with various script engines to connect. All engines must be wrapped by this interface.
             </summary>
         </member>
-        <member name="M:Board.Skin.SetCSSFunctions">
+        <member name="M:Board.IScriptEngine.Run(System.String)">
             <summary>
-            Sets css wrapper functions
+            This function is called by the preprocesor after the code has been compiled from the preprocessing template
             </summary>
+            <param name="scriptCode">The string with the javascript code</param>
+            <returns>True if sucess, false if failed </returns>
         </member>
-        <member name="M:Board.Skin.__css_url(System.String)">
+        <member name="M:Board.IScriptEngine.Invoke(System.String,System.Object[])">
             <summary>
-            An wrapper for URL property
+            Invoke an function in the client script from the executable code
             </summary>
-            <param name="url"></param>
+            <param name="Function"></param>
+            <param name="arguments"></param>
             <returns></returns>
         </member>
-        <member name="M:Board.Skin.#ctor(System.String,System.Boolean)">
+        <member name="M:Board.IScriptEngine.SetVariable(System.String,System.Object)">
             <summary>
-            Loads an skin from the defined file
+            Thus method is called to make an instance of an certain object accessible for the scripting object.
             </summary>
-            <param name="File">file name of the xml skin</param>
+            <param name="variableName"></param>
+            <param name="varInstance"></param>
         </member>
-        <member name="F:Board.Skin.components">
+        <member name="M:Board.IScriptEngine.SetFunction(System.String,System.Delegate)">
             <summary>
-            List of components
+            This method is called to set an function to be accessible by the functionName for the script once Executed.
             </summary>
+            <param name="functionName"></param>
+            <param name="functionPointer"></param>
         </member>
-        <member name="T:Board.ComponentCollection">
+        <member name="F:Board.JavaScriptEngine.scriptEngine">
             <summary>
-            Defines an collection of components
-            </summary>
-        </member>
-        <member name="T:Board.Component">
-            <summary>
-            An component to skin
+            The instance of the Jint parser
             </summary>
         </member>
-        <member name="M:Board.Component.SetCSS(System.Collections.Generic.Dictionary{System.String,System.String})">
+        <member name="M:Board.JavaScriptEngine.Invoke(System.String,System.Object[])">
             <summary>
-            Set CSS values
+            Invokes an user function
             </summary>
-            <param name="values"></param>
-        </member>
-        <member name="F:Board.Component.Rel">
-            <summary>
-            The component to skin (an control or element)
-            </summary>
-        </member>
-        <member name="P:Board.Component.Parent">
-            <summary>
-            Gets or sets the parent skin
-            </summary>
-        </member>
-        <member name="P:Board.Component.Enabled">
-            <summary>
-            Gets or sets whether the part of the skin is enabled
-            </summary>
-        </member>
-        <member name="P:Board.Component.fontFamily">
-            <summary>
-            Family of font
-            </summary>
-        </member>
-        <member name="P:Board.Component.fontSize">
-            <summary>
-            Font size
-            </summary>
-        </member>
-        <member name="P:Board.Component.Font">
-            <summary>
-            Gets the font
-            </summary>
-        </member>
-        <member name="P:Board.Component.Skin">
-            <summary>
-            Skin component
-            </summary>
-        </member>
-        <member name="T:Board.CssParser">
-            <summary>
-            Class for parsing CSS
-            </summary>
-        </member>
-        <member name="M:Board.CssParser.ParseCSSFile(System.String)">
-            <summary>
-            Parses an set of CSS expressions
-            </summary>
-            <param name="input"></param>
+            <param name="func"></param>
+            <param name="args"></param>
             <returns></returns>
         </member>
-        <member name="M:Board.CssParser.ParseCssString(System.String)">
+        <member name="M:Board.JavaScriptEngine.Run(System.String)">
             <summary>
-            Function to parse an css clausul.
+            This function is called by the preprocesor after the code has been compiled from the preprocessing template
             </summary>
-            <param name="expressions">Ann CSS inline expression { inside }</param>
-            <returns>An dictionary of expressions inside</returns>
+            <param name="scriptCode">The string with the javascript code</param>
+            <returns>True if sucess, false if failed </returns>
         </member>
-        <member name="P:Board.CssParser.Source">
+        <member name="M:Board.JavaScriptEngine.SetVariable(System.String,System.Object)">
             <summary>
-            Source code
+            Thus method is called to make an instance of an certain object accessible for the scripting object.
             </summary>
+            <param name="variableName">The name of the instance at the script level</param>
+            <param name="varInstance">The object to send</param>
         </member>
-        <member name="T:Board.CListView">
+        <member name="M:Board.JavaScriptEngine.SetFunction(System.String,System.Delegate)">
             <summary>
-            Description of CListView.
+            This method is called to set an function to be accessible by the functionName for the script once Executed.
             </summary>
+            <param name="functionName">The desired alias for the function at script level</param>
+            <param name="functionPointer">The delegate for the function to use at script</param>
         </member>
-        <member name="M:Board.Scrollbar.Draw(System.Drawing.Graphics)">
+        <member name="T:Board.Resource1">
             <summary>
-            Draws the current state of the scrollbar
-            </summary>
-            <param name="g">Graphics engine to draw on</param>
-        </member>
-        <member name="F:Board.Scrollbar.frontY">
-            <summary>
-            Space between the top of the thumb and the mouse cursor in pixels
+              A strongly-typed resource class, for looking up localized strings, etc.
             </summary>
         </member>
-        <member name="F:Board.Scrollbar.components">
+        <member name="P:Board.Resource1.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Board.Resource1.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="F:Board.DrawBoard.components">
             <summary> 
             Required designer variable.
             </summary>
         </member>
-        <member name="M:Board.Scrollbar.Dispose(System.Boolean)">
-            <summary> 
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:Board.Scrollbar.InitializeComponent">
+        <member name="M:Board.DrawBoard.InitializeComponent">
             <summary> 
             Required method for Designer support - do not modify 
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="P:Board.Scrollbar.Host">
-            <summary>
-            The drawboard the scrollbar belongs to
-            </summary>
-        </member>
-        <member name="E:Board.Scrollbar.Scrolling">
-            <summary>
-            Raises when moving the scrollbar
-            </summary>
-        </member>
-        <member name="P:Board.Scrollbar.FreeSpace">
-            <summary>
-            Gets the free space of the thumbs space
-            </summary>
-        </member>
-        <member name="P:Board.Scrollbar.ScrollSize">
-            <summary>
-            Gets scale of the scrollbar
-            </summary>
-        </member>
-        <member name="P:Board.Scrollbar.ThumbHeight">
-            <summary>
-            Gets or set the size of thumb - below 100
-            </summary>
-        </member>
-        <member name="P:Board.Scrollbar.SpaceHeight">
-            <summary>
-            Gets the height of the space
-            </summary>
-        </member>
-        <member name="P:Board.Scrollbar.Position">
-            <summary>
-            Gets or sets the position of the scrollbar
-            </summary>
-        </member>
-        <member name="P:Board.Scrollbar.ThumbPosition">
-            <summary>
-            Gets the Y-positiono of the thumb
-            </summary>
-        </member>
-        <member name="P:Board.Scrollbar.Dragging">
-            <summary>
-            Gets or sets if the scrollbar is dragging
-            </summary>
-        </member>
-        <member name="T:Board.Scrollbar.ScrollEventArgs">
-            <summary>
-            Class for scrolling event args
-            </summary>
-        </member>
-        <member name="P:Board.Scrollbar.ScrollEventArgs.Position">
-            <summary>
-            The position of the scroll
-            </summary>
-        </member>
-        <member name="T:Board.Scrollbar.ScrollEventHandler">
-            <summary>
-            Delagate for handling scrolling events
-            </summary>
-            <param name="Sender">the object which raised the delegate's event</param>
-            <param name="e">Arguments provided with the event</param>
-        </member>
-        <member name="T:Board.ViewError">
-            <summary>
-            Form to show about an view error
-            </summary>
-        </member>
-        <member name="M:Board.ViewError.#ctor(System.String,System.String)">
-            <summary>
-            Custom constructor for ViewError, where you specify the
-            info to the user about the error.
-            </summary>
-            <param name="View"></param>
-            <param name="error"></param>
-        </member>
-        <member name="F:Board.ViewError.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:Board.ViewError.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:Board.ViewError.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="M:Board.MakoParser.TestContent(System.String)">
-            <summary>
-            Method to test content, output both preparsed and parsed content
-            </summary>
-            <param name="file"></param>
-        </member>
-        <member name="F:Board.MakoParser.Engine">
-            <summary>
-            Our test engine
-            </summary>
-        </member>
-        <member name="F:Board.MakoParser.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:Board.MakoParser.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:Board.MakoParser.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
             the contents of this method with the code editor.
             </summary>
         </member>
@@ -460,7 +299,7 @@
             LinkLabel for background color
             </summary>
         </member>
-        <member name="M:Board.DrawBoard.DrawText(System.String,Board.Element,System.Drawing.SolidBrush,System.Drawing.Font,System.Drawing.Graphics,System.Drawing.Rectangle,System.Int32@,System.Int32@,System.Int32@)">
+        <member name="M:Board.DrawBoard.DrawText(System.String,Board.Element,System.Drawing.SolidBrush,System.Drawing.Font,System.Drawing.Graphics,System.Drawing.Rectangle,System.Int32@,System.Int32@,System.Int32@,System.Boolean)">
             <summary>
             Method to dynamically draw text and include subsets of elements inside the markup of the text
             </summary>
@@ -526,12 +365,18 @@
             Determines if an reordering progress is ongoing.
             </summary>
         </member>
-        <member name="F:Board.DrawBoard.hovered_tab">
+        <member name="M:Board.DrawBoard.RenderBrowserElement(WebKit.DOM.Document@,WebKit.DOM.Element,Board.Element)">
             <summary>
-            Draw inside an certain view. Mouse events are measured here instead of mousemove
+            Recursive sub element rendering
             </summary>
-            <param name="p">The graphics buffer</param>
-            <param name="CurrentView"> The view to base from</param>
+            <param name="doc"></param>
+            <param name="elm"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Board.DrawBoard.RenderBrowserElements">
+            <summary>
+            Create webkit elements
+            </summary>
         </member>
         <member name="F:Board.DrawBoard.resizeFlow">
             <summary>
@@ -543,6 +388,11 @@
             Draws the view
             </summary>
             <param name="p">The graphics to draw with</param>
+            <summary>
+            Draw inside an certain view. Mouse events are measured here instead of mousemove
+            </summary>
+            <param name="p">The graphics buffer</param>
+            <param name="CurrentView"> The view to base from</param>
         </member>
         <member name="M:Board.DrawBoard.DrawFlowElement(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Drawing.Graphics)">
             <summary>
@@ -665,17 +515,6 @@
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
-        </member>
-        <member name="F:Board.DrawBoard.components">
-            <summary> 
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:Board.DrawBoard.InitializeComponent">
-            <summary> 
-            Required method for Designer support - do not modify 
-            the contents of this method with the code editor.
-            </summary>
         </member>
         <member name="E:Board.DrawBoard.ElementDeleting">
             <summary>
@@ -1265,241 +1104,6 @@
             </summary>
             <param name="sender">the sender board</param>
             <param name="e"></param>
-        </member>
-        <member name="F:Board.frmBoard.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:Board.frmBoard.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:Board.frmBoard.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="M:Board.frmBoard.LoadContent(System.String)">
-            <summary>
-            Method to load an example content
-            </summary>
-            <param name="address"></param>
-        </member>
-        <member name="T:Board.Resource1">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:Board.Resource1.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:Board.Resource1.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="T:Board.IBoardRender">
-            Abstract drawing engine for the board
-            
-        </member>
-        <member name="M:Board.IBoardRender.Initialize">
-            <summary>
-            Initializes the engine
-            </summary>
-        </member>
-        <member name="M:Board.IBoardRender.Destroy">
-            <summary>
-            Clear the plate
-            </summary>
-        </member>
-        <member name="M:Board.IBoardRender.DrawRectangle(System.Drawing.Color,System.Drawing.Rectangle)">
-            <summary>
-            Draws an rectangle
-            </summary>
-            <param name="left">x</param>
-            <param name="top">y</param>
-            <param name="width">width</param>
-            <param name="height">height</param>
-        </member>
-        <member name="M:Board.IBoardRender.DrawImage(System.Drawing.Bitmap,System.Drawing.Rectangle)">
-            <summary>
-            Draws an image with the specified coordinates. Should be scaled
-            
-            </summary>
-            <param name="image"></param>
-            <param name="Bounds"></param>
-        </member>
-        <member name="M:Board.IBoardRender.DrawImage(System.Drawing.Bitmap,System.Drawing.Point)">
-            <summary>
-            Draws an image with the specified coordinates. Should be scaled
-            
-            </summary>
-            <param name="image"></param>
-            <param name="Bounds"></param>
-        </member>
-        <member name="M:Board.IBoardRender.DrawLine(System.Drawing.Color,System.Drawing.Point,System.Drawing.Point)">
-            <summary>
-            Draws an line.
-            </summary>
-            <remarks>Points are absolute, not relative to each other</remarks>
-            <param name="color">Color of the line</param>
-            <param name="start">Starting point</param>
-            <param name="end">End point</param>
-        </member>
-        <member name="M:Board.IBoardRender.DrawString(System.String,System.Drawing.Font,System.Drawing.Color,System.Drawing.Rectangle)">
-            <summary>
-            Draws an string. If the string exceeds the bounds,
-            clip it.
-            </summary>
-            <param name="str">The string to draw</param>
-            <param name="font">The font to use</param>
-            <param name="Bounds">The bounds</param>
-            <param name="shadow">Decides if the string should have an shadow</param>
-        </member>
-        <member name="M:Board.IBoardRender.DrawString(System.String,System.Drawing.Font,System.Drawing.Color,System.Drawing.Point)">
-            <summary>
-            Draws an string. If the string exceeds the bounds,
-            clip it.
-            </summary>
-            <param name="str">The string to draw</param>
-            <param name="font">The font to use</param>
-            <param name="Bounds">The bounds</param>
-            <param name="shadow">Decides if the string should have an shadow</param>
-        </member>
-        <member name="M:Board.IBoardRender.Clear(System.Drawing.Color)">
-            <summary>
-            Clear the drawing cache and fill the 
-            output with the specified color.
-            </summary>
-            <param name="color">The color to fill</param>
-        </member>
-        <member name="M:Board.IBoardRender.FillRectangle(System.Drawing.Color,System.Drawing.Rectangle)">
-            <summary>
-            Fills an rectangle
-            </summary>
-            <param name="bgColor"></param>
-        </member>
-        <member name="M:Board.IBoardRender.FillRectangle(System.Drawing.Brush,System.Drawing.Rectangle)">
-            <summary>
-            Fills an rectangle
-            </summary>
-            <param name="bgColor"></param>
-        </member>
-        <member name="M:Board.IBoardRender.Render">
-            <summary>
-            Render the graphics to the output
-            </summary>
-        </member>
-        <member name="P:Board.IBoardRender.Surface">
-            <summary>
-            Gets or sets the surface which 
-            returns the drawing cache
-            </summary>
-        </member>
-        <member name="T:Board.MakoEngine">
-            <summary>
-            This is an simple MakoEngine implementation for Jint.
-            Used to minic the Spotify's view engine.
-            
-            </summary>
-        </member>
-        <member name="M:Board.MakoEngine.Invoke(System.String,System.Object[])">
-            <summary>
-            Invokes an method on the script
-            </summary>
-            <param name="method">method name</param>
-            <param name="args">arguments passed to the function</param>
-            <returns></returns>
-        </member>
-        <member name="F:Board.MakoEngine.OldOutput">
-            <summary>
-            Returns the old output
-            </summary>
-        </member>
-        <member name="M:Board.MakoEngine.__printx(System.String)">
-            <summary>
-            Callback where the output is thrown to, called by the parsed string
-            </summary>
-            <param name="values"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Board.MakoEngine.synchronize_data(System.String)">
-            <summary>
-            Synchronize data is called by the javascript preparser to get an ready to use JSON parsed data. If the dat can't be parsed as JSON
-            it will be returned as an common string
-            </summary>
-            <param name="uri">The address to the remote information to retrieve</param>
-            <returns></returns>
-        </member>
-        <member name="M:Board.MakoEngine.HandleToTokens(System.String,System.Char)">
-            <summary>
-            Function to convert variable signatures to variable concations for the parser
-            </summary>
-            <param name="Line"></param>
-            <param name="signature"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Board.MakoEngine.GetVariables(System.String,System.Char)">
-            <summary>
-            This function returns variable from the parser embedded in an output field, asserted with an custom sign {VARNAME}
-            </summary>
-            <param name="Line">The code line to execute</param>
-            <param name="signature">The char signature</param>
-            <returns>An list of processed variables</returns>
-        </member>
-        <member name="M:Board.MakoEngine.ExecuteScalarVariable(System.String,System.Char,System.Char,System.Boolean)">
-            <summary>
-            This function executes the scalar variable, works together with GetVariable. It will also parse the inherited 
-            codebase.
-            </summary>
-            <param name="Variable"></param>
-            <param name="reflector">Reflector divides which is the conditinoal statement and the boolean output</param>
-            <param name="divider">Boolean divider</param>
-            <param name="vetero">Which variable beside the reflector divider should be present in fallback</param>
-            <value>Returns an 2 field String array where {InitialVariableName,Output}</value>
-            <returns></returns>
-        </member>
-        <member name="F:Board.MakoEngine.JSPython">
-            <summary>
-            The javascript will be like as python
-            </summary>
-        </member>
-        <member name="F:Board.MakoEngine.RuntimeMachine">
-            <summary>
-            Instance of the Jint engine running at runtime
-            </summary>
-        </member>
-        <member name="M:Board.MakoEngine.Execute(System.String)">
-            <summary>
-            This function executes string in the js mako engine
-            </summary>
-            <param name="e"></param>
-        </member>
-        <member name="M:Board.MakoEngine.Preprocess(System.String,System.String,System.Boolean,System.Boolean)">
-            <summary>
-            This function preprosses the mako layer
-            </summary>
-            <param name="input">The input string to parse</param>
-            <param name="argument">The argument sent to the parser</param>
-        </member>
-        <member name="T:Board.MakoEngine.CreateEventHandler">
-            <summary>
-            Raises the create event handler. Useful to add features to the engine before running
-            </summary>
-            <param name="sender">The current instance of MakoEngine</param>
-            <param name="e">EventArg</param>
-        </member>
-        <member name="T:Board.MainForm">
-            <summary>
-            Description of MainForm.
-            </summary>
         </member>
         <member name="M:Board.Spofity.GoBack">
             <summary>
@@ -2257,78 +1861,485 @@
             Class for defining children element collection
             </summary>
         </member>
+        <member name="F:Board.Scrollbar.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Board.Scrollbar.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Board.Scrollbar.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Board.Scrollbar.Draw(System.Drawing.Graphics)">
+            <summary>
+            Draws the current state of the scrollbar
+            </summary>
+            <param name="g">Graphics engine to draw on</param>
+        </member>
+        <member name="F:Board.Scrollbar.frontY">
+            <summary>
+            Space between the top of the thumb and the mouse cursor in pixels
+            </summary>
+        </member>
+        <member name="P:Board.Scrollbar.Host">
+            <summary>
+            The drawboard the scrollbar belongs to
+            </summary>
+        </member>
+        <member name="E:Board.Scrollbar.Scrolling">
+            <summary>
+            Raises when moving the scrollbar
+            </summary>
+        </member>
+        <member name="P:Board.Scrollbar.FreeSpace">
+            <summary>
+            Gets the free space of the thumbs space
+            </summary>
+        </member>
+        <member name="P:Board.Scrollbar.ScrollSize">
+            <summary>
+            Gets scale of the scrollbar
+            </summary>
+        </member>
+        <member name="P:Board.Scrollbar.ThumbHeight">
+            <summary>
+            Gets or set the size of thumb - below 100
+            </summary>
+        </member>
+        <member name="P:Board.Scrollbar.SpaceHeight">
+            <summary>
+            Gets the height of the space
+            </summary>
+        </member>
+        <member name="P:Board.Scrollbar.Position">
+            <summary>
+            Gets or sets the position of the scrollbar
+            </summary>
+        </member>
+        <member name="P:Board.Scrollbar.ThumbPosition">
+            <summary>
+            Gets the Y-positiono of the thumb
+            </summary>
+        </member>
+        <member name="P:Board.Scrollbar.Dragging">
+            <summary>
+            Gets or sets if the scrollbar is dragging
+            </summary>
+        </member>
+        <member name="T:Board.Scrollbar.ScrollEventArgs">
+            <summary>
+            Class for scrolling event args
+            </summary>
+        </member>
+        <member name="P:Board.Scrollbar.ScrollEventArgs.Position">
+            <summary>
+            The position of the scroll
+            </summary>
+        </member>
+        <member name="T:Board.Scrollbar.ScrollEventHandler">
+            <summary>
+            Delagate for handling scrolling events
+            </summary>
+            <param name="Sender">the object which raised the delegate's event</param>
+            <param name="e">Arguments provided with the event</param>
+        </member>
+        <member name="T:Board.MakoEngine">
+            <summary>
+            This is an simple MakoEngine implementation for Jint.
+            Used to minic the Spotify's view engine.
+            
+            </summary>
+        </member>
+        <member name="M:Board.MakoEngine.Invoke(System.String,System.Object[])">
+            <summary>
+            Invokes an method on the script
+            </summary>
+            <param name="method">method name</param>
+            <param name="args">arguments passed to the function</param>
+            <returns></returns>
+        </member>
+        <member name="F:Board.MakoEngine.OldOutput">
+            <summary>
+            Returns the old output
+            </summary>
+        </member>
+        <member name="M:Board.MakoEngine.__printx(System.String)">
+            <summary>
+            Callback where the output is thrown to, called by the parsed string
+            </summary>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Board.MakoEngine.synchronize_data(System.String)">
+            <summary>
+            Synchronize data is called by the javascript preparser to get an ready to use JSON parsed data. If the dat can't be parsed as JSON
+            it will be returned as an common string
+            </summary>
+            <param name="uri">The address to the remote information to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Board.MakoEngine.HandleToTokens(System.String,System.Char)">
+            <summary>
+            Function to convert variable signatures to variable concations for the parser
+            </summary>
+            <param name="Line"></param>
+            <param name="signature"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Board.MakoEngine.GetVariables(System.String,System.Char)">
+            <summary>
+            This function returns variable from the parser embedded in an output field, asserted with an custom sign {VARNAME}
+            </summary>
+            <param name="Line">The code line to execute</param>
+            <param name="signature">The char signature</param>
+            <returns>An list of processed variables</returns>
+        </member>
+        <member name="M:Board.MakoEngine.ExecuteScalarVariable(System.String,System.Char,System.Char,System.Boolean)">
+            <summary>
+            This function executes the scalar variable, works together with GetVariable. It will also parse the inherited 
+            codebase.
+            </summary>
+            <param name="Variable"></param>
+            <param name="reflector">Reflector divides which is the conditinoal statement and the boolean output</param>
+            <param name="divider">Boolean divider</param>
+            <param name="vetero">Which variable beside the reflector divider should be present in fallback</param>
+            <value>Returns an 2 field String array where {InitialVariableName,Output}</value>
+            <returns></returns>
+        </member>
+        <member name="F:Board.MakoEngine.JSPython">
+            <summary>
+            The javascript will be like as python
+            </summary>
+        </member>
+        <member name="F:Board.MakoEngine.RuntimeMachine">
+            <summary>
+            Instance of the Jint engine running at runtime
+            </summary>
+        </member>
+        <member name="M:Board.MakoEngine.Execute(System.String)">
+            <summary>
+            This function executes string in the js mako engine
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Board.MakoEngine.Preprocess(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            This function preprosses the mako layer
+            </summary>
+            <param name="input">The input string to parse</param>
+            <param name="argument">The argument sent to the parser</param>
+        </member>
+        <member name="T:Board.MakoEngine.CreateEventHandler">
+            <summary>
+            Raises the create event handler. Useful to add features to the engine before running
+            </summary>
+            <param name="sender">The current instance of MakoEngine</param>
+            <param name="e">EventArg</param>
+        </member>
         <member name="T:Board.MyClass">
             <summary>
             Description of MyClass.
             </summary>
         </member>
-        <member name="T:Board.IScriptEngine">
+        <member name="F:Board.frmBoard.components">
             <summary>
-            Interface for dealing with various script engines to connect. All engines must be wrapped by this interface.
+            Required designer variable.
             </summary>
         </member>
-        <member name="M:Board.IScriptEngine.Run(System.String)">
+        <member name="M:Board.frmBoard.Dispose(System.Boolean)">
             <summary>
-            This function is called by the preprocesor after the code has been compiled from the preprocessing template
+            Clean up any resources being used.
             </summary>
-            <param name="scriptCode">The string with the javascript code</param>
-            <returns>True if sucess, false if failed </returns>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         </member>
-        <member name="M:Board.IScriptEngine.Invoke(System.String,System.Object[])">
+        <member name="M:Board.frmBoard.InitializeComponent">
             <summary>
-            Invoke an function in the client script from the executable code
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
             </summary>
-            <param name="Function"></param>
-            <param name="arguments"></param>
+        </member>
+        <member name="M:Board.frmBoard.LoadContent(System.String)">
+            <summary>
+            Method to load an example content
+            </summary>
+            <param name="address"></param>
+        </member>
+        <member name="M:Board.MakoParser.TestContent(System.String)">
+            <summary>
+            Method to test content, output both preparsed and parsed content
+            </summary>
+            <param name="file"></param>
+        </member>
+        <member name="F:Board.MakoParser.Engine">
+            <summary>
+            Our test engine
+            </summary>
+        </member>
+        <member name="F:Board.MakoParser.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Board.MakoParser.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Board.MakoParser.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Board.IBoardRender">
+            Abstract drawing engine for the board
+            
+        </member>
+        <member name="M:Board.IBoardRender.Initialize">
+            <summary>
+            Initializes the engine
+            </summary>
+        </member>
+        <member name="M:Board.IBoardRender.Destroy">
+            <summary>
+            Clear the plate
+            </summary>
+        </member>
+        <member name="M:Board.IBoardRender.DrawRectangle(System.Drawing.Color,System.Drawing.Rectangle)">
+            <summary>
+            Draws an rectangle
+            </summary>
+            <param name="left">x</param>
+            <param name="top">y</param>
+            <param name="width">width</param>
+            <param name="height">height</param>
+        </member>
+        <member name="M:Board.IBoardRender.DrawImage(System.Drawing.Bitmap,System.Drawing.Rectangle)">
+            <summary>
+            Draws an image with the specified coordinates. Should be scaled
+            
+            </summary>
+            <param name="image"></param>
+            <param name="Bounds"></param>
+        </member>
+        <member name="M:Board.IBoardRender.DrawImage(System.Drawing.Bitmap,System.Drawing.Point)">
+            <summary>
+            Draws an image with the specified coordinates. Should be scaled
+            
+            </summary>
+            <param name="image"></param>
+            <param name="Bounds"></param>
+        </member>
+        <member name="M:Board.IBoardRender.DrawLine(System.Drawing.Color,System.Drawing.Point,System.Drawing.Point)">
+            <summary>
+            Draws an line.
+            </summary>
+            <remarks>Points are absolute, not relative to each other</remarks>
+            <param name="color">Color of the line</param>
+            <param name="start">Starting point</param>
+            <param name="end">End point</param>
+        </member>
+        <member name="M:Board.IBoardRender.DrawString(System.String,System.Drawing.Font,System.Drawing.Color,System.Drawing.Rectangle)">
+            <summary>
+            Draws an string. If the string exceeds the bounds,
+            clip it.
+            </summary>
+            <param name="str">The string to draw</param>
+            <param name="font">The font to use</param>
+            <param name="Bounds">The bounds</param>
+            <param name="shadow">Decides if the string should have an shadow</param>
+        </member>
+        <member name="M:Board.IBoardRender.DrawString(System.String,System.Drawing.Font,System.Drawing.Color,System.Drawing.Point)">
+            <summary>
+            Draws an string. If the string exceeds the bounds,
+            clip it.
+            </summary>
+            <param name="str">The string to draw</param>
+            <param name="font">The font to use</param>
+            <param name="Bounds">The bounds</param>
+            <param name="shadow">Decides if the string should have an shadow</param>
+        </member>
+        <member name="M:Board.IBoardRender.Clear(System.Drawing.Color)">
+            <summary>
+            Clear the drawing cache and fill the 
+            output with the specified color.
+            </summary>
+            <param name="color">The color to fill</param>
+        </member>
+        <member name="M:Board.IBoardRender.FillRectangle(System.Drawing.Color,System.Drawing.Rectangle)">
+            <summary>
+            Fills an rectangle
+            </summary>
+            <param name="bgColor"></param>
+        </member>
+        <member name="M:Board.IBoardRender.FillRectangle(System.Drawing.Brush,System.Drawing.Rectangle)">
+            <summary>
+            Fills an rectangle
+            </summary>
+            <param name="bgColor"></param>
+        </member>
+        <member name="M:Board.IBoardRender.Render">
+            <summary>
+            Render the graphics to the output
+            </summary>
+        </member>
+        <member name="P:Board.IBoardRender.Surface">
+            <summary>
+            Gets or sets the surface which 
+            returns the drawing cache
+            </summary>
+        </member>
+        <member name="T:Board.ViewError">
+            <summary>
+            Form to show about an view error
+            </summary>
+        </member>
+        <member name="F:Board.ViewError.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Board.ViewError.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Board.ViewError.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Board.ViewError.#ctor(System.String,System.String)">
+            <summary>
+            Custom constructor for ViewError, where you specify the
+            info to the user about the error.
+            </summary>
+            <param name="View"></param>
+            <param name="error"></param>
+        </member>
+        <member name="T:Board.MainForm">
+            <summary>
+            Description of MainForm.
+            </summary>
+        </member>
+        <member name="T:Board.CssParser">
+            <summary>
+            Class for parsing CSS
+            </summary>
+        </member>
+        <member name="M:Board.CssParser.ParseCSSFile(System.String)">
+            <summary>
+            Parses an set of CSS expressions
+            </summary>
+            <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Board.IScriptEngine.SetVariable(System.String,System.Object)">
+        <member name="M:Board.CssParser.ParseCssString(System.String)">
             <summary>
-            Thus method is called to make an instance of an certain object accessible for the scripting object.
+            Function to parse an css clausul.
             </summary>
-            <param name="variableName"></param>
-            <param name="varInstance"></param>
+            <param name="expressions">Ann CSS inline expression { inside }</param>
+            <returns>An dictionary of expressions inside</returns>
         </member>
-        <member name="M:Board.IScriptEngine.SetFunction(System.String,System.Delegate)">
+        <member name="P:Board.CssParser.Source">
             <summary>
-            This method is called to set an function to be accessible by the functionName for the script once Executed.
-            </summary>
-            <param name="functionName"></param>
-            <param name="functionPointer"></param>
-        </member>
-        <member name="F:Board.JavaScriptEngine.scriptEngine">
-            <summary>
-            The instance of the Jint parser
+            Source code
             </summary>
         </member>
-        <member name="M:Board.JavaScriptEngine.Invoke(System.String,System.Object[])">
+        <member name="T:Board.CListView">
             <summary>
-            Invokes an user function
+            Description of CListView.
             </summary>
-            <param name="func"></param>
-            <param name="args"></param>
+        </member>
+        <member name="T:Board.Skin">
+            <summary>
+            Skin architecture.
+            </summary>
+        </member>
+        <member name="M:Board.Skin.SetCSSFunctions">
+            <summary>
+            Sets css wrapper functions
+            </summary>
+        </member>
+        <member name="M:Board.Skin.__css_url(System.String)">
+            <summary>
+            An wrapper for URL property
+            </summary>
+            <param name="url"></param>
             <returns></returns>
         </member>
-        <member name="M:Board.JavaScriptEngine.Run(System.String)">
+        <member name="M:Board.Skin.#ctor(System.String,System.Boolean)">
             <summary>
-            This function is called by the preprocesor after the code has been compiled from the preprocessing template
+            Loads an skin from the defined file
             </summary>
-            <param name="scriptCode">The string with the javascript code</param>
-            <returns>True if sucess, false if failed </returns>
+            <param name="File">file name of the xml skin</param>
         </member>
-        <member name="M:Board.JavaScriptEngine.SetVariable(System.String,System.Object)">
+        <member name="F:Board.Skin.components">
             <summary>
-            Thus method is called to make an instance of an certain object accessible for the scripting object.
+            List of components
             </summary>
-            <param name="variableName">The name of the instance at the script level</param>
-            <param name="varInstance">The object to send</param>
         </member>
-        <member name="M:Board.JavaScriptEngine.SetFunction(System.String,System.Delegate)">
+        <member name="T:Board.ComponentCollection">
             <summary>
-            This method is called to set an function to be accessible by the functionName for the script once Executed.
+            Defines an collection of components
             </summary>
-            <param name="functionName">The desired alias for the function at script level</param>
-            <param name="functionPointer">The delegate for the function to use at script</param>
+        </member>
+        <member name="T:Board.Component">
+            <summary>
+            An component to skin
+            </summary>
+        </member>
+        <member name="M:Board.Component.SetCSS(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Set CSS values
+            </summary>
+            <param name="values"></param>
+        </member>
+        <member name="F:Board.Component.Rel">
+            <summary>
+            The component to skin (an control or element)
+            </summary>
+        </member>
+        <member name="P:Board.Component.Parent">
+            <summary>
+            Gets or sets the parent skin
+            </summary>
+        </member>
+        <member name="P:Board.Component.Enabled">
+            <summary>
+            Gets or sets whether the part of the skin is enabled
+            </summary>
+        </member>
+        <member name="P:Board.Component.fontFamily">
+            <summary>
+            Family of font
+            </summary>
+        </member>
+        <member name="P:Board.Component.fontSize">
+            <summary>
+            Font size
+            </summary>
+        </member>
+        <member name="P:Board.Component.Font">
+            <summary>
+            Gets the font
+            </summary>
+        </member>
+        <member name="P:Board.Component.Skin">
+            <summary>
+            Skin component
+            </summary>
         </member>
     </members>
 </doc>

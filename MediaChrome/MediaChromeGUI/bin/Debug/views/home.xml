@@ -12,12 +12,14 @@
 		<item title="Create playlist" onclick="scopeToPlaylist()" />
 	</toolbar>
 	<section name="Overview">
-	
-			<label height="50" color="#aaeeaa" left="10" size="20" width="500">What's new</label>
-			<label height="20" color="#aaeeaa" left="10" size="8" width="-1" persistent="true">The latest shared music on facebook</label>
+		<H1>Home</H1>
+			<hr/>
+			
+			<center>Feed</center>
 			<!-- <button left="360" text="Make playlist" top="@TOP"  width="100" height="20" onclick="scopeToPlaylist()"/>-->
-			<space height="30"/> 
-	
+		
+		
+			
 		<?
 		
 			if(d!=false){
@@ -27,30 +29,59 @@
 					var image = Entry.User.ImageUrl;
 					var name = Entry.User.FirstName + " " + Entry.User.LastName;
 					
-			?>
+			?><!--
 			<inflate src="components/feed_entry.xml" img="@{image}" header="@{name}">
 				<text noelm="true"><![CDATA[@{Entry.Message}]]></text>
 				<uri noelm="true"><![CDATA[@{link}]]></uri>
-			</inflate>
+			</inflate>-->
+			<h3>@{name}</h3>
+			<table width="100%">
+				<tr>
+					<td>@{image}</td>
+					<td>Sample text</td>
+				</tr>
+			</table>
 			<?
 						
 				}
 				
 			}else{
 			?>
-			<label height="20" color="#aaeeaa" left="10" top="@TOP" size="8" width="-1">Please allow the application to use facebook to get a overview</label>
+			<center ><small>Please allow the application to use facebook to get a overview</small></center>
 			<?
 			}
 		?>
 	</section>
 
-	<section name="debug">
-			
+	<section name="Top List">
+		<column name="No"  width="30" noelm="true"/>
+		<column name="Title" width="30" noelm="true"/>
+		<column name="Artist" width="30" noelm="true"/>
+		<h3>Top List</h3>
+		<p>Music currently most popular</p>
+		<space height="128" />
+		<?/*
+		var d = findMusic("genre:pop");
+		for(var i=0; i < d.Songs.Length; i++){ var song = d.Songs[i];*/
+		for(var i=0; i < 5; i++){
+			var song = {
+				Title: "Test",
+				Artist: "Test",
+				No: i
+			};
+		
+		?>
+		<entry height="30" top="@TOP" left="0" width="-1" no="@{i}" title="@{song.Name}" artist="a" color_no="#444444" />
+		<?
+		}
+		?>
+		
 		
 	</section>
 	
 
 	<section name="Feed">
+		<center><b>Feed</b></center>
 	<?
 		
 			if(d!=false){
@@ -59,10 +90,13 @@
 					var link = Entry.Link.Replace("http://open.spotify.com/","spotify:").Replace("/",":");
 				
 			?>
-			<inflate src="components/feed_entry.xml" img="@{Entry.User.ImageUrl}" header="test">
-				<text noelm="true"><![CDATA[@{Entry.Message}]]></text>
-				<uri noelm="true"><![CDATA[@{link}]]></uri>
-			</inflate>
+			<h3>@{name}</h3>
+			<table width="100%">
+				<tr>
+					<td>@{image}</td>
+					<td>Sample text</td>
+				</tr>
+			</table>
 			<?
 					
 				}

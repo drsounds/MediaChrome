@@ -19,6 +19,13 @@ using MediaChrome.Views;
 namespace MediaChrome
 {
     /// <summary>
+    /// Login states
+    /// </summary>
+    public enum LoginResult
+    {
+        Pass, Fail, Cancelled
+    }
+    /// <summary>
     /// A IMedia represents the instances of songs,artists and albums
     /// </summary>
     public interface IMedia
@@ -236,7 +243,7 @@ namespace MediaChrome
             P.Contributing = findCommit(D);
              Uri Url = new System.Uri(D.Replace("(" + P.Version + ")", "").Replace("[" + P.Contributing + "]", "").Replace("{", "").Replace("}", ""));
 
-             P.Artist = Url.Segments[1].Replace("%20", " ").Replace("/","");
+             P.ArtistName = Url.Segments[1].Replace("%20", " ").Replace("/","");
              P.Title = Url.Segments[3].Replace("%20", " ").Replace("/", "");
 
 
@@ -311,7 +318,7 @@ namespace MediaChrome
         /// An array of artists, first is primary
         /// </summary>
 		public Artist[] Artists{get;set;}
-        public string Artist
+        public string ArtistName
         {
             get
             {
@@ -574,14 +581,14 @@ namespace MediaChrome
 
         /// <summary>
         /// Gets and sets whether the user is logged in to the service
-        /// </summary>
+        /// </summary>           s
         bool LoggedIn { get; set; }
 
         /// <summary>
         /// Show the log in creditals. Log in is handled by each service
         /// </summary>
         /// <returns>If the log in was sucessfull</returns>
-        bool Login();
+        LoginResult Login();
 
 
         /// <summary>

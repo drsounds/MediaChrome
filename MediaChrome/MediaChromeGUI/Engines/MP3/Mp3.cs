@@ -85,9 +85,9 @@ namespace MediaChromeGUI
             // return a new song
             Song d = new Song();
             d.Title = Dw.id3Title.Replace("\0","");
-            d.Artist = Dw.id3Artist.Replace("\0", "");
+            d.ArtistName = Dw.id3Artist.Replace("\0", "");
             d.AlbumName = Dw.id3Album.Replace("\0","");
-            d.Path = String.Format("http://music/{0}/{1}/{2}", d.Artist, d.AlbumName, d.Title);
+            d.Path = String.Format("http://music/{0}/{1}/{2}", d.ArtistName, d.AlbumName, d.Title);
             return d;
 
            
@@ -119,7 +119,7 @@ namespace MediaChromeGUI
                 SQLiteConnection CP = MediaChromeGUI.MainForm.MakeConnection();
                 Song song = new Song();
                 song.Name = Dw.id3Title.Replace("\"","'").Replace("\0","");
-                song.Artist = Dw.id3Artist.Replace("\"", "'").Replace("\0", "");
+                song.ArtistName = Dw.id3Artist.Replace("\"", "'").Replace("\0", "");
                 song.AlbumName = Dw.id3Album.Replace("\"", "'").Replace("\0", "");
                 song.Path = "mp3:" + X.FullName.Replace("\"", "'").Replace("\0", "");
                 song.Engine = this;
@@ -152,9 +152,9 @@ namespace MediaChromeGUI
         public String Company { get; set; }
         public String Copyright { get; set; }
         public bool LoggedIn { get; set; }
-        public bool Login() {
+        public LoginResult Login() {
 
-            return true;
+            return LoginResult.Pass;
         
         }
         public void Logout() { }
@@ -231,7 +231,7 @@ namespace MediaChromeGUI
             {
                 Song d = new Song();
                 d.Album = R;
-                d.Artist = (string)r["artist"];
+                d.ArtistName = (string)r["artist"];
                 d.Name = (string)r["name"];
                 d.Path = (string)r["path"];
                 d.Link = (string)r["path"];
@@ -347,7 +347,7 @@ namespace MediaChromeGUI
 		{
             SQLiteConnection Conn = MediaChromeGUI.MainForm.MakeConnection();
 
-            SQLiteCommand Command = new SQLiteCommand("SELECT * FROM song WHERE name LIKE '%" + D.Title.Replace("'", "") + "%' AND artist LIKE '%" + D.Artist.Replace("'", "") + "%' AND  ( engine = 'mp3' OR store ='mp3')", Conn);
+            SQLiteCommand Command = new SQLiteCommand("SELECT * FROM song WHERE name LIKE '%" + D.Title.Replace("'", "") + "%' AND artist LIKE '%" + D.ArtistName.Replace("'", "") + "%' AND  ( engine = 'mp3' OR store ='mp3')", Conn);
 			SQLiteDataReader Reader = Command.ExecuteReader();
 			if(Reader.HasRows)
 			{
@@ -390,7 +390,7 @@ namespace MediaChromeGUI
 				Song D = new Song();
 				try{
 				D.Title = DR.GetString(0);
-				D.Artist = DR.GetString(1);
+				D.ArtistName = DR.GetString(1);
 				D.AlbumName = DR.GetString(2);
 				D.Path=DR.GetString(3);
 				D.Store=DR.GetString(4);
@@ -489,7 +489,7 @@ namespace MediaChromeGUI
 			player.URL = ("file:///"+URL.Replace("mp3:","").ToString());
 
             CurrentSong = new Song();
-            CurrentSong.Artist = player.currentMedia.getItemInfo("artist");
+            CurrentSong.ArtistName = player.currentMedia.getItemInfo("artist");
             CurrentSong.AlbumName = player.currentMedia.getItemInfo("album");
             CurrentSong.Title = player.currentMedia.getItemInfo("title");
             CurrentSong.Name = player.currentMedia.getItemInfo("title");
@@ -662,7 +662,7 @@ namespace MediaChromeGUI
                         }
                         SR.Close();
                     }
-                    Strings.Insert(pos, "http://music/"+_Song.Artist+"/"+(_Song.AlbumName != "" ? "%20" : "")+"/"+_Song.Name);
+                    Strings.Insert(pos, "http://music/"+_Song.ArtistName+"/"+(_Song.AlbumName != "" ? "%20" : "")+"/"+_Song.Name);
                     using (StreamWriter SW = new StreamWriter(MediaChromeGUI.MainForm.DownloadDir + "\\" + name))
                     {
                         foreach (String d in Strings)
