@@ -873,7 +873,14 @@ namespace MediaChromeGUI
             this.board.ContextMenu.Popup += new EventHandler(ContextMenu_Popup);
             this.treeview.MakoGeneration += new DrawBoard.MakoCreateEventHandler(treeview_MakoGeneration);
             DefaultPlayer = Program.MediaEngines[Properties.Settings.Default.DefaultPlayer];
+            this.board.AfterNavigating += new DrawBoard.NavigateEventHandler(board_AfterNavigating);
 
+        }
+
+        bool board_AfterNavigating(object sender, string uri)
+        {
+            this.pictureBox4.Invoke(new MethodInvoker(this.pictureBox4.Hide));
+            return true;
         }
 
         void treeview_ElementAdded(object Sender, DrawBoard.ElementParseEventArgs e)
@@ -1386,6 +1393,7 @@ namespace MediaChromeGUI
             {
 
                 board.Navigate("spotify:search:" + uri, "spotify", "views",Program.StorageFolder("views"));
+                this.pictureBox4.Show();
                 return false;
             }
             else
@@ -1558,7 +1566,7 @@ namespace MediaChromeGUI
         public object __getAlbum(string engine,string ID)
         {
             
-            return Program.MediaEngines[engine].GetAlbum(ID);
+             return Program.MediaEngines[engine].GetAlbum(ID);
         }
         /// <summary>
         /// Gets the album from the specified URI, from script
@@ -1662,6 +1670,8 @@ namespace MediaChromeGUI
         void board_MakoGeneration(object sender, EventArgs e)
         {
               Board.MakoEngine d = (Board.MakoEngine)sender;
+              d.RuntimeMachine.SetFunction("findAlbum", new Func<string, string, object>(__findAlbum));
+              d.RuntimeMachine.SetFunction("findArtist", new Func<string, string, object>(__findArtist));
               d.RuntimeMachine.SetFunction("queryLocalFiles",new Func<string, object>(__GetLocalFiles));
               d.RuntimeMachine.SetFunction("getAlbum", new Func<string, object>(__getAlbum));
               d.RuntimeMachine.SetFunction("getAlbum", new Func<string,string, object>(__getAlbum));
@@ -1685,6 +1695,42 @@ namespace MediaChromeGUI
               d.RuntimeMachine.SetFunction("section", new Func<string, object>(__setActiveSection));
               d.RuntimeMachine.SetVariable("skin_dir", this.Skin.Directory);
 
+        }
+
+        /// <summary>
+        /// Finds an artist
+        /// </summary>
+        /// <param name="engine"></param>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public object __findArtist(string engine, string query)
+        {
+            try
+            {
+                return Program.MediaEngines[engine].FindArtist(query);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Find album
+        /// </summary>
+        /// <param name="engine"></param>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public object __findAlbum(string engine, string query)
+        {
+            try
+            {
+                return Program.MediaEngines[engine].FindAlbum(query);
+            }
+            catch
+            {
+                return false;
+            }
         }
         /// <summary>
         /// Returns a list of playlists
@@ -1743,6 +1789,7 @@ namespace MediaChromeGUI
       
         bool board_BeforeNavigating(object sender, string uri)
         {
+            this.pictureBox4.Invoke(new MethodInvoker(this.pictureBox4.Show));
            // If the uri starts with spotify:user:xx:playlist: load the playlist
             if (uri.StartsWith("spotify:user:") && uri.Contains("playlist:"))
             {

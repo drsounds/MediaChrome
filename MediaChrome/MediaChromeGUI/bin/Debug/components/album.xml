@@ -4,15 +4,13 @@
  **/
 	var album = getAlbum(arg_service,arg_uri);
 	var songs = album.Songs;
-	var uri="";
+	var copyright = "Something to be added";
 ?>
 <view>
 	<section name="component">
-	<label left="150"  height="23" top="@top" width="320" size="10"  href="@{uri}">@{arg_uri}</label>
+<space height="10" />
 		
-		<label left="150"  height="23" top="@top" width="320" size="10"  href="@{uri}">@{album.Name} </label>
-		
-		<img  left="10" width="128" height="128" top="@TOP" href="@{uri}" src="@{uri}" persistent="true"/>
+		<img  left="10" width="128" height="128" top="@TOP" href="@{uri}" src="@{uri}" persistent="true" shadow="true"/>
 		<!-- An example tracklist -->
 <?
 function zeroNumber(no){	
@@ -20,43 +18,34 @@ function zeroNumber(no){
 }
 var album_name="name";
 var trackNo = 0;
-for(var i=0; i < album.Songs.Length; i++){ 
+for(var i=0; i < album.Songs.Count; i++){ 
 	var song = album.Songs[i]; 	
-	
-	/* Set an tracknumber*/
-	
 	
 
 	var title = song.Name;
 	
 	
-	var href = song.Path;
+	var href = song.Link;
 	
 	
-	
-	var coartist ="";
-	var artist_uri = "";
-	
-	/* Only show artist if not equal to the album's artist */
-	var displayArtist = coartist != artist ? artist : " ";
-		/* If href matches the input assert the song */ 
 		
-	/* If the albums uri is equal to the one provided show songs */
-	if(album_href != uri)
-		continue;
-		trackNo++;
+		var trackNo=zeroNumber(i);
 ?>
 
-		<entry  left="150" top="@TOP" height="18" uri="@{href}" no="@{zeroNumber(trackNo)}">
-			<title noelm="true"><![CDATA[@{title}]]></title>
+		<entry  left="150" top="@TOP" width="-1" height="18">
+			<uri noelm="true"><![CDATA[@{song.Link}]]></uri>
+			<no noelm="true"><![CDATA[@{(trackNo)}]]></no>
+			<title noelm="true"><![CDATA[@{song.Name}]]></title>
 		</entry>
-<? }  if(trackNo < 8){
+<? } 
+?><label left="150" top="@TOP" width="-1" height="18" size="8">@{copyright}</label><?
+if(trackNo < 8){
  for(var x =0; x < (8-trackNo); x++){ ?> 
  
  <space height="20" top="@TOP"/> 
  <? } ?>
 	
-% }
+<? }  ?>
  <space height="30" top="@TOP"/> 
 	</section>
 </view>

@@ -15,9 +15,13 @@
 		</item>
 	</toolbar>
 	<section name="Overview">
-		<space height="30"/>
+		<columnheader noelm="true" size="30" name="no" />
+		<columnheader noelm="true" size="150" name="title" />
+		
+		<space height="1"/>
+		
 		<!-- An example tracklist -->
-		<inflate src="components/album.xml" artist="@{artist}" name="@{name}" uri="spotify:album:@{parameter}"/>
+		<inflate src="components/album.xml" artist="@{artist}" name="@{name}" service="@{service}" uri="@{service}:album:@{parameter}"/>
 		
 	</section>
 </view>

@@ -86,6 +86,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new MediaChromeGUI.ExPanel();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -107,6 +108,7 @@
             this.panel1.SuspendLayout();
             this.pane5.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -131,37 +133,37 @@
             this.shareToolStripMenuItem,
             this.toolStripMenuItem3});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(158, 110);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(164, 110);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // playToolStripMenuItem
             // 
             this.playToolStripMenuItem.Name = "playToolStripMenuItem";
-            this.playToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.playToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.playToolStripMenuItem.Text = "Play / Browse";
             this.playToolStripMenuItem.Click += new System.EventHandler(this.playToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(154, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(160, 6);
             // 
             // copySpotifyURIToolStripMenuItem
             // 
             this.copySpotifyURIToolStripMenuItem.Name = "copySpotifyURIToolStripMenuItem";
-            this.copySpotifyURIToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.copySpotifyURIToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.copySpotifyURIToolStripMenuItem.Text = "Copy Spotify URI";
             // 
             // copyHTTPLinkToolStripMenuItem
             // 
             this.copyHTTPLinkToolStripMenuItem.Name = "copyHTTPLinkToolStripMenuItem";
-            this.copyHTTPLinkToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.copyHTTPLinkToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.copyHTTPLinkToolStripMenuItem.Text = "Copy HTTP Link";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(154, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(160, 6);
             // 
             // shareToolStripMenuItem
             // 
@@ -169,7 +171,7 @@
             this.facebookToolStripMenuItem,
             this.twitterToolStripMenuItem});
             this.shareToolStripMenuItem.Name = "shareToolStripMenuItem";
-            this.shareToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.shareToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.shareToolStripMenuItem.Text = "Share";
             // 
             // facebookToolStripMenuItem
@@ -187,7 +189,7 @@
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(154, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(160, 6);
             // 
             // columnHeader3
             // 
@@ -240,12 +242,12 @@
             this.contextMenuStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.playOpenResourceToolStripMenuItem});
             this.contextMenuStrip3.Name = "contextMenuStrip3";
-            this.contextMenuStrip3.Size = new System.Drawing.Size(170, 26);
+            this.contextMenuStrip3.Size = new System.Drawing.Size(179, 26);
             // 
             // playOpenResourceToolStripMenuItem
             // 
             this.playOpenResourceToolStripMenuItem.Name = "playOpenResourceToolStripMenuItem";
-            this.playOpenResourceToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.playOpenResourceToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.playOpenResourceToolStripMenuItem.Text = "Play/Open resource";
             // 
             // contextMenu1
@@ -329,7 +331,7 @@
             this.panel3.Size = new System.Drawing.Size(943, 464);
             this.panel3.TabIndex = 24;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint_1);
-             // 
+            // 
             // listViewX1
             // 
             this.listViewX1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
@@ -575,6 +577,7 @@
             this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel2.BackgroundImage = global::MediaChromeGUI.Properties.Resources.top_wall;
             this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel2.Controls.Add(this.pictureBox4);
             this.panel2.Controls.Add(this.panel5);
             this.panel2.Controls.Add(this.pictureBox3);
             this.panel2.Controls.Add(this.pictureBox2);
@@ -595,6 +598,18 @@
             this.panel2.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseDoubleClick);
             this.panel2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             this.panel2.MouseEnter += new System.EventHandler(this.panel2_MouseEnter);
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox4.Image = global::MediaChromeGUI.Properties.Resources.ajax_loader1;
+            this.pictureBox4.Location = new System.Drawing.Point(902, 13);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(34, 35);
+            this.pictureBox4.TabIndex = 23;
+            this.pictureBox4.TabStop = false;
             // 
             // panel5
             // 
@@ -760,7 +775,7 @@
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MediaChrome (Spotify Ultra)";
+            this.Text = "MediaChrome";
             this.TransparencyKey = System.Drawing.Color.Fuchsia;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
@@ -784,6 +799,7 @@
             this.pane5.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -868,6 +884,7 @@
         private System.Windows.Forms.MenuItem menuItem8;
         private System.Windows.Forms.MenuItem menuItem9;
         private System.Windows.Forms.MenuItem menuItem10;
+        private System.Windows.Forms.PictureBox pictureBox4;
 
     }
 }

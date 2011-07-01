@@ -182,11 +182,29 @@ namespace MediaChromeGUI
         }
         public MediaChrome.Album[] FindAlbum(string ID)
         {
-            return new Album[] { };
+           
+
+             SQLiteConnection D = MainForm.MakeConnection();
+             SQLiteDataReader r = new SQLiteCommand("SELECT album FROM song WHERE artist LIKE '%" + ID + "%'", D).ExecuteReader();
+             List<Album> albums = new List<Album>();
+             while (r.Read())
+             {
+                 Album c = GetAlbum((string)r["album"]);
+                 albums.Add(c);
+             }
+             return albums.ToArray();
         }
         public MediaChrome.Artist[] FindArtist(string ID)
         {
-            return new Artist[] { };
+            SQLiteConnection D = MainForm.MakeConnection();
+            SQLiteDataReader r = new SQLiteCommand("SELECT artist FROM song WHERE artist LIKE '%" + ID + "%'", D).ExecuteReader();
+            List<Artist> artists = new List<Artist>();
+            while (r.Read())
+            {
+                Artist c = GetArtist((string)r["artist"]);
+                artists.Add(c);
+            }
+            return artists.ToArray();
         }
       
 
@@ -213,15 +231,19 @@ namespace MediaChromeGUI
                 songs.Add(d);
 
             }
-            R.Songs = songs.ToArray();
+            R.Songs = songs;
             return R;
         }
         public MediaChrome.Album GetAlbum(string ID)
         {
+            
+           String name = ID.Replace("mp3:album:", ""); // name of the album
             Album R = new Album();
+            
             SQLiteConnection D = MediaChromeGUI.MainForm.MakeConnection();
-            SQLiteDataReader r = new SQLiteCommand("SELECT name,artist,album,path FROM song WHERE album = '" + ID + "'", D).ExecuteReader();
-
+            SQLiteDataReader r = new SQLiteCommand("SELECT name,artist,album,path FROM song WHERE album = '" + name + "' AND name <> ''", D).ExecuteReader();
+            R.Link = "mp3:album:" + ID;
+            R.Name = name;
             // Create temporary list of songs
 
             List<Song> songs = new List<Song>();
@@ -232,14 +254,16 @@ namespace MediaChromeGUI
                 Song d = new Song();
                 d.Album = R;
                 d.ArtistName = (string)r["artist"];
+                d.Title = (string)r["name"];
                 d.Name = (string)r["name"];
                 d.Path = (string)r["path"];
                 d.Link = (string)r["path"];
+                // d.CoverArt = (string)r["cover_art"];
                 d.Engine = this;
                 songs.Add(d);
 
             }
-            R.Songs = songs.ToArray();
+            R.Songs = songs;
             return R;
         }
 
@@ -254,21 +278,24 @@ namespace MediaChromeGUI
 
             Artist artist = new Artist();
             artist.Name = ID;
-            artist.Link = ID;
+            if (ID == null)
+                artist.Name = "";
+            artist.Link = "mp3:artist:"+ID;
             /***
              * Associate albums and songs to the artist
              * */
-            SQLiteDataReader SQLDR = new SQLiteCommand("SELECT DISTINCT album FROM song WHERE artist='" + ID + "'", D).ExecuteReader();
+            SQLiteDataReader SQLDR = new SQLiteCommand("SELECT DISTINCT artist FROM song WHERE artist='" + ID + "'", D).ExecuteReader();
 
             List<Album> albums = new List<Album>(); // Create an temporary list of albums
             while (SQLDR.Read())
             {
-                Album r = GetAlbum(artist,(string)SQLDR["album"]);
+                Album r = GetAlbum(artist,(string)SQLDR["artist"]);
                 albums.Add(r);
+                
             }
             Artist d = new Artist();
             d.Name = ID;
-            d.Albums = albums.ToArray();
+            d.Albums = albums;
             return d;
             
 
@@ -390,8 +417,8 @@ namespace MediaChromeGUI
 				Song D = new Song();
 				try{
 				D.Title = DR.GetString(0);
-				D.ArtistName = DR.GetString(1);
-				D.AlbumName = DR.GetString(2);
+                D.Artists = new Artist[] { GetArtist((string)DR["artist"]) };
+                D.Album = GetAlbum((string)DR["album"]);
 				D.Path=DR.GetString(3);
 				D.Store=DR.GetString(4);
 				D.Engine=this;

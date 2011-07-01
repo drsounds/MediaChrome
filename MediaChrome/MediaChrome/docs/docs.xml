@@ -509,6 +509,11 @@
             The link of the album
             </summary>
         </member>
+        <member name="P:MediaChrome.Album.CoverArt">
+            <summary>
+            The coverart for the song
+            </summary>
+        </member>
         <member name="P:MediaChrome.Album.Engine">
             <summary>
             The engine the album is using

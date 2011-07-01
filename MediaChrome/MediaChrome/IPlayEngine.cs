@@ -63,7 +63,7 @@ namespace MediaChrome
         /// <summary>
         /// Available albums for the artist
         /// </summary>
-        public Album[] Albums { get; set; }
+        public List<Album> Albums { get; set; }
 
         /// <summary>
         /// The link to the artist
@@ -89,7 +89,7 @@ namespace MediaChrome
         /// <summary>
         /// Songs of the album
         /// </summary>
-        public Song[] Songs { get; set; }
+        public List<Song> Songs { get; set; }
 
         /// <summary>
         /// Album artist
@@ -104,6 +104,11 @@ namespace MediaChrome
         /// The link of the album
         /// </summary>
         public String Link { get; set; }
+
+        /// <summary>
+        /// The coverart for the song
+        /// </summary>
+        public String CoverArt { get; set; }
 
         /// <summary>
         /// The engine the album is using

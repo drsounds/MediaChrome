@@ -82,7 +82,7 @@
 
 	<section name="Feed">
 		<center><b>Feed</b></center>
-	<?
+			<?
 		
 			if(d!=false){
 				var feed = d.Feed;

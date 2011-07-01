@@ -1681,6 +1681,16 @@
             <returns>an boolean wheather the object is inside the visible screen bounds</returns>
             
         </member>
+        <member name="M:Board.Element.AnyOf``1(``0,``0[])">
+            <summary>
+            Returns if the comparator is equal to any of the elements of same type in iTems. T and items
+            is in the specified type
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="comparator"></param>
+            <param name="items"></param>
+            <returns></returns>
+        </member>
         <member name="M:Board.Element.Diff(System.Single,System.Single)">
             <summary>
             Gets the difference between two integers
@@ -1704,7 +1714,7 @@
             Stylesheet applied to the element. Not yet in use, only declared
             </summary>
         </member>
-        <member name="M:Board.Element.AssertBounds(System.Boolean)">
+        <member name="M:Board.Element.AssertBounds(System.Boolean,System.Boolean)">
             <summary>
             Assign bounds of the object according to the parameters that is set in the textual parameter list (attributes)
             </summary>

@@ -1777,9 +1777,10 @@ namespace Board
                 e.Graphics.FillRectangle(new SolidBrush(Host.BackColor), new Rectangle(0, 0, Width+5, Height+5));
             }
         }
-        Browser browser;
+        public Browser browser;
         private void Artist_Load(object sender, EventArgs e)
         {
+
             browser = new Browser(this);
             this.Controls.Add(browser);
             browser.TabStop = false;
@@ -2928,6 +2929,10 @@ namespace Board
                         if (mouseX >= column_position && mouseX <= column_position + column && mouseY >= top && mouseY <= top + height && _Element.GetAttribute("href_" + title.ToLower()) != "")
                         {
                             setFont = new Font(setFont, FontStyle.Underline);
+                            // set clickable
+                            Element elm = new Element(this.CurSection, this);
+                            this.hoveredElement = elm;
+                            elm.SetAttribute("href", _Element.GetAttribute("href_" + title));
                         }
                         int et=0;
                         int __row = 0;
@@ -3624,7 +3629,7 @@ namespace Board
                 // top of first element
                 int seqHeight = Entries.Count > 0 ? preEntry.Top : this.Height;
                
-                browser.Height = secHeight -tabbar_height -columnheader_height - ScrollY*2 ;
+                browser.Height = secHeight -tabbar_height -columnheader_height - ScrollY ;
                 WebView d = (WebView)browser.GetWebView();
                 
                 browser.VerticalScroll.Value= browser.VerticalScroll.Maximum;              
@@ -5010,6 +5015,8 @@ namespace Board
                     return;
                 // Get the index of the element (but we use the index for all types of items, not only entries)
                 int index = this.ViewBuffer.IndexOf(targetPos);
+                int diff = GrabbedElements[0].Top - targetPos.Top ;
+
 
                 // Old index is the position of the first element in the collection
                 if (elementMode)
@@ -5023,6 +5030,10 @@ namespace Board
                         ViewBuffer.Remove(cf);
                     // Insert the new elements
                     ViewBuffer.InsertRange(index, GrabbedElements);
+                    foreach (Element cf in GrabbedElements)
+                    {
+                        cf.Top += diff;
+                    }
                 }
                 else
                 {

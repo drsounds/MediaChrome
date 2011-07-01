@@ -6,7 +6,7 @@
       <Value Profile="(Default)">C:\mc_storage</Value>
     </Setting>
     <Setting Name="Skin" Type="System.String" Scope="User">
-      <Value Profile="(Default)">spotify</Value>
+      <Value Profile="(Default)">mediachrome</Value>
     </Setting>
     <Setting Name="DefaultPlayer" Type="System.String" Scope="User">
       <Value Profile="(Default)">mp3</Value>

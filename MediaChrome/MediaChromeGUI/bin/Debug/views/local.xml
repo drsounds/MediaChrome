@@ -28,7 +28,6 @@
 		<entry icon_l="@skin/file.png" top="@TOP" left="0" height="18" width="-1" >
 			<title noelm="true"><![CDATA[@{title}]]></title>
 			<uri noelm="true"><![CDATA[@{song.Path}]]></uri>
-			
 			<artist noelm="true"><![CDATA[@{song.Artist}]]></artist>
 			<album noelm="true"><![CDATA[@{song.Album.Name}]]></album>
 		</entry>

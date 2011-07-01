@@ -58,13 +58,13 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Board.exe" size="1187840">
-      <assemblyIdentity name="Board" version="1.0.4196.20073" language="neutral" processorArchitecture="x86" />
+      <assemblyIdentity name="Board" version="1.0.4199.21402" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>GDRatcA33WHKWvqqbmf1zyhYgS4=</dsig:DigestValue>
+        <dsig:DigestValue>4zetsWdzWZQqey4TDdxQL7ug+HM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -160,19 +160,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>ikV4SEOsVnKQ+pOhvL4hZ9KSXGQ=</dsig:DigestValue>
+        <dsig:DigestValue>OsnYPGYd/JS6QzbNYjURempQl/Y=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MediaChromeGUI.exe" size="295936">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MediaChromeGUI.exe" size="296960">
       <assemblyIdentity name="MediaChromeGUI" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>PPq3ttfRCpbptnfIuCGLefbCTLA=</dsig:DigestValue>
+        <dsig:DigestValue>7nuBUhpxXb6KbOsFxaAOglEWTNo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -236,13 +236,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="MediaChromeGUI.exe.config" size="2274">
+  <file name="MediaChromeGUI.exe.config" size="2278">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>gCfju6eDwELod5uFfJO7SSaTN20=</dsig:DigestValue>
+      <dsig:DigestValue>uc76v3U/5j+7m0r4YDPgysK+b7g=</dsig:DigestValue>
     </hash>
   </file>
   <file name="NAudio.dll" size="328192">

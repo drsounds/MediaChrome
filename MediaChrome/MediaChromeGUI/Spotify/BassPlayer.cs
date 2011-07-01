@@ -209,10 +209,10 @@ namespace MediaChrome
             artist.Engine = this;
 
             // Add albums to the artist instance
-            artist.Albums = new MediaChrome.Album[Browser.Albums.Length];
-            for (var i = 0; i < artist.Albums.Length; i++)
+            artist.Albums = new List<Album>();
+            for (var i = 0; i < artist.Albums.Count; i++)
             {
-                
+
                 artist.Albums[i] = GetAlbum(Browser.Albums[i].LinkString);
                 Thread.Sleep(100);
             }
@@ -243,7 +243,7 @@ namespace MediaChrome
 
 
             // Create tracklist
-            result.Songs = new Song[Browser.Tracks.Length];
+            result.Songs = new List<Song>();
 
             for (var i = 0; i < Browser.Tracks.Length; i++)
             {
@@ -283,7 +283,7 @@ namespace MediaChrome
 
 
             // Create tracklist
-            result.Songs = new Song[Browser.Tracks.Length];
+            result.Songs = new List<Song>();
 
             for(var i=0; i < Browser.Tracks.Length;i++)
             {

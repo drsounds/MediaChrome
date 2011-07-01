@@ -1,4 +1,4 @@
-<?
+﻿<?
 /*****
  * Home view for Segurify
  */
@@ -14,29 +14,58 @@
 		<columnheader noelm="true" name="Title" size="320" />
 		<columnheader noelm="true" name="Artist" size="320" />
 		<columnheader noelm="true" name="Album" size="320" />
-		<!-- <vbox flex="1" height="128">
-			<label height="50" size="14" left="10" width="500">Search results for '@{parameter}'</label>
-			<label height="50" size="14" left="10" width="500">Found x matches</label>
-		</vbox> -->
+		<table width="100%">
+			<tr>	
+				<td width="100%">
+					<b>Artists</b><br/>
+					<?
+					var artists = findArtist(engine,parameter);
+					for(var i=0; i < artists.Length; i++){ var artist = artists[i];
+					?><a href="@{artist.Link}">@{artist.Name}</a> ●
+					<? } ?>
+					
+
+				</td>
+				<td width="100%">
+					<b>Albums</b>
+					<?
+					var artists = findAlbum(engine,parameter);
+					for(var i=0; i < albums.Length; i++){ var album = album[i];
+					?><a href="@{album.Link}">@{album.Name}</a> ●
+					<? } ?>
+				</td>
+			</tr>
+		</table>
+		<space height="128" />
 		<!--<label height="50" color="#aaeeaa" left="10" top="@TOP" width="500">Did you mean</label> -->
 		
 <?
 
 for(var i=0; i < result.Count; i++){
-var Title = result[i].Name.replace("<","").replace(">","").replace("&","");
-var Artist = result[i].ArtistName.replace("<","").replace(">","").replace("&","");
-var Album = result[i].AlbumName.replace("<","").replace(">","").replace("&","");
-	var uri = result[i].Link.replace("<","").replace(">","").replace("&","");
+try{
+var Title = result[i].Name.replace("<","").replace(">","").replace("&","&nd;");
+var Artist =  result[i].Artists[0].Name;
+
+var artist_uri = result[i].Artists[0].Link;
+var Album = result[i].Album.Name;
+var album_uri = result[i].Album.Link.replace("&","&nd;");
+	var uri = result[i].Link.replace("<","").replace(">","").replace("&","&nd;");
 /*var icon = result[i].Engine.Image; */
 ?>
 
-		<entry draguri="@{uri}" left="0" width="-1" top="@TOP" height="18"  href_artist="@{artist_uri}" href_album="@{album_uri}" uri="@{uri}">
-			<title noelm="true">@{Title}</title>
-			<artist noelm="true">@{Artist}</artist>
-			<album noelm="true">@{Album.Name}</album>
+		<entry left="0" width="-1" top="@TOP" height="18"  >
+			<draguri noelm="true"><![CDATA[@{uri}]]></draguri>
+			<href_artist noelm="true"><![CDATA[@{artist_uri}]]></href_artist>
+			<uri noelm="true"><![CDATA[@{uri}]]></uri>
+			<href_album><![CDATA[@{album_uri}]]></href_album>
+			<title noelm="true"><![CDATA[@{Title}]]></title>
+			<artist noelm="true"><![CDATA[@{Artist}]]></artist>
+			<album noelm="true"><![CDATA[@{Album}]]></album>
 			
 		</entry>
-<? } ?>
+<? 
+}catch(e){}
+}?>
 	</section>
 	<? if(false){?>
 	<section name="People">

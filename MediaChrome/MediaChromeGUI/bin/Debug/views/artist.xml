@@ -88,8 +88,8 @@ var bio = "Nice artist who loves music";
 			</tr>
 			
 		</table>
-		<space height="10"/>
-		<?
+		<space height="220"/>
+		<!-- <?
 		if(localAlbums.Count > 0){
 		?>
 		
@@ -99,16 +99,18 @@ var bio = "Nice artist who loves music";
 		<inflate src="components/local_album.xml" name="@{localAlbum.Album}" artist="@{title}"/>
 % }
 
-		<? } ?> 
+		<? } ?>  -->
 		<section text="Albums" width="-1" left="0" height="24">Albums</section>
 		
 
 <?
-for(var i=0; i < artist.Albums.Length ; i++){ 		
+for(var i=0; i < artist.Albums.Count ; i++){ 		
 	var release = artist.Albums[i];
 	var artist = artist.Name;
-	var href =  artist.Albums[i].Link;
+	var href =  artist.Albums[i].Path;
+	
 	var query = artist.Albums[i].ID;
+	var name = artist.Albums[i].Name;
 	
 	
 ?>

@@ -2144,12 +2144,12 @@ namespace Board
         public void RebuildList()
         {
             // reset ptop
-            ptop = 20;
+            ptop = 0;
             foreach (Element ct in this.rawList)
             {
-                ct.SetAttribute("left", ct.OldLeft.ToString());
-                ct.SetAttribute("top", ct.OldTop.ToString());
-                ct.AssertBounds(true);
+                
+         
+                ct.AssertBounds(true,true);
             }
         }
         /// <summary>
@@ -3112,8 +3112,26 @@ namespace Board
             this.SetAttribute("_top", top.ToString());
             this.SetAttribute("_width", width.ToString());
             this.SetAttribute("_height", height.ToString());
-            Rectangle Rect = new Rectangle(left+padding - scrollX, top+padding - scrollY, width-padding*2, height-padding*2);
+            Rectangle Rect = new Rectangle(left+padding - scrollX, top+padding , width-padding*2, height-padding*2);
             return Rect;
+        }
+        /// <summary>
+        /// Returns if the comparator is equal to any of the elements of same type in iTems. T and items
+        /// is in the specified type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="comparator"></param>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        public bool AnyOf<T>(T comparator,params T[] items)
+        {
+            foreach (T item in items)
+            {
+                if (comparator.Equals(item))
+                    return true;
+            }
+            return false;
+
         }
         /// <summary>
         /// Gets the difference between two integers
@@ -3167,14 +3185,15 @@ namespace Board
         /// <summary>
         /// Assign bounds of the object according to the parameters that is set in the textual parameter list (attributes)
         /// </summary>
-        public void AssertBounds(bool copy)
+        public void AssertBounds(bool copy,bool reordering=false)
         {
               
             // if this is the first entry in an list view, push down it the amount of column headers
-            if (this.ParentSection.Entries.Count > 0)
+            if (this.ParentSection.Entries.Count > 0 && !reordering)
             {
                 if (this.type == "entry" && this.ParentSection.Entries[0] == this)
                 {
+                    
                     ptop += this.ParentHost.columnheader_height;
                 }
             }
@@ -3215,21 +3234,25 @@ namespace Board
 
 
             // If the top variable is still below one, assign the top to the ptop variable and increase ptop iself, but only
-            // for own view controls
-            if (top < 1 && (this.Type=="space" || Type=="entry" || Type == "space" || Type == "label" || Type == "image"))
+            // for own view controls. If the ptop is below the height of the header drawable (the webkit zone), add the corresponding height to the ptop
+            if (top < 1 && AnyOf<string>(Type,"space" ,"entry" , "space" ,"label" , "image") )
             
             {
-
+                if (ptop < this.ParentHost.browser.Height && this.ParentHost.browser.Height < this.ParentHost.Height && !reordering) 
+                {
+                    ptop = this.ParentHost.browser.Height;
+                }
                 top = ptop;
                 if (!Persistent)
                 {
 
                     if (Parent!=null&&Parent.GetAttribute("type").Contains("box") )
                     {
-                      
+                    
                     }
                     else
                     {
+                        
                         ptop += height;
                     }
                     if (GetAttribute("type").Contains("box"))
