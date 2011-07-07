@@ -174,7 +174,7 @@ namespace MediaChromeGUI
         {
             get
             {
-                return Properties.Resources.icon;
+                return Properties.Resources.icon1;
             }
             set
             {
@@ -221,18 +221,30 @@ namespace MediaChromeGUI
             // Add all songs from the result
             while (r.Read())
             {
-                Song d = new Song();
+                Song d = GetSongFromReader(r);
                 d.Album = R;
                 d.Artists = new Artist[] { artist };
-                d.Name = (string)r["name"];
-                d.Path = (string)r["path"];
-                d.Link = (string)r["path"];
-                d.Engine = this;
                 songs.Add(d);
-
             }
             R.Songs = songs;
             return R;
+        }
+        /// <summary>
+        /// Converts an table row to an song
+        /// </summary>
+        /// <param name="Reader"></param>
+        /// <returns></returns>
+        public Song GetSongFromReader(SQLiteDataReader reader)
+        {
+            Song d = new Song();
+            
+            d.Name = (string)reader["name"];
+            d.Path = (string)reader["path"];
+            d.Link = (string)reader["path"];
+            d.ArtistName = (string)reader["artist"];
+            d.AlbumName = (string)reader["album"];
+            d.Engine = this;
+            return d;
         }
         public MediaChrome.Album GetAlbum(string ID)
         {
@@ -496,6 +508,10 @@ namespace MediaChromeGUI
             this.Paused = false;
 			player.play();
             Status = "Playing... '" + player.currentItem.getItemInfo("title")+"'";
+            // Add play to the database
+            SQLiteConnection Conn = MainForm.MakeConnection();
+            SQLiteCommand Command = new SQLiteCommand("INSERT INTO playback(song_ID) VALUES ( (SELECT id FROM song WHERE path='" + this.CurrentSong.Path + "') )", Conn);
+            Command.ExecuteNonQuery();
 		}
 		public void Pause()
 		{
@@ -511,6 +527,7 @@ namespace MediaChromeGUI
 		{
 			
 		}
+        
 		public void Load(String URL)
 		{
 			player.URL = ("file:///"+URL.Replace("mp3:","").ToString());
@@ -520,7 +537,7 @@ namespace MediaChromeGUI
             CurrentSong.AlbumName = player.currentMedia.getItemInfo("album");
             CurrentSong.Title = player.currentMedia.getItemInfo("title");
             CurrentSong.Name = player.currentMedia.getItemInfo("title");
-
+            CurrentSong.Path = URL;
             Status = "Connecting to Media";
 		}
 		public double Duration 
@@ -838,10 +855,38 @@ namespace MediaChromeGUI
                 throw new NotImplementedException();
             }
         }
-
+        /// <summary>
+        /// The MP3 plugin has some user defined methods:
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="arguments"></param>
+        /// <returns></returns>
         public object InvokeCommand(string command, params object[] arguments)
         {
-            throw new NotImplementedException();
+            switch (command)
+            {
+                case "getToplist":
+                    {
+                        List<Song> Result = new List<Song>();
+                        // Open the connection
+                        SQLiteConnection Conn = MainForm.MakeConnection();
+                       
+                        SQLiteCommand Command = new SQLiteCommand("SELECT * FROM song, playback WHERE song.id=playback.song_id ORDER BY (SELECT count(*) FROM song,playback WHERE song.id=playback.song_id) DESC LIMIT 10", Conn);
+                        
+                        // Convert the data into list of song
+                        SQLiteDataReader DR = Command.ExecuteReader();
+                        while (DR.Read())
+                        {
+                            Song d = GetSongFromReader(DR);
+                            Result.Add(d);
+                        }
+                        Conn.Close();
+                        return Result;
+                    }
+                    break;
+            }
+            return false;
+
         }
     }
 

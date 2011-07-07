@@ -6,13 +6,14 @@
 		<item title="+ Import music" onclick="importMusic()"/>
 	</toolbar>
 	<section name="Local files" list="true">
-
+	
 		<columnheader noelm="true" name=" " size="20" />
 	
 		<columnheader noelm="true" name="Title" size="320" />
 		<columnheader noelm="true" name="Artist" size="320" />
 		<columnheader noelm="true" name="Album" size="320" />
 		<columnheader noelm="true" name="l" size="16" />
+		<space  height="18" />
 	<!--	<hbox height="64">
 			<img src="@skin/ic_library_home.png" width="48" height="48" />
 			

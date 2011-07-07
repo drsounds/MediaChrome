@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Threading;
 using System.IO;
-using Spotify;
+
 using System.Text;
 using System.Reflection;
 using MediaChrome;
@@ -21,11 +21,11 @@ namespace MediaChromeGUI
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-		public static Spotify.Session SpotifySession ;
+	
 		// public static BassPlayer player;
 		 	public static AutoResetEvent playbackDone = new AutoResetEvent(false);
 		private static AutoResetEvent loggedOut = new AutoResetEvent(false);
-		public static Track currentTrack = null;
+	
 		public static bool Sucess=false;
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace MediaChromeGUI
                 return;
             foreach (DirectoryInfo dir in DI.GetDirectories())
             {
-                LoadEngine<IPlayEngine>(dir,Program.MediaEngines);
+                LoadEngine<IPlayEngine>(dir,Program.MediaEngines); 
             }
         }
       
@@ -93,7 +93,7 @@ namespace MediaChromeGUI
                 }
                 Assembly assembly = Assembly.LoadFrom(Dir.FullName + "\\" + Dir.Name + ".dll");
 
-                Type type = assembly.GetType("MediaChrome."+Dir.Name);
+                Type type = assembly.GetType("MediaChrome." + Dir.Name);
                 if (type == null)
                     type = assembly.GetType("MCRuntime." + Dir.Name);
 
@@ -118,10 +118,44 @@ namespace MediaChromeGUI
         {
             return Properties.Settings.Default.StorageFolder +"\\"+folder;
         }
+        public static void CreateDirectories()
+        {
+            try
+            {
+                if (!Directory.Exists(Properties.Settings.Default.StorageFolder))
+                {
+                    Directory.CreateDirectory(Properties.Settings.Default.StorageFolder);
+                }
+                if (!Directory.Exists(Properties.Settings.Default.StorageFolder + "\\Providers"))
+                {
+                    Directory.CreateDirectory(Properties.Settings.Default.StorageFolder + "\\Providers");
+                }
+                if (!Directory.Exists(Properties.Settings.Default.StorageFolder + "\\SocialNetworks"))
+                {
+                    Directory.CreateDirectory(Properties.Settings.Default.StorageFolder + "\\SocialNetworks");
+                }
+                if (!Directory.Exists(Properties.Settings.Default.StorageFolder + "\\views"))
+                {
+                    Directory.CreateDirectory(Properties.Settings.Default.StorageFolder + "\\views");
+                }
+            }
+            catch { }
+        }
         public static Form1 mainForm;
-        [STAThread]
+       [STAThread]
         static void Main(string[] arguments)
         {
+            // Create directories
+            CreateDirectories();
+
+            // Load engines
+            LoadEngines(StorageFolder("Providers"));
+            LoadSocialNetworks(StorageFolder("SocialNetworks"));
+
+            //          MediaEngines.Add("spotify", new MediaChrome.SpotifyPlayer());
+            MediaEngines.Add("mp3", new MediaChromeGUI.MP3Player());
+            //   MediaEngines.Add("youtube", new MediaChrome.Youtube());
+            //        MediaEngines.Add("mp3", new MediaChrome.MP3Player());
             Application.SetCompatibleTextRenderingDefault(true);
             Application.EnableVisualStyles();
             mainForm = new Form1();
@@ -130,13 +164,7 @@ namespace MediaChromeGUI
             /**
              * Add media engines
              * */
-            LoadEngines(StorageFolder("Providers"));
-            LoadSocialNetworks(StorageFolder("SocialNetworks"));
-
-  //          MediaEngines.Add("spotify", new MediaChrome.SpotifyPlayer());
-              MediaEngines.Add("mp3", new MediaChromeGUI.MP3Player());
-         //   MediaEngines.Add("youtube", new MediaChrome.Youtube());
-    //        MediaEngines.Add("mp3", new MediaChrome.MP3Player());
+            
 
             /**
              * Add social networks
@@ -163,21 +191,7 @@ namespace MediaChromeGUI
             mainForm.NextSong();
         } 
         
-        static void SpotifySession_OnAlbumBrowseComplete(Session sender, AlbumBrowseEventArgs e)
-        {
-        	
-        	
-        	
-	                      	 
-        }
-
-        static void SpotifySession_OnConnectionError(Session sender, SessionEventArgs e)
-        {
-        	
-        }
-        public static string GetAppString()
-        {
-            return Application.ExecutablePath.Replace(".EXE",".exe").Replace("\\SpofityRuntime.exe", "");
-        }
+        
+      
     }
 }

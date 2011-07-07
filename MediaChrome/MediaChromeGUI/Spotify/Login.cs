@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 using Spotify;
 
-namespace MediaChrome
+namespace MCRuntime
 {
 	/// <summary>
 	/// Description of Login.

@@ -3,18 +3,15 @@
   <assemblyIdentity name="MediaChromeGUI.application" version="1.0.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <description asmv2:publisher="Hewlett-Packard Company" asmv2:product="MediaChromeGUI" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true" />
-  <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.0" profile="Full" supportedRuntime="4.0.30319" />
-  </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="MediaChromeGUI.exe.manifest" size="14819">
+    <dependentAssembly dependencyType="install" codebase="MediaChromeGUI.exe.manifest" size="12703">
       <assemblyIdentity name="MediaChromeGUI.exe" version="1.0.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>dWu0h4+zyOrqDxHktpeOQPidfOU=</dsig:DigestValue>
+        <dsig:DigestValue>ep0FxJdu4iu1sFN3hcPjR71ZIIo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

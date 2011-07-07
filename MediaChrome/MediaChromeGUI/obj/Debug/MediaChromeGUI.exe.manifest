@@ -9,7 +9,7 @@
   <trustInfo>
     <security>
       <applicationRequestMinimum>
-        <PermissionSet version="1" class="System.Security.NamedPermissionSet" Name="LocalIntranet" Description="Default rights given to applications on the local intranet" Unrestricted="true" ID="Custom" SameSite="site" />
+        <PermissionSet class="System.Security.PermissionSet" version="1" ID="Custom" SameSite="site" Unrestricted="true" />
         <defaultAssemblyRequest permissionSetReference="Custom" />
       </applicationRequestMinimum>
       <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
@@ -38,7 +38,7 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
-      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="2.0.50727.0" />
     </dependentAssembly>
   </dependency>
   <dependency>
@@ -53,18 +53,28 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="System.Core" version="3.5.0.0" publicKeyToken="b77a5c561934e089" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
       <assemblyIdentity name="Tao.Sdl" version="1.2.13.0" publicKeyToken="9C7A200E36C0094E" language="neutral" processorArchitecture="msil" />
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Board.exe" size="1187840">
-      <assemblyIdentity name="Board" version="1.0.4199.21402" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="WindowsBase" version="3.0.0.0" publicKeyToken="31bf3856ad364e35" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Board.exe" size="1085440">
+      <assemblyIdentity name="Board" version="1.0.4202.14006" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>4zetsWdzWZQqey4TDdxQL7ug+HM=</dsig:DigestValue>
+        <dsig:DigestValue>WxYkSsFsZXggIvf8fXYlZNDoTZM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -81,18 +91,6 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Id3Tag.Net.dll" size="75264">
-      <assemblyIdentity name="Id3Tag.Net" version="1.1.2.0" publicKeyToken="59639B700FCBF7BA" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>i/A4eGB/g/fnrnuDEL86eVGqlZ0=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="InputSimulator.dll" size="13824">
       <assemblyIdentity name="InputSimulator" version="0.1.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -105,14 +103,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Interop.WMPLib.dll" size="331264">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Interop.WMPLib.dll" size="339968">
       <assemblyIdentity name="Interop.WMPLib" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>FrDhrofFZtOStPM42JDy+XJs220=</dsig:DigestValue>
+        <dsig:DigestValue>9UVXrOaokMwsr9Yz3kHoyw+xqNM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -129,30 +127,6 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JsonFx.dll" size="218624">
-      <assemblyIdentity name="JsonFx" version="2.0.0.0" publicKeyToken="315052DD637F8A52" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>V/3835ASsAqssocn5ZVg5iDJiwM=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LibspotifySharp.dll" size="81920">
-      <assemblyIdentity name="LibspotifySharp" version="1.0.3962.17126" language="neutral" processorArchitecture="x86" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>jiTtv2GjgQ9auvfD6T16wEJ2xEY=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MediaChrome.dll" size="33792">
       <assemblyIdentity name="MediaChrome" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -160,19 +134,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>OsnYPGYd/JS6QzbNYjURempQl/Y=</dsig:DigestValue>
+        <dsig:DigestValue>in7LlmWaSdtRNVWlzbRBxnkDQ6g=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MediaChromeGUI.exe" size="296960">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MediaChromeGUI.exe" size="1481216">
       <assemblyIdentity name="MediaChromeGUI" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>7nuBUhpxXb6KbOsFxaAOglEWTNo=</dsig:DigestValue>
+        <dsig:DigestValue>Sa3ktc4uhCRIC5m/X4i5wV503yM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -201,18 +175,6 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="tessnet2_32.dll" size="1455104">
-      <assemblyIdentity name="tessnet2_32" version="2.0.4.0" publicKeyToken="1550524B5BA07E29" language="neutral" processorArchitecture="x86" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Ds7rUIq0Xq1D0Pj1svA4BlWmr0c=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WebKit.Interop.dll" size="131072">
       <assemblyIdentity name="WebKit.Interop" version="533.0.0.0" publicKeyToken="B967213F6D29A3BE" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -236,13 +198,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="MediaChromeGUI.exe.config" size="2278">
+  <file name="MediaChromeGUI.exe.config" size="1089">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>uc76v3U/5j+7m0r4YDPgysK+b7g=</dsig:DigestValue>
+      <dsig:DigestValue>UYYBwg1zBjIVwDvHW/NQd9HFy0k=</dsig:DigestValue>
     </hash>
   </file>
   <file name="NAudio.dll" size="328192">

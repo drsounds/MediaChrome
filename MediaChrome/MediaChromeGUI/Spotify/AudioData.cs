@@ -25,7 +25,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 
-namespace MediaChrome
+namespace MCRuntime
 {	
 	public class AudioData
 	{

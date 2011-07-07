@@ -53,7 +53,7 @@ namespace Board
 
                         // Clear buffers
                         Output.Clear();
-                        Paragraph.Clear();
+                        Paragraph = new StringBuilder();
 
                         // if parserlevel is at root level skip the token
                         if (parserLevel < -1)

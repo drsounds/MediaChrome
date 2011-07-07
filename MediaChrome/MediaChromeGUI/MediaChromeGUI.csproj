@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MediaChromeGUI</RootNamespace>
     <AssemblyName>MediaChromeGUI</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -41,6 +41,7 @@
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -119,23 +120,24 @@
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>68225336ADADD36B58E59301E382EDC60F867E6F</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>MediaChromeGUI_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="GlassForms">
       <HintPath>C:\Users\Alex\Downloads\vistacontrols\VistaControls\GlassForms.dll</HintPath>
-    </Reference>
-    <Reference Include="Id3Tag.Net, Version=1.1.2.0, Culture=neutral, PublicKeyToken=59639b700fcbf7ba, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Id3Tag.Net.dll</HintPath>
     </Reference>
     <Reference Include="InputSimulator">
       <HintPath>F:\Mist\InputSimulator.dll</HintPath>
     </Reference>
     <Reference Include="JsonFx">
       <HintPath>C:\Users\Alexander\Downloads\Signed_v4.0\Signed_v4.0\JsonFx.dll</HintPath>
-    </Reference>
-    <Reference Include="LibspotifySharp, Version=1.0.3962.17126, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\LibspotifySharp.dll</HintPath>
     </Reference>
     <Reference Include="MediaChrome, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -151,9 +153,6 @@
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.DataVisualization" />
-    <Reference Include="System.Web.DataVisualization.Design" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.DynamicData.Design" />
     <Reference Include="System.Web.Entity" />
@@ -171,9 +170,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="tessnet2_32">
-      <HintPath>..\SpofityX\tessnet2_32.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AskDialog.cs">
@@ -197,6 +193,17 @@
     <Compile Include="Engines\MP3\Options.Designer.cs">
       <DependentUpon>Options.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\Resources.Designer.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -269,11 +276,6 @@
     <Compile Include="Program.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="ServicesSelector\ServiceEntry.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -283,7 +285,6 @@
     <Compile Include="ServicesSelector\WebPicture.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SpotifyPlugin.cs" />
     <Compile Include="Switch.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -323,6 +324,11 @@
     <EmbeddedResource Include="Engines\MP3\Options.resx">
       <DependentUpon>Options.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Resources\Resources.resx" />
     <EmbeddedResource Include="ServicesSelector\EngineEntry.resx">
       <DependentUpon>EngineEntry.cs</DependentUpon>
     </EmbeddedResource>
@@ -347,11 +353,6 @@
     <EmbeddedResource Include="ImportLibrary.resx">
       <DependentUpon>ImportLibrary.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="ServicesSelector\ServiceEntry.resx">
       <DependentUpon>ServiceEntry.cs</DependentUpon>
     </EmbeddedResource>
@@ -370,16 +371,16 @@
     <EmbeddedResource Include="UpdatePlaylist.resx">
       <DependentUpon>UpdatePlaylist.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="MediaChromeGUI_TemporaryKey.pfx" />
     <None Include="Program.cs.backup" />
     <None Include="Properties\app.manifest" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
+    <None Include="Resources\app_icon.xcf" />
+    <None Include="Resources\icon.xcf" />
     <None Include="Resources\rbottom.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\release.xcf" />
+    <None Include="Resources\servicebox.xcf" />
     <None Include="Resources\StyleSheet.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -434,6 +435,30 @@
     <None Include="Resources\top_toolbar.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\_switch.png" />
+    <None Include="Resources\button3.png" />
+    <None Include="Resources\YouTube_logo.svg" />
+    <None Include="Resources\view_bg.png" />
+    <None Include="Resources\untab.png" />
+    <None Include="Resources\tab_separator.png" />
+    <None Include="Resources\shadow.png" />
+    <None Include="Resources\servicebox2.png" />
+    <None Include="Resources\servicebox.png" />
+    <None Include="Resources\sectionbar.png" />
+    <None Include="Resources\scrollbar_up.png" />
+    <None Include="Resources\scrollbar_thumb2.png" />
+    <None Include="Resources\scrollbar_down.png" />
+    <None Include="Resources\scrollbar.png" />
+    <None Include="Resources\release.png" />
+    <None Include="Resources\pixel-vfl3z5WfW.gif" />
+    <None Include="Resources\inactive.png" />
+    <None Include="Resources\icon16.svg" />
+    <None Include="Resources\icon16.png" />
+    <None Include="Resources\icon_.svg" />
+    <None Include="Resources\icon.svg" />
+    <None Include="Resources\icon.ico" />
+    <None Include="Resources\eqw.svg" />
+    <None Include="Resources\dropdown.png" />
     <None Include="Resources\app_icon.ico" />
     <None Include="Resources\ajax-loader1.gif" />
     <None Include="Resources\searchbtn1.png" />
@@ -485,6 +510,8 @@
     <None Include="Backup\Resources\kan2.png" />
     <None Include="bin\Debug\skins\spotify\top_wall.png" />
     <None Include="bin\Debug\skins\MediaChrome\switch.png" />
+    <None Include="bin\Debug\Resources\kan1.png" />
+    <None Include="bin\Debug\Resources\kan2.png" />
     <Content Include="NAudio.dll" />
     <None Include="Properties\button.png" />
     <None Include="Properties\button_down.png" />
@@ -507,7 +534,8 @@
       <Lcid>0</Lcid>
       <WrapperTool>tlbimp</WrapperTool>
       <Isolated>False</Isolated>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <Private>True</Private>
     </COMReference>
   </ItemGroup>
   <ItemGroup>

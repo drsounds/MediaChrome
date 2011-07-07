@@ -15,15 +15,17 @@ using Spotify;
 using Un4seen.Bass;
 
 
-namespace MediaChrome
+namespace MCRuntime
 {
 	public class spotify : MediaChrome.IPlayEngine
     {
+    
+        
         /// <summary>
         /// Get an custom property of the engine
         /// </summary>
         /// <param name="prop">name of property</param>
-        public object GetProperty(string prop)
+        public object GetProperty(string prop)  
         {
             return null;
         }
@@ -169,7 +171,7 @@ namespace MediaChrome
         {
             get
             {
-                return Properties.Resources.spotify_logo;
+                return null;
             }
         }
         /// <summary>
@@ -209,7 +211,7 @@ namespace MediaChrome
             artist.Engine = this;
 
             // Add albums to the artist instance
-            artist.Albums = new List<Album>();
+            artist.Albums = new List<MediaChrome.Album>();
             for (var i = 0; i < artist.Albums.Count; i++)
             {
 
@@ -576,15 +578,17 @@ namespace MediaChrome
 		{
 			return new List<MediaChrome.Song>();
 		}
-#if(r)
+
 		public spotify()
 		{
            
 			// Creat artists dictionary
             artists = new Dictionary<string, MediaChrome.IMedia>();
+            Spocky.MyClass D = new Spocky.MyClass();
+            SpotifySession = Spotify.Session.CreateInstance(D.AppKey(), "C:\\SpofityCaches", "C:\\SpofityCaches", "LinSpot");
+            
 			view = new Spotify.SpotifyView();
-        	  Spocky.MyClass D = new Spocky.MyClass();
-             SpotifySession = Spotify.Session.CreateInstance(D.AppKey(), "C:\\SpofityCaches", "C:\\SpofityCaches", "LinSpot");
+        	  
             /* Login sD = new Login(this);
              if (sD.ShowDialog() == DialogResult.OK)
              {
@@ -608,7 +612,6 @@ namespace MediaChrome
              LoggedIn = true;
        
         }
-#endif
         void PlaylistContainer_OnContainerLoaded(PlaylistContainer sender, PlaylistContainerEventArgs e)
         {
             playlistLoaded = true;
@@ -962,7 +965,19 @@ namespace MediaChrome
 
         public object InvokeCommand(string command, params object[] arguments)
         {
-            throw new NotImplementedException();
+            switch (command)
+            {
+                case "get_inbox":
+                    {
+#if(false)
+                        List<Song> Inbox = new List<Song>();
+                        Spotify.Playlist inbox = Spotify.Playlist.CreateInbox(SpotifySession);
+                        return Inbox;
+#endif
+                        break;
+                    }
+            }
+            return false;
         }
     }
 }
@@ -972,7 +987,7 @@ namespace MediaChrome
 		private BASSBuffer basbuffer = null;
 		private STREAMPROC streamproc = null;
 
-		public int EnqueueSamples(AudioData audioData)
+		public int EnqueueSamples(MCRuntime.AudioData audioData)
 		{
 			return EnqueueSamples(audioData.Channels, audioData.Rate, audioData.Samples, audioData.Frames);
 		}

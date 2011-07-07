@@ -100,7 +100,7 @@ namespace MediaChromeGUI
                     watchSong = f;
                     currentPlayer = Engine;
                     Engine.Load((f.Path));
-
+                    Engine.CurrentSong = f;
                     Engine.Play();
                     NotifyNewSong(_Song);
                     return;
@@ -482,11 +482,7 @@ namespace MediaChromeGUI
             }
         }*/
     	
-        public Spotify.Track currentTrack
-        {
-            get { return Program.currentTrack; }
-            set { Program.currentTrack = value; }
-        }
+      
         public String BaseURL = "http://localhost/mediachrome/Spotify Ultra/Spotify Ultra/Spotify Ultra Web/bin/debug/wamp/www/views/%app.php?param=%p&id=%id";
 
         public Dictionary<String, View> Views { get; set; }
@@ -513,7 +509,7 @@ namespace MediaChromeGUI
           
             playlistsToAdd = new Stack<Board.Element>();
         }
-        Spotify.Session SpotifySession;
+     
         public Form1(string userName,string Password)
         {
             
@@ -842,6 +838,7 @@ namespace MediaChromeGUI
 
             // Set image download event handler
             board.BeginDownloadImage += new Board.DrawBoard.ImageDownloadEventHandler(board_BeginDownloadImage);
+            board.ApplyOverlay += new MakoEngine.OverlayEventHandler(board_ApplyOverlay);
             // Navigate to start page
             board.Navigate("spotify:home:1", "spotify", "views");
             board.PlaybackRequested += new Board.DrawBoard.PlaybackStartEvent(board_PlaybackRequested);
@@ -875,6 +872,32 @@ namespace MediaChromeGUI
             DefaultPlayer = Program.MediaEngines[Properties.Settings.Default.DefaultPlayer];
             this.board.AfterNavigating += new DrawBoard.NavigateEventHandler(board_AfterNavigating);
 
+        }
+
+        void board_ApplyOverlay(object sender, MakoEngine.OverlayEventArgs e)
+        {
+            e.ViewFolders = new Dictionary<string,string>();
+            /**
+             * Get view directories for the current active engine
+             * */
+            try
+            {
+                string engine = e.URI.Split(':')[0];
+                IPlayEngine r = Program.MediaEngines[engine];
+                String baseDirectory = Properties.Settings.Default.StorageFolder + "\\Providers\\" + engine + "\\views"; // The folder where the overlays are residing in
+                if (Directory.Exists(baseDirectory))
+                {
+                    DirectoryInfo DI = new DirectoryInfo(baseDirectory);
+                    foreach (FileInfo FI in DI.GetFiles("*.xml"))
+                    {
+                        e.ViewFolders.Add(FI.Name, FI.FullName);
+                    }
+                }
+            }
+            catch
+            {
+                e.Cancel = true;
+            }
         }
 
         bool board_AfterNavigating(object sender, string uri)
@@ -1694,8 +1717,10 @@ namespace MediaChromeGUI
               d.RuntimeMachine.SetFunction("extern", new Func<string, object>(__extern));
               d.RuntimeMachine.SetFunction("section", new Func<string, object>(__setActiveSection));
               d.RuntimeMachine.SetVariable("skin_dir", this.Skin.Directory);
-
+             
         }
+
+        
 
         /// <summary>
         /// Finds an artist
@@ -2268,40 +2293,7 @@ namespace MediaChromeGUI
             Browse(textBox1.Text); 
 
         }
-        private ListViewItem AddListEntry(string ListData)
-        {
-            try
-            {
-                string[] adress = ListData.Split('|');
-                ListViewItem F = CheckPersistanceInTree(adress[0]);
-                if (F == null)
-                {
-                    string app = adress[0].Split(':')[1];
-                    string[] pass = adress[1].Split('+');
-                    var d = listViewX1.Items.Add(pass[1]);
-                    d.Tag = (object)adress[0];
-                    try
-                    {
-                        imageList1.Images.Add(adress[0], Image.FromFile(Program.GetAppString() + "\\views\\" + app + "\\icon.png"));
-                        d.ImageKey = adress[0];
-                    }
-                    catch
-                    {
-                        d.ImageIndex = -1;
-                    }
-                    F = d;
-                    return F;
-                }
-                else
-                {
-                    return F;
-                }
-            }
-            catch
-            {
-            }
-            return null;
-        }
+      
         private void geckoWebBrowser1_Click_1(object sender, EventArgs e)
         {
 
@@ -2461,7 +2453,7 @@ namespace MediaChromeGUI
         }
         public Image GetImage(string LinkString)
         {
-        	string fileName = Program.GetAppString()+"\\covers\\"+LinkString+".jpg";
+        	string fileName = "\\covers\\"+LinkString+".jpg";
         	try
         	{
 	        	if(File.Exists(fileName))
@@ -2652,15 +2644,7 @@ namespace MediaChromeGUI
         void CBtn1Load(object sender, EventArgs e)
         {
         
-        	if(currentTrack!=null)
-        	{
-        		SpotifySession.PlayerLoad(currentTrack);
-        		SpotifySession.PlayerPlay(true);
-        		
-        	}
-        	else{
-        		
-        	}
+        	
        
         }
         public int Length { get; set; }
@@ -3383,7 +3367,7 @@ namespace MediaChromeGUI
             {
              
                     // Start the operation on an new thread
-                AskDialog d = new AskDialog(MediaChromeGUI.Properties.Resources.icon,"Enter a name for the new playlist","New Playlist");
+                AskDialog d = new AskDialog(MediaChromeGUI.Properties.Resources.icon1,"Enter a name for the new playlist","New Playlist");
                 if (d.ShowDialog() == DialogResult.OK)
                 {
                     String Name = d.Value;

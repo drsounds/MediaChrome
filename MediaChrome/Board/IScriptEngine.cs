@@ -63,7 +63,7 @@ namespace Board
         /// <summary>
         /// Invokes an user function
         /// </summary>
-        /// <param name="func"></param>
+        /// <param name="func"></param>              L
         /// <param name="args"></param>
         /// <returns></returns>
         public object Invoke(string func, params object[] args)

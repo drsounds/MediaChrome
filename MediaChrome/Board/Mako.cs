@@ -5,6 +5,8 @@ using System.Text;
 using Jint;
 using System.Net;
 using System.Xml;
+using System.IO;
+using System.Text.RegularExpressions;
 namespace Board
 {
     /// <summary>
@@ -258,15 +260,86 @@ namespace Board
            
             RuntimeMachine.Run(e);
         }
-      
+        /// <summary>
+        /// Event args for RequestOverLayEventArgs
+        /// </summary>
+        public class OverlayEventArgs
+        {
+            /// <summary>
+            /// The view URI
+            /// </summary>
+            public string URI { get; set; }
+            /// <summary>
+            /// Folders for the views for each engine. You must provide it in the event attached
+            /// by the MediaChrome Host (or apporiate implementation)
+            /// </summary>
+            public Dictionary<string, string> ViewFolders { get; set; }
+
+            /// <summary>
+            /// Gets or sets if the operation should be cancelled or not
+            /// </summary>
+            public bool Cancel { get; set; }
+        }
+        public delegate void OverlayEventHandler(object sender, OverlayEventArgs e);
+        /// <summary>
+        /// Occurs on request overlay
+        /// </summary>
+        public event OverlayEventHandler RequestOverlay;
+
+        /// <summary>
+        /// Occurs when overlay has been finished request
+        /// </summary>
+        public event OverlayEventHandler OverlayApplied;
         /// <summary>
         /// This function preprosses the mako layer
         /// </summary>
         /// <param name="input">The input string to parse</param>
         /// <param name="argument">The argument sent to the parser</param>
-        public String Preprocess(string input,string argument,bool inflate,bool onlyPreprocess = false)
-        
+        public String Preprocess(string input, string argument, bool inflate, string uri, bool onlyPreprocess = false)
         {
+            #region OverlayManager Experimental
+            /****
+             * STOCKHOLM 2011-07-01 14:45
+             * 
+             * New feature: Apply custom overlays specified by individual service:
+             * Overlay are marked with <#namespace#> where "namespace" is an special
+             * kind of <namespace>.xml view file inside an <extension_dir>/views/ folder
+             * */
+            
+            // First gain attention by the event
+
+            OverlayEventArgs args = new OverlayEventArgs(); // Create event args
+            args.URI = uri;
+            if (RequestOverlay != null)
+                RequestOverlay(this, args);
+
+            // if the args has retained the phase, eg. not cancelled
+            if (!args.Cancel)
+            {
+                // Substitute the overlay placeholders with the views
+                if(args.ViewFolders != null)
+                foreach (KeyValuePair<string, string> overlay in args.ViewFolders)
+                {
+                    using (StreamReader SR = new StreamReader(overlay.Value))
+                    {
+                        String content = SR.ReadToEnd();
+                        // Substitute overlay placeholders
+                        input = input.Replace("<#" + overlay.Key.Replace(".xml","") + "#>", content);
+                        SR.Close();
+                    }
+                }
+            }
+
+            // Remove unwanted trailings
+            Regex a = new Regex(@"<\#[^\#]*\#>", RegexOptions.IgnoreCase);
+            input = a.Replace(input, "");
+            #endregion
+
+            /**
+             * Begin normal operation
+             * */
+
+
             // Clear the output buffer
             Output = "";
             /**
@@ -454,7 +527,7 @@ namespace Board
                     // Load error page
                     using (System.IO.StreamReader SR = new System.IO.StreamReader("views\\error.xml"))
                     {
-                        string errorView = new MakoEngine().Preprocess(SR.ReadToEnd(), "", false, true);
+                        string errorView = new MakoEngine().Preprocess(SR.ReadToEnd(), "", false, "", true);
                         RuntimeMachine = new JavaScriptEngine();
                         RuntimeMachine.SetFunction("__printx", new Func<String, object>(__printx));
                         RuntimeMachine.SetVariable("error", e.ToString() + "\n " );

@@ -10,12 +10,13 @@
 <view>
 	<toolbar>
 		<item title="Create playlist" onclick="scopeToPlaylist()" />
+		<#overlay_header#>
 	</toolbar>
 	<section name="Overview">
 		<H1>Home</H1>
 			<hr/>
-			
-			<center>Feed</center>
+			<center>Feed</center>			
+
 			<!-- <button left="360" text="Make playlist" top="@TOP"  width="100" height="20" onclick="scopeToPlaylist()"/>-->
 		
 		
@@ -56,23 +57,23 @@
 	<section name="Top List">
 		<column name="No"  width="30" noelm="true"/>
 		<column name="Title" width="30" noelm="true"/>
-		<column name="Artist" width="30" noelm="true"/>
-		<h3>Top List</h3>
-		<p>Music currently most popular</p>
-		<space height="128" />
-		<?/*
-		var d = findMusic("genre:pop");
-		for(var i=0; i < d.Songs.Length; i++){ var song = d.Songs[i];*/
-		for(var i=0; i < 5; i++){
-			var song = {
-				Title: "Test",
-				Artist: "Test",
-				No: i
-			};
 		
-		?>
-		<entry height="30" top="@TOP" left="0" width="-1" no="@{i}" title="@{song.Name}" artist="a" color_no="#444444" />
+		<space height="32" />
+		
 		<?
+		var d = call(service,"getToplist",null );
+		if(!(!d))
+		{
+			for(var i=0; i < d.Songs.Length; i++){ var song = d.Songs[i];
+		
+			
+			?>
+			<entry height="30" top="@TOP" color_no="#444444"  left="0" width="-1" no="@{i}">
+				<title noelm="true" ><![CDATA[@{song.Name}]]></title>
+				<artist nolem="true"><![CDATA[@{song.ArtistName}]]></artist>
+			</entry>
+			<?
+			}
 		}
 		?>
 		
@@ -104,6 +105,6 @@
 			}
 		?>
 	</section>
-
+	<#overlay_home#>
 </view>
 		

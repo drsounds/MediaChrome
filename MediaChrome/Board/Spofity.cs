@@ -733,7 +733,7 @@ namespace Board
 
 
             // Otherwise preprocess the layer.
-            String Result = ME.Preprocess(ViewMako, "", true);
+            String Result = ME.Preprocess(ViewMako, "", true,srcSection.Parent.URI,true);
 
             // then inflate the data
             // Create xml document
@@ -975,7 +975,7 @@ namespace Board
                             /** Flush the buffer and move the content
                              * to the attribute bufffer */
                             bufferReady = buffer.ToString();
-                            buffer.Clear();
+                            buffer = new StringBuilder();
                             // Set parse mode to attribute
                             currentState = ParseMode.Value;
                             continue;
@@ -989,7 +989,7 @@ namespace Board
                                 continue;
                             // Get the value
                             String value = buffer.ToString();
-                            buffer.Clear();
+                            buffer = new StringBuilder();
                             // Create element's attribute
                             Board.Attribute d = new Attribute() { name = bufferReady, value = value };
                             // add the attribute to the element
@@ -1014,7 +1014,7 @@ namespace Board
                                 continue;
                             elementName = buffer.ToString();
                             // Clear the buffer
-                            buffer.Clear();
+                            buffer = new StringBuilder();
 
                             // Set parse mode to attribute
                             currentState = ParseMode.Attribute;
@@ -1539,7 +1539,7 @@ namespace Board
             /**
              * Preprocess the page again
              * */
-            String r = this.Engine.Preprocess(this.TemplateCode, this.Parameter, false);
+            String r = this.Engine.Preprocess(this.TemplateCode, this.Parameter, false,this.uri);
 
             /**
              * Only refresh the layout elements and thus the render elements
@@ -1659,7 +1659,7 @@ namespace Board
                     using (System.IO.StreamReader SR = new System.IO.StreamReader("views\\error.xml"))
                     {
                         MakoEngine ME = new MakoEngine();
-                        string errorView = ME.Preprocess(SR.ReadToEnd(), "", false, true);
+                        string errorView = ME.Preprocess(SR.ReadToEnd(), "", false,this.uri, true);
                         RuntimeMachine = new JavaScriptEngine();
                         RuntimeMachine.SetFunction("__printx", new Func<String, object>(ME.__printx));
                         RuntimeMachine.SetVariable("error", Cause + "\n" + e.ToString() + "\n ");
@@ -1829,7 +1829,7 @@ namespace Board
         /// </summary>
         public void RenderLayout()
         {
-            ptop = 0;
+            ptop = 20;
             foreach (Element elm in elements)
             {
                 elm.AssertBounds(false);
@@ -2144,7 +2144,7 @@ namespace Board
         public void RebuildList()
         {
             // reset ptop
-            ptop = 0;
+            ptop = 20;
             foreach (Element ct in this.rawList)
             {
                 
@@ -2518,6 +2518,17 @@ namespace Board
                     return rawList;
             }
 
+        }
+        /// <summary>
+        /// Height of columnheader
+        /// </summary>
+
+        public int HeaderHeight
+        {
+            get
+            {
+                return Parent.ParentBoard.columnheader_height;
+            }
         }
     }
     public class Attribute
@@ -3187,7 +3198,7 @@ namespace Board
         /// </summary>
         public void AssertBounds(bool copy,bool reordering=false)
         {
-              
+#if(obsolote)
             // if this is the first entry in an list view, push down it the amount of column headers
             if (this.ParentSection.Entries.Count > 0 && !reordering)
             {
@@ -3197,6 +3208,7 @@ namespace Board
                     ptop += this.ParentHost.columnheader_height;
                 }
             }
+#endif
             /**
         * If the current section is an flow, do 
         * not show the entry
@@ -3215,6 +3227,7 @@ namespace Board
             int.TryParse(GetAttribute("width"), out width);
             int.TryParse(GetAttribute("height"), out height);
 
+           
             // If height is smaller than one measure the height by the text content
             if (height < 1)
             {
@@ -3382,11 +3395,13 @@ namespace Board
         {
             get
             {
-                return selected;
+                
+                return this.GetAttribute("__selected") == "true";
             }
             set
             {
                 selected = value;
+                this.SetAttribute("__selected", value ? "true" : "");
                 // If this is an copy set the parent to selected to
                 if (IsCopy)
                     this.Original.selected = true;

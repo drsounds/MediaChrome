@@ -8,10 +8,11 @@
     <ProjectGuid>{4478DEE3-CEF1-4616-816C-60784AF36629}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MediaChrome</RootNamespace>
+    <RootNamespace>MCRuntime</RootNamespace>
     <AssemblyName>Spotify</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,14 +36,8 @@
     <Reference Include="Bass.Net">
       <HintPath>..\bin\Debug\Bass.Net.dll</HintPath>
     </Reference>
-    <Reference Include="MediaChrome, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="MediaChrome">
       <HintPath>..\..\MediaChrome\bin\Debug\MediaChrome.dll</HintPath>
-    </Reference>
-    <Reference Include="MediaChromeGUI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <ExecutableExtension>.exe</ExecutableExtension>
-      <HintPath>..\bin\Debug\MediaChromeGUI.exe</HintPath>
     </Reference>
     <Reference Include="NAudio">
       <HintPath>..\NAudio.dll</HintPath>
@@ -53,32 +49,55 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Forms.DataVisualization" />
-    <Reference Include="System.Windows.Forms.DataVisualization.Design" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Album.cs" />
+    <Compile Include="AlbumBrowse.cs" />
+    <Compile Include="Artist.cs" />
+    <Compile Include="ArtistBrowse.cs" />
     <Compile Include="AudioData.cs" />
     <Compile Include="BassPlayer.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="Events\AlbumBrowseEventArgs.cs" />
+    <Compile Include="Events\ArtistBrowseEventArgs.cs" />
+    <Compile Include="Events\EventWorkItem.cs" />
+    <Compile Include="Events\ImageEventArgs.cs" />
+    <Compile Include="Events\MusicDeliveryEventArgs.cs" />
+    <Compile Include="Events\PlaylistContainerEventArgs.cs" />
+    <Compile Include="Events\PlaylistEventArgs.cs" />
+    <Compile Include="Events\SearchEventArgs.cs" />
+    <Compile Include="Events\SessionEventArgs.cs" />
+    <Compile Include="Events\TracksEventArgs.cs" />
+    <Compile Include="Extension\libspotify.ex.cs" />
+    <Compile Include="Extension\Playlist.cs" />
+    <Compile Include="Extension\User.cs" />
+    <Compile Include="Inbox.cs" />
+    <Compile Include="libspotify.cs" />
+    <Compile Include="Link.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Login.designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="Music.cs" />
+    <Compile Include="PlayList.cs" />
+    <Compile Include="PlaylistContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Search.cs" />
+    <Compile Include="Session.cs" />
+    <Compile Include="SpotifyException.cs" />
     <Compile Include="SpotifyView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -86,16 +105,9 @@
       <DependentUpon>SpotifyView.cs</DependentUpon>
     </Compile>
     <Compile Include="StreamingBuffer.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\DeskWiki\DeskWiki.csproj">
-      <Project>{73C5EBB2-4FFF-4479-9B56-B3B0EE4FEC40}</Project>
-      <Name>DeskWiki</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\libspotify-sharp\libspotify-sharp.csproj">
-      <Project>{33ECCB93-27D8-40DB-82E8-B47AAE19AA9C}</Project>
-      <Name>libspotify-sharp</Name>
-    </ProjectReference>
+    <Compile Include="TopList.cs" />
+    <Compile Include="Track.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Login.resx">
@@ -104,17 +116,28 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SpotifyView.resx">
       <DependentUpon>SpotifyView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ajax-loader.gif" />
-    <None Include="Resources\spotify_logo.png" />
     <None Include="Resources\app_icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ajax-loader.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ajax-loader1.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\spotify_logo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetDir)* C:\mc_storage\providers\spotify\</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -19,6 +19,6 @@ namespace Spotify
         /// <summary>
         /// Buffer of audio data
         /// </summary>
-        public List<AudioData> Buffer { get; set; }
+        public List<MCRuntime.AudioData> Buffer { get; set; }
     }
 }

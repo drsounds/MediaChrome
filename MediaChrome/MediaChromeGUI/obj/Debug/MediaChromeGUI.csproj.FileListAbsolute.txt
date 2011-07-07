@@ -80,7 +80,6 @@ L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\MediaChromeGUI.appli
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\MediaChromeGUI.exe
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\MediaChromeGUI.pdb
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\Board.exe
-L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\JsonFx.dll
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\MediaChrome.dll
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\System.Data.SQLite.DLL
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\System.Data.SQLite.Linq.dll
@@ -89,10 +88,10 @@ L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\Jint.dll
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\WebKit.Interop.dll
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\Board.pdb
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\MediaChrome.pdb
-L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\Id3Tag.Net.xml
-L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\JsonFx.xml
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\System.Data.SQLite.xml
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\bin\debug\Interop.WMPLib.dll
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChromeGUI.TrustInfo.xml
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChromeGUI.exe.manifest
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\MediaChromeGUI.application
+L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\GenerateResource-ResGen.read.1.tlog
+L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\obj\Debug\GenerateResource-ResGen.write.1.tlog

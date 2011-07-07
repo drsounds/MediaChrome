@@ -1180,6 +1180,8 @@ namespace Board
             /// The Spofity class instance of the content
             /// </summary>
             public Spofity Content;
+
+            public string URI { get; set; }
         }
         /// <summary>
         /// Delegate which manage events for mako creation
@@ -1250,12 +1252,13 @@ namespace Board
                 ME = new MakoEngine();
                 if (MakoGeneration != null)
                     MakoGeneration(ME, new EventArgs());
+                ME.RequestOverlay += new MakoEngine.OverlayEventHandler(ME_RequestOverlay);
 
                 // If there is an prenavigated event handler defined, raise it
                 if (BeginNavigating != null)
                     BeginNavigating(ME, ((View)address).Address);
 
-                output = ME.Preprocess(rawSource, view.Argument, false);
+                output = ME.Preprocess(rawSource, view.Argument, false,((View)address).URI);
 
                 /**
                  * If something did go wrong during the load, eg returns an string starting with the
@@ -1296,6 +1299,15 @@ namespace Board
 
             }
 
+        }
+
+        void ME_RequestOverlay(object sender, MakoEngine.OverlayEventArgs e)
+        {
+            if (this.ApplyOverlay != null)
+            {
+               
+                this.ApplyOverlay(this, e);
+            }
         }
 
         void R_MakoGeneration(object sender, EventArgs e)
@@ -1470,6 +1482,7 @@ namespace Board
                 }
                 // Create the thread and load the view
                 Thread viewLoader = new Thread(LoadViewAsync);
+                newView.URI = Uri;
                 viewLoader.Start((object)newView);
 
                 this.currentView = newView;
@@ -1761,6 +1774,10 @@ namespace Board
                 timer1.Interval = value;
             }
         }
+        /// <summary>
+        /// Occurs when overlay are applied
+        /// </summary>
+        public event MakoEngine.OverlayEventHandler ApplyOverlay;
         public class Browser : WebKit.WebKitBrowser
         {
             Board.DrawBoard Host;
@@ -2235,6 +2252,110 @@ namespace Board
                 return base.IsInputKey(keyData); ;
             switch (keyData)
             {
+                case Keys.Home:
+                    {
+                        Element entry = this.Entries[0];
+                        /**
+                         * Clear the list of selected items
+                         * */
+                        for (int i = 0; i < SelectedItems.Count; i++ )
+                        {
+                            Element elm = SelectedItems[i];
+                            elm.Selected = false;
+                        }
+                        ScrollY = 0;
+                        entry.Selected = true;
+                    }
+                    return true;
+                case Keys.End:
+                    {
+                        Element entry = this.Entries[this.Entries.Count - 1];
+                        for (int i = 0; i < SelectedItems.Count; i++)
+                        {
+                            Element elm = SelectedItems[i];
+                            elm.Selected = false;
+                        }
+                        ScrollY = entry.Top - this.Height + entry.Height;
+                        if (ScrollY < 0)
+                            ScrollY = 0;
+                        entry.Selected = true;
+                    }
+                    return true;
+                case Keys.PageUp:
+                    {
+                        // Get the nearest item
+                        Element d = SelectedItems[0];
+
+                        /**
+                         * If the item is already selected scroll down
+                         * */
+                        if (d == null)
+                            break;
+                      
+                        Element f = GetItemAtPos(new Point(0, columnheader_height+d.Height));
+                         Element target = null;
+                         if (d == f)
+                         {
+                             this.ScrollY -= this.Height;
+                             if (ScrollY < 0)
+                             {
+                                 ScrollY = 0;
+                             }
+
+                             // Get the latest entry
+                             target = GetItemAtPos(new Point(0, 0));
+                             if (target != null)
+                                 if (target.Type != "entry")
+                                 {
+                                     target = Entries[0];
+                                 }
+                                 else
+                                     target = Entries[0];
+
+                         }
+                         else
+                         {
+                             target = f;
+                         }
+
+                         if (target != null)
+                         {
+                             for (int i = 0; i < SelectedItems.Count; i++)
+                             {
+                                 Element elm = SelectedItems[i];
+                                 elm.Selected = false;
+                             }
+                             target.Selected = true;
+                            
+                         }
+                    }
+                    return true;
+                case Keys.PageDown:
+                    {
+                        // Get the nearest item
+                        Element d = GetItemAtPos(new Point(0, this.Height - 16));
+
+                        /**
+                         * If the item is already selected scroll down
+                         * */
+                        if (d == null)
+                            break;
+                        if (d.Selected)
+                            this.ScrollY += d.Height * 3;
+                        d = GetItemAtPos(new Point(0, this.Height - 16));
+                        if (d != null)
+                        {
+                            for (int i = 0; i < SelectedItems.Count; i++)
+                            {
+                                Element elm = SelectedItems[i];
+                                elm.Selected = false;
+                            }
+                            d.Selected = true;
+                        }
+                    }
+                    return true;
+                case Keys.Shift:
+                    return true;
                 case Keys.Delete:
                     ElementActionEventArgs e = new ElementActionEventArgs() { Element = this.SelectedItems };
                     /**
@@ -2278,8 +2399,8 @@ namespace Board
                             }
                         }
                     }
-                            
-                    break;
+
+                    return true;
 
                 case Keys.Enter:
                     if (this.SelectedItems.Count > 0)
@@ -2442,7 +2563,7 @@ namespace Board
 
                             // Create element's attribute
                             Board.Attribute d = new Attribute() { name = attributeBuffer.ToString(), value = value };
-                            attributeBuffer.Clear();
+                            attributeBuffer = new StringBuilder(); 
                             // add the attribute to the element
                             Result.Attributes.Add(d);
 
@@ -2458,7 +2579,7 @@ namespace Board
                             }
 
                             // Clear value buffer
-                            valueBuffer.Clear();
+                            valueBuffer = new StringBuilder();
                             continue;
                         }
                         if (!insideString)

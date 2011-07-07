@@ -47,7 +47,7 @@
             <summary>
             Invokes an user function
             </summary>
-            <param name="func"></param>
+            <param name="func"></param>              L
             <param name="args"></param>
             <returns></returns>
         </member>
@@ -672,6 +672,11 @@
         <member name="P:Board.DrawBoard.RefreshRate">
             <summary>
             The update interval of the board rendering
+            </summary>
+        </member>
+        <member name="E:Board.DrawBoard.ApplyOverlay">
+            <summary>
+            Occurs when overlay are applied
             </summary>
         </member>
         <member name="E:Board.DrawBoard.BeginDownloadImage">
@@ -1609,6 +1614,11 @@
             The visible elements in an view
             </summary>
         </member>
+        <member name="P:Board.Section.HeaderHeight">
+            <summary>
+            Height of columnheader
+            </summary>
+        </member>
         <member name="T:Board.Section.SortMode">
             <summary>
             Mode of sorting
@@ -2040,12 +2050,22 @@
             </summary>
             <param name="e"></param>
         </member>
-        <member name="M:Board.MakoEngine.Preprocess(System.String,System.String,System.Boolean,System.Boolean)">
+        <member name="M:Board.MakoEngine.Preprocess(System.String,System.String,System.Boolean,System.String,System.Boolean)">
             <summary>
             This function preprosses the mako layer
             </summary>
             <param name="input">The input string to parse</param>
             <param name="argument">The argument sent to the parser</param>
+        </member>
+        <member name="E:Board.MakoEngine.RequestOverlay">
+            <summary>
+            Occurs on request overlay
+            </summary>
+        </member>
+        <member name="E:Board.MakoEngine.OverlayApplied">
+            <summary>
+            Occurs when overlay has been finished request
+            </summary>
         </member>
         <member name="T:Board.MakoEngine.CreateEventHandler">
             <summary>
@@ -2053,6 +2073,27 @@
             </summary>
             <param name="sender">The current instance of MakoEngine</param>
             <param name="e">EventArg</param>
+        </member>
+        <member name="T:Board.MakoEngine.OverlayEventArgs">
+            <summary>
+            Event args for RequestOverLayEventArgs
+            </summary>
+        </member>
+        <member name="P:Board.MakoEngine.OverlayEventArgs.URI">
+            <summary>
+            The view URI
+            </summary>
+        </member>
+        <member name="P:Board.MakoEngine.OverlayEventArgs.ViewFolders">
+            <summary>
+            Folders for the views for each engine. You must provide it in the event attached
+            by the MediaChrome Host (or apporiate implementation)
+            </summary>
+        </member>
+        <member name="P:Board.MakoEngine.OverlayEventArgs.Cancel">
+            <summary>
+            Gets or sets if the operation should be cancelled or not
+            </summary>
         </member>
         <member name="T:Board.MyClass">
             <summary>

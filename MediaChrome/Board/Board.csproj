@@ -7,7 +7,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Board</RootNamespace>
     <AssemblyName>Board</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -15,6 +15,12 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <SourceAnalysisOverrideSettingsFile>C:\Users\Alexander\AppData\Roaming\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,16 +31,12 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <TargetCulture>en</TargetCulture>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <SourceAnalysisOverrideSettingsFile>C:\Users\Alexander\AppData\Roaming\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
-    <NoStdLib>False</NoStdLib>
-    <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -89,6 +91,18 @@
     <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>E392BE7D1EEA7D42137167B615CD567D854CCBC3</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Board_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
@@ -199,7 +213,6 @@
     <EmbeddedResource Include="Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Scrollbar.resx">
       <DependentUpon>Scrollbar.cs</DependentUpon>
@@ -234,6 +247,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Board_TemporaryKey.pfx" />
     <None Include="tab.png" />
     <None Include="inactive.png" />
     <None Include="tab_.png" />
@@ -244,7 +258,6 @@
     <None Include="scrollbar_down.png" />
     <None Include="scrollbar_space.png" />
     <None Include="scrollbar_thumb.png" />
-    <None Include="Resources\ajax-loader.gif" />
     <None Include="Resources\dropdown.png" />
     <None Include="Resources\shadow.png" />
     <Content Include="icon.ico" />
@@ -257,7 +270,54 @@
     <None Include="Resources\scrollbar_up.png" />
     <None Include="Resources\view_bg.png" />
     <None Include="Resources\toolbar.png" />
+    <None Include="Resources\ajax-loader.gif" />
+    <None Include="Resources\ajax-loader1.gif" />
+    <None Include="Resources\ascendia.png" />
+    <None Include="Resources\bar.png" />
+    <None Include="Resources\barx.png" />
     <None Include="Resources\button.png" />
+    <None Include="Resources\buttondown.png" />
+    <None Include="Resources\buttondownx.png" />
+    <None Include="Resources\buttonx.png" />
+    <None Include="Resources\column.png" />
+    <None Include="Resources\column_header.png" />
+    <None Include="Resources\columnlimiter.png" />
+    <None Include="Resources\columnx.png" />
+    <None Include="Resources\divider.png" />
+    <None Include="Resources\header.png" />
+    <None Include="Resources\icon.png" />
+    <None Include="Resources\icon16.png" />
+    <None Include="Resources\kan1.png" />
+    <None Include="Resources\kan2.png" />
+    <None Include="Resources\line.png" />
+    <None Include="Resources\page.png" />
+    <None Include="Resources\pixel-vfl3z5WfW.gif" />
+    <None Include="Resources\playthumb.png" />
+    <None Include="Resources\position_bar.png" />
+    <None Include="Resources\progresmeter.png" />
+    <None Include="Resources\rbottom.png" />
+    <None Include="Resources\scrollbar.png" />
+    <None Include="Resources\searchbtn.png" />
+    <None Include="Resources\searchbtn1.png" />
+    <None Include="Resources\searchfield.png" />
+    <None Include="Resources\searchfield2.png" />
+    <None Include="Resources\searchfield3.png" />
+    <None Include="Resources\section.png" />
+    <None Include="Resources\separator.png" />
+    <None Include="Resources\servicebox.png" />
+    <None Include="Resources\servicebox2.png" />
+    <None Include="Resources\spotify_logo.png" />
+    <None Include="Resources\star_off.png" />
+    <None Include="Resources\star_on.png" />
+    <None Include="Resources\top_bar_blue.png" />
+    <None Include="Resources\top_toolbar.png" />
+    <None Include="Resources\top_wall.png" />
+    <None Include="Resources\top_wall1.png" />
+    <None Include="Resources\untab.png" />
+    <None Include="Resources\YouTube_logo.png" />
+    <None Include="inactive_green.png" />
+    <None Include="tab_old.png" />
+    <None Include="tab_old1.png" />
     <Content Include="TextFile1.txt" />
   </ItemGroup>
 </Project>

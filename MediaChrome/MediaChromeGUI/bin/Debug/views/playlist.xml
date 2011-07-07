@@ -73,4 +73,5 @@ function list_remove(uri)
 		</entry>
 		<? } ?>
 	</section>
+	<#overlay_playlist#>
 </view>

@@ -663,7 +663,7 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.BackgroundImage = global::MediaChromeGUI.Properties.Resources.icon;
+            this.pictureBox1.BackgroundImage = global::MediaChromeGUI.Properties.Resources.icon1;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pictureBox1.Location = new System.Drawing.Point(9, 13);
             this.pictureBox1.Name = "pictureBox1";

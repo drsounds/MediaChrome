@@ -61,3 +61,7 @@ L:\Dropbox\MediaChrome\MediaChrome\Board\obj\x86\Debug\GenerateResource-ResGen.w
 L:\Dropbox\MediaChrome\MediaChrome\Board\obj\x86\Debug\GenerateResource.write.1.tlog
 L:\Dropbox\MediaChrome\MediaChrome\Board\obj\x86\Debug\Board.exe
 L:\Dropbox\MediaChrome\MediaChrome\Board\obj\x86\Debug\Board.pdb
+L:\Dropbox\MediaChrome\MediaChrome\Board\bin\Debug\Board.exe.manifest
+L:\Dropbox\MediaChrome\MediaChrome\Board\bin\Debug\Board.application
+L:\Dropbox\MediaChrome\MediaChrome\Board\obj\x86\Debug\Board.exe.manifest
+L:\Dropbox\MediaChrome\MediaChrome\Board\obj\x86\Debug\Board.application
