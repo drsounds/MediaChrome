@@ -7,13 +7,13 @@ function event_flow_update(){
 	<section name="Radio" flow="true">
 			
 		<?
-		var d = radioQuery(service,parameter);
+		var d = call("spotify","radio",["pop",1998,2011]);
 		for(var i=0; i < d.Count; i++){ var Song = d[i];
 		?>
 		<entry title="@{Song.Name}" uri="@{Song.Link}" />
 		<?
 		}
 		?>
-		
+		<#RadioOverlay#>
 	</section>
 </view>

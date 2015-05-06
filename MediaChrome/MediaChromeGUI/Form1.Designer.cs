@@ -177,13 +177,13 @@
             // facebookToolStripMenuItem
             // 
             this.facebookToolStripMenuItem.Name = "facebookToolStripMenuItem";
-            this.facebookToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.facebookToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.facebookToolStripMenuItem.Text = "Facebook";
             // 
             // twitterToolStripMenuItem
             // 
             this.twitterToolStripMenuItem.Name = "twitterToolStripMenuItem";
-            this.twitterToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.twitterToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.twitterToolStripMenuItem.Text = "Twitter";
             // 
             // toolStripMenuItem3
@@ -512,7 +512,7 @@
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
             this.toolStripMenuItem5.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(140, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(136, 22);
             this.toolStripMenuItem5.Text = "Filter";
             // 
             // panel1
@@ -632,9 +632,9 @@
             this.label3.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(402, 3);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 13);
+            this.label3.Size = new System.Drawing.Size(89, 13);
             this.label3.TabIndex = 17;
-            this.label3.Text = "Mediachrome";
+            this.label3.Text = "Spotify Source";
             // 
             // pictureBox3
             // 
@@ -754,7 +754,7 @@
             // 
             this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
             this.filterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.filterToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.filterToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.filterToolStripMenuItem.Text = "Filter";
             this.filterToolStripMenuItem.Click += new System.EventHandler(this.filterToolStripMenuItem_Click);
             // 

@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaChrome", "MediaChrome.csproj", "{1D280F8A-C27B-40A2-AA08-71DB6E82E530}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		EXPERIMENTAL|Any CPU = EXPERIMENTAL|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D280F8A-C27B-40A2-AA08-71DB6E82E530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D280F8A-C27B-40A2-AA08-71DB6E82E530}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D280F8A-C27B-40A2-AA08-71DB6E82E530}.EXPERIMENTAL|Any CPU.ActiveCfg = EXPERIMENTAL|Any CPU
+		{1D280F8A-C27B-40A2-AA08-71DB6E82E530}.EXPERIMENTAL|Any CPU.Build.0 = EXPERIMENTAL|Any CPU
+		{1D280F8A-C27B-40A2-AA08-71DB6E82E530}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D280F8A-C27B-40A2-AA08-71DB6E82E530}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -38,9 +38,7 @@ L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\obj\Debug\Spotify.dll
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\obj\Debug\Spotify.pdb
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\Spotify.dll
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\Spotify.pdb
-L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\Bass.Net.dll
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\NAudio.dll
-L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\bin\Debug\Spocky.dll
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\obj\Debug\MCRuntime.Login.resources
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\obj\Debug\MCRuntime.Properties.Resources.resources
 L:\Dropbox\MediaChrome\MediaChrome\MediaChromeGUI\Spotify\obj\Debug\GenerateResource-ResGen.read.1.tlog

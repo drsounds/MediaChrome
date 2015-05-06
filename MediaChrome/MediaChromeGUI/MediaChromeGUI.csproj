@@ -130,18 +130,24 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GlassForms">
-      <HintPath>C:\Users\Alex\Downloads\vistacontrols\VistaControls\GlassForms.dll</HintPath>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>C:\Users\Alexander\Downloads\jint-c160d7a0111e\jint_c160d7a0111e\Dependencies\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="InputSimulator">
-      <HintPath>F:\Mist\InputSimulator.dll</HintPath>
-    </Reference>
-    <Reference Include="JsonFx">
-      <HintPath>C:\Users\Alexander\Downloads\Signed_v4.0\Signed_v4.0\JsonFx.dll</HintPath>
-    </Reference>
-    <Reference Include="MediaChrome, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Bass.Net, Version=2.4.6.4, Culture=neutral, PublicKeyToken=b7566c273e6ef480, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\MediaChrome\bin\Debug\MediaChrome.dll</HintPath>
+      <HintPath>..\..\..\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\Debug\Bass.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Jint, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Alexander\Downloads\Jint-0.9.0-binary (1)\Jint.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio, Version=1.3.8.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="Spocky, Version=1.0.3883.35141, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChromeGUI\bin\Debug\Spocky.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -170,6 +176,15 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WebKit.Interop, Version=533.0.0.0, Culture=neutral, PublicKeyToken=b967213f6d29a3be, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>bin\Debug\WebKit.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="WebKitBrowser, Version=0.5.0.0, Culture=neutral, PublicKeyToken=b967213f6d29a3be, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\WebKitBrowser.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AskDialog.cs">
@@ -180,12 +195,75 @@
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="BaseFTPClient.cs" />
+    <Compile Include="Board\Boardl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Board\Boardl.designer.cs">
+      <DependentUpon>Boardl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Board\CssParser.cs" />
+    <Compile Include="Board\frmBoard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Board\frmBoard.Designer.cs">
+      <DependentUpon>frmBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Board\IScriptEngine.cs" />
+    <Compile Include="Board\MainForm.cs" />
+    <Compile Include="Board\Mako.cs" />
+    <Compile Include="Board\MakoParser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Board\MakoParser.Designer.cs">
+      <DependentUpon>MakoParser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Board\MyClass.cs" />
+    <Compile Include="Board\Program.cs" />
+    <Compile Include="Board\Rendering\GDI.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Board\Rendering\IDrawEngine.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Board\Scrollbar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Board\Scrollbar.Designer.cs">
+      <DependentUpon>Scrollbar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Board\Skin.cs" />
+    <Compile Include="Board\Spofity.cs" />
+    <Compile Include="Board\ViewError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Board\ViewError.Designer.cs">
+      <DependentUpon>ViewError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Board\WebView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="cBtn.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="cBtn.Designer.cs">
       <DependentUpon>cBtn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Class1.cs" />
+    <Compile Include="Core\IPlayEngine.cs" />
+    <Compile Include="Core\Playlist.cs" />
+    <Compile Include="Core\SocialNetworking\Facebook\FacebookAPI.cs" />
+    <Compile Include="Core\SocialNetworking\Facebook\FacebookAPIException.cs" />
+    <Compile Include="Core\SocialNetworking\Facebook\FacebookForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\SocialNetworking\Facebook\FacebookForm.Designer.cs">
+      <DependentUpon>FacebookForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\SocialNetworking\Facebook\Implementation.cs" />
+    <Compile Include="Core\SocialNetworking\Facebook\JSONObject.cs" />
+    <Compile Include="Core\SocialNetworking\IScrobbler.cs" />
+    <Compile Include="Core\SocialNetworking\Structure.cs" />
+    <Compile Include="Core\WebConnection.cs" />
     <Compile Include="Engines\MP3\Mp3.cs" />
     <Compile Include="Engines\MP3\Options.cs">
       <SubType>Form</SubType>
@@ -193,21 +271,73 @@
     <Compile Include="Engines\MP3\Options.Designer.cs">
       <DependentUpon>Options.cs</DependentUpon>
     </Compile>
+    <Compile Include="Engines\Spotify\Album.cs" />
+    <Compile Include="Engines\Spotify\AlbumBrowse.cs" />
+    <Compile Include="Engines\Spotify\Artist.cs" />
+    <Compile Include="Engines\Spotify\ArtistBrowse.cs" />
+    <Compile Include="Engines\Spotify\AudioData.cs" />
+    <Compile Include="Engines\Spotify\BassPlayer.cs" />
+    <Compile Include="Engines\Spotify\Class1.cs" />
+    <Compile Include="Engines\Spotify\Events\AlbumBrowseEventArgs.cs" />
+    <Compile Include="Engines\Spotify\Events\ArtistBrowseEventArgs.cs" />
+    <Compile Include="Engines\Spotify\Events\EventWorkItem.cs" />
+    <Compile Include="Engines\Spotify\Events\ImageEventArgs.cs" />
+    <Compile Include="Engines\Spotify\Events\MusicDeliveryEventArgs.cs" />
+    <Compile Include="Engines\Spotify\Events\PlaylistContainerEventArgs.cs" />
+    <Compile Include="Engines\Spotify\Events\PlaylistEventArgs.cs" />
+    <Compile Include="Engines\Spotify\Events\SearchEventArgs.cs" />
+    <Compile Include="Engines\Spotify\Events\SessionEventArgs.cs" />
+    <Compile Include="Engines\Spotify\Events\TracksEventArgs.cs" />
+    <Compile Include="Engines\Spotify\Extension\libspotify.ex.cs" />
+    <Compile Include="Engines\Spotify\Extension\Playlist.cs" />
+    <Compile Include="Engines\Spotify\Extension\User.cs" />
+    <Compile Include="Engines\Spotify\Inbox.cs" />
+    <Compile Include="Engines\Spotify\libspotify.cs" />
+    <Compile Include="Engines\Spotify\Link.cs" />
+    <Compile Include="Engines\Spotify\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Engines\Spotify\Login.designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Engines\Spotify\PlayList.cs" />
+    <Compile Include="Engines\Spotify\PlaylistContainer.cs" />
+    <Compile Include="Engines\Spotify\Search.cs" />
+    <Compile Include="Engines\Spotify\Session.cs" />
+    <Compile Include="Engines\Spotify\SpotifyException.cs" />
+    <Compile Include="Engines\Spotify\SpotifyView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Engines\Spotify\SpotifyView.designer.cs">
+      <DependentUpon>SpotifyView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Engines\Spotify\StreamingBuffer.cs" />
+    <Compile Include="Engines\Spotify\TopList.cs" />
+    <Compile Include="Engines\Spotify\Track.cs" />
+    <Compile Include="Engines\Spotify\User.cs" />
+    <Compile Include="Engines\Spotify\ws.spotify.com.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="app.config" />
+    <None Include="Core\app.config" />
+    <None Include="Core\SocialNetworking\Facebook\LICENSE" />
+    <None Include="Core\SocialNetworking\Facebook\readme.md" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Resources\Resources.Designer.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Resource1.Designer.cs">
+      <DependentUpon>Resource1.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ServicesSelector\EngineEntry.cs">
       <SubType>UserControl</SubType>
@@ -318,17 +448,46 @@
     <EmbeddedResource Include="AskDialog.resx">
       <DependentUpon>AskDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Board\Boardl.resx">
+      <DependentUpon>Boardl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Board\frmBoard.resx">
+      <DependentUpon>frmBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Board\MakoParser.resx">
+      <DependentUpon>MakoParser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Board\Scrollbar.resx">
+      <DependentUpon>Scrollbar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Board\ViewError.resx">
+      <DependentUpon>ViewError.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="cBtn.resx">
       <DependentUpon>cBtn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Core\SocialNetworking\Facebook\FacebookForm.resx">
+      <DependentUpon>FacebookForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Engines\MP3\Options.resx">
       <DependentUpon>Options.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Engines\Spotify\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Engines\Spotify\SpotifyView.resx">
+      <DependentUpon>SpotifyView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="Resources\Resources.resx" />
+    <EmbeddedResource Include="Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="ServicesSelector\EngineEntry.resx">
       <DependentUpon>EngineEntry.cs</DependentUpon>
     </EmbeddedResource>
@@ -506,12 +665,14 @@
     <None Include="bin\Debug\imgs\separator.png" />
     <None Include="bin\Debug\imgs\stop.png" />
     <None Include="bin\Debug\imgs\update.png" />
-    <None Include="Backup\Resources\kan1.png" />
-    <None Include="Backup\Resources\kan2.png" />
     <None Include="bin\Debug\skins\spotify\top_wall.png" />
     <None Include="bin\Debug\skins\MediaChrome\switch.png" />
     <None Include="bin\Debug\Resources\kan1.png" />
     <None Include="bin\Debug\Resources\kan2.png" />
+    <None Include="Board\speaker_selected.png" />
+    <None Include="bin\old\skins\MediaChrome\switch.png" />
+    <Content Include="Board\TextFile1.txt" />
+    <Content Include="Jint.dll" />
     <Content Include="NAudio.dll" />
     <None Include="Properties\button.png" />
     <None Include="Properties\button_down.png" />
@@ -539,10 +700,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Board\Board.csproj">
-      <Project>{6471D06B-3647-4FDF-B980-7A59F9BDB790}</Project>
-      <Name>Board</Name>
-    </ProjectReference>
+    <Folder Include="Board\Scripting\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

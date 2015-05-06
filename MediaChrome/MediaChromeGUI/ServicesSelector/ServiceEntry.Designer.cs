@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ServiceEntry));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
@@ -87,7 +86,7 @@
             // switch1
             // 
             this.switch1.Active = false;
-            this.switch1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("switch1.BackgroundImage")));
+            this.switch1.BackgroundImage = global::MediaChromeGUI.Properties.Resources._switch;
             this.switch1.Location = new System.Drawing.Point(367, 24);
             this.switch1.Name = "switch1";
             this.switch1.Size = new System.Drawing.Size(75, 24);

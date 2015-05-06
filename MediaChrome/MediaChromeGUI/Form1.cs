@@ -14,11 +14,11 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using MediaChrome.SocialNetworking;
-using GlassForms;
 
 using MediaChrome;
 using MediaChrome.Views;
 using Board;
+using System.Collections;
 
 namespace MediaChromeGUI
 {
@@ -742,8 +742,8 @@ namespace MediaChromeGUI
             Lock();
             this.Invalidate();
             // Initalize scrollbars
-            Board.Scrollbar scrollBar1 = new Board.Scrollbar();
-            Board.Scrollbar scrollBar2 = new Board.Scrollbar();
+       //     Board.Scrollbar scrollBar1 = new Board.Scrollbar();
+       //     Board.Scrollbar scrollBar2 = new Board.Scrollbar();
         
             scrollBar2.Dock = DockStyle.Right;
             scrollBar1.Dock = DockStyle.Left;
@@ -756,14 +756,14 @@ namespace MediaChromeGUI
             // Width of sidebar
             int treeViewWidth = 220;
             // Create treeview
-            treeview =  new Board.DrawBoard();
-            board = new Board.DrawBoard();
+        //    treeview =  new Board.DrawBoard();
+          //  board = new Board.DrawBoard();
            
             // add right scrollbar
-            this.panel3.Controls.Add(scrollBar2);
+            //this.panel3.Controls.Add(scrollBar2);
             this.panel3.Controls.Add(board);
-            scrollBar2.Host = board;
-            this.board.ScrollBarY = scrollBar2;
+        //    scrollBar2.Host = board;
+          //  this.board.ScrollBarY = scrollBar2;
    //         playlistView = new Board.DrawBoard();
             
      //       playlistView.Dock = DockStyle.Right;
@@ -777,8 +777,8 @@ namespace MediaChromeGUI
            // playlistView.DropElement += new Board.DrawBoard.ElementDragEventHandler(playlistView_DropElement);
             
          board.Click += new EventHandler(board_Click);
-            board.LinkClick += new Board.DrawBoard.LinkClicked(board_LinkClick);
-            board.BeginNavigating += new Board.DrawBoard.NavigateEventHandler(board_BeforeNavigating);
+         //   board.LinkClick += new Board.DrawBoard.LinkClicked(board_LinkClick);
+         //   board.BeginNavigating += new Board.DrawBoard.NavigateEventHandler(board_BeforeNavigating);
             treeview.Dock = DockStyle.Left;
             treeview.DragDrop += new DragEventHandler(treeview_DragDrop);
             splitter1.Dock = DockStyle.Left;
@@ -797,9 +797,9 @@ namespace MediaChromeGUI
             this.panel3.Controls.Add(board);
             this.panel3.Controls.Add(splitter1);
 
-            this.panel3.Controls.Add(scrollBar1);
-            scrollBar1.Host = treeview;
-            treeview.ScrollBarY = scrollBar1;
+          //  this.panel3.Controls.Add(scrollBar1);
+           // scrollBar1.Host = treeview;
+           // treeview.ScrollBarY = scrollBar1;
             this.panel3.Controls.Add(treeview);
             
             this.treeview.Columns.Clear();
@@ -823,15 +823,15 @@ namespace MediaChromeGUI
             this.treeview.MouseUp += new MouseEventHandler(treeview_MouseUp);
 
             // assign link click for menu
-            treeview.LinkClick += new Board.DrawBoard.LinkClicked(treeview_LinkClick);
-            this.board.Navigating += new Board.DrawBoard.NavigateEventHandler(board_Navigating);
+      //      treeview.LinkClick += new Board.DrawBoard.LinkClicked(treeview_LinkClick);
+        //    this.board.Navigating += new Board.DrawBoard.NavigateEventHandler(board_Navigating);
             /***
       * Assign the Spotify skin to this application
       * */
-            this.Skin = new Board.Skin(String.Format("skins\\{0}\\{0}.xml", Properties.Settings.Default.Skin));
+       //     this.Skin = new Board.Skin(String.Format("skins\\{0}\\{0}.xml", Properties.Settings.Default.Skin));
             // assign makogeneration initialization code
-            this.board.MakoGeneration += new Board.DrawBoard.MakoCreateEventHandler(board_MakoGeneration);
-            this.treeview.DragOverElement+=new Board.DrawBoard.ElementDragEventHandler(playlistView_DragOverElement);
+         //   this.board.MakoGeneration += new Board.DrawBoard.MakoCreateEventHandler(board_MakoGeneration);
+          //  this.treeview.DragOverElement+=new Board.DrawBoard.ElementDragEventHandler(playlistView_DragOverElement);
            // this.treeview.DropElement+=new Board.DrawBoard.ElementDragEventHandler(playlistView_DropElement);
             treeview.AllowDrop = true;
      //       playlistView.DragOverElement += new Board.DrawBoard.ElementDragEventHandler(playlistView_DragOverElement);
@@ -1681,7 +1681,7 @@ namespace MediaChromeGUI
         /// <param name="method"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        public object __call(string service, string method, params object[] args)
+        public object __call(string service, string method,ArrayList args)
         {
             return Program.MediaEngines[service].InvokeCommand(method, args);
         }
@@ -1704,7 +1704,7 @@ namespace MediaChromeGUI
               d.RuntimeMachine.SetFunction("getUserFeed", new Func<string,object>(__getUserFeed));
               d.RuntimeMachine.SetFunction("isValidMedia", new Func<string, object>(__isValidMedia));
               d.RuntimeMachine.SetFunction("getFeed", new Func< string, object>(__getFeed));
-              d.RuntimeMachine.SetFunction("call", new Func<string, string,object[], object>(__call));
+              d.RuntimeMachine.SetFunction("call", new Func<string, string, ArrayList, object>(__call));
               d.RuntimeMachine.SetFunction("getUserFeed", new Func<string, string, object>(__getUserFeed));
               d.RuntimeMachine.SetFunction("findMusic", new Func<string, object>(__findMusic));
               d.RuntimeMachine.SetFunction("getPlaylist", new Func<string,string, object>(__getPlaylist));

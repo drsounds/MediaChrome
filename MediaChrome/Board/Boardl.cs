@@ -4220,11 +4220,11 @@ namespace Board
                             i++;
                         }*/
                         int visible_count = (this.Width / (flowHeight + 10)); // Count of visible items
-                        for (int i = 0; i < visible_count; i++)
+                        for (int i = 0; i < visible_count/2; i++)
                         {
                             DrawFlowElement(startPos, visible_count, flowHeight, elmTop, padding, i, d);
                         }
-                        for (int i = 0; i > -visible_count; i--)
+                        for (int i = 0; i > -visible_count/2; i--)
                         {
                             DrawFlowElement(startPos, visible_count, flowHeight, elmTop, padding, i, d);
                         }
@@ -4314,13 +4314,22 @@ namespace Board
             if (t.Count < 1)
                 return default(T);
 
+            double count = t.Count; // count
+
+            double startPos = t.Count / 2 + index;
+
+            double mod = startPos % count; // modulus startpos with count
+
+
+            return t[0];
+            /*
             double count = t.Count;
             double art = index % count;
-            int pos = (int)Math.Round((art + count)) - 1;
+            int pos = (int)Math.Round(( count - art)) - 1;
             if (pos < count)
                 return t[(int)pos];
             else
-                return t[0];
+                return t[0];*/
 
         }
 

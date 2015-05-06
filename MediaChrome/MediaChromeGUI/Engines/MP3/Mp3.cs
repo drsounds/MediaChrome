@@ -223,7 +223,7 @@ namespace MediaChromeGUI
             {
                 Song d = GetSongFromReader(r);
                 d.Album = R;
-                d.Artists = new Artist[] { artist };
+                d.Artists = new List<Artist>();
                 songs.Add(d);
             }
             R.Songs = songs;
@@ -429,7 +429,8 @@ namespace MediaChromeGUI
 				Song D = new Song();
 				try{
 				D.Title = DR.GetString(0);
-                D.Artists = new Artist[] { GetArtist((string)DR["artist"]) };
+                D.Artists =new List<Artist>();
+                D.Artists.Add(GetArtist((string)DR["artist"]) );
                 D.Album = GetAlbum((string)DR["album"]);
 				D.Path=DR.GetString(3);
 				D.Store=DR.GetString(4);
@@ -861,7 +862,7 @@ namespace MediaChromeGUI
         /// <param name="command"></param>
         /// <param name="arguments"></param>
         /// <returns></returns>
-        public object InvokeCommand(string command, params object[] arguments)
+        public object InvokeCommand(string command, ArrayList arguments)
         {
             switch (command)
             {

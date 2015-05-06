@@ -1,0 +1,51 @@
+<?
+/***
+ * Album view component. Not to use separetely
+ **/
+	var album = getAlbum(arg_service,arg_uri);
+	var songs = album.Songs;
+	var copyright = "Something to be added";
+?>
+<view>
+	<section name="component">
+<space height="10" />
+		
+		<img  left="10" width="128" height="128" top="@TOP" href="@{uri}" src="@{uri}" persistent="true" shadow="true"/>
+		<!-- An example tracklist -->
+<?
+function zeroNumber(no){	
+	return  no < 10 ? "0"+no : no;
+}
+var album_name="name";
+var trackNo = 0;
+for(var i=0; i < album.Songs.Count; i++){ 
+	var song = album.Songs[i]; 	
+	
+
+	var title = song.Name;
+	
+	
+	var href = song.Link;
+	
+	
+		
+		var trackNo=zeroNumber(i);
+?>
+
+		<entry  left="150" top="@TOP" width="-1" height="18">
+			<uri noelm="true"><![CDATA[@{song.Link}]]></uri>
+			<no noelm="true"><![CDATA[@{(trackNo)}]]></no>
+			<title noelm="true"><![CDATA[@{song.Name}]]></title>
+		</entry>
+<? } 
+?><label left="150" top="@TOP" width="-1" height="18" size="8">@{copyright}</label><?
+if(trackNo < 8){
+ for(var x =0; x < (8-trackNo); x++){ ?> 
+ 
+ <space height="20" top="@TOP"/> 
+ <? } ?>
+	
+<? }  ?>
+ <space height="30" top="@TOP"/> 
+	</section>
+</view>

@@ -662,7 +662,7 @@
             <param name="prop">property name</param>
             <param name="val">value in object</param>
         </member>
-        <member name="M:MediaChrome.IPlayEngine.InvokeCommand(System.String,System.Object[])">
+        <member name="M:MediaChrome.IPlayEngine.InvokeCommand(System.String,System.Collections.ArrayList)">
             <summary>
             Invokes an command to the engine
             </summary>

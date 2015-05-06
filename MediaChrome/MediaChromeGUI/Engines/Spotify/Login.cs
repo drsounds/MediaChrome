@@ -12,27 +12,29 @@ using System.Windows.Forms;
 
 using Spotify;
 
-namespace MediaChrome
+namespace MCRuntime
 {
 	/// <summary>
 	/// Description of Login.
 	/// </summary>
 	public partial class Login : Form
 	{
-        private SpotifyPlayer host;
+       
+        Session SpotifySession;
+        private spotify host;
 		public Login()
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
-			Program.SpotifySession.OnLoginComplete+= new SessionEventHandler(Program_SpotifySession_OnLoginComplete);
+			SpotifySession.OnLoginComplete+= new SessionEventHandler(Program_SpotifySession_OnLoginComplete);
 			
 			//
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
 		}
-        public Login(SpotifyPlayer Host)
+        public Login(spotify Host)
         {
             host = Host;
             //
@@ -40,7 +42,7 @@ namespace MediaChrome
             //
             InitializeComponent();
             
-            Host.SpotifySession.OnLoginComplete += new SessionEventHandler(Program_SpotifySession_OnLoginComplete);
+            SpotifySession.OnLoginComplete += new SessionEventHandler(Program_SpotifySession_OnLoginComplete);
 
             //
             // TODO: Add constructor code after the InitializeComponent() call.
@@ -48,7 +50,7 @@ namespace MediaChrome
         }
 		void Button1Click(object sender, EventArgs e)
 		{
-			host.SpotifySession.LogIn(textBox1.Text,textBox2.Text);
+			SpotifySession.LogIn(textBox1.Text,textBox2.Text);
 			panel1.Hide();
 		}
 		public string User
@@ -61,11 +63,12 @@ namespace MediaChrome
 			get{return this.textBox2.Text;}
 		
 		}
+        public bool Sucess;
 		void Program_SpotifySession_OnLoginComplete(Session sender, SessionEventArgs e)
 		{
 			if(e.Status == sp_error.OK)
 			{
-				Program.Sucess=true;
+				Sucess=true;
 				this.DialogResult= DialogResult.OK;
 				//this.Close();
 				

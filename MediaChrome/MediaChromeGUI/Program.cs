@@ -145,6 +145,7 @@ namespace MediaChromeGUI
        [STAThread]
         static void Main(string[] arguments)
         {
+            Application.SetCompatibleTextRenderingDefault(true);
             // Create directories
             CreateDirectories();
 
@@ -152,11 +153,11 @@ namespace MediaChromeGUI
             LoadEngines(StorageFolder("Providers"));
             LoadSocialNetworks(StorageFolder("SocialNetworks"));
 
-            //          MediaEngines.Add("spotify", new MediaChrome.SpotifyPlayer());
+            MediaEngines.Add("spotify", new  MCRuntime.spotify());
             MediaEngines.Add("mp3", new MediaChromeGUI.MP3Player());
             //   MediaEngines.Add("youtube", new MediaChrome.Youtube());
             //        MediaEngines.Add("mp3", new MediaChrome.MP3Player());
-            Application.SetCompatibleTextRenderingDefault(true);
+            
             Application.EnableVisualStyles();
             mainForm = new Form1();
             

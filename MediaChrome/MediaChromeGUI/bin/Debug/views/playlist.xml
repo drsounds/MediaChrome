@@ -13,54 +13,40 @@ function list_remove(uri)
 ?>
 <view>
 	<section name="@{playlist.Title}" list="true" editable="true" >
-		
 		<columnheader noelm="true" name=" " size="18" />
 		<columnheader noelm="true" name="Title" size="350" />
 		<columnheader noelm="true" name="Artist" size="150" />
 		<columnheader noelm="true" name="Album" size="150" />
-
-
 		<columnheader noelm="true" name="User" size="150" />
 		<columnheader noelm="true" name="Date" size="150" />
 		<columnheader noelm="true" name="Comment" size="350" />
+		<hbox height="120">
+			<img src="http://www.globalstudies.gu.se/digitalAssets/1313/1313159_igs_plugg2.jpg" width="128" height="128" left="10"  shadow="true"/>
+			<vbox flex="1" valign="top" width="100%">
+				<label height="20">@{playlist.Title}</label>
+				<label flex="1">@{playlist.Annotation} I love Music</label>
+			</vbox>
+			<vbox width="300">
+				<label>a</label>
+				<vbox flex="1">
+					<hbox flex="1">
+						<img src="http://www.globalstudies.gu.se/digitalAssets/1313/1313159_igs_plugg2.jpg"  height="64"   width="64" shadow="true"/>
+						<img src="http://www.globalstudies.gu.se/digitalAssets/1313/1313159_igs_plugg2.jpg"  height="64"   width="64" shadow="true"/>
+						<img src="http://www.globalstudies.gu.se/digitalAssets/1313/1313159_igs_plugg2.jpg"  height="64"   width="64" shadow="true"/>
+					</hbox>
+					<hbox>
 		
-			
-		<table width="100%">
-			<tr>
-				<td>
-					<img src="http://www.globalstudies.gu.se/digitalAssets/1313/1313159_igs_plugg2.jpg" width="128" height="128" left="10"  shadow="true"/>
-			
-				</td>
-				<td valign="top" width="100%">
-					<span class="header"><b>@{playlist.Title}</b></span><br/>
+							
+							<? for(var i=0; i < 5; i++){?>
+							<a href="@{service}:playlist:@{parameter}">test</a>  ●
+							<? } ?>
 					
-					<p style="font-size:12px">@{playlist.Annotation} I love <a href="@{service}:playlist:A">Music</a></p>
-						
-				</td>
-				<td valign="top">
-					<b>Subscribers</b><br/>
-				
-					<table>
-						<tr>
-							<td>
-								<img src="http://www.globalstudies.gu.se/digitalAssets/1313/1313159_igs_plugg2.jpg"  height="64"   width="64" shadow="true"/>
-								<img src="http://www.globalstudies.gu.se/digitalAssets/1313/1313159_igs_plugg2.jpg"  height="64"   width="64" shadow="true"/>
-								<img src="http://www.globalstudies.gu.se/digitalAssets/1313/1313159_igs_plugg2.jpg"  height="64"   width="64" shadow="true"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<?
-								for(var i=0; i < 5; i++){?>
-								<a href="@{service}:playlist:@{parameter}">test</a>  ●
-								<? } ?>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
+					</hbox>
+				</vbox>
+			</vbox>
+		</hbox>	
 			
-		</table>
+		
 		<space height="180" />
 		<?	
 		for(var i=0; i < playlist.Songs.Count; i++){ var song = playlist.Songs[i];

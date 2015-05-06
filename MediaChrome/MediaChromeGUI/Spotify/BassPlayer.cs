@@ -963,7 +963,7 @@ namespace MCRuntime
             }
         }
 
-        public object InvokeCommand(string command, params object[] arguments)
+        public object InvokeCommand(string command, List<Object> params)
         {
             switch (command)
             {

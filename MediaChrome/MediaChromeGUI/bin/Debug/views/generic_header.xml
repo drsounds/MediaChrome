@@ -1,0 +1,53 @@
+<head>
+	<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.12.custom.css" rel="stylesheet" />	
+	<script type="text/javascript" src="js/jquery-1.5.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.12.custom.min.js"></script>
+	<style> 
+		
+		
+		h2
+		{
+			color:#{h2};
+		}
+		body,p,b,span,h1,h2,h3,h4
+		{
+			user-select: none;
+			-o-user-select:none;
+			-webkit-user-select: none;
+		} 
+		*{
+			@{style}
+		} 
+		a,a *
+		{
+			text-decoration:none;
+			cursor:pointer;
+			color: #(Board#A.ForeColor);
+			
+		}
+		.header,h1
+		{
+			color: #{Board#H.ForeColor};
+			margin-bottom:8px;
+			text-weight:bold;
+		
+		}
+		.toolbar
+		{
+			background-color:  #{Board#BackColor};
+			-webkit-box-shadow:inset 2px 2px 2px #000000;
+			height:32px;
+			
+			padding:8px;
+			width:100%;
+		}
+		hr
+		{
+		border: 1px solid #444444;
+		}
+	</style>
+	
+</head>
+<body>
+	<content/>
+</body>

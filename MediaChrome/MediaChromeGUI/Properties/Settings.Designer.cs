@@ -37,7 +37,7 @@ namespace MediaChromeGUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("mediachrome")]
+        [global::System.Configuration.DefaultSettingValueAttribute("spotify")]
         public string Skin {
             get {
                 return ((string)(this["Skin"]));
@@ -49,7 +49,7 @@ namespace MediaChromeGUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("mp3")]
+        [global::System.Configuration.DefaultSettingValueAttribute("spotify")]
         public string DefaultPlayer {
             get {
                 return ((string)(this["DefaultPlayer"]));

@@ -6,7 +6,7 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-namespace MediaChrome
+namespace MCRuntime
 {
 	partial class Login
 	{
@@ -49,7 +49,7 @@ namespace MediaChrome
 			this.label1 = new System.Windows.Forms.Label();
 			this.textBox2 = new System.Windows.Forms.TextBox();
 			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.pane1 = new MediaChrome.Pane();
+			this.pane1 = new System.Windows.Forms.Panel();
 			this.pictureBox2 = new System.Windows.Forms.PictureBox();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.panel1.SuspendLayout();
@@ -187,12 +187,12 @@ namespace MediaChrome
 			this.pane1.Controls.Add(this.pictureBox2);
 			this.pane1.Controls.Add(this.pictureBox1);
 			this.pane1.Controls.Add(this.label7);
-			this.pane1.Dark = true;
+		
 			this.pane1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.pane1.ForeColor = System.Drawing.Color.Gray;
 			this.pane1.Location = new System.Drawing.Point(0, 0);
 			this.pane1.Name = "pane1";
-			this.pane1.SecondColor = System.Drawing.Color.YellowGreen;
+	
 			this.pane1.Size = new System.Drawing.Size(324, 360);
 			this.pane1.TabIndex = 4;
 			this.pane1.Paint += new System.Windows.Forms.PaintEventHandler(this.Pane1Paint);
@@ -201,7 +201,7 @@ namespace MediaChrome
 			// 
 			this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
 			this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.pictureBox2.Image = global::MediaChrome.Properties.Resources.ajax_loader;
+			this.pictureBox2.Image = global::MediaChromeGUI.Properties.Resources.ajax_loader;
 			this.pictureBox2.Location = new System.Drawing.Point(45, 124);
 			this.pictureBox2.Name = "pictureBox2";
 			this.pictureBox2.Size = new System.Drawing.Size(56, 56);
@@ -238,6 +238,6 @@ namespace MediaChrome
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox textBox1;
-		private MediaChrome.Pane pane1;
+		private System.Windows.Forms.Panel pane1;
 	}
 }

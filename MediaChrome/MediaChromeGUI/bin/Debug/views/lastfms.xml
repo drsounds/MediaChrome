@@ -1,0 +1,10 @@
+<?
+/* Get user from parameter */
+var user = parameter;
+
+var user_library = "http://ws.audioscrobbler.com/2.0/?method=library.gettracks&api_key=b25b959554ed76058ac220b7b2e0a026&user="+parameter;
+?>
+<view>
+	<section type="list" name="Overview">
+	</section>
+	<section typE="

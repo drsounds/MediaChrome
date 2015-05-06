@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.SQLite;
+
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -9,17 +9,66 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
-using MediaChrome.Views;
 using MediaChrome;
+using MediaChrome.Views;
 using Spotify;
 using Un4seen.Bass;
 
 
-namespace MediaChrome
+namespace MCRuntime
 {
-	public class SpotifyPlayer : MediaChrome.IPlayEngine
+	public class spotify : MediaChrome.IPlayEngine
     {
+    
+        
+        /// <summary>
+        /// Get an custom property of the engine
+        /// </summary>
+        /// <param name="prop">name of property</param>
+        public object GetProperty(string prop)  
+        {
+            return null;
+        }
+     
+        /// <summary>
+        /// Set an custom property of the engine
+        /// </summary>
+        /// <param name="prop">property name</param>
+        /// <param name="val">value in object</param>
+        public void SetProperty(string prop, object val)
+        {
+        }
+        public System.Drawing.Icon SystemIcon
+        {
+            get
+            {
+                return MediaChromeGUI.Properties.Resources.app_icon;
+            }
+        }
+        /// <summary>
+        /// Returns an song by the specified ISRC
+        /// </summary>
+        /// <param name="ISRC"></param>
+        /// <returns></returns>
+        public MediaChrome.Song GetSongFromISRC(string ISRC) { return new Song(); }
+        /// <summary>
+        /// Returns an artist by the specified ID
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public MediaChrome.Artist ArtistFromID(string ID) { return new MediaChrome.Artist(); }
 
+        /// <summary>
+        /// Returns an album by the specified UPC
+        /// </summary>
+        /// <param name="UPC"></param>
+        /// <returns></returns>
+        public MediaChrome.Album AlbumFromUPC(string UPC) { return new MediaChrome.Album(); }
+
+        public List<Song> Import(string d, ref float progress)
+        {
+            return new List<Song>();
+        }
         public List<Song> QueryRadio(String Query)
         {
             List<Song> Output = new List<Song>();
@@ -51,7 +100,7 @@ namespace MediaChrome
             while (track == null) { }
             while (track.Error == sp_error.IS_LOADING) { }
             Song d = new Song();
-            d.Artist = track.Artists[0].Name;
+            d.ArtistName = track.Artists[0].Name;
             d.AlbumName = track.Album.Name;
             d.Title = track.Name;
             return d;
@@ -74,13 +123,15 @@ namespace MediaChrome
         public String Company { get; set; }
         public String Copyright { get; set; }
         public bool LoggedIn { get; set; }
-        public void Login() {
+        public LoginResult Login() {
            
 
-            MediaChrome.Login sD = new MediaChrome.Login(this);
+            Login sD = new Login(this);
             if (sD.ShowDialog() == DialogResult.OK)
             {
                 SpotifySession.LogInSync(sD.User, sD.Pass, new TimeSpan(4000));
+                return LoginResult.Fail;
+        
             }
             SpotifySession.OnConnectionError += new SessionEventHandler(SpotifySession_OnConnectionError);
             SpotifySession.OnMusicDelivery += new MusicDeliveryEventHandler(SpotifySession_OnMusicDelivery);
@@ -94,7 +145,8 @@ namespace MediaChrome
             {
                 Thread.Sleep(100);
             }
-            LoggedIn = true;
+            return LoginResult.Pass;
+          
         }
         public void Logout() {
 
@@ -119,7 +171,7 @@ namespace MediaChrome
         {
             get
             {
-                return Properties.Resources.spotify_logo;
+                return null;
             }
         }
         /// <summary>
@@ -159,10 +211,10 @@ namespace MediaChrome
             artist.Engine = this;
 
             // Add albums to the artist instance
-            artist.Albums = new MediaChrome.Album[Browser.Albums.Length];
-            for (var i = 0; i < artist.Albums.Length; i++)
+            artist.Albums = new List<MediaChrome.Album>();
+            for (var i = 0; i < artist.Albums.Count; i++)
             {
-                
+
                 artist.Albums[i] = GetAlbum(Browser.Albums[i].LinkString);
                 Thread.Sleep(100);
             }
@@ -193,7 +245,7 @@ namespace MediaChrome
 
 
             // Create tracklist
-            result.Songs = new Song[Browser.Tracks.Length];
+            result.Songs = new List<Song>();
 
             for (var i = 0; i < Browser.Tracks.Length; i++)
             {
@@ -233,7 +285,7 @@ namespace MediaChrome
 
 
             // Create tracklist
-            result.Songs = new Song[Browser.Tracks.Length];
+            result.Songs = new List<Song>();
 
             for(var i=0; i < Browser.Tracks.Length;i++)
             {
@@ -274,7 +326,7 @@ namespace MediaChrome
         public MediaChrome.Views.Playlist CreatePlaylist( String Name)
         {
             Spotify.Playlist R = SpotifySession.PlaylistContainer.AddNewPlaylist(Name);
-            MediaChrome.Views.Playlist plst = new Views.Playlist(this, Name, R.LinkString, Host);
+            MediaChrome.Views.Playlist plst = new MediaChrome.Views.Playlist(this, Name, R.LinkString, Host);
             return plst;
         }
         public String Status
@@ -309,22 +361,25 @@ namespace MediaChrome
         public Song RawFind(Song _Song)
         {
             // TODO: Add handler later
-            Spotify.Search result = SpotifySession.SearchSync("\""+_Song.Title + "\" artist:\"" + _Song.Artist + "\"", 0, 4, 0, 4, 0, 4, new TimeSpan(4000000));
-            
+            Spotify.Search result = SpotifySession.SearchSync("\""+_Song.Title + "\" artist:\"" + _Song.ArtistName + "\"", 0, 4, 0, 4, 0, 4, new TimeSpan(4000000));
+            DateTime s = DateTime.Now;
             // wait until the result has been generated
-            while (result == null) { }
-            while (result.Error == sp_error.IS_LOADING) { }
+            while (result == null) {
+                if (s.CompareTo(DateTime.Now) > 10)
+                    break;
+            }
+         
 
             // if song was found deliver the first match
             foreach(Track i in result.Tracks)
             {
-                if (i.Name.Contains(_Song.Title) && i.Artists[0].Name.Contains(_Song.Artist))
+                if (i.Name.Contains(_Song.Title) && i.Artists[0].Name.Contains(_Song.ArtistName))
                 {
                     // Convert the track to an mc instance
                     Song c = new Song();
                     Track _track = result.Tracks[0];
                     c.Name = c.Name;
-                    c.Artist = _track.Artists[0].Name;
+                    c.ArtistName = _track.Artists[0].Name;
                     c.AlbumName = _track.Album.Name;
                     c.Path = _track.LinkString;
                     c.Link = _track.LinkString;
@@ -367,19 +422,40 @@ namespace MediaChrome
         /// <returns></returns>
         public Song TrackToSong(Track  Df)
         {
-
-            Song A = new MediaChrome.Song();
-            A.Title = Df.Name;
-            A.Artist = Df.Artists[0].Name;
-            A.Album = new MediaChrome.Album();
-            A.AlbumName = Df.Album.Name;
-       
-            A.Path = Df.LinkString;
-            A.Store = "Spotify";
-            A.Popularity = 0.5f;
-            A.Engine = this;
+            XmlDocument XD = new XmlDocument();
+           
             return A;
         }
+        /// <summary>
+        /// Converts an spotify song to an mc track
+        /// </summary>
+        /// <param name="srcTrack"></param>
+        /// <returns></returns>
+        public static MediaChrome.Song ConvertSpotifyTrackToMCSong(Spotify.Track srcTrack)
+        {
+            // Get song from Spotify
+
+            MediaChrome.Song Song = new MediaChrome.Song();
+            Spotify.Track song = srcTrack;
+
+            // Wait until the song has been loaded
+            while (song == null) { }
+            while (song.Error == sp_error.IS_LOADING) { }
+
+            // Set song attributes
+            Song.Title = song.Name;
+            Song.Path = song.LinkString;
+            Song.ArtistName = song.Artists[0].Name;
+            Song.AlbumName = song.Album.Name;
+            return Song;
+
+        }
+
+        /// <summary>
+        /// Converts an spotify song to an mc track
+        /// </summary>
+        /// <param name="srcTrack"></param>
+        /// <returns></returns>
         public static MediaChrome.Song ConvertSpotifyTrackToMCSong(string uri)
         {
             // Get song from Spotify
@@ -391,12 +467,8 @@ namespace MediaChrome
             while (song == null) { }
             while (song.Error == sp_error.IS_LOADING) { }
 
-            // Set song attributes
-            Song.Title = song.Name;
-            Song.Path = song.LinkString;
-            Song.Artist = song.Artists[0].Name;
-            Song.AlbumName = song.Album.Name;
-            return Song;
+           
+            return ConvertSpotifyTrackToMCSong(song);
 
         }
 		public bool Ready {get;set;}
@@ -425,13 +497,13 @@ namespace MediaChrome
 		{
             return new List<Song>();
         }
-		public void ImportEx(SQLiteConnection Conn,String Query)
-		{
-			
-		}
+	
 		
 		public String Length {get;set;}
-		public void Seek(double a){}
+		public void Seek(double a){
+            this.SpotifySession.PlayerSeek((int)a);
+        
+        }
 		public void Unload(){}
 
 		public void Pause()
@@ -523,18 +595,23 @@ namespace MediaChrome
 		{
 			return new List<MediaChrome.Song>();
 		}
-		public SpotifyPlayer()
+
+		public spotify()
 		{
+           
 			// Creat artists dictionary
             artists = new Dictionary<string, MediaChrome.IMedia>();
+            Spocky.MyClass D = new Spocky.MyClass();
+            SpotifySession = Spotify.Session.CreateInstance(D.AppKey(), "C:\\SpofityCaches", "C:\\SpofityCaches", "LinSpot");
+            
 			view = new Spotify.SpotifyView();
-        	  Spocky.MyClass D = new Spocky.MyClass();
-             SpotifySession = Spotify.Session.CreateInstance(D.AppKey(), "SpofityCaches", "SpofityCaches", "LinSpot");
-             MediaChrome.Login sD = new MediaChrome.Login(this);
+        	  
+            /* Login sD = new Login(this);
              if (sD.ShowDialog() == DialogResult.OK)
              {
                  SpotifySession.LogInSync(sD.User, sD.Pass, new TimeSpan(4000));
-             }
+             }*/
+
              SpotifySession.OnConnectionError += new SessionEventHandler(SpotifySession_OnConnectionError);
              SpotifySession.OnMusicDelivery += new MusicDeliveryEventHandler(SpotifySession_OnMusicDelivery);
 
@@ -542,17 +619,16 @@ namespace MediaChrome
              SpotifySession.OnPlaylistContainerLoaded += new SessionEventHandler(SpotifySession_OnPlaylistContainerLoaded);
              SpotifySession.OnAlbumBrowseComplete += new AlbumBrowseEventHandler(SpotifySession_OnAlbumBrowseComplete);
              SpotifySession.OnImageLoaded += new ImageEventHandler(SpotifySession_OnImageLoaded);
-             SpotifySession.PlaylistContainer.OnContainerLoaded += new PlaylistContainerEventHandler(PlaylistContainer_OnContainerLoaded);
-#if (nobug) 
-            while (!playlistLoaded)
+           //  SpotifySession.PlaylistContainer.OnContainerLoaded += new PlaylistContainerEventHandler(PlaylistContainer_OnContainerLoaded);
+
+      /*      while (!playlistLoaded)
              {
                  Thread.Sleep(100);
-             }
-#endif
+             }*/
+
              LoggedIn = true;
        
         }
-
         void PlaylistContainer_OnContainerLoaded(PlaylistContainer sender, PlaylistContainerEventArgs e)
         {
             playlistLoaded = true;
@@ -633,8 +709,21 @@ namespace MediaChrome
         {
             get;set;
         }
+
+        
+
+        public void playSamples()
+        {
+
+        }
+
+        /// <summary>
+        /// Cache of streaming data
+        /// </summary>
+        public Dictionary<string, StreamingBuffer> Buffer { get; set; }
          void SpotifySession_OnMusicDelivery(Session sender, MusicDeliveryEventArgs e)
         {
+             
         	if (e.Samples.Length > 0)
 			{
                        
@@ -649,9 +738,11 @@ namespace MediaChrome
 
 				// Don't forget to set how many frames we consumed
 				e.ConsumedFrames = player.EnqueueSamples(new AudioData(e.Channels, e.Rate-12, e.Samples, e.Frames));
-
+                
                 /*X.Maximum = (float)currentTrack.Duration;
                 X.Value  +=10;*/
+                this.duration = e.Frames;
+                this.position = e.ConsumedFrames;
 
 			}
 			else
@@ -743,7 +834,7 @@ namespace MediaChrome
              CurrentSong = new Song();
              CurrentSong.Name = currentTrack.Name;
              CurrentSong.Title = currentTrack.Name;
-             CurrentSong.Artist = currentTrack.Artists[0].Name;
+             CurrentSong.ArtistName = currentTrack.Artists[0].Name;
              CurrentSong.AlbumName = currentTrack.Album.Name;
 
          	SpotifySession.PlayerLoad(currentTrack);
@@ -777,92 +868,31 @@ namespace MediaChrome
 		
 		public MediaChrome.Views.Playlist ViewPlaylist(string Name,string PlsID)
 		{
-            if (PlsID == ""|| PlsID == null)
-            {
-                return new MediaChrome.Views.Playlist(this, "",PlsID, this.Host);
-            }
-            string user = PlsID.Split('_')[0];
-            string id = PlsID.Split('_')[1];
-			List<Song> Songs = new List<Song>();
-            MediaChrome.Views.Playlist PList = new MediaChrome.Views.Playlist(this, "", PlsID, this.Host);
-            Spotify.Playlist List = Spotify.Playlist.Create(SpotifySession,Link.Create(String.Format("spotify:user:{0}:playlist:{1}",user,id)));
-            while(List==null){}
-            while (!List.IsLoaded) { }
-
-            for (int i = 0; i < List.CurrentTracks.Length; i++ )
-            {
-                Track _Track = List.CurrentTracks[i];
-                try
-                {
-                    Song D = new Song();
-                    D.Title = _Track.Name;
-                    D.AlbumName = _Track.Album.Name;
-                    D.Artist = _Track.Artists[0].Name;
-                    D.Path = _Track.LinkString;
-                    Songs.Add(D);
-                }
-                catch
-                {
-                }
-            }
-            PList.Songs = Songs;
-            PList.Title = List.Name;
-			return PList;
+          
+                return null;
 	
 		}
         private void AddSongToPlaylist(Song _Song, Spotify.Playlist List,int pos)
         {
-            Spotify.Search Search = SpotifySession.SearchSync(String.Format("artist:\"{0}\"  {2}", _Song.Artist, _Song.AlbumName, _Song.Title), 0, 4, 0, 4, 0, 6, new TimeSpan(5000000));
-
-            // Wait until search is null
-            while (Search == null) { }
-            while (Search.Error == sp_error.IS_LOADING) { }
-            // Add the song
-            foreach (Track t in Search.Tracks)
-            {
-                if (t.Name.Contains(_Song.Name) && t.Artists[0].Name.Contains(_Song.Artist))
-                {
-                    List.AddTracks(new Track[] { t }, pos);
-                
-                }
-            }
+           
         }
 		public void AddToPlaylist(string playlistID, Song _Song, int pos)
 		{
-			Spotify.Playlist List = Spotify.Playlist.Create(SpotifySession,Link.Create(playlistID));
-            if (List.Owner.CanonicalName == SpotifySession.User.CanonicalName)
-            {
-                /***
-                 * Find Song. It can handle querys from other media sources
-                 * */
-                AddSongToPlaylist(_Song, List, pos);
-            }
+			
 		}
 
         public void AddToPlaylist(MediaChrome.Views.Playlist plst, Song _Song, int pos)
         {
-            Spotify.Playlist List = Spotify.Playlist.Create(SpotifySession, Link.Create(plst.ID));
-            if (List.Owner.CanonicalName == SpotifySession.User.CanonicalName)
-            {
-                AddSongToPlaylist(_Song, List, pos);
-            }
+          
         }
 		public void RemoveFromPlaylist(string playlistID, int pos)
 		{
-			Spotify.Playlist List = Spotify.Playlist.Create(SpotifySession,Link.Create(playlistID));
-			if(List.Owner == SpotifySession.User)
-			{
-		//		List.RemoveTracks(new int[]{0});
-			}
+			
 		}
 		
 		public void MoveSongPlaylist(string playlistID,MediaChrome.Song _Song, int startLoc, int endLoc)
 		{
-			Spotify.Playlist List = Spotify.Playlist.Create(SpotifySession,Link.Create(playlistID));
-			if(List.Owner == SpotifySession.User)
-			{
-				List.ReorderTracks(new int[]{startLoc},endLoc);
-			}
+			
 		}
 		
 		public List<MediaChrome.Views.Playlist> Playlists {
@@ -876,15 +906,131 @@ namespace MediaChrome
 			}
 			
 		}
+
+        public Dictionary<string, object> Parameters
+        {
+            get
+            { 
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+        /// <summary>
+        /// Returns an album from the xml
+        /// </summary>
+        /// <param name="Album"></param>
+        /// <returns></returns>
+        public MediaChrome.Album GetAlbumFromXml(XmlElement Album)
+        {
+            MediaChrome.Album album = new MediaChrome.Album();
+            album.Name = Album.GetElementsByTagName("name")[0].InnerText;
+            return album;
+        }
+        /// <summary>
+        /// Returns an artist from the xml
+        /// </summary>
+        /// <param name="elm"></param>
+        /// <returns></returns>
+        public MediaChrome.Artist GetArtistFromXml(XmlElement elm)
+        {
+            MediaChrome.Artist c = new MediaChrome.Artist();
+            c.Name = elm.GetElementsByTagName("name")[0].InnerText;
+            c.Link = elm.GetAttribute("href");
+            return c;
+        }
+        /// <summary>
+        /// Returns an spotifys song by the element
+        /// </summary>
+        /// <param name="elm"></param>
+        /// <returns></returns>
+        public Song GetSpotifyTrackFromXml(XmlElement elm)
+        {
+            
+            
+                Song c = new Song();
+                c.Link = elm.GetAttribute("href");
+                c.Path = elm.GetAttribute("href");
+                c.Name = elm.GetElementsByTagName("name")[0].InnerText;
+                c.Artists = new List<MediaChrome.Artist>();
+                c.Artists.Add(GetArtistFromXml((XmlElement)elm.GetElementsByTagName("artist")[0]));
+               
+                c.Album = GetAlbumFromXml((XmlElement)elm.GetElementsByTagName("album")[0]);
+                return c;
+        }
+        public object InvokeCommand(string command,ArrayList arguments)
+        {
+            switch (command)
+            {
+                case "radio":
+                    {
+
+                        List<Song> Inbox = new List<Song>();
+                        List<String> uris = new List<String>();
+                        XmlDocument d = new XmlDocument();
+                        d.Load("http://ws.spotify.com/search/1/track?q=year:" + arguments[1].ToString() + "-" + arguments[2].ToString() + " genre:" + arguments[0].ToString() + " ");
+                        XmlNodeList a = d.GetElementsByTagName("track");
+                        int seed = 0,count = a.Count >= 10 ? a.Count : 10;
+                        if (count > 25)
+                        {
+                            count = 25;
+                        }
+                        for (int i=0; i < count ;i++)
+                        {
+                            
+                            Song c = GetSpotifyTrackFromXml((XmlElement)a[new Random().Next(0,a.Count-1)]);
+                            if (c.Link == "")
+                                continue;
+                            /**
+                             * If the key has been used before,
+                             * decrease the done and try new
+                             * */
+                            if (uris.Contains( c.Link))
+                            {
+                                Thread.Sleep(10);
+                                i--;
+                                continue;
+                            }
+                            Inbox.Add(c);
+                            uris.Add(c.Link);
+                            Thread.Sleep(10);
+                        }
+                        return Inbox;
+/*                        Spotify.Search result = SpotifySession.RadioSearchSync((int)int.Parse((string)arguments[1].ToString()), (int)int.Parse((string)arguments[2].ToString()), (sp_radio_genre)Enum.Parse(typeof(sp_radio_genre), arguments[0].ToString().ToUpper()), new TimeSpan(10000500));
+                        if (result != null)
+                        {
+                            foreach (Spotify.Track song in result.Tracks)
+                            {
+                                Inbox.Add(ConvertSpotifyTrackToMCSong(song));
+                            }
+                        }
+                        return Inbox;*/
+
+                    }
+                    break;
+                case "get_inbox":
+                    {
+#if(false)
+                        List<Song> Inbox = new List<Song>();
+                        Spotify.Playlist inbox = Spotify.Playlist.CreateInbox(SpotifySession);
+                        return Inbox;
+#endif
+                        break;
+                    }
+            }
+            return false;
+        }
     }
 }
 
 	public class BassPlayer
-	{
+	{ 
 		private BASSBuffer basbuffer = null;
 		private STREAMPROC streamproc = null;
 
-		public int EnqueueSamples(AudioData audioData)
+		public int EnqueueSamples(MCRuntime.AudioData audioData)
 		{
 			return EnqueueSamples(audioData.Channels, audioData.Rate, audioData.Samples, audioData.Frames);
 		}

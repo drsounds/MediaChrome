@@ -1,0 +1,27 @@
+<view>
+	<section name="Top List">
+		<column name="No"  width="30" noelm="true"/>
+		<column name="Title" width="30" noelm="true"/>
+		<column name="Artist" width="30" noelm="true"/>
+		<h3>Top List</h3>
+		<p>Music currently most popular</p>
+		<space height="128" />
+		<?
+		var d = call("toplist",parameter);
+		for(var i=0; i < d.Songs.Length; i++){ var song = d.Songs[i];
+		for(var i=0; i < 5; i++){
+			var song = {
+				Title: "Test",
+				Artist: "Test",
+				No: i
+			};
+		
+		?>
+		<entry height="30" top="@TOP" left="0" width="-1" no="@{i}" title="@{song.Name}" artist="a" color_no="#444444" />
+		<?
+		}
+		?>
+		
+		
+	</section>
+</view>
