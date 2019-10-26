@@ -10,3 +10,10 @@ L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\bin\Debug\docs.xml
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\obj\Debug\ResolveAssemblyReference.cache
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\obj\Debug\MediaChrome.dll
 L:\wwwhost\mediachrome\MediaChrome\MediaChrome\MediaChrome\obj\Debug\MediaChrome.pdb
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\MediaChrome\bin\Debug\MediaChrome.dll.config
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\MediaChrome\bin\Debug\MediaChrome.dll
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\MediaChrome\bin\Debug\MediaChrome.pdb
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\MediaChrome\bin\Debug\docs.xml
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\MediaChrome\obj\Debug\MediaChrome.csprojAssemblyReference.cache
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\MediaChrome\obj\Debug\MediaChrome.dll
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\MediaChrome\obj\Debug\MediaChrome.pdb

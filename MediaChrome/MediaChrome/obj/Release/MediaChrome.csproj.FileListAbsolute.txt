@@ -1,0 +1,7 @@
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\MediaChrome\bin\Release\MediaChrome.dll.config
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\MediaChrome\bin\Release\MediaChrome.dll
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\MediaChrome\bin\Release\MediaChrome.pdb
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\MediaChrome\bin\Release\docs.xml
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\MediaChrome\obj\Release\MediaChrome.csprojAssemblyReference.cache
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\MediaChrome\obj\Release\MediaChrome.dll
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\MediaChrome\obj\Release\MediaChrome.pdb

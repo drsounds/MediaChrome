@@ -25,3 +25,18 @@ L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\bin\Debug\.xml
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource-ResGen.read.1.tlog
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
 L:\wwwhost\mediachrome\Spotify Ultra\Spotify Ultra\Board\bin\Debug\Board.exe.config
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\bin\Debug\Board.exe.config
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\bin\Debug\Board.exe
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\bin\Debug\Board.pdb
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\bin\Debug\.xml
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\x86\Debug\Board.DrawBoard.resources
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\x86\Debug\Board.CListView.resources
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\x86\Debug\Board.frmBoard.resources
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\x86\Debug\Board.MakoParser.resources
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\x86\Debug\Board.Resource1.resources
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\x86\Debug\Board.Scrollbar.resources
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\x86\Debug\Board.ViewError.resources
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\x86\Debug\Board.csproj.GenerateResource.cache
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\x86\Debug\Board.csproj.CopyComplete
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\x86\Debug\Board.exe
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\x86\Debug\Board.pdb

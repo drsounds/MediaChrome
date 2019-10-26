@@ -1,0 +1,15 @@
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\bin\Release\Board.exe.config
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\bin\Release\Board.exe
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\bin\Release\.xml
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\bin\Release\Jint.dll
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\Release\Board.csprojAssemblyReference.cache
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\Release\Board.DrawBoard.resources
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\Release\Board.CListView.resources
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\Release\Board.frmBoard.resources
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\Release\Board.MakoParser.resources
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\Release\Board.Resource1.resources
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\Release\Board.Scrollbar.resources
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\Release\Board.ViewError.resources
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\Release\Board.csproj.GenerateResource.cache
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\Release\Board.csproj.CopyComplete
+C:\Users\alex\OneDrive\Dokument\MediaChrome\MediaChrome\Board\obj\Release\Board.exe

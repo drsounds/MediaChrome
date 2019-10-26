@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MediaChrome</RootNamespace>
     <AssemblyName>MediaChromeGUI</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -46,10 +46,12 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <ErrorReport>prompt</ErrorReport>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <ErrorReport>prompt</ErrorReport>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>MediaChrome.Program</StartupObject>
@@ -75,10 +77,13 @@
     <BaseAddress>4194304</BaseAddress>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bass.Net">
-      <HintPath>C:\Users\Alexander\Downloads\SpotifyGUITest %281%29\SpotifyGUITest\bin\Debug\Bass.Net.dll</HintPath>
-    </Reference>
     <Reference Include="CListView, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="GlassForms">
       <HintPath>C:\Users\Alex\Downloads\vistacontrols\VistaControls\GlassForms.dll</HintPath>
@@ -92,17 +97,8 @@
     <Reference Include="JsonFx">
       <HintPath>C:\Users\Alexander\Downloads\Signed_v4.0\Signed_v4.0\JsonFx.dll</HintPath>
     </Reference>
-    <Reference Include="LibspotifySharp, Version=1.0.3962.17126, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\LibspotifySharp.dll</HintPath>
-    </Reference>
-    <Reference Include="NAudio, Version=1.3.8.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\NAudio.dll</HintPath>
-    </Reference>
-    <Reference Include="Spocky">
-      <HintPath>bin\Debug\Spocky.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+    <Reference Include="RestSharp, Version=106.6.10.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>packages\RestSharp.106.6.10\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -134,19 +130,22 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="tessnet2_32">
-      <HintPath>..\SpofityX\tessnet2_32.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="BassPlayer.cs" />
     <Compile Include="cBtn.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="cBtn.Designer.cs">
       <DependentUpon>cBtn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Engines\Spotify\AuthorizeSpotifyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Engines\Spotify\AuthorizeSpotifyForm.designer.cs">
+      <DependentUpon>AuthorizeSpotifyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Engines\Spotify\Credentials.cs" />
     <Compile Include="ServicesSelector\Engines.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,12 +154,6 @@
     </Compile>
     <Compile Include="Engines\Spotify\AudioData.cs" />
     <Compile Include="Engines\Spotify\BassPlayer.cs" />
-    <Compile Include="Engines\Spotify\Login.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Engines\Spotify\Login.designer.cs">
-      <DependentUpon>Login.cs</DependentUpon>
-    </Compile>
     <Compile Include="Engines\Spotify\SpotifyView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -190,9 +183,7 @@
     <Compile Include="ListP.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ListView.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ListView.cs" />
     <Compile Include="LocalFile.cs" />
     <Compile Include="MainForm.Spofity.cs" />
     <Compile Include="Engines\Mp3.cs">
@@ -256,11 +247,11 @@
     <EmbeddedResource Include="cBtn.resx">
       <DependentUpon>cBtn.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Engines\Spotify\AuthorizeSpotifyForm.resx">
+      <DependentUpon>AuthorizeSpotifyForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ServicesSelector\Engines.resx">
       <DependentUpon>Engines.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Engines\Spotify\Login.resx">
-      <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Engines\Spotify\SpotifyView.resx">
       <DependentUpon>SpotifyView.cs</DependentUpon>
@@ -295,6 +286,7 @@
       <DependentUpon>UpdatePlaylist.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Program.cs.backup" />
     <None Include="Resources\rbottom.png" />
     <None Include="Settings.settings">
@@ -329,11 +321,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Board\Board.csproj">
-      <Project>{6471D06B-3647-4FDF-B980-7A59F9BDB790}</Project>
+      <Project>{6471d06b-3647-4fdf-b980-7a59f9bdb790}</Project>
       <Name>Board</Name>
     </ProjectReference>
     <ProjectReference Include="..\MediaChrome\MediaChrome.csproj">
-      <Project>{1D280F8A-C27B-40A2-AA08-71DB6E82E530}</Project>
+      <Project>{1d280f8a-c27b-40a2-aa08-71db6e82e530}</Project>
       <Name>MediaChrome</Name>
     </ProjectReference>
     <ProjectReference Include="..\SacredRealm\Spocky\Spocky.csproj">
@@ -423,15 +415,6 @@
       <Lcid>0</Lcid>
       <WrapperTool>aximp</WrapperTool>
       <Isolated>False</Isolated>
-    </COMReference>
-    <COMReference Include="WMPLib">
-      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
   <ItemGroup />

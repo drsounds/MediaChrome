@@ -13,8 +13,7 @@ using System.Windows.Forms;
 
 using System.IO;
 
-using MediaChrome.Views;
-
+using MediaChrome.Models;
 
 namespace MediaChrome
 {
@@ -665,7 +664,7 @@ namespace MediaChrome
         /// <summary>
         /// Returns a list of playlists from the current service
         /// </summary>
-        List<MediaChrome.Views.Playlist> Playlists {get;}
+        List<Playlist> Playlists {get;}
 		/// <summary>
 		/// Playlist-related functionality
 		/// </summary>
@@ -724,7 +723,7 @@ namespace MediaChrome
         /// <param name="p"></param>
         /// <param name="playlist"></param>
         /// <returns></returns>
-        List<Song> LoadPlaylist(string p,ref  Playlist playlist);
+        List<Song> LoadPlaylist(string p,ref  MediaChrome.Models.Playlist playlist);
     }
 	
 }

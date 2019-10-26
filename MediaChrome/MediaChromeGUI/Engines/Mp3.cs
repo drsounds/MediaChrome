@@ -14,9 +14,8 @@ using System.Data.SQLite;
 using System.IO;
 using System.Windows.Forms;
 using MediaChrome;
-
+using MediaChrome.Models;
 using WMPLib;
-using MediaChrome.Views;
 namespace MediaChrome
 {
 	/// <summary>
@@ -629,11 +628,11 @@ namespace MediaChrome
             }
 		}
 		
-		public List<MediaChrome.Views.Playlist> Playlists 
+		public List<Playlist> Playlists 
         {
 			get
             {
-                List<Views.Playlist> Playlists = new List<MediaChrome.Views.Playlist>();
+                List<Playlist> Playlists = new List<Playlist>();
                     
                 try
                 {
@@ -644,7 +643,7 @@ namespace MediaChrome
                     {
                         try
                         {
-                            Views.Playlist _Playlist = this.CreatePlaylist(__Playlist.Name.Replace(".pls", ""));
+                            Playlist _Playlist = this.CreatePlaylist(__Playlist.Name.Replace(".pls", ""));
                             _Playlist.Engine = this;
                             Playlists.Add(_Playlist);
                         }

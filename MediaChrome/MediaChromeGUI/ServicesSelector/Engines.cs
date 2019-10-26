@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using MediaChrome.ServicesSelector;
 
-namespace MediaChrome
+namespace MediaChrome.ServicesSelector
 {
     public partial class Engines : Form
     {

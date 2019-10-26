@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.IO;
 using Spotify;
+using MediaChrome.Models;
 
 namespace MediaChrome
 {
@@ -19,8 +20,7 @@ namespace MediaChrome
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-		public static Spotify.Session SpotifySession ;
-		 public static BassPlayer player;
+	
 		 	public static AutoResetEvent playbackDone = new AutoResetEvent(false);
 		private static AutoResetEvent loggedOut = new AutoResetEvent(false);
 		public static Track currentTrack = null;
@@ -56,18 +56,6 @@ namespace MediaChrome
             mainForm.NextSong();
         } 
         
-        static void SpotifySession_OnAlbumBrowseComplete(Session sender, AlbumBrowseEventArgs e)
-        {
-        	
-        	
-        	
-	                      	 
-        }
-
-        static void SpotifySession_OnConnectionError(Session sender, SessionEventArgs e)
-        {
-        	
-        }
         public static string GetAppString()
         {
             return Application.ExecutablePath.Replace(".EXE",".exe").Replace("\\SpofityRuntime.exe", "");

@@ -17,6 +17,7 @@ using System.Xml;
 using GlassForms;
 using Spotify;
 using MediaChrome;
+using MediaChrome.Models;
 
 namespace MediaChrome
 {
@@ -314,7 +315,7 @@ namespace MediaChrome
                 section.Elements.Clear();
 
                 // Append playlists to the section view
-                foreach (MediaChrome.Views.Playlist d in currentPlayer.Playlists)
+                foreach (Playlist d in currentPlayer.Playlists)
                 {
                     Board.Element elm = new Board.Element(section, playlistView);
                     elm.SetAttribute("type", "entry");
@@ -366,7 +367,7 @@ namespace MediaChrome
 			get { return playQueue; }
 			set { playQueue = value; }
 		}
-        public Spotify.Track currentTrack
+        public Track currentTrack
         {
             get { return Program.currentTrack; }
             set { Program.currentTrack = value; }
@@ -396,7 +397,7 @@ namespace MediaChrome
             this.ResumeLayout();
             playlistsToAdd = new Stack<Board.Element>();
         }
-        Spotify.Session SpotifySession;
+        //Spotify.Session SpotifySession;
         public Form1(string userName,string Password)
         {
             
@@ -686,22 +687,23 @@ namespace MediaChrome
         /// <param name="uri">the uri to the song</param>
         /// <returns>A mediachrome song</returns>
         public MediaChrome.Song ConvertSpotifyTrackToMCSong(string uri)
-        {
+        {/*
             // Get song from Spotify
 
             MediaChrome.Song Song = new MediaChrome.Song();
-            Spotify.Track song = Spotify.Track.CreateFromLink(Link.Create(uri));
+         //   Spotify.Track song = Spotify.Track.CreateFromLink(Link.Create(uri));
 
             // Wait until the song has been loaded
             while (song == null) { }
-            while (song.Error == sp_error.IS_LOADING) { }
+        //    while (song.Error == sp_error.IS_LOADING) { }
 
             // Set song attributes
             Song.Title = song.Name;
             Song.Path = song.LinkString;
             Song.Artist = song.Artists[0].Name;
             Song.AlbumName = song.Album.Name;
-            return Song;
+            return Song;*/
+            return new Song();
 
         }
         /// <summary>
@@ -738,7 +740,7 @@ namespace MediaChrome
                 uri = uri.Replace(name + ":", "");
 
                 // Create the playlist
-                MediaChrome.Views.Playlist playlist = Program.MediaEngines["mp3"].CreatePlaylist(name);
+                Playlist playlist = Program.MediaEngines["mp3"].CreatePlaylist(name);
                 playlist.ID = "mp3:playlist:" + name;
 
 
@@ -817,7 +819,7 @@ namespace MediaChrome
                             MediaChrome.Song song = ConvertSpotifyTrackToMCSong(track);
 
                             // Get playlist attachment
-                            MediaChrome.Views.Playlist Playlist = (MediaChrome.Views.Playlist)e.Destination.Attachment;
+                            Playlist Playlist = (Playlist)e.Destination.Attachment;
 
                             // Add the song to the playlist
                             Playlist.Add(song, e.Index);
@@ -834,7 +836,7 @@ namespace MediaChrome
                             MediaChrome.Song song = ConvertSpotifyTrackToMCSong(data);
 
                             // Get playlist attachment
-                            MediaChrome.Views.Playlist Playlist = (MediaChrome.Views.Playlist)e.Destination.Attachment;
+                            Playlist Playlist = (Playlist)e.Destination.Attachment;
 
                             // Add the song to the playlist
                             Playlist.Add(song, e.Index);
@@ -899,7 +901,7 @@ namespace MediaChrome
             // If the uri starts with spotify:user:xx:playlist: load the playlist
             if (uri.StartsWith(CurrentNamespace+":user:") && uri.Contains("playlist:"))
             {
-                MediaChrome.Views.Playlist plst = Program.MediaEngines[CurrentNamespace].ViewPlaylist("Name", uri);
+                Playlist plst = Program.MediaEngines[CurrentNamespace].ViewPlaylist("Name", uri);
                 CurrentPlaylist = plst;
 
 
@@ -1056,22 +1058,17 @@ namespace MediaChrome
         /// <summary>
         /// Current spotify playlist
         /// </summary>
-        private MediaChrome.Views.Playlist CurrentPlaylist { get; set; }
+        private Playlist CurrentPlaylist { get; set; }
         /// <summary>
         /// Returns the current Spotify Session
         /// </summary>
-        private Spotify.Session Session
-        {
-            get{
-                return ((MediaChrome.SpotifyPlayer)Program.MediaEngines["spotify"]).SpotifySession;
-            }
-        }
+       
         bool board_BeforeNavigating(object sender, string uri)
         {
            // If the uri starts with spotify:user:xx:playlist: load the playlist
             if (uri.StartsWith("spotify:user:") && uri.Contains("playlist:"))
             {
-                MediaChrome.Views.Playlist plst = Program.MediaEngines["spotify"].ViewPlaylist("Name", uri);
+                Playlist plst = Program.MediaEngines["spotify"].ViewPlaylist("Name", uri);
                 CurrentPlaylist = plst;
 
                 
@@ -1392,7 +1389,7 @@ namespace MediaChrome
          	}
          	ep=0;
          	
-         	this.currentPlaylist.ReorderTracks(list,e.NewPosition);
+     //    	this.currentPlaylist.ReorderTracks(list,e.NewPosition);
         }
       
        
@@ -1415,25 +1412,9 @@ namespace MediaChrome
         public void DownloadPlaylist()
         {
         	
-        	tracksPending = new Queue<Track>();
-        	Playlist _Playlist = 	Playlist.Create(Program.SpotifySession,Link.Create(currentUrl.Replace("spotify:","spotify:").Replace("__",":")));
-            this.currentPlaylist=_Playlist;  
-          //  Thread Df = new Thread(AssertPlaylistImage);
-          //  Df.Start((Object)_Playlist);
-          //  Thread.Sleep(1000);
-            try{
-        	foreach(Track _Track in _Playlist.CurrentTracks)
-        	{
-        		tracksPending.Enqueue(_Track);
-        		
-        	}
-            }catch
-            {
-            	DownloadPlaylist();
-            }
         }
         public void UpdatePlaylist()
-        {
+        {/*
      	if(tracksPending!=null)
         	{
 	        	while(tracksPending.Count > 0)
@@ -1450,7 +1431,7 @@ namespace MediaChrome
 	        			}
 	        		catch{}
 	        	}
-        	}
+        	}*/
         }
         public String currentUrl
         {
@@ -1791,115 +1772,6 @@ namespace MediaChrome
 	        	
         	}
         }
-        public void AssembleImage(Playlist playlist,int square)
-        {
-        	if(playlist==null)
-        	{
-        		return;	
-        	}
-        	if(!playlist.IsLoaded)
-        		
-        	{
-        		return;
-        	}
-        	int nins=0;
-        	int nans=0;
-        	List<string> toCover = new List<string>();
-        	List<Bitmap> bitmaps = new List<Bitmap>();
-	        	Image X = new Bitmap(square,square);
-	        	Graphics G = Graphics.FromImage(X);
-	        	int quote = 0;
-	        	foreach(Track d in playlist.CurrentTracks)
-	        	{
-	        		while(!d.IsLoaded)
-	        		{
-	        			
-	        		}
-	        	
-	        		if(d.Album==null)
-	        		{
-	        			continue;
-	        		}
-	        		if(!toCover.Contains(d.Album.LinkString))
-	        		{
-	        			
-	        			if(d.Album!=null)
-	        			{
-	        				
-	        				try
-	        				{
-	        					Program.SpotifySession.LoadImage(d.Album.CoverId,d.Album.LinkString.Replace(":","__"));
-		        				nans++;
-		        			}
-	        				catch(Exception e)
-	        				{
-	        					
-	        					continue;
-        				
-	        				}
-	        				toCover.Add(d.Album.LinkString.Replace(":","__"));
-	        			}
-	        			else
-	        			{
-	        		
-	        				continue;
-	        			}
-	        		}	
-        			if(nans == 1 || nans == 4 || nans == 9)
-        			{
-        				nins=nans;
-        			}
-        		
-        			
-	        		
-	        	
-    			
-	        			
-	        		
-	        	}
-	        		if(square> 0 && nins >0)
-	        			quote  = (square / (nins))*3 ;
-	        	if(nins == 1)
-	        	{
-	        	
-	        			G.DrawImage(GetImage(toCover[0]),new Rectangle(0,0,square,square));
-	        		
-	        	}
-	        	if(nins == 4)
-	        	{
-	        		if(bitmaps.Count > 0)
-	        		{
-	        			G.DrawImage(GetImage(toCover[0]),new Rectangle(0,0,quote,quote));
-		        		G.DrawImage(GetImage(toCover[1]),new Rectangle(quote,0,quote,quote));
-		        		G.DrawImage(GetImage(toCover[2]),new Rectangle(0,quote,quote,quote));
-		        		G.DrawImage(GetImage(toCover[3]),new Rectangle(quote,quote,quote,quote));
-	        		}
-	        	}
-	        	if(nins == 9)
-	        	{
-	        		
-	        		G.DrawImage(GetImage(toCover[0]),new Rectangle(0,0,quote,quote));
-	        		G.DrawImage(GetImage(toCover[1]),new Rectangle(quote,0,quote,quote));
-	        		G.DrawImage(GetImage(toCover[2]),new Rectangle(quote*2,quote,quote,quote));
-	        		G.DrawImage(GetImage(toCover[3]),new Rectangle(0,quote,quote,quote));
-	        		G.DrawImage(GetImage(toCover[4]),new Rectangle(quote,quote,quote,quote));
-	        		G.DrawImage(GetImage(toCover[5]),new Rectangle(quote*2,quote,quote,quote));
-	        		G.DrawImage(GetImage(toCover[6]),new Rectangle(0,quote*2,quote,quote));
-	        		G.DrawImage(GetImage(toCover[7]),new Rectangle(quote,quote*2,quote,quote));
-	        		G.DrawImage(GetImage(toCover[8]),new Rectangle(quote*2,quote*2,quote,quote));
-	        		
-	        		
-	        	}
-	        	
-	        	
-	        	Sonique Ds = new Form1.Sonique(X);
-	        	Ds.LinkString=playlist.LinkString;
-	        	Ds.Picture=X;
-	        	bmps.Push(Ds);
-	       	
-	        	
-        	
-        }
         Stack<Sonique> bmps ;
         private void label1_Click(object sender, EventArgs e)
         {
@@ -1961,8 +1833,8 @@ namespace MediaChrome
         
         	if(currentTrack!=null)
         	{
-        		SpotifySession.PlayerLoad(currentTrack);
-        		SpotifySession.PlayerPlay(true);
+        		CurrentPlayer.Load(currentTrack.uri);
+                CurrentPlayer.Play();
         		
         	}
         	else{
@@ -2021,7 +1893,7 @@ namespace MediaChrome
         
 
         void listViewX1_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
-        {
+        {/*
         	if(e.Node.Tag == (Object)"newplaylist")
         	{
 	        	Playlist X = Program.SpotifySession.PlaylistContainer.AddNewPlaylist(e.Label);
@@ -2030,7 +1902,7 @@ namespace MediaChrome
 	        	D.Tag=(Object)X;
 	        	listViewX1.Items["Playlists"].SubItems.Add(D.Text);
 	        	D.Name = e.Label;
-        	}
+        	}*/
         }
         void ListViewX1Layout(object sender, LayoutEventArgs e)
         {
@@ -2068,6 +1940,7 @@ namespace MediaChrome
 
         private void listViewX1_DragDrop(object sender, DragEventArgs e)
         {
+            /*
         	if(draggingSongs)
         	{
         		if(tracksToAdd==null)
@@ -2396,7 +2269,7 @@ namespace MediaChrome
               
 
 
-                    foreach (MediaChrome.Views.Playlist playlist in Program.MediaEngines["spotify"].Playlists)
+                    foreach (Playlist playlist in Program.MediaEngines["spotify"].Playlists)
                     {
                         // Add the playlist element
 
@@ -2441,7 +2314,8 @@ namespace MediaChrome
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            Engines D = new Engines();
+
+            ServicesSelector.Engines D = new ServicesSelector.Engines();
             D.Host = this;
             D.Left = this.ClientRectangle.Left + this.Left;
             D.Top = this.PointToScreen(new Point(0, this.panel2.Top + this.panel2.Height)).Y;

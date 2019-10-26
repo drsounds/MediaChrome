@@ -1,4 +1,4 @@
-﻿namespace MediaChrome
+﻿namespace MediaChrome.ServicesSelector
 {
     partial class Engines
     {

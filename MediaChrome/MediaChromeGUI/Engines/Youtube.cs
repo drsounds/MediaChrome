@@ -17,7 +17,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Net;
 using MediaChrome;
-using MediaChrome.Views;
+using MediaChrome.Models;
 
 namespace MediaChrome
 {
@@ -87,7 +87,7 @@ namespace MediaChrome
         }
 
         Timer _PlayTimer;
-        public List<Song> LoadPlaylist(String ID,ref MediaChrome.Views.Playlist playlist)
+        public List<Song> LoadPlaylist(String ID,ref Playlist playlist)
         {
             return new List<Song>();
         }
@@ -350,7 +350,7 @@ namespace MediaChrome
 			
 		}
 		
-		public List<MediaChrome.Views.Playlist> Playlists {
+		public List<Playlist> Playlists {
 			get {
 				return null;
 			}
